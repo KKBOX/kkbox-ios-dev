@@ -1,0 +1,583 @@
+<!DOCTYPE HTML>
+<html lang="en-US" >
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <title>Category | KKBOX iOS 開發教材</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 1.0.3">
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+        
+    
+    
+    
+    <link rel="next" href="../memory_management_part_1/README.html" />
+    
+    
+    <link rel="prev" href="../selector/README.html" />
+    
+
+        
+    </head>
+    <body>
+        
+        
+<link rel="stylesheet" href="../gitbook/style.css">
+
+
+        
+    <div class="book"  data-level="2" data-basepath=".." data-revision="1438326341831">
+    
+
+<div class="book-summary">
+    <div class="book-search">
+        <input type="text" placeholder="Type to search" class="form-control" />
+    </div>
+    <ul class="summary">
+        
+    	
+    	
+    	
+
+        
+
+        
+    
+        
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="../index.html">
+                        <i class="fa fa-check"></i>
+                        
+                         Introduction
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="1" data-path="selector/README.html">
+            
+                
+                    <a href="../selector/README.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.</b>
+                        
+                         Selector
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter active" data-level="2" data-path="category/README.html">
+            
+                
+                    <a href="../category/README.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.</b>
+                        
+                         Category
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="3" data-path="memory_management_part_1/README.html">
+            
+                
+                    <a href="../memory_management_part_1/README.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.</b>
+                        
+                         Memory Management Part 1
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="4" data-path="delegate/README.html">
+            
+                
+                    <a href="../delegate/README.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.</b>
+                        
+                         Delegate
+                    </a>
+                
+            
+            
+        </li>
+    
+
+
+        
+        <li class="divider"></li>
+        <li>
+            <a href="http://www.gitbook.io/" target="blank" class="gitbook-link">Published using GitBook</a>
+        </li>
+        
+    </ul>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header">
+    <!-- Actions Left -->
+    <a href="#" class="btn pull-left toggle-summary" aria-label="Toggle summary"><i class="fa fa-align-justify"></i></a>
+    <a href="#" class="btn pull-left toggle-search" aria-label="Toggle search"><i class="fa fa-search"></i></a>
+    
+    <div id="font-settings-wrapper" class="dropdown pull-left">
+        <a href="#" class="btn toggle-dropdown" aria-label="Toggle font settings"><i class="fa fa-font"></i>
+        </a>
+        <div class="dropdown-menu font-settings">
+    <div class="dropdown-caret">
+        <span class="caret-outer"></span>
+        <span class="caret-inner"></span>
+    </div>
+
+    <div class="buttons">
+        <button type="button" id="reduce-font-size" class="button size-2">A</button>
+        <button type="button" id="enlarge-font-size" class="button size-2">A</button>
+    </div>
+
+    <div class="buttons font-family-list">
+        <button type="button" data-font="0" class="button">Serif</button>
+        <button type="button" data-font="1" class="button">Sans</button>
+    </div>
+
+    <div class="buttons color-theme-list">
+        <button type="button" id="color-theme-preview-0" class="button size-3" data-theme="0">White</button>
+        <button type="button" id="color-theme-preview-1" class="button size-3" data-theme="1">Sepia</button>
+        <button type="button" id="color-theme-preview-2" class="button size-3" data-theme="2">Night</button>
+    </div>
+</div>
+
+    </div>
+
+    <!-- Actions Right -->
+    
+    <div class="dropdown pull-right">
+        <a href="#" class="btn toggle-dropdown" aria-label="Toggle share dropdown"><i class="fa fa-share-alt"></i>
+        </a>
+        <div class="dropdown-menu font-settings dropdown-left">
+            <div class="dropdown-caret">
+                <span class="caret-outer"></span>
+                <span class="caret-inner"></span>
+            </div>
+            <div class="buttons">
+                <button type="button" data-sharing="twitter" class="button">Twitter</button>
+                <button type="button" data-sharing="google-plus" class="button">Google</button>
+                <button type="button" data-sharing="facebook" class="button">Facebook</button>
+                <button type="button" data-sharing="weibo" class="button">Weibo</button>
+                <button type="button" data-sharing="instapaper" class="button">Instapaper</button>
+            </div>
+        </div>
+    </div>
+    
+
+    
+    <a href="#" target="_blank" class="btn pull-right google-plus-sharing-link sharing-link" data-sharing="google-plus" aria-label="Share on Google Plus"><i class="fa fa-google-plus"></i></a>
+    
+    
+    <a href="#" target="_blank" class="btn pull-right facebook-sharing-link sharing-link" data-sharing="facebook" aria-label="Share on Facebook"><i class="fa fa-facebook"></i></a>
+    
+    
+    <a href="#" target="_blank" class="btn pull-right twitter-sharing-link sharing-link" data-sharing="twitter" aria-label="Share on Twitter"><i class="fa fa-twitter"></i></a>
+    
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../" >KKBOX iOS 開發教材</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-gitbook_84">
+                    
+                        <h1 id="category">Category</h1>
+<h2 id="">基本定義</h2>
+<p>一句話解釋什麼是 category：<strong>不用繼承物件，就直接增加新的 method，或是
+override 原本的 method</strong>。</p>
+<p>前一章提到，Objective-C 語言中，每個 class 有哪些 method，都是在 runtime
+時加入的，我們可以透過 runtime 提供的一個叫做 <code>class_addMethod</code> 的
+function，加入對應某個 selector 的實作。而在 runtime 時想要加入新的
+method，使用 category 會是更容易理解與寫作的方法，因為可以使用與宣告
+class 時差不多的語法，同時也以一般實作 method 的方式，實作我們要加入的
+method。</p>
+<h2 id="-category">什麼時候應該要使用 Category</h2>
+<p>如果想要擴充某個 class 功能，增加新的成員變數與 method，我們又沒有這個
+class 的程式碼，正規作法就是繼承、建立新的
+subclass。那，我們需要在不用繼承，就直接增加 method
+這種作法的重要理由，就是我們想要擴充的 class 很難繼承。</p>
+<p>我能想到的，大概有幾種狀況：1. Foundation 物件、2. 用 Abstract Factory
+Pattern 實作的物件、3. Singleton 物件、4.
+在專案中出現次數已經多不勝數的物件。</p>
+<h3 id="foundation-">Foundation 物件</h3>
+<p>Foundation 裡頭的基本物件，像是 <code>NSString</code>、<code>NSArray</code>、<code>NSDictionary</code>
+等等 Class 的底層實作，除了可以透過 Objective-C
+的介面呼叫之外，也可以透過另外一個 C 的介面，叫做 Core Foundation，像
+<code>NSString</code> 其實會對應到 Core Foundation 裡頭的 <code>CFStringRef</code>，<code>NSArray</code>
+對應到 <code>CFArrayRef</code>，而你甚至可以直接把 Foundation 物件 cast 成 Core
+Foundation 的型別，當你遇到一個需要傳入 <code>CFStringRef</code> 的 function
+的時候，只要建立 <code>NSString</code> 然後 cast 成 <code>CFStringRef</code> 傳入就可以了。</p>
+<p>所以，當你使用 alloc、init 產生一個 Foundation
+物件的時候，其實會得到一個同時有 Foundation 與 Core Foundation 實作的
+subclass，而實際產生出來的物件，往往與你的認知會有很大的差距，例如，我們以為
+<code>NSMutableString</code> 繼承自 <code>NSString</code>，但建立 <code>NSString</code> ，呼叫
+alloc、init 的時候，我們真正拿到的是 <code>__NSCFConstantString</code>，而建立
+<code>NSMutableString</code>，拿到 <code>__NSCFString</code>，而 <code>__NSCFConstantString</code>
+其實繼承自 <code>__NSCFString</code>！</p>
+<p>我們來寫點程式檢查 Foundation 物件其實屬於哪些 Class：</p>
+<pre><code class="lang-objc"><span class="hljs-preprocessor">#define CLS(x) NSStringFromClass([x class])</span>
+<span class="hljs-built_in">NSLog</span>(<span class="hljs-string">@"NSString:%@"</span>, CLS([<span class="hljs-built_in">NSString</span> string]));
+<span class="hljs-built_in">NSLog</span>(<span class="hljs-string">@"NSMutableString:%@"</span>, CLS([<span class="hljs-built_in">NSMutableString</span> string]));
+<span class="hljs-built_in">NSLog</span>(<span class="hljs-string">@"NSNumber:%@"</span>, CLS([<span class="hljs-built_in">NSNumber</span> numberWithInt:<span class="hljs-number">1</span>]));
+<span class="hljs-preprocessor">#undef CLS</span>
+</code></pre>
+<p>執行結果： :</p>
+<pre><code>NSString:__NSCFConstantString
+NSMutableString:__NSCFString
+NSNumber:__NSCFNumber
+</code></pre><p>因此，當我們嘗試建立 Foundation 物件的 subclass 之後，像是繼承
+<code>NSString</code>，建立我們自己的 <code>MyString</code>，假如果我們並沒有 override
+原本關於建立 instance 的 method，我們也不能保證，建立出來的就是
+<code>MyString</code> 的 instance。</p>
+<h3 id="-abstract-factory-pattern-">用 Abstract Factory Pattern 實作的物件</h3>
+<p>在 Design Pattern 中所謂的 Abstract Factory Pattern，就是在某個 class
+底下，其實有一堆 subclass，但是這樣的狀況往往會讓人不知道底下這一堆
+subclass 個別的用途，所以在最上層提供了一個介面，我們只要 <em>對最上層的
+class，輸入指定的條件，就會從挑選一個符合指定條件的 subclass、建立
+instance 回傳</em> 。</p>
+<p>在 UIKit 中，<code>UIButton</code> 就是個好例子。我們在建立 <code>UIButton</code>
+物件的時候，並不是呼叫 <code>init</code> 或是 <code>initWithFrame:</code>，而是呼叫 <code>UIButton</code>
+的 class method：<code>buttonWithType:</code>，透過傳遞按鈕的 type
+建立按鈕物件。在大多數狀況下，會回傳 <code>UIButton</code> 物件，但假如我們傳入的
+type 是 <code>UIButtonTypeRoundedRect</code>，卻會回傳繼承自 <code>UIButton</code> 的
+<code>UIRoundedRectButton</code>。</p>
+<p>檢查一下：</p>
+<pre><code class="lang-objc"><span class="hljs-preprocessor">#define CLS(x) NSStringFromClass([x class])</span>
+<span class="hljs-built_in">NSLog</span>(<span class="hljs-string">@"UIButtonTypeCustom %@"</span>,
+    CLS([<span class="hljs-built_in">UIButton</span> buttonWithType:UIButtonTypeCustom]));
+<span class="hljs-built_in">NSLog</span>(<span class="hljs-string">@"UsIButtonTypeRoundedRect %@"</span>,
+    CLS([<span class="hljs-built_in">UIButton</span> buttonWithType:UIButtonTypeRoundedRect]));
+<span class="hljs-preprocessor">#undef CLS</span>
+</code></pre>
+<p>輸出結果： :</p>
+<pre><code>UIButtonTypeCustom UIButton
+UIButtonTypeRoundedRect UIRoundedRectButton
+</code></pre><p>我們想要擴充 <code>UIButton</code>，但拿到的卻是 <code>UIRoundedRectButton</code>，而
+<code>UIRoundedRectButton</code> 卻無法繼承，因為這個物件不在公開的 header
+中，我們也不能夠保證以後傳入 <code>UIButtonTypeRoundedRect</code> 就一定會拿到
+<code>UIRoundedRectButton</code>。如此一來，就造成我們難以繼承 <code>UIButton</code>。</p>
+<p>或這麼說：假使今天我們的需求是想要改動某個上層的 class，讓底下所有的
+subclass 也都增加了一個新的 method，我們又無法改動這個上層 class
+的程式，就會採用 category。比方說，我們今天希望所有的 <code>UIViewController</code>
+都有一個新 method，如此我們整個應用程式中每個 <code>UIViewController</code> 的
+subclass 都可以呼叫這個 method，但，我們就是無法改動
+<code>UIViewController</code>。</p>
+<h3 id="singleton-">Singleton 物件</h3>
+<p><em>Singleton</em> 物件是指： <em>某個 class 只有、也只該有一個
+instance，每次都只對這個 instance 操作，而不是建立新的 instance</em> 。像
+<code>UIApplication</code>、<code>NSUserDefault</code>、<code>NSNotificationCenter</code> 以及 Mac OS X
+上的 <code>NSWorkSpace</code> 等，都採用 singleton 設計。</p>
+<p>之所以說 singleton 物件很難繼承，我們先來看怎麼實作
+singleton：我們會有一個 static
+的物件，然後每次都回傳這個物件。宣告部分如下：</p>
+<pre><code class="lang-objc"><span class="hljs-class"><span class="hljs-keyword">@interface</span> <span class="hljs-title">MyClass</span> : <span class="hljs-title">NSObject</span></span>
++ (MyClass *)sharedInstace;
+<span class="hljs-keyword">@end</span>
+</code></pre>
+<p>實作部分：</p>
+<pre><code class="lang-objc"><span class="hljs-keyword">static</span> MyClass *sharedInstace = <span class="hljs-literal">nil</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">@implementation</span> <span class="hljs-title">MyClass</span></span>
++ (MyClass *)sharedInstace
+{
+    <span class="hljs-keyword">return</span> sharedInstace ?
+           sharedInstace :
+           (sharedInstace = [[MyClass alloc] init]);
+}
+<span class="hljs-keyword">@end</span>
+</code></pre>
+<p>我們如果 subclass 了 MyClass，卻沒有 override 掉
+<code>sharedInstace</code>，那麼，<code>sharedInstace</code> 回傳的還是 MyClass 的 singleton
+instance。而想要 override 掉 <code>sharedInstace</code> 又不見得這麼簡單，因為這個
+method 裡頭很可能又做了許多其他事情，很可能會把一些 initiailize
+時該做的事情，反而放在這邊做（這不是很好的作法，但就是可能發生）。例如
+MyClass 可能這麼寫：</p>
+<pre><code class="lang-objc">+ (MyClass *)sharedInstace
+{
+    <span class="hljs-keyword">if</span> (!sharedInstace) {
+        sharedInstace = [[MyClass alloc] init];
+        [sharedInstace doSomething];
+        [sharedInstace doAnotherThine];
+    }
+    <span class="hljs-keyword">return</span> sharedInstace;
+}
+</code></pre>
+<p>如果我們並沒有 MyClass 的程式碼，這個 class 是在其他的 library 或是
+framework 中，我們直接 override 了
+<code>sharedInstace</code>，就很有可能有事情沒做，而產生不符合預期的結果。</p>
+<h3 id="">在專案中出現次數已經多不勝數</h3>
+<p>隨著專案不斷成長，某些 class
+已經頻繁使用到了到處都是，而我們現在需求改變，必須要增加新的
+method，我們卻也沒有力氣可以把所有用到的地方統統換成新的
+subclass。Category 就是解決這種狀況的救星。</p>
+<h2 id="-category">實作 Category</h2>
+<p>Category 的語法很簡單，一樣是用 @interface 關鍵字宣告 header，在
+@implementation 與 @end 關鍵字當中的範圍是實作，然後在原本的 class
+名稱後面，用中括弧表示新增的 category 名稱。</p>
+<p>舉例來說，我們今天雖然寫的是 Objective-C 語言，但是想要變得更像 Small
+Talk 一點，所以我們不想用 <code>NSLog</code>
+印出某個物件的資料，而是每個物件都有個把自己印出來的 method，所以我們對
+NSObject 建立了一個叫做 SmallTalkish 的 category。</p>
+<pre><code class="lang-objc"><span class="hljs-class"><span class="hljs-keyword">@interface</span> <span class="hljs-title">NSObject</span> (<span class="hljs-title">SmallTalish</span>)</span>
+- (<span class="hljs-keyword">void</span>)printNl;
+<span class="hljs-keyword">@end</span>
+
+<span class="hljs-class"><span class="hljs-keyword">@implementation</span> <span class="hljs-title">NSObject</span> (<span class="hljs-title">SmallTalish</span>)</span>
+- (<span class="hljs-keyword">void</span>)printNl
+{
+    <span class="hljs-built_in">NSLog</span>(<span class="hljs-string">@"%@"</span>, <span class="hljs-keyword">self</span>);
+}
+<span class="hljs-keyword">@end</span>
+</code></pre>
+<p>如此一來，每個物件都增加了 <code>printNl</code> 這個 method。可以這麼呼叫：</p>
+<pre><code class="lang-objc">[myObject printNl];
+</code></pre>
+<p>前一章提到，我們在排序一個裡頭都是字串的 Array 的時候，可以呼叫
+<code>localizedCompare:</code>，但，假如我們希望所有的字串都一定要用中文筆劃順序排序，我們可以寫一個自己的
+method，例如 <code>strokeCompare:</code>。</p>
+<pre><code class="lang-objc"><span class="hljs-class"><span class="hljs-keyword">@interface</span> <span class="hljs-title">NSString</span> (<span class="hljs-title">CustomCompare</span>)</span>
+- (NSComparisonResult)strokeCompare:(<span class="hljs-built_in">NSString</span> *)anotherString;
+<span class="hljs-keyword">@end</span>
+
+<span class="hljs-class"><span class="hljs-keyword">@implementation</span> <span class="hljs-title">NSString</span> (<span class="hljs-title">CustomCompare</span>)</span>
+- (NSComparisonResult)strokeCompare:(<span class="hljs-built_in">NSString</span> *)anotherString
+{
+    NSLocale *strokeSortingLocale = [[[NSLocale alloc]
+              initWithLocaleIdentifier:<span class="hljs-string">@"zh@collation=stroke"</span>]
+              autorelease];
+    <span class="hljs-keyword">return</span> [<span class="hljs-keyword">self</span> compare:anotherString
+                 options:<span class="hljs-number">0</span>
+                   range:NSMakeRange(<span class="hljs-number">0</span>, [<span class="hljs-keyword">self</span> length])
+                  locale:strokeSortingLocale];
+}
+<span class="hljs-keyword">@end</span>
+</code></pre>
+<p>在存檔的時候，檔名的慣例是原本的 class 名稱加上 category
+的名稱，中間用加號連接，以我們剛剛建立的 CustomCompare
+為例，存檔時就要存成 NSString+CustomCompare.h 以及
+NSString+CustomCompare.m。</p>
+<h2 id="category-">Category 還可以有什麼用途？</h2>
+<p>除了幫原有的 class 增加新 method，我們也會在幾種狀況下使用 category。</p>
+<h3 id="-class-">將一個很大的 Class 切成幾個部分</h3>
+<p>由於我們可以在建立 class 之後，繼續透過 category 增加
+method，所以，假如一個 class 很大，裡頭有數十個
+method，實作上千行，我們就可以考慮將這個 class 的 method 拆分成若干個
+category，讓整個 class 的實作分開在不同的檔案中，方便知道某一群的 method
+屬於什麼用途，也方便日後維護。</p>
+<p>切開一個很大的 class 可以收到的好處包括：</p>
+<h4 id="">跨專案</h4>
+<p>如果你手上同時有好幾個專案，我們在進行專案的時候，由於之前寫的程式碼可以重複使用，造成每個專案可能共用同一個
+class，但是每個專案又不見得都會用到這個 class
+裡頭全部的實作，我們就可以考慮將只屬於某個專案的實作，拆分到一個
+category 中。</p>
+<h4 id="">跨平台</h4>
+<p>做為寫 Objective-C
+語言的工程師，我們非常有可能會遇到跨平台開發的需求，如果我們某段程式碼只有用到
+Mac OS X 與 iOS 都有的 library 與 framework 的話，我們的程式就可以同時在
+Mac OS X 與 iOS 使用。當我們打算在 Mac OS X 與 iOS 共用同一個
+class，我們就可以考慮將跨平台的部份與平台相依的部份拆開，將只屬於某個平台的部份拆成另外一個
+category，以蘋果自己的例子來說，在 Mac OS X 與 iOS 上都有
+<code>NSString</code>，但由於兩個平台在繪圖方面的實作有所不同，所以在繪製字串的部份，就被拆分到
+<code>NSStringDrawing</code> 與 <code>UIStringDrawing</code> 這些 category 中。</p>
+<h3 id="">替換原本的實作</h3>
+<p>由於一個 class 有哪些 method，是在 runtime
+時加入的，所以除了可以加入新的 method 之外，假如我們嘗試再加入一個
+selector 與已經存在的 method 名稱相同的實作，我們可以把已經存在的 method
+的實作，換成我們要加入的實作。這麼做在 Objective-C
+語言中是完全合法的，如果 category 裡頭出現了名稱相同的 method，compiler
+還是容許編譯成功，只會跳出簡單的警告訊息。</p>
+<p>在實務上，這麼做卻非常危險，假如我們自己寫了一個
+class，我們又另外寫了一個 category 置換其中的
+method，當我們日後想要修改這個 method 的內容，很容易忽略在 category
+中的同名 method，結果就是不管我們怎麼改動原本 method
+裡頭的程式，結果卻是什麼改變都沒有。</p>
+<p>我自己曾經犯過一個低級錯誤：在開發時我建立了另外一個 git
+分支，在新分支中，我覺得某個 class 太大，於是將部分 method
+拆到了另外一個 category 中，但是開發主線卻又在修改這個
+class，結果造成合併分支的時候，就變成原本的 class 與 category
+中出現了相同的 method，花了半天的時間才找到問題出在哪裡。</p>
+<p>除了某一個 category 中可以出現與原本 class 中名稱相同的
+method，我們甚至可以在好幾個 category 中，都出現名稱相同的
+method，哪一個 category 在執行時被最後載入，就會變成是這個 category
+中的實作。那麼，如果有多個 category，我們怎麼知道哪一個 category
+會被最後載入呢？Objective-C runtime 並不保證 category
+的載入順序，所以我們必須嚴格避免寫出這種程式。</p>
+<h2 id="extensions">Extensions</h2>
+<p>Objective-C 語言中有一項叫做 extensions 的設計，也可以用來拆分一個很大的
+class，語法與 category 非常相似，但是不太一樣。在語法上，extensions
+像是一個沒有名字的 category，而 extensions 定義的 method，需要放在原本的
+class 實作中。以下是一個使用 extensions 的例子：</p>
+<pre><code class="lang-objc"><span class="hljs-class"><span class="hljs-keyword">@interface</span> <span class="hljs-title">MyClass</span> : <span class="hljs-title">NSObject</span></span>
+<span class="hljs-keyword">@end</span>
+
+<span class="hljs-class"><span class="hljs-keyword">@interface</span> <span class="hljs-title">MyClass</span>()</span>
+- (<span class="hljs-keyword">void</span>)doSomthing;
+<span class="hljs-keyword">@end</span>
+
+<span class="hljs-class"><span class="hljs-keyword">@implementation</span> <span class="hljs-title">MyClass</span></span>
+- (<span class="hljs-keyword">void</span>)doSomthing
+{
+}
+<span class="hljs-keyword">@end</span>
+</code></pre>
+<p>在 <code>@interface MyClass ()</code>
+這段宣告中，我們並沒有在括弧中定義任何名稱，接著，<code>doSomthing</code>
+又是直接在 <code>MyClass</code> 中實作。 extensions 可以有幾個用途：</p>
+<h3 id="-header">拆分 Header</h3>
+<p>如果我們就是打算實作一個很大的 class，但是覺得 header
+裡頭已經列出了太多的 method，我們可以將一部分 method 搬到 extensions
+這邊的定義。</p>
+<h3 id="-private-methods">管理 Private Methods</h3>
+<p>這其實是更常見的用途。我們在寫一個 class 的時候，內部有一些 method
+不需要、我們也不想要放在 public header 中，但是如果不將這些 method 放在
+header 裡頭，又會出現一個困擾：在 Xcode 4.3 之前，如果這些 private
+method 在程式碼中不放在其他 method 前面，其他的 method 在呼叫這些 method
+的時候，compiler
+會不斷跳出警告，而這種無關緊要的警告一多，我們往往會忽視真正重要的警告。<sup><a href="#fn_1" id="reffn_1">1</a></sup></p>
+<p>想要避免這些警告，要不就是把 private method
+都放在最前面，但這樣並不能完全解決問題，因為 private method
+之間也會相互呼叫，花時間確認每個 method
+之間的呼叫順序並不是很經濟的事；要不就是都用 <code>performSelector:</code>
+呼叫，這樣問題更大，就像前面提到，在 method 改名、呼叫 refactoring
+工具的時候，這樣非常危險。</p>
+<p>蘋果提供的建議是，我們在 .m 或 .mm 檔案開頭的地方宣告一個 extensions，將
+private method 都放在這個地方，如此一來，其他 method 就可以找到 private
+method 的宣告。在 Xcode 4 所提供的 file template 中，如果你選擇建立一個
+<code>UIViewController</code> 的 subclass，就可以看到在 .m
+檔案的最前面，幫你預留了一塊 extensions 的宣告。</p>
+<h2 id="category-">Category 是否可以增加新的成員變數或屬性？</h2>
+<p>因為 Objective-C 物件會被編譯成 C 的 structure，我們雖然可以在 category
+中增加新的 method，但是我們卻不能夠增加新的成員變數。</p>
+<p>在 Mac OS X 10.6 與 iOS 4 之後，蘋果提出一套叫做 Associated Objects
+的辦法，讓我們可以在 category 中增加新的
+getter/setter，觀念差不多是：既然我們可以用一張表格記錄一個 class 有哪些
+method，那，我們不就也可以另外建一張表格，記錄有哪些物件與這個 class
+相關？</p>
+<p>要使用 Associated Objects，我們需要匯入 <code>objc/runtime.h</code>，然後呼叫
+<code>objc_setAssociatedObject</code> 建立 setter，用 <code>getAssociatedObject</code> 建立
+getter，呼叫時要傳入：我們要讓哪個物件與哪個物件之間建立關連，關連時使用的是那一個
+key（型別為 C 字串）。在以下的範例中，我們在 <code>MyCategory</code> 這個 category
+裡，增加一個叫做 myVar 的 property。</p>
+<pre><code class="lang-objc"><span class="hljs-preprocessor">#import <span class="hljs-title">&lt;objc/runtime.h&gt;</span></span>
+
+<span class="hljs-class"><span class="hljs-keyword">@interface</span> <span class="hljs-title">MyClass</span>(<span class="hljs-title">MyCategory</span>)</span>
+<span class="hljs-keyword">@property</span> (retain, <span class="hljs-keyword">nonatomic</span>) <span class="hljs-built_in">NSString</span> *myVar;
+<span class="hljs-keyword">@end</span>
+
+<span class="hljs-class"><span class="hljs-keyword">@implementation</span> <span class="hljs-title">MyClass</span></span>
+- (<span class="hljs-keyword">void</span>)setMyVar:(<span class="hljs-built_in">NSString</span> *)inMyVar
+{
+    objc_setAssociatedObject(<span class="hljs-keyword">self</span>, <span class="hljs-string">"myVar"</span>,
+           inMyVar, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+- (<span class="hljs-built_in">NSString</span> *)myVar
+{
+    <span class="hljs-keyword">return</span> objc_getAssociatedObject(<span class="hljs-keyword">self</span>, <span class="hljs-string">"myVar"</span>);
+}
+<span class="hljs-keyword">@end</span>
+</code></pre>
+<p>在 <code>setMyVar:</code> 中呼叫 <code>objc_setAssociatedObject</code> 時，所最後一個參數
+<code>OBJC_ASSOCIATION_RETAIN_NONATOMIC</code>，是用來決定要用哪一種記憶體管理策略，管理我們傳入的參數，在我們的例子中，我們傳入的是
+<code>NSString</code>，是一個 Objective-C 物件，所以我們必須要 retain
+起來。這邊可以傳入的參數還可以是
+<code>OBJC_ASSOCIATION_ASSIGN</code>、<code>OBJC_ASSOCIATION_COPY_NONATOMIC</code>、<code>OBJC_ASSOCIATION_RETAIN</code>
+以及 <code>OBJC_ASSOCIATION_COPY</code>，與 property
+語法使用的記憶體管理方式一致。而當我們的 <code>MyClass</code> 物件在 dealloc
+的時候，所有透過 <code>objc_setAssociatedObject</code> 而 retain
+起來的物件，也都會被一併釋放。</p>
+<p>雖然我們不能在 category 中增加成員變數，但是卻可以在 extensions
+中宣告。在 Xcode 4.2 之後，我們可以這麼寫：</p>
+<pre><code class="lang-objc"><span class="hljs-class"><span class="hljs-keyword">@interface</span> <span class="hljs-title">MyClass</span>()</span>
+{
+    <span class="hljs-built_in">NSString</span> *myVar;
+}
+<span class="hljs-keyword">@end</span>
+</code></pre>
+<p>我們甚至可以將成員變數直接放在 <code>@implementation</code> 的程式區塊中：</p>
+<pre><code class="lang-objc"><span class="hljs-class"><span class="hljs-keyword">@implementation</span> <span class="hljs-title">MyClass</span></span>
+{
+    <span class="hljs-built_in">NSString</span> *myVar;
+}
+<span class="hljs-keyword">@end</span>
+</code></pre>
+<blockquote id="fn_1">
+<sup>1</sup>. 請見 <a href="https://developer.apple.com/library/ios/#releasenotes/ObjectiveC/ObjCAvailabilityIndex/_index.html#//apple_ref/doc/uid/TP40012243" target="_blank">Objective-C Feature Availability Index</a><a href="#reffn_1" title="Jump back to footnote [1] in the text."> &#8617;</a>
+</blockquote>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="../selector/README.html" class="navigation navigation-prev " aria-label="Previous page: Selector"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="../memory_management_part_1/README.html" class="navigation navigation-next " aria-label="Next page: Memory Management Part 1"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="../gitbook/app.js"></script>
+
+    
+    <script src="https://cdn.mathjax.org/mathjax/2.4-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-mathjax/plugin.js"></script>
+    
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"fontSettings":{"theme":null,"family":"sans","size":2}};
+    gitbook.start(config);
+});
+</script>
+
+        
+    </body>
+    
+</html>
