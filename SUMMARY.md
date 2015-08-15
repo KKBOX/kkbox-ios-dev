@@ -10,4 +10,5 @@
 * [Singleton](singleton/README.md)
 * [Threading](threading/README.md)
 * [Runloop](runloop/README.md)
+* [Reading List](reading_list/README.md)
 
