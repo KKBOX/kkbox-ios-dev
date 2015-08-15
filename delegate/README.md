@@ -505,7 +505,7 @@ C\# 語言中也有 delegate 這個關鍵字，不過用途卻是處理 anonymou
 function，以我們上面的例子，我們打算用 C\# 增加按鈕被點選的 event
 handler，原本是這麼寫：
 
-``` {.sourceCode .c#}
+``` c#
 private void InitializeComponent()
 {
     this.button1 = new System.Windows.Forms.Button();
@@ -519,7 +519,7 @@ private void Button1_Click(object sender, System.EventArgs e)
 
 在 C\# 2.0 可以寫成這樣： [^2]
 
-``` {.sourceCode .c#}
+``` c#
 private void InitializeComponent()
 {
     this.button1 = new System.Windows.Forms.Button();

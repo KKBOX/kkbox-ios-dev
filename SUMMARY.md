@@ -6,6 +6,8 @@
 * [Memory Management Part 1](memory_management_part_1/README.md)
 * [Memory Management Part 2](memory_management_part_2/README.md)
 * [Delegate](delegate/README.md)
+* [Blocks](blocks/README.md)
 * [Singleton](singleton/README.md)
-* [Blocks](blocks/README)
+* [Threading](threading/README.md)
+* [Runloop](runloop/README.md)
 
