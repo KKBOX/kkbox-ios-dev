@@ -93,8 +93,8 @@ int (^(^counter_maker)(void))(void) = ^ {
 可讀性實在非常差。不如寫成這樣：
 
 ``` objc
-typedef int (^CounterMakerBlocl)(void);
-CounterMakerBlocl (^counter_maker)(void) = ^ {
+typedef int (^CounterMakerBlock)(void);
+CounterMakerBlock (^counter_maker)(void) = ^ {
 	__block int x = 0;
 	return ^ {
 		return ++x;
@@ -139,12 +139,15 @@ selector。像是：
 {
 	[UIView beginAnimations:@"animation" context:nil];
 	[UIView setAnimationDelegate:self];
-	[UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
+	[UIView setAnimationDidStopSelector:
+	  @selector(animationDidStop:finished:context:)];
 	self.subview.frame = CGRectMake(10, 10, 100, 100);
 	[UIView commitAnimations];
 }
 
-- (void)animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context
+- (void)animationDidStop:(NSString *)animationID
+                finished:(NSNumber *)finished
+                 context:(void *)context
 {
 	// do something
 }
@@ -177,7 +180,8 @@ NSArray *sortedArray = [array sortedArrayUsingSelector:@selector(compare:)];
 
 ``` objc
 NSArray *array = @[@1, @2, @3];
-NSArray *sortedArray = [array sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+NSArray *sortedArray = [array sortedArrayUsingComparator:
+    ^NSComparisonResult(id obj1, id obj2) {
 	return [obj1 compare:obj2];
 }];
 ```
@@ -211,8 +215,11 @@ handler，就是傳入網路連線結束之後要執行的 block；一般連線�
 反之就要處理 data。
 
 ``` objc
-NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://kkbox.com"]];
-NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+NSURL *URL = [NSURL URLWithString:@"http://kkbox.com"];
+NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+NSURLSessionDataTask *task = [[NSURLSession sharedSession]
+  dataTaskWithRequest:request
+    completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
 	if (error) {
 		// handle error
 		return;
@@ -249,6 +256,81 @@ delegate methods。
 __block 關鍵字
 --------------
 
+在一個 block 裡頭如果使用了在 block 之外的變數，會將這份變數先複製一份
+再使用，也就是說，在沒有特別宣告的狀況下，對我們目前所在的 block 來說，
+所有外部的變數都是唯讀，只能讀取，不能變更。至於 block 裡頭用到的
+Objective-C 物件，則都會被多 retain 一次。
+
+如果我們想要讓某個 block 可以改動某個外部的變數，我們就要在這個需要可
+以被 block 改動的變數前面，加上 __block 關鍵字。
+
+像這樣是不合法的程式：
+
+``` objc
+int i = 1;
+void (^block)(void) = ^{
+	i = i + 1;
+};
+```
+
+應該寫成：
+
+``` objc
+__block int i = 1;
+void (^block)(void) = ^{
+	i = i + 1;
+};
+```
+
+__weak 關鍵字
+-------------
+
+在使用了 block 之後，記憶體管理會變得非常複雜，所以最好是在開啟了 ARC
+自動記憶體管理之後再使用 block。不過，即使開啟了 ARC，還是可能會遇到循
+環 retain 的問題。
+
+由於 block 中用到的 Objective-C 物件都會被多 retain 一次，這邊所指的
+Objective-C 物件也包含 self，所以，假使有個物件的 property 是一個block，
+而這個 block 裡頭又用到了 self，就會遇到循環 retain 而無法釋放記憶體的
+問題：self 要被釋放才會去釋放這個 property，但是這個 property 作為
+block 又 retain 了 self 導致 self 無法被釋放。
+
+下面這段 code 就有循環 retain 的問題：
+
+``` objc
+@interface MyClass : NSObject
+- (void)doSomthing;
+@property (copy, nonatomic) void (^myBlock)(void);
+@end
+
+@implementation MyClass
+
+- (instancetype)init
+{
+	self = [super init];
+	if (self) {
+		self.myBlock = ^ {
+			[self doSomthing];
+		};
+	}
+	return self;
+}
+- (void)doSomthing
+{
+}
+@end
+```
+
+如果我們不想讓 self 被 myBlock 給 retain 起來，我們就要把 self 變成
+weak reference 再傳入到 block 中。像是改成這樣：
+
+``` objc
+__weak MyClass *weakSelf = self;
+self.myBlock = ^ {
+	[weakSelf doSomthing];
+};
+```
+
 Block 作為 Objective-C 物件
 ---------------------------
 
@@ -266,14 +348,52 @@ Block 作為 Objective-C 物件
 
 ### Block 的型別
 
+Objective-C 當中每個物件都具有 class，而每個 class 都繼承自 NSObject，
+由於 block 具有物件的性質，因此 block 本身也有 class—不過，一個 block
+是屬於哪一種 class 平時對我們來說並不會有太大的意義，畢竟我們在建立
+block 的時候，並不會指定要建立哪一種 class 的 block，我們也不會去
+subclass 某種 block 的 class。基本上，當我們寫好一個 block 之後，這個
+block 最後會變成哪個 class，全部都是由 compiler 決定。
+
+在 C 語言當中，記憶體分成三塊：global、stack 與 heap，compiler 在編譯
+程式碼的時候，會根據我們所寫出來的 block 到底使用到哪一塊記憶體，將這
+個 block 變成不同的 class，包括 `__NSGlobalBlock__`、
+`__NSStackBlock__` 與 `__NSMallocBlock__`。知道這件事情通常對我們不會
+有什麼幫助，但是可以讓我們了解蘋果的 compiler 曾經發生過的 bug：在某個
+狀況下，有個block 應該要使用 global 的記憶體，但是 compiler 卻誤判成只
+使用 stack 的記憶體。
+
+如果沒有開啟 ARC，以下這段程式碼會在執行到 `block()` 這一行的時候，發
+生 Bad Access 錯誤：
+
+``` objc
+- (NSArray *)blocks
+{
+	int i = 1;
+	return @[^{return i;}];
+}
+
+- (void)callBlock
+{
+	int (^block)(void) = [self blocks][0];
+	block();
+}
+```
+
+原因是：在 `-blocks` 所回傳的 NSArray 中所包含的 block 物件中，使用到
+了i 這個只出現在 blocks 這個 method 內部的 int 變數，因為這個變數只在
+這個 method 中使用，compiler 便認為 i 應該使用 stack 的記憶體，因此也
+把回傳的 block 建立成 `__NSMallocBlock__`；於是，當我們在
+`-callBlock`裡頭呼叫 `block()` 的時候，原本的記憶體已經被釋放，於是產
+生記憶體管理錯誤。
 
 哪些事情不要拿 Block 來做
 -------------------------
 
 在很多狀況下，使用 block 相當方便，但由於因為 block 的記憶體管理問題，
 有些事情使用 block 反而相當痛苦，就我個人而言，最痛苦的經驗應該就是拿
-block 寫遞迴。舉個例子：假如要使用 block 來寫一個費式數列，可能會寫成
-這樣：
+block 寫遞迴。舉個例子，假如要使用 block 來寫一個費式數列，可能會寫成
+這樣（這邊是開啟 ARC 的環境）：
 
 ``` objc
  int (^fibs)(int) = ^(int n) {
@@ -338,3 +458,4 @@ fibs = fibs_;
 
 - [在 LLVM 官網上關於 Block 的完整 Spec](http://clang.llvm.org/docs/Block-ABI-Apple.html)
 - [蘋果官方文件 Blocks Programming Topics](https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/Blocks/Articles/00_Introduction.html#//apple_ref/doc/uid/TP40007502-CH1-SW1)
+- [Objective-C Blocks Quiz](http://blog.parse.com/learn/engineering/objective-c-blocks-quiz/)
