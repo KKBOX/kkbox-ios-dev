@@ -18,13 +18,13 @@ method。
 ---------------------------
 
 如果想要擴充某個 class 功能，增加新的成員變數與 method，我們又沒有這個
-class 的程式碼，正規作法就是繼承、建立新的
-subclass。那，我們需要在不用繼承，就直接增加 method
-這種作法的重要理由，就是我們想要擴充的 class 很難繼承。
+class 的程式碼，正規作法就是繼承、建立新的subclass。那，我們需要在不用
+繼承，就直接增加 method這種作法的重要理由，就是我們想要擴充的 class 很
+難繼承。
 
 我能想到的，大概有幾種狀況：1. Foundation 物件、2. 用 Abstract Factory
-Pattern 實作的物件、3. Singleton 物件、4.
-在專案中出現次數已經多不勝數的物件。
+Pattern 實作的物件、3. Singleton 物件、4.在專案中出現次數已經多不勝數
+的物件。
 
 ### Foundation 物件
 
@@ -139,7 +139,8 @@ static MyClass *sharedInstace = nil;
 ```
 
 其實現在 Singleton 大多會使用 GCD 的 dispatch_once 實作，但是在我們還
-沒有提到 GCD 之前，我們先使用這樣的寫法。
+沒有提到 GCD 之前，我們先使用這樣的寫法。關於用 GCD 實作 Singleton 的
+細節，請參見[Singleton](singleton/README.md) 這一章。
 
 我們如果 subclass 了 MyClass，卻沒有 override 掉`sharedInstace`，那麼，
 `sharedInstace` 回傳的還是 MyClass 的 singleton instance。而想要
