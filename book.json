@@ -1,4 +1,6 @@
 {
-    "plugins": [],
+    "plugins": [
+        "gitbook-grvis"
+    ],
     "pluginsConfig": {}
 }
