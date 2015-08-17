@@ -19,7 +19,7 @@ Selector
 Selector，我們就要從一些更基本的事情開始講起：Objective-C 裡頭的物件以及
 Class，到底是什麼？
 
-Objective-C Class/Obejct 到底是什麼？
+Objective-C Class/Object 到底是什麼？
 -------------------------------------
 
 你應該在其他的文件裡頭聽說過，Objective-C 是 C 語言的 Superset，在 C語
