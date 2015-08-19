@@ -130,7 +130,7 @@ this.button1.QuadrupleClick += Button1_QuadrupleClick;
 {
     id <MyButtonDelegate> delegate;
 }
-@property (assign, nonatomic) id <MyButtonDelegate> delegate;
+@property (weak, nonatomic) id <MyButtonDelegate> delegate;
 @end
 ```
 
@@ -260,18 +260,17 @@ Delegate 這種設計方式，也方便我們在同時開發 Mac OS X 與 iOS跨
 總之， *在實作 delegate 的時候，delegate 屬於哪個 class並不重要，重要
 的是 delegate 物件有沒有實作我們想要呼叫的 method。*
 
-### Delegate 屬性應該要用 Assign，而非 Retain
+### Delegate 屬性應該要用 Weak，而非 Strong
 
 在使用 property 語法的時候，如果這個 property 是 Objective-C物件，我們
-照理說應該要設定成 retain，但是遇到的是 delegate，我們應該設成assign。
+照理說應該要設定成 strong 或 retain，但是遇到的是 delegate，我們應該設
+成 weak 或 assign。
 
-原因是：需要設計 delegate 物件的這個物件，往往是其 delegate物件的成員
-變數。在我們的例子中，`MyButton` 的 instance 是 `myButton`，是
-`MyController` 的成員變數，自己可能已經被 `MyController` retain了一份
-（雖然 Mac OS X 上的 IBOutlet 只需要設成 assign，但是 iOS 上，
-`UIViewController` 會 retain IBOutlet），如果 `MyButton` 又 retain了一
-次 `MyController`，就會出現循環 retain 的問題—我已經被別人retain，我又
-把別人 retain 一次。
+原因是：需要設計 delegate 物件的這個物件，往往是其 delegate物件的成員變
+數。在我們的例子中，`MyButton` 的 instance 是 `myButton`，是
+`MyController` 的成員變數，自己可能已經被 `MyController` retain了一份。
+如果 `MyButton` 又 retain了一次 `MyController`，就會出現循環 retain 的
+問題—我已經被別人 retain，我又把別人 retain 一次。
 
 如此，會造成我們會無法釋放 `MyController`：在該釋放 `MyController`的時
 候，`MyController` 還是被自己的成員變數 retain，`MyController`得要走到
