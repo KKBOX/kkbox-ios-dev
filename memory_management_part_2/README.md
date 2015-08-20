@@ -6,8 +6,12 @@
 在前一章提到，由於 ARC 是透過靜態分析，在 Compile Time 決定應該要在程
 式碼的那些地方加入 retain、release，所以，要使用 ARC 基本上相當簡單，
 就是先把原本要手動管理記憶體的地方，把 retain、release 都拿掉，在
-dealloc 的地方，也把 `[super dealloc]` 拿掉。但有時候，ARC 也會把
-retain、release 加錯地方。
+dealloc 的地方，也把 `[super dealloc]` 拿掉。
+
+但是，有了 ARC，並不代表在開發 iOS 或 Mac OS X App 的時候，就不需要了
+解記憶體管理，我們雖然很多程式會使用 Objetive-C 語言開發，但是還是會經
+常用到 C 語言，我們還是得要了解 C 語言裡頭的記憶體管理。而且，有時候，
+ARC 也會把 retain、release 加錯地方。
 
 ARC 可能會錯誤釋放記憶體的時機
 ------------------------------
@@ -162,7 +166,11 @@ retain 一份，因此，我們想要在 view controller 在 dealloc 的時候�
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
-	self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timer:) userInfo:nil repeats:YES];
+	self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0
+		target:self
+		selector:@selector(timer:)
+		userInfo:nil
+		repeats:YES];
 }
 
 @end
@@ -174,5 +182,94 @@ timer。
 Toll-Free Bridged
 -----------------
 
-
 https://developer.apple.com/library/ios/documentation/CoreFoundation/Conceptual/CFDesignConcepts/Articles/tollFreeBridgedTypes.html
+
+
+其他
+----
+
+Objetive-C 語言有了 ARC 之後，除了禁止使用 retain、release 這些關鍵字
+之外，也禁止了一些我們在 ARC 之前的程式寫作方式，包括我們不可以把
+Objective-C 物件放進 C Structure 裡頭，Compiler 會告訴我們語法錯誤。
+
+在有 ARC 之前，我們之所以會把 Objective-C 物件放進 C Structure 裡，大
+概會有幾個目的，其一是，假如我們有某個 Class 有很多成員變數，那我們可
+能會想以下這種寫法將成員變數分成群組：
+
+``` objc
+@interface MyClass : NSObject
+{
+	struct {
+		NSString *memberA;
+		NSString *memberB;
+	} groupA;
+
+	struct {
+		NSString *memberA;
+		NSString *memberB;
+	} groupB;
+}
+@end
+```
+
+這樣，如果我們想要使用 groupA 裡頭的 memberA，可以用
+`self.groupA.memberA` 呼叫。
+
+另外一種目的，則是有時候，我們可能會想要刻意隱藏某個 Objective-C Class
+裡頭有哪些成員變數。像下面這段 code 裡頭，我們原本有一個 Class 叫做
+MyClass，裡頭有 privateMemberA 與 privateMemberB 兩個成員變數，原本應
+該直接寫在 MyClass 的宣告裡頭，但是我們卻刻意把這兩個成員變數包
+進_Privates 這個 C Structure 裡頭，而原本放在 MyClass 成員變數宣告的地
+方，指剩下了一個叫做 privates 的指標，光看到這個指標，讓人難以理解這個
+Class 裡頭到底有什麼東西。
+
+``` objc
+@interface MyClass : NSObject
+{
+	void *privates;
+}
+@end
+
+typedef struct {
+	NSString *privateMemberA;
+	NSString *privateMemberB;
+} _Privates;
+
+@implementation MyClass
+
+- (void)dealloc
+{
+	_Privates *privateMembers = (_Privates *)privates;
+	[privateMembers->privateMemberA release];
+	[privateMembers->privateMemberB release];
+	free(privates);
+	privates = NULL;
+	[super dealloc];
+}
+
+- (instancetype)init
+{
+	self = [super init];
+	if (self) {
+		privates = calloc(1, sizeof(_Privates));
+		_Privates *privateMembers = (_Privates *)privates;
+		privateMembers->privateMemberA = @"A";
+		privateMembers->privateMemberB = @"B";
+	}
+	return self;
+}
+@end
+```
+
+這種寫法其實是種程式碼保護的技巧，主要在防範
+[class-dump](http://stevenygard.com/projects/class-dump/)，或是從
+class-dump 衍生出的
+[class-dump-z](https://code.google.com/p/networkpx/wiki/class_dump_z)
+這些工具。class-dump 可以從編譯好的 Binary 中還原出每個 class 的header，
+當我們從 class-dump 抽出別人的 App 的 header，看出有哪些 Class，每個
+Class 有哪些成員變數、有哪些 method，也就可以看出整個 App 的架構大致如
+何。這種寫法就是讓別人用 class-dump 倒出我們 App 的 header 時，不會太
+容易可以了解我們一些重要的 Class 是如何運作。
+
+怎樣做逆向工程不是這份文件的重點。總之，有了 ARC 之後，我們都無法繼續
+使用以上兩種的程式寫作方式。
