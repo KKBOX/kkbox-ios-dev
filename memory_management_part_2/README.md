@@ -119,6 +119,58 @@ NSLog(@"arg:%@", arg);
 循環 Retain
 -----------
 
+ARC 也不會排除循環 Retain（Retain Cycle）的狀況，遇到了循環 Retain，還
+是會造成記憶體漏水。循環 Retain 就是，A 物件本身 retain 了 B 物件，但
+是 B 物件又 retain 了 A 物件，結果我們要在釋放 A 的時候才有辦法釋放 B，
+但是 B 又得要在 B 被釋放的時候才會釋放 A，最後導致 A 與 B 都沒有辦法被
+釋放。這種狀況通常最可能出現在：
+
+1. 把 delegate 設為 strong reference，我們會在討論 delegate 的時候繼續
+   討論這個狀況。
+2. 某個物件的某個 property 是一個 block，但是在這個 block 裡頭把物件自
+   己給 retain 了一份。我們會在討論 block 的時候討論這個狀況。
+3. 使用 timer 的時候，到了 dealloc 的時候才停止 timer。
+
+假如我們現在有一個 view controller，我們希望這個 view controller 可以
+定時更新，那麼，我們可能會使用
+`+scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:` 這
+個 method 建立 timer 物件，指定定時執行某個 selector。我們要特別注意，
+在建立這個 timer 的時候，我們指定給 timer 的 target，也會被 timer
+retain 一份，因此，我們想要在 view controller 在 dealloc 的時候，才停
+止 timer 就會有問題：因為 view controller 已經被 timer retain 起來了，
+所以只要 timer 還在執行，view controller 就不可能走到 dealloc 的地方。
+
+``` objc
+#import <UIKit/UIKit.h>
+
+@interface ViewController : UIViewController
+@property (strong, nonatomic) NSTimer *timer;
+@end
+
+@implementation ViewController
+
+- (void)dealloc
+{
+	[self.timer invalidate];
+}
+
+- (void)timer:(NSTimer *)timer
+{
+	// Update views..
+}
+
+- (void)viewDidLoad
+{
+	[super viewDidLoad];
+	self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timer:) userInfo:nil repeats:YES];
+}
+
+@end
+```
+
+要修正這個問題，我們應該改成，在 viewDidDisappear: 的時候，就要停止
+timer。
+
 Toll-Free Bridged
 -----------------
 
