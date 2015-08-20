@@ -68,12 +68,59 @@ UIColor 物件就已經沒有被使用而該被釋放，但釋放了 red，就�
 這個問題可以參考
 [ARC Best Practices](http://amattn.com/p/arc_best_practices.html) 乙文。
 
+Unsafe-Unretained
+-----------------
+
+另外，ARC 有時候會在一些地方沒做 retain，結果卻又自動多做了一次release
+最後導致 Bad Access 的錯誤。我們在講 Selector 的時候提到，我們可以將
+target/action 與必要的參數合起來變成另外一種物件，叫做 NSInvocation，
+在 ARC 環境下從 NSInvocation 拿出參數時，就必須要額外注意記憶體管理問
+題。
+
+比方說，我們現在要把對 UIApplication 要求開啟指定 URL 這件事情，變成一
+個 Invocation。
+
+``` objc
+NSURL *URL = [NSURL URLWithString:@"http://kkbox.com"];
+NSMethodSignature *sig = [UIApplication instanceMethodSignatureForSelector:
+						  @selector(openURL:)];
+NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:sig];
+[invocation setTarget:[UIApplication sharedApplication]];
+[invocation setSelector:@selector(openURL:)];
+[invocation setArgument:&URL atIndex:2];
+```
+
+但假如我們用以下這段 code 的方式，把 invocation 拿出參數的物件的時候，
+就會遇到 Bad Access 錯誤：
+
+``` objc
+NSURL *arg = nil;
+[invocation getArgument:&arg atIndex:2];
+NSLog(@"arg:%@", arg);
+// 在這邊會 crash
+```
+
+之所以會 crash 的原因是，我們在透過 `getArgument:atIndex:` 拿出參數的
+時候，`getArgument:atIndex:` 並不會幫我們把 arg 多 retain 一次，而到了
+用 NSLog 印出 arg 之後，ARC 認為我們已經不會用到 arg 了，所以就對 arg
+多做了一次 release，於是 retain 與 release 就變得不成對。
+
+我們要解決這個問題的方法是要把 arg 設為 Unsafe Unretained，讓 arg 這個
+Objetive-C 物件的指標不被 ARC 管理，要求 ARC 不要幫這個物件做任何自動
+的 retain 與 release。我們在這邊會用上 `__unsafe_unretained` 關鍵字。
+程式會寫成這樣：
+
+``` objc
+__unsafe_unretained NSURL *arg = nil;
+[invocation getArgument:&arg atIndex:2];
+NSLog(@"arg:%@", arg);
+```
+
+循環 Retain
+-----------
+
 Toll-Free Bridged
 -----------------
 
 
 https://developer.apple.com/library/ios/documentation/CoreFoundation/Conceptual/CFDesignConcepts/Articles/tollFreeBridgedTypes.html
-
-
-Unsafe-Unretained
------------------
