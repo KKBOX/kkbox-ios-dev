@@ -182,8 +182,27 @@ timer。
 Toll-Free Bridged
 -----------------
 
-https://developer.apple.com/library/ios/documentation/CoreFoundation/Conceptual/CFDesignConcepts/Articles/tollFreeBridgedTypes.html
+前面在講 Category 的時候提到，Foundation Framework 裡頭的每個物件，都
+有對應的 C 實作，這一層 C 的實作叫做 Core Foundation，當我們在使用
+Core Foundation 裡頭的 C 型態時，像是 CFString、CFArray 等，我們可以讓
+這些型態變成可以接受 ARC 的管理。這種讓 C 型態也可以被當做 Objetive-C
+物件，接受 ARC 的記憶體管理的方式，叫做 Toll-Free Bridged。
 
+Toll-Free Bridged 有三個語言關鍵字： `__bridge`、 `__bridge_retained`、
+以及 `__bridge_transfer`。我們直接翻譯蘋果官網的定義：
+
+* `__bridge` 會把 Core Foundation 的 C 資料型態轉換成 Objetive-C 物件，但
+  是不會多做 retain 與 release。
+* `__bridge_retained` 會把 Core Foundation 的 C 資料型態轉換成
+  Objetive-C 物件，並且會做一次 retain，但是之後必須由我們自己手動呼叫
+  CFRelease，釋放記憶體。
+* `__bridge_transfer` 會把 Core Foundation 物件轉換成 Objective-C 物件，
+  並且會讓 ARC 主動添加 retain 與 release。
+
+不見得每個 Core Foundation 型態都有辦法轉換成 Objective-C 物件。請參閱
+蘋果官方的
+[詳細說明](https://developer.apple.com/library/ios/documentation/CoreFoundation/Conceptual/CFDesignConcepts/Articles/tollFreeBridgedTypes.html)
+。
 
 其他
 ----
