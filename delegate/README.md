@@ -17,7 +17,7 @@ section裡頭有多少 row、每個 row 裡頭又是哪些內容…我們不是�
 的method？理由是：`UITableViewController` 是 `UITableView` 的 data
 source與 delegate。那，什麼是 delegate？
 
-用我的話來說，delegate 就是 *將眾多的 callback，集中在一個物件上* 。
+用我的話來說，delegate 就是 **將眾多的 callback，集中在一個物件上** 。
 
 從其他平台來看 Objective-C 的 Delegate
 --------------------------------------
@@ -624,6 +624,12 @@ method 的實作裡頭，也都不該隨意的呼叫 `begin` 與 `stop` ，而�
 @synthesize delegate;
 @end
 ```
+
+相關閱讀：
+---------
+
+- [蘋果官方文件 Working with Protocols](https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/WorkingwithProtocols/WorkingwithProtocols.html#//apple_ref/doc/uid/TP40011210-CH11-SW1)
+
 
 [^1]: 我在寫這章的時候，一直在想拿 C\# 到底是不是好主意，畢竟想要學 Objective-C 語言者，不見得都有 C\# 的基礎。之所以以 C\# 舉例，原因是這份資料其實是來自於當初我個人在公司內部的教材，而公司當時進來的新人之前是寫 C\# 的。
 

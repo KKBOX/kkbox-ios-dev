@@ -406,4 +406,10 @@ Objective-C 物件，所以我們必須要 retain起來。這邊可以傳入的�
 @end
 ```
 
+相關閱讀：
+---------
+
+- [Customizing Existing Classes](https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/CustomizingExistingClasses/CustomizingExistingClasses.html)
+- [NSHipster: Associated Objects](http://nshipster.com/associated-objects/)
+
 [^1]: 請見 [Objective-C Feature Availability Index](https://developer.apple.com/library/ios/#releasenotes/ObjectiveC/ObjCAvailabilityIndex/_index.html#//apple_ref/doc/uid/TP40012243)
