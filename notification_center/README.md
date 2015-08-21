@@ -2,7 +2,7 @@ Notification Center
 ===================
 
 Notification Center 是在 Cocoa/Cocoa Touch Framework 中，物件之間可以
-不必互相知道彼此的存在，也可以互相交換資料/狀態的機制。
+不必互相知道彼此的存在，也可以互相傳遞訊息、交換資料/狀態的機制。
 
 我們可以把 Notification Center 想像是一種廣播系統。當一個物件 A 的狀態
 發生改變，而有多個物件需要知道這個物件發生改變的狀況下，物件 A 不必直接
@@ -52,6 +52,7 @@ NSCurrentLocaleDidChangeNotification 的這項通知。所以，我們所有要�
 
 - (void)localeDidChange:(NSNotification *)notification
 {
+   // 處理 locale 改變的狀況
 }
 
 - (void)dealloc
@@ -80,17 +81,74 @@ nil，就代表我們想要訂閱所有的通知，通常不太會有這種情�
 要知道系統內部發生了什麼事情，可以用這種方式試試看。
 
 當我們不需要繼續訂閱某項通知的時候，記得對 Notification Center 呼叫
-`-removeObserver:`。我們通常在 dealloc 的時候停止訂閱。
+`-removeObserver:`，以上面的程式為例，我們在 add observer 的時候傳入了
+self，在 remove observer 的時候，就要傳入 self。我們通常在 dealloc 的
+時候停止訂閱。
 
+在 iOS 4 與 Mac OS X 10.6 之後，我們可以使用
+`-addObserverForName:object:queue:usingBlock:` 這組使用 block 語法的
+API 訂閱通知，由於是傳入 block，所以我們就不必另外準備一個 selector，
+可以將處理 notification 的程式與 add observer 的這段呼叫寫在一起。而
+remove observer 的寫法也會不太一樣：
+`-addObserverForName:object:queue:usingBlock:` 會回傳一個 observer 物
+件，我們想要停止訂閱通知的時候，是對 `-removeObserver:` 傳入之前拿到的
+observer 物件。範例如下。
+
+Add observer 的時候：
+
+``` objc
+self.observer = [[NSNotificationCenter defaultCenter]
+	addObserverForName:NSCurrentLocaleDidChangeNotification
+	object:nil
+	queue:[NSOperationQueue mainQueue]
+	usingBlock:^(NSNotification *note) {
+	// 處理 locale 改變的狀況
+}];
+```
+
+Remove observer 的時候：
+
+``` objc
+[[NSNotificationCenter defaultCenter] removeObserver:self.observer];
+```
 
 發送 Notification
 -----------------
 
-Notification Queue
-------------------
+至於要發送 notification，則是在建立了 notification 物件之後，對
+NSNotificationCenter 呼叫 `-postNotification:` 即可。
+
+這三組 method 都可以用來發送 notification。
+
+``` objc
+- (void)postNotification:(NSNotification *)notification;
+- (void)postNotificationName:(NSString *)aName
+                      object:(id)anObject;
+- (void)postNotificationName:(NSString *)aName
+                      object:(id)anObject
+                    userInfo:(NSDictionary *)aUserInfo;
+```
 
 Notification 與 Threading
 -------------------------
+
+當我們訂閱某個 notification 之後，我們並不能夠保證負責處理
+notification 的 selector 或 block 會在哪個 thread 執行：這個
+notification 是在哪條 thread 送出的，負責接受的 selector 或是 block，
+就會在哪條 thread 執行。
+
+在慣例上，絕大多數的 notification 都會在 main thread 送出，之所以說
+「絕大多數」，就是因為有例外：像是在 iOS 上，如果我們接上耳機、拔除耳
+機，或是將音樂透過 AirPlay 送到 Apple TV 的時候，系統會透過
+AVAudioSessionRouteChangeNotification 告訴我們音訊輸出設備改變了[^1]，
+這個通知就會發生在背景，而不是 main thread。
+
+不過，當我們在撰寫自己的程式，要發送 notification 的時候，為了考慮其他
+開發者會預期在 main thread 收到 notification，所以我們也就在 main
+thread 發送 notification。
+
+Notification Queue
+------------------
 
 CFNotificationCenter
 --------------------
@@ -108,3 +166,5 @@ Mac 上的其他 Notification Center
 --------
 
 - [Notification Programming Topics](https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/Notifications/Introduction/introNotifications.html#//apple_ref/doc/uid/10000043i)
+
+[^1]: 參見蘋果官方文件 [Responding to Route Changes] (https://developer.apple.com/library/ios/documentation/Audio/Conceptual/AudioSessionProgrammingGuide/HandlingAudioHardwareRouteChanges/HandlingAudioHardwareRouteChanges.html)

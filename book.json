@@ -1,4 +1,7 @@
 {
     "plugins": [],
     "pluginsConfig": {}
+    "pdf": {
+        "fontSize": 12
+    }
 }
