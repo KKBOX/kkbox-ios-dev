@@ -1,7 +1,17 @@
 {
+    "title": "KKBOX iOS 開發教材",
+    "language": "zh-TW",
+    "gitbook": ">=2.0.0",
     "plugins": [],
-    "pluginsConfig": {}
+    "pluginsConfig": {},
     "pdf": {
         "fontSize": 12
+    },
+    "styles": {
+        "website": "styles/website.css",
+        "ebook": "styles/ebook.css",
+        "pdf": "styles/pdf.css",
+        "mobi": "styles/mobi.css",
+        "epub": "styles/epub.css"
     }
 }
