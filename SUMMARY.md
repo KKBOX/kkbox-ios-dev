@@ -2,10 +2,13 @@
 
 * [Introduction](README.md)
 * [Selector](selector/README.md)
+   * [Practice: Simple Calculator](selector/practice_simple_calculator.md)
 * [Category](category/README.md)
+   * [Practice: Category for NSString](category/practice_category_for_nsstring.md)
 * [Memory Management Part 1](memory_management_part_1/README.md)
 * [Memory Management Part 2](memory_management_part_2/README.md)
 * [Delegate](delegate/README.md)
+   * [Practice: Snake Game](delegate/practice_snake_game.md)
 * [Blocks](blocks/README.md)
 * [Notification Center](notification_center/README.md)
 * [Singleton](singleton/README.md)

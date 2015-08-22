@@ -288,7 +288,7 @@ Reference Counter），在 compile time時決定什麼時候應該釋放記憶�
 
 ### Timer
 
-`NSObject` 除了 `performSelector:` 這個 method 之外，同樣以
+NSObject 除了 `performSelector:` 這個 method 之外，同樣以
 performSelector 開頭的，還有好幾組 API 可以呼叫，例如
 `-performSelector:withObject:afterDelay:`
 ，就可以讓我們在一定的秒數之後，才要求某個 method 執行。
@@ -351,11 +351,11 @@ NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1.0
 遞的參數，要從 2 開始，因為在這邊我們要想成，這是給`objc_msgSend` 呼叫
 用的參數，在 0 的參數是物件的 self，位在 1 的則是selector。
 
-### 接收 `NSNotification`
+### 接收 NSNotification
 
-我們稍晚才會討論 `NSNotification` 以及 `NSNotificationCenter`，不過在
-這邊先簡單提到：如果我們要接收 `NSNotification`，我們也要在開始訂閱通
-知的時候，指定要由哪個 selector 處理這個通知。
+我們稍晚才會討論 NSNotification 以及 NSNotificationCenter，不過在
+這邊先簡單提到：如果我們要接收 NSNotification，我們也要在開始訂閱通
+知的時候，指定要由哪個 selector 處理這個通知。詳見 [Notification Center](notification_center/README.md) 這一章。
 
 ### 在某個 Thread 執行 method
 
@@ -512,6 +512,12 @@ Refactoring 工具：在想要改名字的 method上面點選滑鼠右鍵，就�
 method，Xcode 並不會把裡頭的 selector
 也換掉，只會出現簡短的警告訊息而已，如果我們忽略了這些警告，之後執行的時候，就會出現找不到
 selector 的錯誤。我們需要格外小心。
+
+相關閱讀
+--------
+
+- [Objective-C Runtime Programming Guide](https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Introduction/Introduction.html)
+- [Cocoa Core Competencies : Selector](https://developer.apple.com/library/mac/documentation/General/Conceptual/DevPedia-CocoaCore/Selector.html)
 
 [^1]: 不過，如果你直接在程式裡頭這麼呼叫，Xcode 會在編譯的時候發出警告，告訴你在不久的將來會禁止這樣直接呼叫物件的成員變數，如果想要取用成員變數，必須另外寫 getter/setter。而如果這個成員變數被宣告成是 private 的，Xcode 會直接出現編譯錯誤，禁止你這樣呼叫。
 
