@@ -39,6 +39,7 @@
    * [相關閱讀](blocks/reading_list.md)
 * [Notification Center](notification_center/README.md)
 * [再談 Singleton](singleton/README.md)
+* [Responder](responder/README.md)
 * [Threading](threading/README.md)
    * [performSelector:](threading/perform_selector.md)
    * [GCD](threading/gcd.md)
@@ -48,3 +49,4 @@
 * [Core Animation](core_animation/README.md)
 * [Audio APIs](audio_apis/README.md)
 * [Reading List](reading_list/README.md)
+
