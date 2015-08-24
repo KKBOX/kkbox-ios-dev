@@ -24,4 +24,3 @@ task 的 callback block，也是在背景 thread 中執行的。
 - Perform Selector
 - GCD （Grand Centeral Dispatch）
 - NSOperation 與 NSOperationQueue
-

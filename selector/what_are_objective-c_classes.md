@@ -43,11 +43,12 @@ obj->a = 10;
 
 ### 對 Class 加入 method
 
-在執行的時候，runtime 會為每個 Class準備好一張表格，表格裡頭會以一個字
-串當 key，每個 key 會對應到 C function的指標位置。Runtime 裡頭，把實作
-的 C function 定義成 `IMP` 這個type；至於拿來當作 key 的字串，就叫做
-selector，type 定義成 `SEL`，然後我們可以使用 @selector 關鍵字建立
-selector。而其實 `SEL` 就是 C字串，我們可以來寫點程式檢查一下：
+在執行的時候，runtime 會為每個 Class準備好一張表格（專用術語叫做
+virtual table），表格裡頭會以一個字串當 key，每個 key 會對應到 C
+function的指標位置。Runtime 裡頭，把實作的 C function 定義成 `IMP` 這
+個type；至於拿來當作 key 的字串，就叫做selector，type 定義成 `SEL`，然
+後我們可以使用 @selector 關鍵字建立selector。而其實 `SEL` 就是 C字串，
+我們可以來寫點程式檢查一下：
 
 ``` objc
 NSLog(@"%s", (char *)(@selector(doSomething)));
