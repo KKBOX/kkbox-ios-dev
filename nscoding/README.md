@@ -23,15 +23,15 @@ iOS App 如果不懂 NSCoding，相當於寫 JavaScript 卻不懂什麼是 JSON 
 NSCoding 的常見用途
 -------------------
 
-# Document-based App
+### Document-based App
 
-# NSUserDefaults
+### NSUserDefaults
 
-# Copy and Paste
+### Copy and Paste
 
-# XIB/NIB
+### XIB/NIB
 
-# State Preservation and Restoration
+### State Preservation and Restoration
 
 
 
