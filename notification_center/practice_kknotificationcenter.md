@@ -18,6 +18,7 @@ Interface 如下：
 - (void)addObserver:(id)observer selector:(SEL)aSelector name:(NSString *)aName object:(id)anObject;
 - (void)postNotification:(NSNotification *)notification;
 - (void)removeObserver:(id)observer;
+@end
 ```
 
 請實作這個 Class，讓這個 Class 擁有和 NSNotificationCenter 相同的功能。
