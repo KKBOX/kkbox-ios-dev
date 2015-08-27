@@ -1,4 +1,4 @@
-# Practice: Snake Game
+# 練習：貪食蛇
 
 <script async class="speakerdeck-embed"
 data-id="beb706e0e3fc01304bd50ad3499c6df2"

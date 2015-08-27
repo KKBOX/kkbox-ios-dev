@@ -17,27 +17,6 @@ iOS App 如果不懂 NSCoding，相當於寫 JavaScript 卻不懂什麼是 JSON 
 不是轉換成文字格式，而是變成 Binary 格式。也就是說，NSCoding 在做的事
 情就是，把各式各樣的不同物件，轉換成 NSData。
 
-實作 NSCoding
--------------
-
-NSCoding 的常見用途
--------------------
-
-### Document-based App
-
-### NSUserDefaults
-
-### Copy and Paste
-
-### XIB/NIB
-
-### State Preservation and Restoration
 
 
 
-相關閱讀
---------
-
-- [NSCoding Tutorial for iOS: How To Save Your App Data](http://www.raywenderlich.com/1914/nscoding-tutorial-for-ios-how-to-save-your-app-data)
-- [NSHipster: NSCoding / NSKeyedArchiver](http://nshipster.com/nscoding/)
-- [Use Your Loaf: State Preservation and Restoration](http://useyourloaf.com/blog/state-preservation-and-restoration.html)
