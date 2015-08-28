@@ -54,8 +54,116 @@ NSData *data = [NSKeyedArchiver archivedDataWithRootObject:color];
 [[NSUserDefaults standardUserDefaults] setObject:data forKey:@"color"];
 ```
 
+### Copy and Paste
+
+我們在行動裝置上面會比較少實作 Copy and Paste 剪貼功能，原因大概是我們
+比較少在行動裝置上使用與開發比較複雜的編輯工作，而將這些工作留在
+desktop 環境。如果我們要開發一套 Mac App，如何實作 Copy and Paste，以
+及 Drag and Drop，就會是不可不學的知識了。
+
+無論是實作 Copy and Paste 與 Drag and Drop，都是透過 pasteboard 物件，
+實作 Drag and Drop 其實只是在開始 Drag 的時候，先把想要拖曳的資料先放
+在另外一個專屬的 pasteboard 中，到了要放開的時候再從 pasteboard 中取出
+資料。在 Mac 上，pasteboard 物件叫做 NSPasteboard，在 iOS 上叫做
+UIPasteboard。
+
+除了像 NSString、NSData 之類的基礎物件之外，許多我們想要可以被複製或拖
+拉的資料，如果想要存入到 pasteboard 中，還是得先透過 NSCoding 轉換成
+NSData 才有辦法。
+
+像我們之前定義了 KKSongTrack 物件，想要寫入剪貼簿，可以這麼做：
+
+``` objc
+NSString *const KKBOXSongTrackPasteboardType = @"song_track";
+
+KKSongTrack *song = [[KKSongTrack alloc] init];
+song.songName = @"orz 之歌";
+song.albumName = @"orz 專輯";
+song.artistName = @"orz";
+NSData *data = [NSKeyedArchiver archivedDataWithRootObject:song];
+
+[[UIPasteboard generalPasteboard] setData:data
+forPasteboardType:KKBOXSongTrackPasteboardType];
+```
+
+讀出來：
+
+``` objc
+NSData *pasteData = [[UIPasteboard generalPasteboard] dataForPasteboardType:KKBOXSongTrackPasteboardType];
+KKSongTrack *pasteSongTrack = [NSKeyedUnarchiver unarchiveObjectWithData:pasteData];
+NSLog(@"pasteSongTrack:%@", pasteSongTrack);
+```
+
 ### Document-based App
 
-### Copy and Paste
+如果我們開發的 App 種類屬於生產力工具，那麼我們很有可能開發的就是一套
+Document-based App。
+
+所謂 Document-based App 包括蘋果自己的 iWork 系列，如 Keynote、Numbers、
+Pages 等等，主要功能就是讓你瀏覽及編輯特定種類的檔案，像 iWork 系列的
+每一個 App，功能就是編輯特定種類的簡報、試算表與文書檔案。
+
+在Cocoa/Cocoa Touch Framework 中，便使用 document－Mac 上叫做
+NSDocument、iOS 上面叫做 UIDocument，對前面提到的各種不同類型文件做抽
+象描述，包括負責開啟檔案、儲存檔案、自動存檔以及 iCloud 備份同步等工
+作，以及描述檔案所在位置與目前狀態等。
+
+在 iOS 上要寫一個 Document-based App，我們會建立一個 UIDocument 的
+subclass，而這個 subclass 最重要的就是實作開檔與讀檔兩個 method。比方
+說，我們建立了一份叫做 KKPlaylist 的 document，裡頭有一個 array，裡頭
+是我們的 KKSongTrack 物件，這個 document 大概會寫成這樣：
+
+KKPlaylist.h
+
+``` objc
+@import UIKit;
+@interface KKPlaylist : UIDocument
+@end
+```
+
+KKPlaylist.m
+
+```
+#import "KKPlaylist.h"
+
+@interface KKPlaylist()
+@property (nonatomic, strong) NSMutableArray *songtracks;
+@end
+
+@implementation KKPlaylist
+
+- (instancetype)initWithFileURL:(NSURL *)url
+{
+	self = [super initWithFileURL:url];
+	if (self) {
+		self.songtracks = [NSMutableArray array];
+	}
+	return self;
+}
+
+- (id)contentsForType:(NSString *)typeName error:(NSError **)outError
+{
+	NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self.songtracks];
+	return data;
+}
+
+- (BOOL)loadFromContents:(id)contents ofType:(NSString *)typeName error:(NSError **)outError
+{
+	NSArray *songtracks = [NSKeyedUnarchiver unarchiveObjectWithData:contents];
+	[self.songtracks setArray:songtracks];
+	return YES;
+}
+
+@end
+```
+`contentsForType:error:` 與 `loadFromContents:ofType:error:` 裡頭的
+contents 參數是 id 型別，不過其實只接受 NSFileWrapper 與 NSData，如果
+在我們的 document 中有不少已經實作了 NSCoding protocol 的物件，我們就
+可以輕鬆將物件轉成 NSData 之後存檔，或讀取檔案轉回物件。我們通常對
+UIDocument 做三件事情：
+
+1. 開啟檔案，呼叫 `-openWithCompletionHandler:`
+2. 關閉檔案，呼叫 `-closeWithCompletionHandler:`
+3. 存檔，呼叫 `-saveToURL:forSaveOperation:completionHandler:`
 
 ### State Preservation and Restoration
