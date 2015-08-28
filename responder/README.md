@@ -24,3 +24,5 @@ Responder
 - 觸發按鈕的 target/action
 
 這樣的流程會在 runloop 當中不斷循環。
+
+[未完待續]
