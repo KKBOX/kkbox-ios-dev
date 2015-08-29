@@ -27,7 +27,7 @@
    * [Formal Protocol 與 Informal Protocol](delegate/formal_and_informal_protocols.md)
    * [無所不在的 Delegate](delegate/delegate_anywhere.md)
    * [其他平台上所謂的 Delegate](delegate/so_called_delegates.md)
-   * [我曾經犯過的低級錯誤](delegate/the_mistakes_that_i_ever_made.md)
+   * [我們曾經犯過的低級錯誤](delegate/the_mistakes_that_i_ever_made.md)
    * [相關閱讀](delegate/reading_list.md)
    * [練習：貪食蛇](delegate/practice_snake_game.md)
 * [Blocks](blocks/README.md)
