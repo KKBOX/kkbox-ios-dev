@@ -1,6 +1,8 @@
 NSCoding 的常見用途
 -------------------
 
+我們會在以下這些場合用到 NSCoding：
+
 ### XIB/Storyboard
 
 我們在實作一個 UIView 的 subclass 的時候，會注意到，如果我們希望在
@@ -156,6 +158,7 @@ KKPlaylist.m
 
 @end
 ```
+
 `contentsForType:error:` 與 `loadFromContents:ofType:error:` 裡頭的
 contents 參數是 id 型別，不過其實只接受 NSFileWrapper 與 NSData，如果
 在我們的 document 中有不少已經實作了 NSCoding protocol 的物件，我們就
@@ -167,3 +170,67 @@ UIDocument 做三件事情：
 3. 存檔，呼叫 `-saveToURL:forSaveOperation:completionHandler:`
 
 ### State Preservation and Restoration
+
+State Preservation and Restoration 是蘋果在 iOS 6 加入的 API，用途是讓
+iOS App 可以在開啟的的時候，可以立刻回復到上一次關閉 App 時的狀況，方
+便用戶回復到之前的動作，而不受到因為 App 關閉/開啟而打斷。像 Mail 這個
+App，當你在寫一封寫到一半的時候關閉 App，下次打開，就會看到之前寫到一
+半的那封信，避免用戶找不到上次寫到一半的信在哪裡。
+
+原理是，在應用程式關閉的時候，我們可以先把目前 App 的狀態—像是目前所有
+的view controller 物件，統統保存起來，下一次應用程式開啟的時候，如果發
+現存在之前所保存的狀態，就讀取出來，重建上次存起來的 view controller。
+
+要實作 State Preservation and Restoration，首先，要能夠被保存的 view
+controller，要實作兩個 method：
+
+* `- (void)encodeRestorableStateWithCoder:(NSCoder *)coder:`
+* `- (void)decodeRestorableStateWithCoder:(NSCoder *)coder`
+
+在 App Delegate 則要實作：
+
+* `-application:shouldSaveApplicationState:`
+* `-application:shouldRestoreApplicationState:`
+* `-application:willEncodeRestorableStateWithCoder:`
+* `-application:didDecodeRestorableStateWithCoder:`
+* `-application:willFinishLaunchingWithOptions:`
+
+流程是：
+
+一、在 App 關閉的時候，首先系統會透過
+`-application:shouldSaveApplicationState:` 詢問我們是否要保存狀態，如
+果要的話，我們就回傳 YES。
+
+二、前一步回傳 YES 之後，系統就會透過
+`-application:shouldRestoreApplicationState:`，提供我們一個 NSCoder，
+讓我們把必要的狀態透過這個 NSCoder archive 起來。如果我們的 App 裡頭有
+一個 navigation controller，而我們想把整個 navigation controller 保存
+起來，可以這麼寫：
+
+``` objc
+- (void)application:(UIApplication *)application
+willEncodeRestorableStateWithCoder:(NSCoder *)coder
+{
+	NSMutableArray *viewControllers = [self.navigationControllers.viewControllers copy];
+	NSData *data = [NSKeyedArchiver archivedDataWithRootObject:viewControllers];
+	[coder encodeObject:data forKey:@"viewControllers"];
+}
+```
+
+三、在重新開啟 App 的時候，如果系統發現之前我們已經透過 NSCoder 保存狀
+態了，那麼，就會向我們透過
+`-application:shouldRestoreApplicationState:`，詢問是否要使用上次的狀
+態，如果要的話，我們就回傳 YES。
+
+四、接下來 `-application:didDecodeRestorableStateWithCoder:` 就會被呼
+叫到，如果我們想還原上次存起來的 navigation controller，可以這麼寫：
+
+``` objc
+- (void)application:(UIApplication *)application
+didDecodeRestorableStateWithCoder:(NSCoder *)coder
+{
+	NSData *data = [coder decodeObjectForKey:@"viewControllers"];
+	NSArray *viewControllers = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    self.navigationController.viewControllers = viewControllers;
+}
+```
