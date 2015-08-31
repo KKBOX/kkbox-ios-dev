@@ -29,7 +29,7 @@ view 物件。
 看到 UIView 實作了 NSCoding protocol。
 
 我們在 Xcode 2 左右的年代（大概是 Mac OS X 10.4 左右）開發 Mac App 時，
-我們在 Xcode 中其實是直接編輯 NIB 檔案，到了 Xcode 5 與 Mac OS X 10.5
+我們在 Xcode 中其實是直接編輯 NIB 檔案，到了 Xcode 3 與 Mac OS X 10.5
 之後才出現使用 XML 格式的 XIB 檔案。這個轉變跟當時 SVN 等版本管理系統
 的出現有關，在版本管理系統中編輯 binary 格式的檔案，會難以 diff、merge
 以及處理版本衝突，所以蘋果便從 binary 格式換成文字格式的檔案。
