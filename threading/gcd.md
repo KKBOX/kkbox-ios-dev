@@ -48,14 +48,33 @@ dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 
 ``` objc
 dispatch_queue_t serialQueue = \
-  dispatch_queue_create("com.kkbox.queue", DISPATCH_QUEUE_SERIAL);
+    dispatch_queue_create("com.kkbox.queue", DISPATCH_QUEUE_SERIAL);
 
 dispatch_async(serialQueue, ^{
-  [someObject doSomethingHere];
+    [someObject doSomethingHere];
 });
 
 dispatch_async(serialQueue, ^{
-  [someObject doSomethingHereAsWell];
+    [someObject doSomethingHereAsWell];
 });
 ```
 
+### dispatch_sync
+
+不同於 `dispatch_async` 會做平行處理，呼叫 `dispatch_sync` 的時候，則
+是會先把 `dispatch_sync` 的這個 block 做完之後，才繼續執行到程式的下一
+行。
+
+我們在呼叫 `dispatch_sync` 的時候要特別注意：如果我們已經在某一條
+thread 中，而呼叫 `dispatch_sync` 時所傳入的 thread 就是目前所在的
+thread，那麼會造成程式執行時卡死。比方說，我們已經在 main thread 了，
+但我們卻呼叫：
+
+``` objc
+dispatch_sync(dispatch_get_main_queue(), ^{
+    [someObject doSomethingHere];
+});
+```
+
+這段程式就會卡住。我們可以用 NSThread 的一些 method 檢查我們目前正在哪
+條 thread，例如使用 `+isMainThread` 檢查是否是 main thread。

@@ -47,7 +47,7 @@
    * [練習：填字遊戲](notification_center/practice_word_game.md)
    * [練習：自行實作 NSNotificationCenter](notification_center/practice_kknotificationcenter.md)
 * [再談 Singleton](singleton/README.md)
-* [所謂的設計模式](design_patterns/README)
+* [所謂的設計模式](design_patterns/README.md)
 * [Responder](responder/README.md)
 * [Threading](threading/README.md)
    * [performSelector:](threading/perform_selector.md)
