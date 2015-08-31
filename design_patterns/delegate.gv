@@ -1,0 +1,7 @@
+digraph G {
+	rankdir=LR;
+	Controller->Model;
+	Model->Controller[label="delegate"; style="dotted"]
+	Controller->View;
+	View->Controller[label="delegate"; style="dotted"]
+}

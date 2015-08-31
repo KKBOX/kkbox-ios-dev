@@ -1,0 +1,6 @@
+digraph G {
+	rankdir=LR;
+	"Object 1"->"Singleton"[label="call"];
+	"Object 2"->"Singleton"[label="call"];
+	"Object 3"->"Singleton"[label="call"];
+}

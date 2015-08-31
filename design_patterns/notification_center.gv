@@ -1,0 +1,10 @@
+digraph G {
+	rankdir=LR;
+	Object->"Notification Center"[label="Post Notification"];
+	"Notification Center"->"Observer 1"
+	"Observer 1"->"Notification Center"[label="observe"; style="dotted"]
+	"Notification Center"->"Observer 2"
+	"Observer 2"->"Notification Center"[label="observe"; style="dotted"]
+	"Notification Center"->"Observer 3"
+	"Observer 3"->"Notification Center"[label="observe"; style="dotted"]
+}

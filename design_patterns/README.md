@@ -10,10 +10,20 @@ Center、Abstract Factory…等等，這些名詞用來描述我們平常撰寫�
 
 ## MVC
 
+![MVC](mvc.png)
+
 ## Delegate
+
+![Delegate](delegate.png)
 
 ## Singleton
 
+![Singleton](singleton.png)
+
 ## Notification Center
 
+![Notification Center](notification_center.png)
+
 ## Abstract Factory
+
+![Abstract Factory](abstract_factory.png)

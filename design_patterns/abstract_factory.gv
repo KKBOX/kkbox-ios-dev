@@ -1,0 +1,8 @@
+digraph G {
+	rankdir=LR;
+	Object->Factory[label="Passing ID"]
+	Factory->Object[label="Return an instance\nof a subclass"]
+	Factory->"Subclass 1"
+	Factory->"Subclass 2"
+	Factory->"Subclass 3"
+}
