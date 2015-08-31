@@ -337,3 +337,8 @@ self.view.frame = originalFrame;
 `myVar = nil` 與 `self.myVar = nil` 的差別—因為我們並沒有宣告 `myVar`
 ，如果寫成前者，編譯時會產生錯誤。
 
+
+相關閱讀
+--------
+
+- WWDC 2013 Fixing Memory Issues

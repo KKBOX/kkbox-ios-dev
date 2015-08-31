@@ -28,7 +28,7 @@
 之所以這麼寫的原因，是為了避免在多重 thread 的環境下，shared instance
 可能會被重複建立的問題。我們來看如果只用 if 語法實作的 singleton：
 
-```
+``` objc
 @implementation MyClass
 + (instancetype) sharedInstance
 {
