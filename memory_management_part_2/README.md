@@ -1,17 +1,20 @@
 記憶體管理 Part 2
 =================
 
-我們在這一章當中主要討論 ARC。
+這一章當主要討論 ARC。前一章提到，由於 ARC 是透過靜態分析，在 Compile
+Time 決定應該要在程式碼的那些地方加入 retain、release，所以，要使用
+ARC 基本上相當簡單，就是先把原本要手動管理記憶體的地方，把 retain、
+release 都拿掉，在dealloc 的地方，也把 `[super dealloc]` 拿掉。
 
-在前一章提到，由於 ARC 是透過靜態分析，在 Compile Time 決定應該要在程
-式碼的那些地方加入 retain、release，所以，要使用 ARC 基本上相當簡單，
-就是先把原本要手動管理記憶體的地方，把 retain、release 都拿掉，在
-dealloc 的地方，也把 `[super dealloc]` 拿掉。
+但，有了 ARC，也不代表在開發 iOS 或 Mac OS X App 的時候，就不需要了解
+記憶體管理。例如，我們雖然很多程式會使用 Objetive-C 語言開發，但是還是
+會經常用到 C 語言，我們還是得要了解 C 語言裡頭的記憶體管理。
 
-但是，有了 ARC，並不代表在開發 iOS 或 Mac OS X App 的時候，就不需要了
-解記憶體管理，我們雖然很多程式會使用 Objetive-C 語言開發，但是還是會經
-常用到 C 語言，我們還是得要了解 C 語言裡頭的記憶體管理。而且，有時候，
-ARC 也會把 retain、release 加錯地方。
+而且，有時候，ARC 也會把 retain、release 加錯地方。在使用 ARC 之前，我
+們建議先閱讀，
+*[ARC Best Practices](http://amattn.com/p/arc_best_practices.html)* 乙
+文，裡頭提到絕大多數的問題。我們會在這邊簡單提一些「即使用了 ARC，還是
+必須要注意的記憶體管理問題」。
 
 ARC 可能會錯誤釋放記憶體的時機
 ------------------------------
@@ -69,11 +72,8 @@ UIColor 物件就已經沒有被使用而該被釋放，但釋放了 red，就�
 @end
 ```
 
-這個問題可以參考
-[ARC Best Practices](http://amattn.com/p/arc_best_practices.html) 乙文。
-
-Unsafe-Unretained
------------------
+要了解哪些地方是 weak reference
+-------------------------------
 
 另外，ARC 有時候會在一些地方沒做 retain，結果卻又自動多做了一次release
 最後導致 Bad Access 的錯誤。我們在講 Selector 的時候提到，我們可以將
@@ -109,13 +109,13 @@ NSLog(@"arg:%@", arg);
 用 NSLog 印出 arg 之後，ARC 認為我們已經不會用到 arg 了，所以就對 arg
 多做了一次 release，於是 retain 與 release 就變得不成對。
 
-我們要解決這個問題的方法是要把 arg 設為 Unsafe Unretained，讓 arg 這個
-Objetive-C 物件的指標不被 ARC 管理，要求 ARC 不要幫這個物件做任何自動
-的 retain 與 release。我們在這邊會用上 `__unsafe_unretained` 關鍵字。
-程式會寫成這樣：
+我們要解決這個問題的方法是要把 arg 設為 Weak Reference 或 Unsafe
+Unretained，讓 arg 這個Objetive-C 物件的指標不被 ARC 管理，要求 ARC 不
+要幫這個物件做任何自動的 retain 與 release，在這邊要使用 `__weak` 或
+`__unsafe_unretained` 關鍵字。程式會像這樣：
 
 ``` objc
-__unsafe_unretained NSURL *arg = nil;
+__weak NSURL *arg = nil;
 [invocation getArgument:&arg atIndex:2];
 NSLog(@"arg:%@", arg);
 ```
@@ -145,7 +145,7 @@ retain 一份，因此，我們想要在 view controller 在 dealloc 的時候�
 所以只要 timer 還在執行，view controller 就不可能走到 dealloc 的地方。
 
 ``` objc
-#import <UIKit/UIKit.h>
+@import UIKit;
 
 @interface ViewController : UIViewController
 @property (strong, nonatomic) NSTimer *timer;
@@ -208,8 +208,9 @@ Toll-Free Bridged 有三個語言關鍵字： `__bridge`、 `__bridge_retained`�
 ----
 
 Objetive-C 語言有了 ARC 之後，除了禁止使用 retain、release 這些關鍵字
-之外，也禁止了一些我們在 ARC 之前的程式寫作方式，包括我們不可以把
-Objective-C 物件放進 C Structure 裡頭，Compiler 會告訴我們語法錯誤。
+之外，也禁止了一些我們在 ARC 之前的程式寫作方式（或是—奇技淫巧），包括
+我們不可以把Objective-C 物件放進 C Structure 裡頭，Compiler 會告訴我們
+語法錯誤。
 
 在有 ARC 之前，我們之所以會把 Objective-C 物件放進 C Structure 裡，大
 概會有幾個目的，其一是，假如我們有某個 Class 有很多成員變數，那我們可
@@ -292,3 +293,12 @@ Class 有哪些成員變數、有哪些 method，也就可以看出整個 App �
 
 怎樣做逆向工程不是這份文件的重點。總之，有了 ARC 之後，我們都無法繼續
 使用以上兩種的程式寫作方式。
+
+相關閱讀
+--------
+
+- [ARC Best Practices](http://amattn.com/p/arc_best_practices.html)
+- [Transitioning to ARC Release Notes](https://developer.apple.com/library/ios/releasenotes/ObjectiveC/RN-TransitioningToARC/Introduction/Introduction.html)
+- [Advanced Memory Management Programming Guide](https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/MemoryMgmt/Articles/MemoryMgmt.html#//apple_ref/doc/uid/10000011i)
+- [Memory Management Programming Guide for Core Foundation](https://developer.apple.com/library/ios/documentation/CoreFoundation/Conceptual/CFMemoryMgmt/CFMemoryMgmt.html#//apple_ref/doc/uid/10000127i)
+- [Toll-Free Bridged Types](https://developer.apple.com/library/ios/documentation/CoreFoundation/Conceptual/CFDesignConcepts/Articles/tollFreeBridgedTypes.html)

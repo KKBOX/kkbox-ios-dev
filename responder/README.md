@@ -26,3 +26,11 @@ Responder
 這樣的流程會在 runloop 當中不斷循環。
 
 [未完待續]
+
+
+UIApplication
+-------------
+
+
+UIWindow
+--------
