@@ -7,11 +7,11 @@ NSOperation 與 NSOperationQueue 是在 Mac OS X 10.5/ iPhoneOS 2.0 的時
 易的作法。就像我們之前在 Selector 這一章提到的，我們可以使用以下這些
 API，將某些工作放在指定的 Thread 執行：
 
-- -performSelectorOnMainThread:withObject:waitUntilDone:modes:
-- -performSelectorOnMainThread:withObject:waitUntilDone:
-- -performSelector:onThread:withObject:waitUntilDone:modes:
-- -performSelector:onThread:withObject:waitUntilDone:
-- -performSelectorInBackground:withObject:
+- `-performSelectorOnMainThread:withObject:waitUntilDone:modes:`
+- `-performSelectorOnMainThread:withObject:waitUntilDone:`
+- `-performSelector:onThread:withObject:waitUntilDone:modes:`
+- `-performSelector:onThread:withObject:waitUntilDone:`
+- `-performSelectorInBackground:withObject:`
 
 作為比較早期的 API，和 GCD/NSOperationQueue 比較起來，這幾組 API 的最
 大缺點便在於不會幫你管理應該要建立多少 thread，全部都得要自己手動管理。

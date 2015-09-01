@@ -3,8 +3,10 @@ Extensions
 
 Objective-C 語言中有一項叫做 extensions 的設計，也可以用來拆分一個很大
 的class，語法與 category 非常相似，但是不太一樣。在語法上，extensions
-像是一個沒有名字的 category，而 extensions 定義的 method，需要放在原本
-的class 實作中。以下是一個使用 extensions 的例子：
+像是一個沒有名字的 category，在 class 名稱之後直接加上空的括弧，而
+extensions 定義的 method，需要放在原本的class 實作中。
+
+以下是一個使用 extensions 的例子：
 
 ``` objc
 @interface MyClass : NSObject
@@ -28,7 +30,12 @@ Objective-C 語言中有一項叫做 extensions 的設計，也可以用來拆�
 ### 拆分 Header
 
 如果我們就是打算實作一個很大的 class，但是覺得 header裡頭已經列出了太
-多的 method，我們可以將一部分 method 搬到 extensions這邊的定義。
+多的 method，我們可以將一部分 method 搬到 extensions 的定義裡頭。
+
+另外，extension 除了可以放 method 之外，也可以放成員變數，而 一個
+class 可以擁有不只一個 extension，所以如果一個 class 真的有非常非常多
+的 method 與成員變數，我們可以把這些 method 與成員變數，放在多個
+extension 中。
 
 ### 管理 Private Methods
 

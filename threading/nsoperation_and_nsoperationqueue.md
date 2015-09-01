@@ -11,8 +11,8 @@ queue（型別為 NSOperationQueue）中排程，讓 opeation queue 決定在適
 時機、系統可以負荷的狀況下，執行我們排入排程的工作。
 
 無論是 NSOperationQueue 與 NSOperation，都有與取消工作相關的 API 可以
-呼叫。我們也可以設定每一個 operation 之間的相依關係（dependency），要
-求一件工作完成之後，才可以繼續下一件工作。
+呼叫。我們也可以設定每個 opeation 的優先程度，以及不同 operation 之間
+的相依關係（dependency），要求一件工作完成之後，才可以繼續下一件工作。
 
 ### 建立 NSOperationQueue
 
@@ -47,6 +47,10 @@ NSOperationQueue 可以同時平行執行幾件工作，如果超過 1，就代�
 預設值是 -1（NSOperationQueueDefaultMaxConcurrentOperationCount），意
 思是讓系統自己決定最多可以同時建立多少 thread。
 
+我們可以對 NSOperationQueue 呼叫 `addOperation:` 加入 operation，用
+`cancelAllOperations` 取消所有排程中的作業。至於已經在執行中的作業，我
+們就得對特定的 operation 呼叫 `cancel` 了。
+
 ### 建立 NSOperation
 
 在 Cocoa/Cocoa Touch Framework 中，已經存在兩個 NSOperation 的subclass：
@@ -59,12 +63,39 @@ NSInvocation。
 invocation，其實使用 GCD API 會更容易。
 
 我們可能會更常建立自己的 NSOperation subclass，處理更複雜的背景工作。
+
 比方說，我們現在要開發一套食譜 App，這套 App 可以讓用戶在本機的編輯介
 面中編好一份食譜後上傳，上傳後要清除本機的暫存檔，這份食譜可能會包含一
-份包含標題、內文的 JSON 檔案，還有五張圖片，所以上傳食譜這份工作就包含
-上傳 JSON 文件與五張圖片六件工作，而我們也希望可以在上傳的過程中隨時取
-消，讓用戶繼續編輯再重新上傳—這種比較複雜卻又帶有次序性質的工作，就是
-很適合 NSOperation 的舞台。
+份包含標題、內文的 JSON 檔案，還有一張圖片，所以上傳食譜這份工作就包含
+上傳 JSON 文件與圖片兩件工作，而我們也希望可以在上傳的過程中隨時取消，
+讓用戶繼續編輯再重新上傳—這種比較複雜卻又帶有次序性質的工作，就是很適
+合 NSOperation 的舞台。
+
+要 subclass 一個 NSOperation，最重要的就是要 override 掉 main 這個
+method，main 這個 method 裡頭代表的是這個 operation 要做什麼事情。我們
+現在可以來寫我們的 operation：
+
+``` objc
+@interface RecipetUploadOperation : NSOperation
+@end
+
+@implementation RecipetUploadOperation
+- (void)main
+{
+	// 1. Upload image
+	// 2. Replace the remote URL of the image contained in the JSON
+	//    file of the recipe.
+	// 3. Upload JSON
+}
+@end
+```
+
+接下來我們會遇到一個問題：在上傳照片與 JSON 檔案的時候，我們會呼叫
+NSURLSession 的相關 API，這些 API 都是非同步的，但是在 main 這個method
+裡頭，如果不做特別的處理，還沒等到連線回應，main 就已經執行結束了。我
+們必須要想辦法停在 main 中，等待連線 API 的回應。
+
+### 在 Operation 中等待
 
 #### NSRunloop
 
