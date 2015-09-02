@@ -128,8 +128,8 @@ Reference Counter），在 compile time時決定什麼時候應該釋放記憶�
 導致應該釋放的記憶體沒被釋放。
 
 我們接下來還會在
-[記憶體管理 Part 1](memory_management_part_1/README.md) 與
-[Responder](responder/README.md) 討論這個部分。
+[記憶體管理 Part 1](../memory_management_part_1/README.md) 與
+[Responder](../responder/README.md) 討論這個部分。
 
 ### Timer
 
