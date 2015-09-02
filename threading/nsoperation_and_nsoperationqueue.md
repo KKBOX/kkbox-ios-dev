@@ -77,6 +77,8 @@ method，main 這個 method 裡頭代表的是這個 operation 要做什麼事�
 
 ``` objc
 @interface RecipetUploadOperation : NSOperation
+@property (nonatomic, strong) UIImage *image;
+@property (nonatomic, strong) NSString *JSON;
 @end
 
 @implementation RecipetUploadOperation
@@ -84,9 +86,7 @@ method，main 這個 method 裡頭代表的是這個 operation 要做什麼事�
 {
 	@autoreleasepool {
     // 1. Upload image
-	// 2. Replace the remote URL of the image contained in the JSON
-	//    file of the recipe.
-	// 3. Upload JSON
+	// 2. Upload JSON
 	}
 }
 @end
@@ -99,14 +99,102 @@ NSURLSession 的相關 API，這些 API 都是非同步的，但是在 main 這�
 裡頭，如果不做特別的處理，還沒等到連線回應，main 就已經執行結束了。我
 們必須要想辦法停在 main 中，等待連線 API 的回應。
 
-### 在 Operation 中等待
+### 在 Operation 中等待與取消
 
 #### NSRunloop
 
+``` objc
+@interface RecipetUploadOperation : NSOperation
+{
+	NSPort *port;
+	BOOL runloopRunning;
+}
+@property (nonatomic, strong) UIImage *image;
+@property (nonatomic, strong) NSString *JSON;
+@end
+
+@implementation RecipetUploadOperation
+- (void)main
+{
+	@autoreleasepool {
+		[someAPI uploadImageData:UIImagePNGRepresentation(self.image) callback:^ {
+			[self quitRunLoop];
+		}];
+		[self doRunloop];
+		if (self.isCancelled) {
+			return;
+		}
+		[someAPI uploadJSON:self.JSON callback:^ {
+			[self quitRunLoop];
+		}];
+		[self doRunloop];
+	}
+}
+
+- (void)doRunloop
+{
+	runloopRunning = YES;
+	port = [[NSPort alloc] init];
+	[[NSRunLoop currentRunLoop] addPort:port forMode:NSRunLoopCommonModes];
+	while (runloopRunning && !self.isCancelled) {
+		@autoreleasepool {
+			[[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.5]];
+		}
+	}
+	port = nil;
+}
+
+- (void)quitRunLoop
+{
+	[port invalidate];
+	runloopRunning = NO;
+}
+
+- (void)cancel
+{
+	[super cancel];
+	[self quitRunLoop];
+}
+
+@end
+```
+
 #### GCD Semaphores
 
-### 取消 NSOperation
+``` objc
+@import UIKit;
 
-#### NSRunloop
+@interface RecipetUploadOperation : NSOperation
+@property (nonatomic, strong) UIImage *image;
+@property (nonatomic, strong) NSString *JSON;
+@property (nonatomic, strong) dispatch_semaphore_t semaphore;
+@end
 
-#### GCD Semaphores
+@implementation RecipetUploadOperation
+- (void)main
+{
+	@autoreleasepool {
+		self.semaphore = dispatch_semaphore_create(0);
+		[someAPI uploadImageData:UIImagePNGRepresentation(self.image) callback:^ {
+			dispatch_semaphore_signal(self.semaphore);
+		}];
+		dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
+		if (self.cancelled) {
+			return;
+		}
+		self.semaphore = dispatch_semaphore_create(0);
+		[someAPI uploadJSON:self.JSON callback:^ {
+			dispatch_semaphore_signal(self.semaphore);
+		}];
+		dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
+	}
+}
+
+- (void)cancel
+{
+	[super cancel];
+	dispatch_semaphore_signal(self.semaphore);
+}
+
+@end
+```
