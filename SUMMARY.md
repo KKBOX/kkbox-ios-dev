@@ -59,6 +59,7 @@
    * [Application](responder/application.md)
    * [Window](responder/window.md)
    * [相關閱讀](responder/reading_list.md)
+   * View
 * [Threading](threading/README.md)
    * [performSelector:](threading/perform_selector.md)
    * [GCD](threading/gcd.md)
