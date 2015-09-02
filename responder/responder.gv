@@ -1,0 +1,4 @@
+digraph G {
+	rankdir=LR;
+	"硬體"->"OS"->"Application"->"Window"->"First Responder"
+}

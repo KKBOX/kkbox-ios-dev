@@ -101,6 +101,9 @@ NSURLSession 的相關 API，這些 API 都是非同步的，但是在 main 這�
 
 ### 在 Operation 中等待與取消
 
+要在 operation 的中途停下來等候回應，我們大致上有兩種作法，一種是在
+operation 當中執行 NSRunloop，另外一種則是使用 GCD 當中的 semaphore。
+
 #### NSRunloop
 
 ``` objc

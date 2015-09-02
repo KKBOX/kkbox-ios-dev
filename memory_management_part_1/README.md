@@ -135,24 +135,14 @@ auto-release的物件。像是寫成這樣：
 }
 ```
 
-所謂的 auto-release 其實也沒有多麼自動，而是說，在這一輪 runloop中我們
-先不釋放這個物件，讓這個物件可以在這一輪 runloop中都可以使用，但是先打
-上一個標籤，到了下一輪 runloop 開始時，讓 runtime判斷有哪些前一輪
-runloop 中被標成是 auto-release 的物件，這個時候才減少retain count 決
-定是否要釋放物件。
+所謂的 auto-release 其實也沒有多麼自動，而是說，在這一輪 run loop中我
+們先不釋放這個物件，讓這個物件可以在這一輪 run loop 中都可以使用，但是
+先打上一個標籤，到了下一輪 run loop 開始時，讓 runtime 判斷有哪些前一
+輪runloop 中被標成是 auto-release 的物件，這個時候才減少retain count
+決定是否要釋放物件。
 
-我們在這邊遇到了一個陌生的名詞： Runloop ，同一個概念在 Windows平台或
-許會稱為 Message Loop 。Runloop就是事件的循環，我們先來想一個簡單的問
-題：當我們在開發 Mac OS X 或是 iOS軟體的時候，程式進入點是在 main.m 裡
-頭，執行 `main()` ，為什麼 `main()`不會跑完馬上結束，而是會讓應用程式
-可以繼續執行？
-
-原因是，在 `main()`中，我們會建立一個不斷執行的迴圈，在每一輪迴圈中的
-開始，會從硬體收取硬體事件，像是鍵盤、滑鼠、觸控事件等，在發現硬體事件
-之後，應用程式首先將事件送給對應到這個事件所在位置的視窗（`NSWindow`
-物件或是 `UIWindow`物件），接著視窗物件會將事件送給負責處理的 UI元件，
-這個目前負責應該處理事件的最上層元件，我們則稱之為 First Responder。這
-樣的迴圈，就叫做 Runloop 。
+我們在這邊遇到了一個陌生的名詞： run loop，我們會在
+[Responder](responder/README.md) 這一章當中說明。
 
 在建立 Foundation 物件的時候，除了可以呼叫 `alloc` 、 `init` 以及
 `new`之外（ `new` 這個 method 其實就相當於呼叫了 `alloc` 與 `init`；比
