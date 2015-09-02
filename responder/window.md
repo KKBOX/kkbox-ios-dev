@@ -70,4 +70,11 @@ AppleTV 的畫面上顯示不一樣的內容，像 Keynote 這套 App 在連接�
 我們 App 的 window 高，於是 status bar 會一直疊在我們的 App 畫面上方，
 不論我們對原本的 window 怎麼增加 subview，都不會影響 status bar。如果
 我們想要蓋過 status bar，方法就只有建立新的 window，level 設得比
-status bar window 更高，然後呼叫 `makeKeyAndOrderFront`。
+status bar window 更高，然後呼叫 `makeKeyAndOrderFront`，讓這個 window
+出現在螢幕上。
+
+這時候我們要千萬注意：`makeKeyAndOrderFront` 不但會讓這個 window 出現，
+同時也變成 key window，所有的事件都會往這個 window 送。所以，如果提示
+訊息結束，我們必須要對原本的 key window 再呼叫一次
+`makeKeyAndOrderFront`，把處理事件的權力交還回去，不然接下來我們的 App
+就無法處理任何事件了。
