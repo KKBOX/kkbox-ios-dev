@@ -78,3 +78,10 @@ status bar window 更高，然後呼叫 `makeKeyAndOrderFront`，讓這個 windo
 訊息結束，我們必須要對原本的 key window 再呼叫一次
 `makeKeyAndOrderFront`，把處理事件的權力交還回去，不然接下來我們的 App
 就無法處理任何事件了。
+
+當我們在 iOS App 的一個畫面上，如果有很多文字框（UITextField），我們想
+要指定其中一個文字框拿來打字，會呼叫 `becomeFirstResponder`，讓這個文
+字框變成 first responder，具體來說的意義是「這個 window 上的 first
+responder」。這點在 Mac 的 API 上會比較清楚，如果在 Mac 的一個 window
+中要指定某個文字框打字，我們不是對 NSTextField 呼叫，而是對 window 呼
+叫 `makeFirstResponder:`，然後傳入 text field。
