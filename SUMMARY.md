@@ -58,8 +58,8 @@
    * [Run Loop](responder/run_loop.md)
    * [Application](responder/application.md)
    * [Window](responder/window.md)
-   * [相關閱讀](responder/reading_list.md)
    * View
+   * [相關閱讀](responder/reading_list.md)
 * [Threading](threading/README.md)
    * [performSelector:](threading/perform_selector.md)
    * [GCD](threading/gcd.md)
