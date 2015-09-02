@@ -82,13 +82,17 @@ method，main 這個 method 裡頭代表的是這個 operation 要做什麼事�
 @implementation RecipetUploadOperation
 - (void)main
 {
-	// 1. Upload image
+	@autoreleasepool {
+    // 1. Upload image
 	// 2. Replace the remote URL of the image contained in the JSON
 	//    file of the recipe.
 	// 3. Upload JSON
+	}
 }
 @end
 ```
+
+在 main 裡頭，我們也要建立 auto release pool。
 
 接下來我們會遇到一個問題：在上傳照片與 JSON 檔案的時候，我們會呼叫
 NSURLSession 的相關 API，這些 API 都是非同步的，但是在 main 這個method
@@ -102,3 +106,7 @@ NSURLSession 的相關 API，這些 API 都是非同步的，但是在 main 這�
 #### GCD Semaphores
 
 ### 取消 NSOperation
+
+#### NSRunloop
+
+#### GCD Semaphores
