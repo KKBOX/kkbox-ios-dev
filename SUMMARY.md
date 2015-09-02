@@ -54,7 +54,6 @@
 * [再談 Singleton](singleton/README.md)
 * [所謂的設計模式](design_patterns/README.md)
 * [Responder](responder/README.md)
-   * [事件的傳遞](responder/passing_events.md)
    * [Run Loop](responder/run_loop.md)
    * [Application](responder/application.md)
    * [Window](responder/window.md)
@@ -72,4 +71,3 @@
 * [Core Animation](core_animation/README.md)
 * [Audio APIs](audio_apis/README.md)
 * [Reading List](reading_list/README.md)
-
