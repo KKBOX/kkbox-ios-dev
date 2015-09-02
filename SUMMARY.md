@@ -71,6 +71,6 @@
 * [Crash Reports](crash_reports/README.md)
 * [Core Animation](core_animation/README.md)
 * [Audio APIs](audio_apis/README.md)
-* [Reading List](reading_list/README.md)
 * Accessibility
+* [Reading List](reading_list/README.md)
 
