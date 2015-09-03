@@ -58,7 +58,7 @@
    * [Run Loop](responder/run_loop.md)
    * [Application](responder/application.md)
    * [Window](responder/window.md)
-   * [View](view.md)
+   * [View](responder/view.md)
    * [相關閱讀](responder/reading_list.md)
 * [Threading](threading/README.md)
    * [performSelector:](threading/perform_selector.md)
@@ -74,4 +74,3 @@
 * [Audio APIs](audio_apis/README.md)
 * [Accessibility](accessibility/README.md)
 * [Reading List](reading_list/README.md)
-
