@@ -206,6 +206,16 @@ NSPort 也有對應的 Core Foundation 實作，像
 
 #### GCD Semaphores
 
+有了 GCD 之後，很多事情都變得簡單許多。當我們想要在執行到一半的時候暫
+停下來，現在可以選擇建立 semaphore，接著：
+
+- 只要對 semaphore 呼叫 `dispatch_semaphore_wait`，程式就會在這個地方
+  暫停等候。
+- 對已經在等候中的 semaphore，再呼叫 `dispatch_semaphore_signal`，發送
+  signal，程式就會繼續往下運作。
+
+範例程式如下：
+
 ``` objc
 @import UIKit;
 
