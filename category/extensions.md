@@ -46,14 +46,16 @@ method 在程式碼中不放在其他 method 前面，其他的 method 在呼叫
 method的時候，compiler會不斷跳出警告，而這種無關緊要的警告一多，我們往
 往會忽視真正重要的警告。[^1]
 
-想要避免這些警告，要不就是把 private method都放在最前面，但這樣並不能
-完全解決問題，因為 private method之間也會相互呼叫，花時間確認每個
-method之間的呼叫順序並不是很經濟的事；要不就是都用
-`performSelector:`呼叫，這樣問題更大，就像前面提到，在 method 改名、呼
-叫 refactoring工具的時候，這樣非常危險。
+想要避免這些警告，要不就是把 private method都放在最前面，但這樣並不能完
+全解決問題，因為 private method之間也會相互呼叫，花時間確認每個method之
+間的呼叫順序並不是很經濟的事；要不就是都用 `performSelector:` 呼叫，這
+樣問題更大，就像前面提到，在 method 改名、呼叫 refactoring工具的時候，
+這樣非常危險。
 
 蘋果提供的建議是，我們在 .m 或 .mm 檔案開頭的地方宣告一個 extensions，
 將private method 都放在這個地方，如此一來，其他 method 就可以找到
 private method 的宣告。在 Xcode 4 所提供的 file template 中，如果你選
-擇建立一個 `UIViewController` 的 subclass，就可以看到在 .m檔案的最前面，
+擇建立一個 UIViewController 的 subclass，就可以看到在 .m檔案的最前面，
 幫你預留了一塊 extensions 的宣告。
+
+[^1]: 請見 [Objective-C Feature Availability Index](https://developer.apple.com/library/ios/#releasenotes/ObjectiveC/ObjCAvailabilityIndex/)
