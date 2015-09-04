@@ -22,7 +22,10 @@
 Timer 每隔 0.5 秒就會觸發一次，蛇每隔 0.5 秒就會移動一格，如果剛吃到水
 果的時候，因為我們的程式邏輯有問題，尾巴長出去的方向不對，我們只有 0.5
 秒的時間可以用肉眼捕捉這個問題，那，我們真的有辦法在程式出錯的時候，有
-效發覺問題嗎？假如我們寫的程式，其實並不是貪食蛇這種輕鬆的小遊戲呢？
+效發覺問題嗎？你真的以為，光是貪食蛇這麼簡單的小遊戲，你就不會寫出 bug
+嗎？
+
+而假如我們寫的程式，其實並不是貪食蛇這種輕鬆的小遊戲呢？
 
 3A 原則
 -------
@@ -56,7 +59,8 @@ Timer 每隔 0.5 秒就會觸發一次，蛇每隔 0.5 秒就會移動一格，�
 ``` objc
 - (void)testHit
 {
-	KKSnake *snake = [[KKSnake alloc] initWithWorldSize:KKMakeSnakeWorldSize(10, 10) length:6];
+	KKSnake *snake = [[KKSnake alloc]
+	  initWithWorldSize:KKMakeSnakeWorldSize(10, 10) length:6];
 	[snake changeDirection:KKSnakeDirectionUp];[[snake move];
 	[snake changeDirection:KKSnakeDirectionRight];[snake move];
 	[snake changeDirection:KKSnakeDirectionDown];[snake move];
@@ -67,5 +71,20 @@ Timer 每隔 0.5 秒就會觸發一次，蛇每隔 0.5 秒就會移動一格，�
 我們可以在 Xcode 裡頭按下 Product->Test 執行單元測試。如果
 XCTAssertEqual 這行 assert 出現問題，Xcode 就會立刻出現警告。
 
+TDD
+---
+
+Mock
+----
+
 覆蓋率（coverage）
 -----------------
+
+[未完]
+
+
+相關閱讀
+--------
+
+- [Testing with Xcode](https://developer.apple.com/library/ios/documentation/DeveloperTools/Conceptual/testing_with_xcode/Introduction/Introduction.html)
+- [NSHipster - Unit Testing](http://nshipster.com/unit-testing/)

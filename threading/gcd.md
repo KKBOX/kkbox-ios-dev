@@ -96,7 +96,8 @@ dispatch_sync(dispatch_get_main_queue(), ^{
 這個 function 代替 timer。
 
 ``` objc
-dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)),
+  dispatch_get_main_queue(), ^{
 	[someObject doSomething];
 });
 ```

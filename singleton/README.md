@@ -51,3 +51,10 @@ instance，在所有地方呼叫 `+sharedInstance`，也都只該拿到同一個
 
 由於 `dispatch_once` 裡頭的 block 只會執行一次，我們便透過這個特性，保
 證 `instance = [[MyClass alloc] init];` 只會被呼叫到一次。
+
+
+相關閱讀
+--------
+
+- [Singleton](https://developer.apple.com/library/ios/documentation/General/Conceptual/DevPedia-CocoaCore/Singleton.html#//apple_ref/doc/uid/TP40008195-CH49-SW1)
+- [Friday Q&A 2009-10-02: Care and Feeding of Singletons](https://mikeash.com/pyblog/friday-qa-2009-10-02-care-and-feeding-of-singletons.html)

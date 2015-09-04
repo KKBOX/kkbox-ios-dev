@@ -106,3 +106,10 @@ convertRect:fromLayer:，轉換出目前 layer，與應用程式啟動時，我�
 UIAccessibilityLayoutChangedNotification。
 
 [未完]
+
+
+相關閱讀
+--------
+
+- WWDC 2014 Accessibility on iOS
+- WWDC 2014 Accessibility on Mac
