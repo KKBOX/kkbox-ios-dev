@@ -27,10 +27,6 @@ Timer 每隔 0.5 秒就會觸發一次，蛇每隔 0.5 秒就會移動一格，�
 
 而假如我們寫的程式，其實並不是貪食蛇這種輕鬆的小遊戲呢？
 
-
-我們可以在 Xcode 裡頭按下 Product->Test 執行單元測試。如果
-XCTAssertEqual 這行 assert 出現問題，Xcode 就會立刻出現警告。
-
 TDD
 ---
 
