@@ -68,11 +68,11 @@ src="//speakerdeck.com/assets/embed.js"></script>
 
 ### 單元測試
 
-我們要對蛇的 Model 寫單元測試。寫單元測試時，要注意 3A 原則：Arrange、
-Action、Assert。
+我們要對蛇的 Model 寫單元測試。寫單元測試時，要注意 AAA 原則：Arrange、
+Act、Assert。像是：
 
 - Arrange：先定義蛇如果要移動一次，移動後身體應該會出現在什麼位置
-- Action：要求蛇移動一次
+- Act：要求蛇移動一次
 - Assert：確定蛇在移動之後，身體位置跟我們在 Arrange 時設定的位置一致
 
 我們應該先寫蛇的 Model，然後寫單元測試，最後才去寫 View 與 Controller。

@@ -36,7 +36,7 @@
    * [相關閱讀](delegate/reading_list.md)
    * [練習：貪食蛇](delegate/practice_snake_game.md)
 * [單元測試](unit_test/README.md)
-   * [3A 原則](unit_test/3a.md)
+   * [AAA 原則](unit_test/3a.md)
    * [執行測試](unit_test/run_test.md)
    * [TDD-測試驅動開發](unit_test/tdd.md)
    * [相關閱讀](unit_test/reading_list.md)
