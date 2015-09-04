@@ -106,6 +106,47 @@ operation 當中執行 NSRunloop，另外一種則是使用 GCD 當中的 semaph
 
 #### NSRunloop
 
+在有 GCD 之前，我們希望一個 operation 可以在一個地方停下來等候其他事情
+發生，作法會是在這條 thread 裡頭執行 run loop。
+
+前一章提到，run loop 就是那個「之所以 GUI 程式會一直執行，而不會像某個
+function 或 method 從頭到尾跑完就結束」的迴圈。在 iOS 或 Mac OS X App
+中，除了在 main thread 會執行最主要的 run loop
+（`[NSRunloop mainRunLoop]`）之外，每個thread/operation 裡頭，也會有屬
+於各自的 run loop，只要呼叫 `[NSRunloop currentRunLoop]`，呼叫的就是屬
+於當前 thread 自己的 run loop—所以我們要注意，雖然在不同的 thread 中，
+我們呼叫的都是 `[NSRunloop currentRunLoop]`，但這個
+`+currentRunLoop`這個 class method 回傳的並不視同一個物件。另外，
+NSRunloop 不可以手動建立，我們只能使用系統提供的 run loop 物件。
+
+我們希望能夠在這個 operation 執行到一半的時候可以被取消，要取消一條
+operation，便是呼叫 NSOperation 的 `cancel` 這個 method，因為我們
+subclass 了 NSOperation，改變了 operation 裡頭做的事情，那麼也就得
+override 掉 `cancel`：當我們的 operation 在跑 run loop 時，我們的
+`cancel` 必須要能夠通知 run loop 停止。
+
+當一條 thread 在跑自己的 run loop 之後，如果不同 thread 之間想要互相溝
+通，那我們就必須在當前的 thread 建立 NSPort 物件，並且將 NSPort 物件註
+冊到 run loop 內，才能讓訊息傳遞到 run loop 裡頭。所以，當外部要求對
+port 呼叫 `invalidate` 的時候，就會讓 run loop 收到訊息，停止繼續跑，
+繼續執行 `-main` 這個 method 接下來的動作。
+
+NSPort 也有對應的 Core Foundation 實作，像
+[CFMessagePort](https://developer.apple.com/library/mac/documentation/CoreFoundation/Reference/CFMessagePortRef/)
+等，不過在 iOS 7 之後我們沒辦法在這個地方使用 CFMessagePort。從 iOS 7
+之後，呼叫 `CFMessagePortCreateLocal` 或 `CFMessagePortCreateRemote`
+這些建立CFMessagePort 的 function 都無法建立物件，只會回傳 NULL（可以
+參見CFMessagePort 的 reference），蘋果不允許我們使用 CFMessagePort 的
+原因是，CFMessagePort 不但可以傳遞訊息到其他 thread 的 run loop 上，甚
+至可以傳到其他 process 的 run loop 上，而 iOS 政策上禁止 process 互相
+溝通。
+
+在 iOS 7 剛問世的時候，蘋果又完全沒有說清楚這件事，只忙著宣傳 iOS 7 的
+扁平化新設計。我們為了 CFMessagePort 的這項改變，還在 WWDC 2013 會場上
+跑了兩天的 Lab。
+
+範例程式如下：
+
 ``` objc
 @interface RecipetUploadOperation : NSOperation
 {
@@ -117,6 +158,7 @@ operation 當中執行 NSRunloop，另外一種則是使用 GCD 當中的 semaph
 @end
 
 @implementation RecipetUploadOperation
+
 - (void)main
 {
 	@autoreleasepool {
