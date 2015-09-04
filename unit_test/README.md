@@ -27,46 +27,6 @@ Timer 每隔 0.5 秒就會觸發一次，蛇每隔 0.5 秒就會移動一格，�
 
 而假如我們寫的程式，其實並不是貪食蛇這種輕鬆的小遊戲呢？
 
-3A 原則
--------
-
-那，我們來試試看單元測試這條途徑。
-
-在 Xcode 裡頭建立專案的時候，Xcode會幫我們的 App 同時建立一個單元測試
-的 Bundle—其實蘋果也鼓勵你寫單元測試—在這個 Bundle 中，會出現一個繼承
-自 XCTestCase 的 class，在裡頭撰寫任何用 test 開頭的 method，像
-`-testHit`，都是一條test case。也就是，我們寫測試的時候，就是寫出一群
-用 test 為開頭的 method。
-
-在撰寫測試的時候，基本原則是一次只測試一項 function 或 method，同時一
-個 test case 會包含所謂的 3A：Arrange、Action 與 Assert
-
-- Arrange: 先設定我們在這次測試中，所預期的結果
-- Action: 就是我們想要測試的 function 或 method
-- Assert: 確認在 Action 發生後，確認在執行了想要測試 function 或
-  method 後，的確符合我們在 Arrange 階段設定的目標
-
-舉個例子，我們預期一條長度為 6 、正在往左邊移動的蛇，在先往上走一格、
-再往右走一格、再往下走一格之後，這條蛇的頭一定會撞到自己的身體，如果我
-們的程式說蛇頭沒有撞到，就一定有 Bug。就可以拆解成：
-
-- Arrange: 頭應該會撞到身體
-- Action: 讓蛇執行往上右下移動的動作
-- Assert: 確認頭真的撞到身體了
-
-這個 case 或許會像這樣：
-
-``` objc
-- (void)testHit
-{
-	KKSnake *snake = [[KKSnake alloc]
-	  initWithWorldSize:KKMakeSnakeWorldSize(10, 10) length:6];
-	[snake changeDirection:KKSnakeDirectionUp];[[snake move];
-	[snake changeDirection:KKSnakeDirectionRight];[snake move];
-	[snake changeDirection:KKSnakeDirectionDown];[snake move];
-	XCTAssertEqual([snake isHeadHitBody], YES, @"must hit the body.");
-}
-```
 
 我們可以在 Xcode 裡頭按下 Product->Test 執行單元測試。如果
 XCTAssertEqual 這行 assert 出現問題，Xcode 就會立刻出現警告。
@@ -81,10 +41,3 @@ Mock
 -----------------
 
 [未完]
-
-
-相關閱讀
---------
-
-- [Testing with Xcode](https://developer.apple.com/library/ios/documentation/DeveloperTools/Conceptual/testing_with_xcode/Introduction/Introduction.html)
-- [NSHipster - Unit Testing](http://nshipster.com/unit-testing/)
