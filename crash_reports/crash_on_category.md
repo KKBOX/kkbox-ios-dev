@@ -21,8 +21,8 @@ nil 有關—嘗試把 nil 插入到 NSDictionary 裡頭造成的。
 
 我們收集到了 exception 發生時的 console log：
 
-> \*** Terminating app due to uncaught exception
-> 'NSInvalidArgumentException', reason: '\***
+> \*\*\* Terminating app due to uncaught exception
+> 'NSInvalidArgumentException', reason: '\*\*\*
 > -[\__NSPlaceholderDictionary initWithObjects:forKeys:count:]: attempt
 > to insert nil object from objects[2]'
 
