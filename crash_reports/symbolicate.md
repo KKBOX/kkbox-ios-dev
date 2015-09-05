@@ -60,3 +60,57 @@ command line 指令。重要參數包括：
 KKIPadMyboxUserSearchTableViewController 這個 class 裡頭的
 `tableView:cellForRowAtIndexPath:` 裡頭，位在
 KKIPadMyboxUserSearchTableViewController.m 第 128 行。
+
+### 修正問題
+
+接著我們就可以去檢查 KKIPadMyboxUserSearchTableViewController.m 第 128
+行做了什麼，我們發現，這是 KKBOX 的用戶搜尋功能中，用來顯示搜尋結果的
+相關部分，我們預期用戶的名稱會是字串。搭配 QA 提供給我們的 console log
+
+> Info: \*** Terminating app due to uncaught exception
+> 'NSInvalidArgumentException', reason: '-[NSNull length]:
+> unrecognized selector sent to instance 0x3a866830'
+
+看起來我們預期的是字串，但是 server 的 API 提供的 JSON 回應中，用戶名
+稱卻是 null。我們在 Objective-C 語言中，會把 JSON 的 null 轉成 NSNull
+型別，所以呼叫屬於字串的 `length` 這個 method 時，就會出現找不到
+selector 的錯誤。所以，我們在這邊要做一些型別判斷，當用戶名稱是 null
+的時候，要用別的方式顯示。
+
+說起來 NSNull 還頂討厭的，有時候我們會希望就算程式中任何地方出現
+NSNull，都不會 crash。由於跟 NSNull 有關的 crash 往往是找不到 selector，
+如果想要一勞永逸：讓 NSNull 可以回應所有的 selector，如何？
+
+我們從第一章中了解 Objective-C 的動態特性，知道可以對任何 class 添加
+method，最簡單的方法就是使用 category；Objective-C 物件還有另外一個特
+性：如果一個 class 並沒有某個 selector，在找不到 selector 的時候，會先
+透過 `forwardInvocation:`，詢問這個 class 要不要把這次的呼叫交給別的物
+件處理。
+
+透過這兩個特性，就可以來施點動態魔法：透過 category 實作 NSNull 的
+`forwardInvocation:`。
+
+
+``` objc
+@interface NSNull (SafeNull)
+
+@end
+
+@implementation NSNull (SafeNull)
+
+- (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector
+{
+	NSMethodSignature *signature = [super methodSignatureForSelector:aSelector];
+	if (!signature) {
+		NSMethodSignature *sig = [NSMethodSignature signatureWithObjCTypes:@encode(void)];
+		return sig;
+	}
+	return signature;
+}
+
+- (void)forwardInvocation:(NSInvocation *)anInvocation
+{
+}
+
+@end
+```
