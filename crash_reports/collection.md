@@ -49,9 +49,9 @@ crash 原因，如果我們想在推出下一個版本之前，把前一個版�
 們的客服反應，我們需要解決的往往不只是某個版本有哪些問題，更需要的是可
 以在最短的時間內，解決單一用戶的問題。
 
-在 Xcode 7 之後，蘋果直接在 Xcode 中增加了瀏覽線上 crash 的功能（可以
-用 Window -> Organizer 功能叫出來） ，讓瀏覽 crash 變得方便一些，但一
-樣沒有找到特定用戶 crash 的辦法。
+蘋果在後來幾個版本的 Xcode 中，也增加了瀏覽線上 crash 的功能（可以用
+Window -> Organizer 功能叫出來） ，讓瀏覽 crash 變得方便一些，但一樣沒
+有找到特定用戶 crash 的辦法。
 
 ![xcode ](xcode7_crash.png)
 

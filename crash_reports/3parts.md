@@ -2,7 +2,7 @@ Crash Report 的三部分
 --------------------
 
 一份 crash report 大概分成三個部分。我們會用一份 crash report 說明，這
-份 crash report 來自於 KKBOX 的 QA，而且裡頭還沒有解開（symbolicate）
+份 crash report 來自於 KKBOX 的 QA，而且裡頭還沒有解開（symbolication）
 －也就是說，從 crash report 的 call stack 這一段，我們只能夠看到發生問
 題的 function/method 的記憶體位置，而看不到錯誤發生在程式的哪一行。
 
@@ -87,9 +87,12 @@ debug symbol，完整解開整份 crash report。
 但如果一份 crash report 是來自 QA，在 QA 的電腦上有 Xcode，但是並沒有
 對應的 debug symbol 時，Xcode 也會嘗試做 symbolicate，但只能夠解開像是
 UIKit、 CoreFoundation 之類的系統 library，但是看不到屬於你的 App 的哪
-部分。解開系統 library 的部份往往沒什麼用，以上面那個 log 來說，如果你
-熟悉 iOS 的運作，就算不解開記憶體位置，也可以看出 thread 0 的 call
-stack 中：
+部分。而 Xcode 是透過 spotlight 的索引找到對應的 debug symbol，就算把
+debug symbol 抓下來，但 spotlight 不見得會立刻做索引，所以你可能還是看
+到沒有解開的 crash report。
+
+解開系統 library 的部份往往沒什麼用，以上面那個 log 來說，如果你熟悉
+iOS 的運作，就算不解開記憶體位置，也可以看出 thread 0 的 call stack 中：
 
 - 15 是 `start`
 - 14 是 KKBOX 的 main.m 裡頭的 `main`
@@ -97,6 +100,9 @@ stack 中：
 - 12-5 是在跑 run loop，而由於這是一個 exception，所以在 thread 0 中跟
   KKBOX 有關的部份，大概是 Google Analytics 或 Hockey App 的 exception
   handler
+
+而我們在前面拉拉雜雜講了許多基本觀念，都是為了這一章做準備：我們要了解
+什麼是 run loop，才有辦法了解這段 call stack 的 backtrace，對吧？
 
 在這份 crash report 中，其實我們更有興趣的是 Last Exception Backtrace
 這一段。這段資料代表的是 exception 發生當時到底發生了什麼事，也就是
