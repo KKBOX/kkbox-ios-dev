@@ -2,7 +2,9 @@ Crash Report 的三部分
 --------------------
 
 一份 crash report 大概分成三個部分。我們會用一份 crash report 說明，這
-份 crash report 來自於 KKBOX 的 QA，而且裡頭還沒有解開。
+份 crash report 來自於 KKBOX 的 QA，而且裡頭還沒有解開（symbolicate）
+－也就是說，從 crash report 的 call stack 這一段，我們只能夠看到發生問
+題的 function/method 的記憶體位置，而看不到錯誤發生在程式的哪一行。
 
 ### 環境摘要與錯誤主要原因
 
@@ -47,7 +49,59 @@ Triggered by Thread:  0
 ### Call Stack
 
 第二部分是每個 thread 當時的 call stack，讓我們可以看到每個 thread 當
-時在做些什麼事情。
+時在做些什麼事情。這邊會是了解問題的關鍵，因為我們要從這段資訊裡頭確實
+知道 crash 發生在程式的哪個地方。
+
+根據取得 crash report 的方式不同，你可能會看到不同格式的資料。比方說，
+當你直接從裝置上抓下來，你會看到完全沒有解開的 call stack，像這樣：
+
+```
+Last Exception Backtrace:
+(0x23e61132 0x321dec72 0x23e665f8 0x23e644d4 0x23d939d4 0x23e40272 0x24aefd96 0x24aefc46 0x755ba6 0x2776be1c 0x2776bede 0x27760a60 0x2756f2b6 0x27498c16 0x26eb7440 0x26eb2c90 0x26eb2b18 0x26eb24ba 0x26eb22aa 0x26f05ab8 0x2bad5bfe 0x24dd9d08 0x23e16550 0x23e26a46 0x23e269e2 0x23e25004 0x23d7099c 0x23d707ae 0x2b5201a4 0x274fb690 0xee070 0x32786aaa)
+
+Thread 0 name:  Dispatch queue: com.apple.main-thread
+Thread 0 Crashed:
+0   libsystem_kernel.dylib        	0x3284cdf0 0x32838000 + 85488
+1   libsystem_pthread.dylib       	0x328cdc92 0x328ca000 + 15506
+2   libsystem_c.dylib             	0x327eb934 0x327a2000 + 301364
+3   KKBOX                         	0x00a12ee2 0x10000 + 10497762
+4   KKBOX                         	0x00a6e620 0x10000 + 10872352
+5   CoreFoundation                	0x23e61466 0x23d57000 + 1090662
+6   libobjc.A.dylib               	0x321deefc 0x321d8000 + 28412
+7   libc++abi.dylib               	0x31a02dec 0x319eb000 + 97772
+8   libc++abi.dylib               	0x31a028b4 0x319eb000 + 96436
+9   libobjc.A.dylib               	0x321dedba 0x321d8000 + 28090
+10  CoreFoundation                	0x23d70a38 0x23d57000 + 105016
+11  CoreFoundation                	0x23d707ae 0x23d57000 + 104366
+12  GraphicsServices              	0x2b5201a4 0x2b517000 + 37284
+13  UIKit                         	0x274fb690 0x2748c000 + 456336
+14  KKBOX                         	0x000ee070 0x10000 + 909424
+15  libdyld.dylib                 	0x32786aac 0x32785000 + 6828
+```
+
+如果你是在你自己電腦上，用 Xcode 按下 Run，執行你的 App，因為 Xcode 幫
+你保留了 App 的 debug symbol，所以在裝置上發生 crash 的時候，你用
+Xcode 的 Devices 選單把 crash report 抓進來的時候，Xcode 會幫你用
+debug symbol，完整解開整份 crash report。
+
+但如果一份 crash report 是來自 QA，在 QA 的電腦上有 Xcode，但是並沒有
+對應的 debug symbol 時，Xcode 也會嘗試做 symbolicate，但只能夠解開像是
+UIKit、 CoreFoundation 之類的系統 library，但是看不到屬於你的 App 的哪
+部分。解開系統 library 的部份往往沒什麼用，以上面那個 log 來說，如果你
+熟悉 iOS 的運作，就算不解開記憶體位置，也可以看出 thread 0 的 call
+stack 中：
+
+- 15 是 `start`
+- 14 是 KKBOX 的 main.m 裡頭的 `main`
+- 13 是 UIApplicationMain
+- 12-5 是在跑 run loop，而由於這是一個 exception，所以在 thread 0 中跟
+  KKBOX 有關的部份，大概是 Google Analytics 或 Hockey App 的 exception
+  handler
+
+在這份 crash report 中，其實我們更有興趣的是 Last Exception Backtrace
+這一段。這段資料代表的是 exception 發生當時到底發生了什麼事，也就是
+exception 被 throw 出來的階段，而雖然 crash report 告訴我們發生 crash
+的 thread 0，但這時候 thread 0 只是 catch exception 的地方而已。
 
 ### Libraries
 
