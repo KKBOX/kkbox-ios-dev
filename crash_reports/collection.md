@@ -111,14 +111,23 @@ Crashlytics 或 HockeyApp，可以幫我們在 server 上就還原記憶體位�
 
 這些服務攔截 crash report 的原理是，當 exception 發生的時候，其實 App
 會對自己發送一個 UNIX signal，原始的 signal handler 做的事情就是在
-console 上 print 訊息、產生 crash report 並且停止應用程式，這些服務要
-求你在 App 啟動的時候，也啟動他們的服務，目的就在於增加額外的 signal
-handler，如此一來，他們便可以將 crash report 攔截下來，在下一次啟動的
-時候，再找個恰當的時間回傳。
+console 上 print 訊息、產生 crash report 並且停止應用程式。其實
+Objective-C 裡頭的 try...catch 也是透過 UNIX signal 實作的，我們不妨想
+像整個 App 其實都做了一個很大的 try...catch，只是這個 catch 做的事情就
+只有讓 App crash。
+
+這些服務要求你在 App 啟動的時候，也啟動他們的服務，目的就在於改變
+signal handler，讓他們可以將 crash report 攔截下來，在下一次啟動的時候，
+再找個恰當的時間回傳。
 
 如此一來我們可以知道：如果我們的 crash 發生在這些服務啟動之前，那麼這
 些服務也攔截不到 crash report，所以啟動這些服務的時機應該要盡可能早。
-不過，如果是我們的 App 記憶體用量使用太多，導致被系統中斷，這種 crash
+另外，由於這些 SDK 也改變了 signal handler 的行為，原本一些狀況下 App
+應該要發生 crash，當我們加了某些服務的 SDK 之後，他們的 signal handler
+的實作反而會是只收集 crash report，但是當 App 繼續執行；所以，當用戶回
+報某個功能無法使用，其實很有可能是已經發生了 exception。
+
+此外，如果是我們的 App 記憶體用量使用太多，導致被系統中斷，這種 crash
 report 也沒辦法蒐集到，因為這種 crash 是由外部的 watch dog 造成的，而
 不是內部的 UNIX signal 驅動的。
 
