@@ -64,7 +64,7 @@ KKExploreCardCollectionItemCell 是線上精選頁面 collection view 裡頭使
 
 當中第 159 行是
 
-```
+``` objc
 [self.subtitle drawWithRect:subtitleRect options:NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:12.0], NSParagraphStyleAttributeName: paragraphStyle, NSForegroundColorAttributeName: [UIColor colorWithHexString:@"#888888"]} context:nil];
 ```
 
