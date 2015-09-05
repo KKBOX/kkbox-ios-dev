@@ -81,17 +81,46 @@ crash report 存放的位置不太一樣。
 
 ### 透過第三方服務收集
 
-從 iTunes Connect 上很難掌握單一用戶發生的 crash，從用戶裝置上抓 log
-也很麻煩，因此像 Crashlytics 或 HockeyApp 等廠商就看準了這種需求推出服
-務，安裝這些服務的 SDK 後，這些服務會幫我們盡可能的收集 crash report，
-在 SDK 中設定必要的資訊後，我們便可以透過特定的 user ID，找到特定用戶
-發生的 crash。
+從 iTunes Connect 上很難掌握單一用戶發生的 crash，從用戶裝置上抓 log也
+很麻煩，因此像 TestFlight[^1]、 Crashlytics 或 HockeyApp 等廠商就看準了這
+種需求推出服務，安裝這些服務的 SDK 後，這些服務會幫我們盡可能的收集
+crash report，在 SDK 中設定必要的資訊後，我們便可以透過特定的 user ID，
+找到特定用戶發生的 crash。
 
 像 Crashlytics SDK，就可以呼叫 `+setUserIdentifier:`、
-`+setUserName:`與 `setUserEmail`[^1]，在 HockeyApp SDK 中，則是要在
+`+setUserName:`與 `setUserEmail`[^2]，在 HockeyApp SDK 中，則是要在
 App 中實作
 [BITHockeyManagerDelegate](http://hockeyapp.net/help/sdk/ios/3.0.0RC1/Protocols/BITHockeyManagerDelegate.html)
 protocol，告訴 HockeyApp 用戶 ID。
 
+在使用這些服務的時候，他們會告訴我們要上傳每個版本的 debug symbol，原
+因是，當我們發行 release build 的時候，compiler 會把程式中的 Debug 資
+訊抽掉，所以在發生 crash 時，crash log 中其實只有發生錯誤的
+function/method 的記憶體位置，必須要有 debug symbol 檔案才能還原。而
+Crashlytics 或 HockeyApp，可以幫我們在 server 上就還原記憶體位置，讓我
+們不必手動做這件事。
 
-[^1]: http://support.crashlytics.com/knowledgebase/articles/92521-how-do-i-set-user-information-
+我們在這邊不特別推薦使用哪一家的服務，建議你各自試試看，然後就功能與價
+格自行比較。
+
+如果我們在 App 中用了 Google 的 Google Analytics 服務，統計 App 中每個
+功能的用量，可以注意到，其實 Google 也會幫我們蒐集 crash report，但由
+於 Google Analytics 並不會還原記憶體，所以 Google Analytics 蒐集的資料，
+對我們解決問題沒有太多幫助，但 Google 的報表拿來看長時間 crash 的趨勢
+變化倒還頂不錯。
+
+這些服務攔截 crash report 的原理是，當 exception 發生的時候，其實 App
+會對自己發送一個 UNIX signal，原始的 signal handler 做的事情就是在
+console 上 print 訊息、產生 crash report 並且停止應用程式，這些服務要
+求你在 App 啟動的時候，也啟動他們的服務，目的就在於增加額外的 signal
+handler，如此一來，他們便可以將 crash report 攔截下來，在下一次啟動的
+時候，再找個恰當的時間回傳。
+
+如此一來我們可以知道：如果我們的 crash 發生在這些服務啟動之前，那麼這
+些服務也攔截不到 crash report，所以啟動這些服務的時機應該要盡可能早。
+不過，如果是我們的 App 記憶體用量使用太多，導致被系統中斷，這種 crash
+report 也沒辦法蒐集到，因為這種 crash 是由外部的 watch dog 造成的，而
+不是內部的 UNIX signal 驅動的。
+
+[^1]: 後來被蘋果併購
+[^2]: 參考 http://support.crashlytics.com/knowledgebase/articles/92521-how-do-i-set-user-information-
