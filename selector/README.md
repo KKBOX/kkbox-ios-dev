@@ -34,4 +34,4 @@ Localization 的時候[^1]，Localization 的簡短定義就是「讓你的 App 
 至於要更進一步了解 Selector，我們就要從一些更基本的事情開始講起：
 Objective-C 裡頭的物件以及 Class，到底是什麼？
 
-1: What's New in Internationalization https://developer.apple.com/videos/wwdc/2015/?id=227，2:30 左右
+[^1]: WWDC 2015  What's New in Internationalization https://developer.apple.com/videos/wwdc/2015/?id=227 ，2:30 左右
