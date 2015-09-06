@@ -1,8 +1,31 @@
-# KKBOX iOS/Mac OS X 基礎開發教材
+KKBOX iOS/Mac OS X 基礎開發教材
+===============================
 
-這份教材是為了 KKBOX iOS/Mac OS X 開發部門新人訓練期間所設計，目的是培
-養出可以開發、維護 KKBOX 的 iOS 與 Mac OS X 版本，以及我們其他軟體產品
-的工程師。
+這份教材是為了 KKBOX iOS/Mac OS X 開發部門的新人訓練所設計，目的是培養
+出可以開發、維護 KKBOX 的 iOS 與 Mac OS X 版本，以及我們其他軟體產品的
+工程師。
+
+## 寫給誰的？
+
+這不太算是一本入門的教材。編寫這份教材的時候，我們假設的讀者是已經寫過
+半年左右的 iOS 程式，甚至有一兩個 App 在架上，因為畢竟是為了新人訓練所
+設計，要我們雇用完全沒有經驗的 iOS 工程師，我想也很困難（其實也有這樣
+的案例，但真的為數不多）。所以我們假設在使用這份教材之前：
+
+1. 你已經會操作 Mac 電腦，也知道怎麼安裝 Xcode
+2. 你已經知道一些 Objective-C 語法
+3. 你已經知道一些 Foundation 物件怎麼使用
+4. 你已經知道怎樣使用一些 UIKit 物件
+5. 你會使用 Quartz 2D 畫圖
+6. 你知道怎麼處理在 iOS 裝置上實機執行的 certificate 與 provision profile
+
+## 你可以期待在這份教材看到什麼？
+
+這份教材的主要方向是把一些 iOS 工程師天天都在使用，但往往模模糊糊懵懵
+懂懂的觀念說清楚，首先從 Objective-C 這門語言是怎麼運作講起，再進一步
+講解在 iOS 與 Mac OS X 裝置上的 GUI App 如何運作，中間也會帶過一些重要
+的 Design Pattern，在閱讀的過程中再搭配實際練習，透過 coding 實際體會
+這些重要概念，最後具備有 coding，以及能夠清楚解決各種問題的能力。
 
 我們所重視的不是如何快速上手，而是偏重由下而上的學習：先了解整個開發框
 架的底層，以及整個框架的基本觀念，然後才去一個個去看在這個框架中有哪些
@@ -20,30 +43,19 @@ report，知道怎麼辨識問題並修正。
 版本，在這份教材中，我們會同時講到 iOS 與 Mac OS X，但如果同一個重要觀
 念同時出現在 iOS 與 Mac OS X 中，會以 iOS 為主。
 
-而無論 iOS 或 Mac OS X，都有非常龐大的 SDK 與第三方的生態圈，在各種
-API 與 library 的介紹上，也以 KKBOX 產品中會用到的為主，像我們在這份教
-材中，會打算講 Audio 相關的部份，絕大多數的 iOS 開發者可能並不需要知道
-如何在 iOS 上處理 Audio，但 KKBOX 是一家做音樂服務的公司。至於像遊戲開
-發等，雖然我們之前也用過像 Cocos2D 這些功能做過一些小專案，但不會在這
-邊佔上篇幅。
+在語言上，我們先講解 Objective-C，因為我們的主要產品大部分的 code 還是
+用 Objective-C 寫成的，只有使用少量的 Swift。而就我們的經驗，學過
+Objective-C 之後，轉換到 Swift 上也不會花太多的時間。
 
-在開始之前，我們假設你已經知道怎樣下載以及安裝 Xcode，怎樣在 Xcode中建
-立新的專案，也搞定了可以在實機上執行自己的 App 的憑證問題，也會使用
-Interface Builder 連結 IBOutlet。
+在各種 API 與 library 的介紹上，也以 KKBOX 產品中會用到的為主，像我們
+在這份教材中，會打算講 Audio 相關的部份，絕大多數的 iOS 開發者可能並不
+需要知道如何在 iOS 上處理 Audio，但 KKBOX 是一家做音樂服務的公司。至於
+像遊戲開發等，雖然我們之前也用過像 Cocos2D 這些功能做過一些小專案，但
+不會在這邊佔上篇幅，畢竟這份教材完全是為了 KKBOX 的需要而打造。
 
-你也應該已經懂了一些 Objective-C 基本語法，像是：所有的Objective-C 物
-件，都是一個指標，而想要呼叫 Objective-C 物件的method，語法就是使用中
-括弧夾起來，像是`[myObject myMethod]`。
-
-我們也假設你已經知道怎麼宣告一個 Objective-C物件，也知道怎麼使用一些基
-本的 Foundation 物件，像是字串要使用`NSString`、array 可以使用
-`NSArray`、要使用 hash table 的時候，可以呼叫`NSDictionary`，還有
-`NSSet`、`NSIndexPath`、`NSIndexSet`…。你大概也已經知道了 property語法，
-怎樣使用 for…in 寫一段 Fast Enumerating 等等。
-
-如果這些都還不熟西，可以先閱讀一些入門書籍，如
-[Objective-C Programming: The Big Nerd Ranch Guide](https://www.bignerdranch.com/we-write/objective-c-programming/)
-就相當不錯。
+其實在這份教材中絕大多數材料，都可以在蘋果文件與 WWDC 影片中找到，其實
+蘋果官方的文件比絕大多數的書籍都還要好，但這些資料非常多，當你想直接從
+蘋果文件學習開發的時候，這份教材也提供一份怎樣在文件之海中探索的方向。
 
 事先聲明：雖然在敘述上，我們只能夠按照章節順序排列，但是在整個 Cocoa
 Framework中，許多觀念其實互為因果或是互相糾纏，所以在某個章節中，可能
