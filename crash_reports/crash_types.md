@@ -78,8 +78,10 @@ if ([s isKindOfClass:[NSString class]]) {
 ```
 
 如果不這麼寫，就有可能發生 crash。真的要解決問題，第一個方法就是，我們
-以後就別寫 Objective-C 了，直接改寫 Swift，因為在 Swift 語法中會強迫我
-們做這件事情，我們在 Swift 中可能會寫出大量的 if let 語法：
+以後就別寫 Objective-C 了，直接改寫 Swift，一方面 Swift 的 array 與
+dictionary 可以透過 Generics 語言特性指定裡頭的物件型態，再來 Swift 語
+法中會經常強迫我們確認物件型別，在 Swift 中，我們可能會寫出大量的 if
+let 語法：
 
 ```
 if let s = aDict["key"] as? NSString {
@@ -87,13 +89,68 @@ if let s = aDict["key"] as? NSString {
 }
 ```
 
+再蘋果在 WWDC 2015 中，宣布 Objective-C 也可以選用 Generics 語法，應該
+也會有一些幫助。
+
 另外一個方式是，我們盡量避免直接使用 NSArray 或 NSDictionary 當 model，
 而是在這些物件上另外包裝一層我們自己的 model 物件，在想要取用某個
 property 的時候，這個 model class 會做好型別的判斷，確實回傳符合型別的
 物件。像 GitHub 推出的 open source 專案
-[Mantle](https://github.com/Mantle/Mantle) 就可以幫助我們撰寫這類的
-model 物件。
+[Mantle](https://github.com/Mantle/Mantle) ，就可以幫助我們撰寫這類的
+model 物件，在這個專案的設計中，透過大量的 tranformer 物件，讓每個
+property 都轉出正確的形態。
 
 #### nil 的操作
+
+無論是對 NSMutableArray 或 NSMutableDictionary 插入 nil，都會發生
+crash。要避免這個問題，就是在做插入的動作之前，都先檢查一下現在要插入
+的物件是否是 nil。
+
+要不然就是改寫 Swift：Swift 語法特別強調一個變數是否可以指向 nil，這項
+特性叫做 Optional，一個可以指向 nil 的變數必須設成 Optional，也就是變
+數後方必須加上一個問號，而這個變數以後每次出現，後方都一定會出現問號與
+驚嘆號。
+
+我們不打算在這邊講解太多 Swift，有些人說，蘋果推出 Swift 這門新語言，
+語法比較簡潔所以適合新手入門，這種說法就見仁見智，Swift 從 WWDC 2014推
+出之後語法一直變化，而且一直新增語言關鍵字，而問號驚嘆號更經常讓人眼花
+撩亂。不過，相較於 Objective-C，因為對 nil 與物件型態的強調，Swift會是
+一門更安全的語言。
+
+#### 一邊 enumerate 一邊改動 array
+
+假如我們一邊 enumerate 一個 array，一邊改動它，就會跳出 exception。像
+我們想要把一個 mutable 的字串 array 中，長度小於 3 的字串都拿掉，如果
+像以下這種寫法就會 crash：
+
+``` objc
+for (NSString *s in array) {
+	if ([s length] < 3) {
+	  [array removeObject:s]
+	}
+}
+```
+
+我們可以先把想刪除的物件先放到另外一個 array 中，再告訴原本的 array 要
+刪除哪些東西。
+
+``` objc
+NSMutableArray *arrayToDelete = [NSMutableArray array];
+for (NSString *s in array) {
+	if ([s length] < 3) {
+		[arrayToDelete addObject:s];
+	}
+}
+[array  removeObjectsInArray:arrayToDelete];
+```
+
+不過，如果我們想做的事情是想把一些東西從某個 array 濾掉，也可以考慮改
+用 NSPredicate。上面的 code 其實意思也就是：把長度大於 2 的字串留下來。
+
+``` objc
+NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.length > 2"];
+[a filterUsingPredicate:predicate];
+
+```
 
 #### UIKit 中的 assertion
