@@ -59,6 +59,7 @@
    * [練習：自行實作 NSNotificationCenter](notification_center/practice_kknotificationcenter.md)
 * [再談 Singleton](singleton/README.md)
 * [所謂的設計模式](design_patterns/README.md)
+   * [圖解設計模式](design_patterns/graphs.md)
    * [練習：閱讀程式碼](design_patterns/practice.md)
 * [Responder](responder/README.md)
    * [Run Loop](responder/run_loop.md)

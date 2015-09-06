@@ -9,7 +9,7 @@ class 的程式碼，正規作法就是繼承、建立新的subclass。那，我
 我能想到的，大概有幾種狀況：
 
 1. Foundation 物件
-2. 用 Abstract Factory Pattern 實作的物件
+2. 用 Factory Method Pattern 實作的物件
 3. Singleton 物件
 4. 在專案中出現次數已經多不勝數 的物件。
 
@@ -51,12 +51,18 @@ NSString，建立我們自己的 MyString，假如果我們並沒有 override
 原本關於建立 instance 的 method，我們也不能保證，建立出來的就是
 MyString 的 instance。
 
-### 用 Abstract Factory Pattern 實作的物件
+### 用 Factory Method Pattern 實作的物件
 
-在 Design Pattern 中所謂的 Abstract Factory Pattern，就是在某個 class
-底下，其實有一堆 subclass，但是這樣的狀況往往會讓人不知道底下這一堆
-subclass 個別的用途，所以在最上層提供了一個介面，我們只要 **對最上層的
-class，輸入指定的條件，就會從挑選一個符合指定條件的 subclass、建立
+Wikipedia 上對 Factory Method Pattern 的解釋是：
+
+> ...the factory method pattern is a creational pattern which uses
+> factory methods to deal with the problem of creating objects without
+> specifying the exact class of object that will be created.
+
+翻譯成中文：Factory Method Pattern 是一套用來解決不用特別指定是哪個
+class，就可以建立物件的方法。比方說，某個 class底下，其實有一堆
+subclass，但對外部來說並不需要確實知道這些 subclass而是只要 **對最上層
+的class，輸入指定的條件，就會從挑選一個符合指定條件的 subclass、建立
 instance 回傳** 。
 
 在 UIKit 中，UIButton 就是個好例子。我們在建立 UIButton 物件的時候，並

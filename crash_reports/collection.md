@@ -1,7 +1,7 @@
-如何收集 Crash Reports
+如何蒐集 Crash Reports
 ----------------------
 
-在知道怎麼閱讀 crash report 之前，我們首先要收集到 crash report。
+在閱讀 crash report 之前，我們首先要能夠蒐集 crash report。
 
 ### 透過 Xcode 收集
 
