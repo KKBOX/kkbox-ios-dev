@@ -4,9 +4,10 @@ Crash 的類型
 在蘋果官方文件
 [Technical Note TN2151 Understanding and Analyzing iOS Application Crash Reports](https://developer.apple.com/library/ios/technotes/tn2151/_index.html)
 上，可以看到完整的錯誤說明，當中最常見的是 Bad Memory
-Access（EXC\_BAD\_ACCESS / SIGSEGV / SIGBUS） 與 Abnormal Exit
-（EXC\_CRASH / SIGABRT）這兩項。如果遇到了在這之外的錯誤，可以參考前述
-蘋果文件。
+Access（EXC\_BAD\_ACCESS / SIGSEGV / SIGBUS） 與 Abnormal
+Exit（EXC\_CRASH / SIGABRT）這兩項。如果遇到了在這之外的錯誤，可以參考
+前述蘋果文件，尤其是像錯誤代碼為 00000020 這類的「其他錯誤」，大概也就
+只有這篇文件可以參考，去 Stack Overflow 也不見得可以找到答案。
 
 ### Bad Memory — 記憶體錯誤
 
@@ -154,3 +155,25 @@ NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.length > 2"];
 ```
 
 #### UIKit 中的 assertion
+
+UIKit 中有不少跟資料一致性相關的 assertion。當我們要求一個 table view
+刪除或加入某些列、同時帶有動畫效果的時候（透過呼叫
+`-insertRowsAtIndexPaths:withRowAnimation:` 與
+`-deleteRowsAtIndexPaths:withRowAnimation:` 這些 method），如果 table
+view 的 data source 沒有對應的變化—像原本 table view 裡頭有六列，我們
+要求刪除一列，但 table view 的 data source 並沒有變成五列，那麼就會造
+成 table view crash。
+
+所以在遇到經常變動的 model 的時候，我們需要考慮關閉動畫效果。以 KKBOX
+的歌單功能來說，我們除了可以讓用戶手動編輯歌單之外，歌單的內容也可能因
+為背景的同步作業、或是下載歌曲的狀態改變而更動；如果在 table view 中出
+現動畫的時候，發生這些狀況，就會 crash。
+
+在使用 UIKit 的各種元件的時候，我們要對 0.25 秒這個時間保持敏感，絕大
+多數在 UIKit 中的動畫效果都是 0.25 秒，像上面提到的 table view 新增或
+刪除 row 的動畫、UINavigationController push 或 pop view controller 的
+動畫，鍵盤升起的動畫，以及 present modal view 的動畫（這個在 iOS 7 之
+後倒是有一些改變）等等。如果在一個動畫執行到一半的時候，我們的 App 又
+要做一件跟這件動畫相反的事情（像 navigation controller push 的動畫還沒
+做完，我們就叫它 pop），狀況好一點，是 view heirarchy 會變亂，畫面變得
+亂七八糟，狀況不好就是直接 crash 了。
