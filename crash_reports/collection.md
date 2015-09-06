@@ -95,10 +95,11 @@ protocol，告訴 HockeyApp 用戶 ID。
 
 在使用這些服務的時候，他們會告訴我們要上傳每個版本的 debug symbol，原
 因是，當我們發行 release build 的時候，compiler 會把程式中的 Debug 資
-訊抽掉，所以在發生 crash 時，crash log 中其實只有發生錯誤的
-function/method 的記憶體位置，必須要有 debug symbol 檔案才能還原。而
-Crashlytics 或 HockeyApp，可以幫我們在 server 上就還原記憶體位置，讓我
-們不必手動做這件事。
+訊抽掉—不然所有人只要一拿到 crash report，就可以輕鬆知道我們 App 是怎
+麼寫的，而形成安全性的風險。所以在發生 crash 時，crash log 中其實只有
+發生錯誤的 function/method 的記憶體位置，必須要有 debug symbol 檔案才
+能還原。而 Crashlytics 或 HockeyApp，可以幫我們在 server 上就還原記憶
+體位置，讓我們不必手動做這件事。
 
 我們在這邊不特別推薦使用哪一家的服務，建議你各自試試看，然後就功能與價
 格自行比較。
