@@ -6,12 +6,14 @@ Objective-C 物件有哪些 method，就是這個物件的 Class 的 virtual tab
 Objective-C 中可以做很多神奇的事情，同時也造成了 Objective-C 這門語言
 的限制。
 
-Objective-C 的神奇之處，就在於，既然物件有哪些 method 可以在 runtime決
-定，因此每個物件也都可以在 runtime 的時候改變。我們可以在不用繼承物件
-的情況下，就增加新的 method，通常最常見作法的就是我們接下來要討論的
+Objective-C 的神奇之處，就在於，既然物件有哪些 method 可以在 run time
+決定，因此每個物件也都可以在 run time 的時候改變。我們可以在不用繼承物
+件的情況下，就增加新的 method，通常最常見作法的就是我們接下來要討論的
 category，我們也可以隨時把既有的 selector 指到不同的 C function
 pointer 上，像是把兩個 selector 所指向的 function pointer 交換，這種交
 換 selector 實作的作法叫做 method swizzling—我們暫時還不會討論到這邊。
+
+![selector3.png](selector3.png)
 
 由於一個 selector 只會指向一個實作，因此， Objective-C 不會有 C++、
 Java、C\#等語言當中的

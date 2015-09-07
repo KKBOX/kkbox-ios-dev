@@ -43,12 +43,15 @@ obj->a = 10;
 
 ### 對 Class 加入 method
 
-在執行的時候，runtime 會為每個 Class準備好一張表格（專用術語叫做
+在執行的時候，runtime 會為每個 class 準備好一張表格（專用術語叫做
 virtual table），表格裡頭會以一個字串當 key，每個 key 會對應到 C
-function的指標位置。Runtime 裡頭，把實作的 C function 定義成 `IMP` 這
-個type；至於拿來當作 key 的字串，就叫做selector，type 定義成 `SEL`，然
-後我們可以使用 @selector 關鍵字建立selector。而其實 `SEL` 就是 C字串，
-我們可以來寫點程式檢查一下：
+function 的指標位置。Run time 裡頭，把實作的 C function 定義成 `IMP`
+這個type；至於拿來當作 key 的字串，就叫做 selector，type 定義成 `SEL`，
+然後我們可以使用 @selector 關鍵字建立 selector。
+
+![selector1.png](selector1.png)
+
+而其實 `SEL` 就是 C 字串，我們可以來寫點程式檢查一下：
 
 ``` objc
 NSLog(@"%s", (char *)(@selector(doSomething)));
@@ -68,7 +71,7 @@ NSLog(@"%s", (char *)(@selector(doSomething)));
 
 或是透過 `performSelector:` 呼叫。 `performSelector:` 是 `NSObject` 的
 method，而在 Cocoa Framework 中所有的物件都繼承自 `NSObject`，所以每個
-勿建都可以呼叫這個 method。
+物件都可以呼叫這個 method。
 
 ``` objc
 [myObject performSelector:@selector(doSomething)];
@@ -87,18 +90,18 @@ objc_msgSend(myObject, @selector(doSomething), NULL};
 「對 receiver 傳遞message」，這則是沿用來自 Small Talk 的術
 語—Objective-C 受到了 Small Talk 語言的深刻影響—但其實也是同一件事。
 
-因為一個 Class 有哪些 method，是在 runtime一個一個加入的；所以我們就有
-機會在程式已經在執行的時候，繼續對某個 Class加入新 method，一個 Class
-已經存在了某個 method，也可以在 runtime用別的實作換掉，一般來說，我們
-會用 Category 做這件事情，不過 Category會是下一章的主題，會在下一章繼
-續討論。
+因為一個 Class 有哪些 method，是在 run time 一個一個加入的；所以我們就
+有機會在程式已經在執行的時候，繼續對某個 Class 加入新 method，一個
+Class已經存在了某個 method，也可以在 run time 用別的實作換掉，一般來說，
+我們會用 Category 做這件事情，不過 Category會是下一章的主題，會在下一
+章繼續討論。
 
-我們在這裡首先要記住一件非常重要的事：在 Objective-C 中，一個 Class會
-有哪些method，並不是固定的，如果我們在程式中對某個物件呼叫了目前還不存
-在的method，編譯的時候，compiler並不會當做編譯錯誤，只會發出警告而已，
-而跳出警告的條件，也就只有是否有引入的header 中到底有沒有這個 method而
-已，所以我們一不小心，就很有可能呼叫到了沒有實作的method（或這麼說，我
-們要求執行的 selector並沒有對應的實作）。如果我們是使用
+我們在這裡首先要記住一件非常重要的事：在 Objective-C 中，一個 class 會
+有哪些 method，並不是固定的，如果我們在程式中對某個物件呼叫了目前還不
+存在的 method，編譯的時候，compiler 並不會當做編譯錯誤，只會發出警告而
+已，而跳出警告的條件，也就只有是否有引入的 header 中到底有沒有這個
+method而已，所以我們一不小心，就很有可能呼叫到了沒有實作的method（或這
+麼說，我們要求執行的 selector並沒有對應的實作）。如果我們是使用
 `performSelector:`呼叫，更是完全不會有警告。直到實際執行的時候，才發生
 unrecognized selector sent to instance 錯誤而導致應用程式 crash。
 
@@ -106,15 +109,16 @@ unrecognized selector sent to instance 錯誤而導致應用程式 crash。
 加入。蘋果認為你會寫出呼叫到沒有實作的selector，必定是因為你接下來在某
 個時候、某個地方，就會加入這個 method的實作。
 
-由於 Objective-C 語言中，物件有哪些 method 可以在 runtime改變，所以我
-們也會將 Objective-C 列入像是 Perl、Python、Ruby等所謂的動態語言
+由於 Objective-C 語言中，物件有哪些 method 可以在 run time 改變，所以
+我們也會將 Objective-C 列入像是 Perl、Python、Ruby等所謂的動態語言
 （Dynamic Language）之林。而在寫這樣的動態物件導向語言時，一個物件到底
-有哪些method 可以呼叫，往往會比這個物件到底是屬於哪個 Class 更為重要。
+有哪些method 可以呼叫，往往會比這個物件到底是屬於哪個 class 更為重要。
 [^2]
 
-如果我們不想要用 Category，而想要自己動手寫點程式，手動將某些 method加
-入到某個 Class 中，我們可以這麼寫。首先宣告一個 C function，只少要有兩
-個參數，第一個參數是執行 method 的物件，第二個參數是seelctor，這這樣：
+如果我們不想要用 category，而想要自己動手寫點程式，手動將某些 method
+加入到某個 class 中，我們可以這麼寫。首先宣告一個 C function，只少要有
+兩個參數，第一個參數是執行 method 的物件，第二個參數是 selector，這這
+樣：
 
 ``` objc
 void myMethodIMP(id self, SEL _cmd) {
@@ -136,6 +140,8 @@ class_addMethod([MyClass class], @selector(myMethod), (IMP)myMethodIMP, "v@:");
 MyClass *myObject = [[MyClass alloc] init];
 [myObject myMethod];
 ```
+
+![selector2.png](selector2.png)
 
 [^1]: 不過，如果你直接在程式裡頭這麼呼叫，Xcode 會在編譯的時候發出警告，告訴你在不久的將來會禁止這樣直接呼叫物件的成員變數，如果想要取用成員變數，必須另外寫 getter/setter。而如果這個成員變數被宣告成是 private 的，Xcode 會直接出現編譯錯誤，禁止你這樣呼叫。
 

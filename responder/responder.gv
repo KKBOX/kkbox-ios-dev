@@ -1,4 +1,7 @@
 digraph G {
-	rankdir=LR;
-	"硬體"->"OS"->"Application"->"Window"->"First Responder"
+    rankdir=LR;
+    "硬體"->"OS"->"Application"
+	"Application"->"Window"[label="sendEvent:"]
+	"Window"->"View"[label="sendEvent:"]
+	"View"->"Subview"[label="hitTest:withEvent:"]
 }

@@ -1,0 +1,24 @@
+digraph G {
+	rankdir=LR;
+	node [style=filled,color=white];
+	 subgraph cluster0 {
+	 	 label="Selectors"
+		 fontsize=20
+		 "\"doAThing\""
+		 "\"doAnotherThing\""
+		 "\"doSomeThing\""
+	}
+	 subgraph cluster1 {
+	 	 label="Function Pointers"
+		 fontsize=20
+		 "0xaabb"
+		 "0xbbcc"
+		 "0xccdd"
+	}
+
+	"\"doAThing\""->"0xaabb"[style="dotted"]
+	"\"doAnotherThing\""->"0xbbcc"[style="dotted"]
+	"\"doAThing\""->"0xbbcc"
+	"\"doAnotherThing\""->"0xaabb"
+	"\"doSomeThing\""->"0xccdd"
+}
