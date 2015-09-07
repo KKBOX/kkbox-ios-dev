@@ -92,5 +92,7 @@
    * [練習：閱讀 Crash Reports](crash_reports/practice.md)
 * [Core Animation](core_animation/README.md)
 * [Audio APIs](audio_apis/README.md)
+   * [基礎知識](audio_apis/basics.md)
+   * [相關閱讀](audio_apis/reading_list.md)
 * [Accessibility](accessibility/README.md)
 * [Reading List](reading_list/README.md)
