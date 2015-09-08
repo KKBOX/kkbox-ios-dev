@@ -1,7 +1,7 @@
 {
     "title": "KKBOX iOS/Mac OS X 基礎開發教材",
     "language": "zh-TW",
-    "gitbook": ">=2.0.0",
+    // "gitbook": ">=2.0.0",
     "plugins": [],
     "pluginsConfig": {},
     "pdf": {
