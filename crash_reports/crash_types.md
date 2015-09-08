@@ -118,6 +118,11 @@ crash。要避免這個問題，就是在做插入的動作之前，都先檢查
 撩亂。不過，相較於 Objective-C，因為對 nil 與物件型態的強調，Swift會是
 一門更安全的語言。
 
+#### Out of Bounds
+
+如果一個 array 只有兩筆資料，但我們卻去要第三筆資料，就會產生 out of
+bounds 錯誤。
+
 #### 一邊 enumerate 一邊改動 array
 
 假如我們一邊 enumerate 一個 array，一邊改動它，就會跳出 exception。像

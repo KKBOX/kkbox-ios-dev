@@ -11,8 +11,8 @@ KKBOX 是一套音樂服務，總是要來講一些跟 Audio 相關的開發。
 AVFoudation Framework 就有 AVPlayer 與 AVAudioPlayer ，AVAudioPlayer
 可以輕鬆播放 local 的音訊檔案，而 AVPlayer 可以播放網路上的影音串流。
 如果我們開發的 App 是一款遊戲，想要在遊戲過程中觸發音效，像開槍的時候
-可以發出槍響，在 SpriteKit 裡頭，SKAction 的 `
-+ laySoundFileNamed:waitForCompletion:` 也非常好用。
+可以發出槍響，在 SpriteKit 裡頭，SKAction 的`+
+laySoundFileNamed:waitForCompletion:` 也非常好用。
 
 然而，因為 KKBOX 的商業需求，以及用戶期待的功能，我們沒辦法使用這些高
 階 API 開發 KKBOX，必須使用更底層的 Core Audio API，而就整個 Mac OS X
