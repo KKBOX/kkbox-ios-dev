@@ -87,6 +87,8 @@
    * [實戰：Bad Access](crash_reports/crash_on_bad_access.md)
    * [實戰：因為 Category 造成的 Crash](crash_reports/crash_on_category.md)
       * [Crash Report](crash_reports/crash_on_category_log.md)
+   * [實戰：JB 造成的 Exception](crash_reports/crash_on_exception_jb.md)
+      * [Crash Report](crash_reports/crash_on_exception_jb_log.md)
    * [實戰：背景作業執行太久](crash_reports/crash_on_baskcground_task_too_long.md)
       * [Crash Report](crash_reports/crash_on_baskcground_task_too_long_log.md)
    * [相關閱讀](crash_reports/reading_list.md)

@@ -1,4 +1,5 @@
-# 實戰：Bad Access
+實戰：Bad Access
+----------------
 
 因為在 ARC 問世後，Bad Access 造成的 crash 的確少很多，所以在這邊放的
 是一份在 2012 年時為了解釋 Bad Access 是如何形成而留下來的 crash
