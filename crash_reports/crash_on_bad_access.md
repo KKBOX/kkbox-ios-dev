@@ -22,9 +22,10 @@ report 解開，也可以看出，0x0005995e 這個位置會是某個 view contr
 
 雖然 iOS 5 就推出了 ARC，但當時很多在 iOS 5 問世之前就寫出來的 App，並
 沒有立刻轉換到 ARC 架構上，這份 crash report 呈現了當時這段轉換期。另
-外，我們在[Crash 的類型](crash_types.md)也提到，在 `viewDidUnload` 最
-容易發生的，就是忘記像 UIButton 這種建立時就是 auto release 的物件給
-retain 起來，然後在 `viewDidUnload` 的時候多 release 了一次。
+外，我們在[常見 Crash 的類型](crash_types.md)也提到，在
+`viewDidUnload` 最容易發生的，就是忘記像 UIButton 這種建立時就是 auto
+release 的物件給retain 起來，然後在 `viewDidUnload` 的時候多 release
+了一次。
 
 ```
 Incident Identifier: 3486ADCD-070E-43C8-ADC0-44E254DB92E8
@@ -70,4 +71,4 @@ Thread 0 Crashed:
 20  UIKit                           0x33a13e76 UIApplicationMain + 1074
 21  Pinterest                       0x0000328a 0x1000 + 8842
 22  Pinterest                       0x00003248 0x1000 + 8776
- ```
+```
