@@ -84,6 +84,7 @@
    * [解開記憶體位置](crash_reports/symbolicate.md)
    * [Crash 的類型](crash_reports/crash_types.md)
    * [禪與 App 維修的藝術](crash_reports/zen.md)
+   * [實戰：Bad Access](crash_reports/crash_on_bad_access.md)
    * [實戰：因為 Category 造成的 Crash](crash_reports/crash_on_category.md)
       * [Crash Report](crash_reports/crash_on_category_log.md)
    * [實戰：背景作業執行太久](crash_reports/crash_on_baskcground_task_too_long.md)
