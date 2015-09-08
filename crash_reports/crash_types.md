@@ -1,5 +1,5 @@
-Crash 的類型
-------------
+常見 Crash 的類型
+-----------------
 
 在蘋果官方文件
 [Technical Note TN2151 Understanding and Analyzing iOS Application Crash Reports](https://developer.apple.com/library/ios/technotes/tn2151/_index.html)
@@ -174,11 +174,11 @@ view 的 data source 沒有對應的變化—像原本 table view 裡頭有六�
 為背景的同步作業、或是下載歌曲的狀態改變而更動；如果在 table view 中出
 現動畫的時候，發生這些狀況，就會 crash。
 
-在使用 UIKit 的各種元件的時候，我們要對 0.25 秒這個時間保持敏感，絕大
-多數在 UIKit 中的動畫效果都是 0.25 秒，像上面提到的 table view 新增或
-刪除 row 的動畫、UINavigationController push 或 pop view controller 的
-動畫，鍵盤升起的動畫，以及 present modal view 的動畫（這個在 iOS 7 之
-後倒是有一些改變）等等。如果在一個動畫執行到一半的時候，我們的 App 又
-要做一件跟這件動畫相反的事情（像 navigation controller push 的動畫還沒
-做完，我們就叫它 pop），狀況好一點，是 view heirarchy 會變亂，畫面變得
-亂七八糟，狀況不好就是直接 crash 了。
+此外，在使用 UIKit 的各種元件的時候，我們要對 0.25 秒這個時間保持敏感，
+絕大多數在 UIKit 中的動畫效果都是 0.25 秒，像上面提到的 table view 新
+增或刪除 row 的動畫、UINavigationController push 或 pop view
+controller 的動畫，鍵盤升起的動畫，以及 present modal view 的動畫（這
+個在 iOS 7 之後倒是有一些改變）等等。如果在一個動畫執行到一半的時候，
+我們的 App 又要做一件跟這件動畫相反的事情（像 navigation controller
+push 的動畫還沒做完，我們就叫它 pop），狀況好一點，是 view heirarchy
+會變亂，畫面變得亂七八糟，狀況不好就是直接 crash 了。

@@ -1,22 +1,22 @@
 digraph G {
-	rankdir=LR;
-	node [style=filled,color=white];
-	 subgraph cluster0 {
-	 	 label="Selectors"
-		 fontsize=20
-		 "\"doAThing\""
-		 "\"doAnotherThing\""
-		 "\"doSomeThing\""
-	}
-	 subgraph cluster1 {
-	 	 label="Function Pointers"
-		 fontsize=20
-		 "0xaabb"
-		 "0xbbcc"
-		 "0xccdd"
-	}
+    rankdir=LR;
+    node [style=filled,color=white];
+     subgraph cluster0 {
+         label="Selectors"
+         fontsize=20
+         "\"doAThing\""
+         "\"doAnotherThing\""
+         "\"myMethod\""
+    }
+     subgraph cluster1 {
+         label="Function Pointers"
+         fontsize=20
+         "0xaabb"
+         "0xbbcc"
+         "0xccdd"
+    }
 
-	"\"doAThing\""->"0xaabb"
-	"\"doAnotherThing\""->"0xbbcc"
-	"\"doSomeThing\""->"0xccdd"
+    "\"doAThing\""->"0xaabb"
+    "\"doAnotherThing\""->"0xbbcc"
+    "\"myMethod\""->"0xccdd"
 }
