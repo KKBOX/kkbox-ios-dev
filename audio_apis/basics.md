@@ -93,3 +93,5 @@ moov 與 mdat 不一定要哪個在前哪個在後，但如果你要使用 Core 
 5. 按照播放硬體的播放進度，定時把這些 packet 交給 converter，讓
    converter 呼叫 codec，將我們的 packet 轉換成 PCM 格式
 6. 讓 Audio 硬體播放 PCM 格式的資料
+
+![流程圖](flow.png)

@@ -1,0 +1,23 @@
+title 串流網路音樂的流程
+
+
+Player->Server: 要求音檔資料
+Server->Player: callback: 回傳第一包音檔資料
+Player->Parser: 輸入第一包音檔資料
+Parser->Player: callback: 回傳分析出的音檔格式
+
+loop
+Player->Server: 繼續要求音檔資料
+Server->Player: callback: 回傳音檔資料
+Player->Parser: 輸入音檔資料
+Parser->Player: callback: 回傳分析出的 packet 
+    note over Player: 保存 packet，等待 packet 到數量足夠。開始播放
+end
+
+loop
+    Player->Converter: 輸入 packet
+    Converter->Player: callback: 回傳 PCM 格式的資料
+    Player->Audio Hardware: 播放 PCM 格式的資料
+    Audio Hardware->Player: callback: 播放完畢，要求後面的資料
+end
+

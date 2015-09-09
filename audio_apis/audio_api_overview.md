@@ -77,12 +77,42 @@ OpenAL 裡頭缺乏音效播放完畢的 callback 機制，不會通知我們哪
 完畢，當然也可以用 timer 算好時間播放某個 buffer，但我們前面也提到了
 timer 的原理，知道 timer 其實並不精確。
 
-### NSSound、QuickTime、AVFoundation
+### NSSound、QuickTime、AV Foundation
+
+NSSound、QuickTime 與 AV Foundation 是 Mac OS X 與 iOS 上的高階 API，
+只要提供檔案的遠端或本機 URL，便可以直接開始播放，
 
 NSSound 主要是用在 Mac 上用來播放簡短的提示音效用的 API—當然，當我們只
-想要在 Mac 上發出一個用來提示錯誤用的聲響，也可以簡單呼叫 `NSBeep()`
-就可以了—雖然定位很接近 System Sound Services，但 NSSound 其實可以載入
-多種格式、而且檔案長度較長的音檔。
+想要在 Mac 上發出一個用來提示錯誤用的聲響，也可以簡單呼叫 `NSBeep()`就
+可以了—雖然定位很接近 System Sound Services，但 NSSound 其實可以載入多
+種格式、而且檔案長度較長的音檔，我們還可以知道播放的檔案長度，要求指定
+的播放時間位置（random seek），還可以調整音量、要求一直 loop 重播等。
+
+雖然 NSSound 可以說是一個完整的 Audio Player，不過定位上還是偏向用來播
+放系統提示音效在蘋果為了 API 一致、將 AV Foundation 從 iOS port 回 Mac
+之前，在 Mac 上播放各種媒體檔案，會更常使用 QuickTime API 裡頭的
+QTMovie 這個 Class。QTMovie 可以做到 Mac OS X 系統中 QuickTime Player
+可以做到的事情，除了播放 audio 之外，還包括播放甚至編輯 QuickTime 影片
+的功能。不過，蘋果在 Mac OS X 10.9 中就將 QTMovie 標成 deprecated。
+
+在 Mac 與 iOS 上的 AV Foundation 不完全相同。在 AV Foundation 裡頭有三
+個直接與 Audio 播放相關的 class，按照出現的時間排列，分別為
+AVAudioPlayer、AVPlayer 與 AVAudioEngine。
+
+AVAudioPlayer 是在 iPhoneOS 2.2 上推出的，大概是在 iPhoneOS SDK 問世後
+半年左右出現的 API。用 AVAudioPlayer 相當適合用在像是播放遊戲背景音樂
+等應用上，這個 class 明顯的優點是可以播放多種格式的檔案，但也有兩個明
+顯的缺點。
+
+其一是 AVAudioPlayer 只能夠播放位在本機的檔案，而無法指定放在網路上的
+URL 播放，所以，直到 iOS 4 AVPlayer 推出之前，在播放網路上的音檔時，如
+果不想要用底層的 C API，要不就是先把整個檔案抓下來之後用 AVPlayer 播放，
+要不就是用 UIWebView 開啟，但整個畫面都會變成 web view 的播放畫面。
+KKBOX 的 iOS 版本是在 2009 年一月，大約 iPhoneOS 2.1 版左右的時候推出，
+於是只能選擇更底層的 API。
+
+AVAudioPlayer 的另外一個缺點則是，蘋果在 iOS 4 開始支援背景執行，其中
+支援背景 audio 播放，但 AVAudioPlayer 無法在背景播放 audio。
 
 
 ### Audio Queue
