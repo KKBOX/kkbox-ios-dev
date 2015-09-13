@@ -100,6 +100,7 @@
    * [使用 Audio Queue 開發播放軟體](audio_apis/audio_queue.md)
    * [使用 Audio Unit Processing Graph 開發播放軟體](audio_apis/audio_unit_graph.md)
    * [Audio Session](audio_apis/audio_session.md)
+   * [教學影片](audio_apis/video.md)
    * [相關閱讀](audio_apis/reading_list.md)
 * [Accessibility](accessibility/README.md)
 * [Reading List](reading_list/README.md)

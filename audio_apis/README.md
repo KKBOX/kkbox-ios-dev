@@ -1,10 +1,6 @@
 Audio APIs
 ==========
 
-<iframe width="560" height="315"
-src="https://www.youtube.com/embed/vCWNQ0BK2iI" frameborder="0"
-allowfullscreen></iframe>
-
 KKBOX 是一套音樂服務，總是要來講一些跟 Audio 相關的開發。
 
 如果只是想要在 iOS 裝置上播放聲音，其實有不少高階而且簡易的 API。在
@@ -15,7 +11,7 @@ AVFoudation Framework 就有 AVPlayer 與 AVAudioPlayer ，AVAudioPlayer
 laySoundFileNamed:waitForCompletion:` 也非常好用。
 
 然而，因為 KKBOX 的商業需求，以及用戶期待的功能，我們沒辦法使用這些高
-階 API 開發 KKBOX，必須使用更底層的 Core Audio API，而就整個 Mac OS X
-與 iOS 開發中會用到的 API 來論，Core Audio API 是出了名的難用。我們在
+階 API 開發 KKBOX，必須使用更底層的 audio API，而就整個 Mac OS X與 iOS
+開發中會用到的 API 來論，跟 audio 相關的 API 都是出了名的難用。我們在
 這一章中會講比較少的 code，而會花比較多力氣講解寫一套 Audio Player 需
 要用到哪些東西。

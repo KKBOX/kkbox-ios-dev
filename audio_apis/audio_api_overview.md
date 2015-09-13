@@ -184,3 +184,28 @@ function 回傳的時間通常也不是很精確。
 開發了使用 Audio Unit Processing Graph API 為基礎的播放器。
 
 ### Audio Unit Processing Graph
+
+如果我們想要對音訊播放擁有最完整的控制，那我們最後的選擇，就是最底層的
+Audio Unit Processing Graph 這層 API。上面提到的不少 API，像 OpenAL、
+Audio Queue 以及 AVFoudation 等，也是在這一層 API 上架構的。
+
+我們先來解釋一個名詞：Core Audio。Core Audio 是蘋果的整個 audio 的架構
+底層，我們前面所講的 Audio Toolbox framework 的 API，是屬於 Core Audio
+的應用層，Audio Unit Processing Graph 算是應用層的最底層，已經距離操控
+硬體不遠了。
+
+此外還有我們平常比較不會接觸到的硬體與 codec 這幾塊，在 iOS上我們完全
+無法修改，但是在 Mac OS X 上，如果我們做了什麼新的 audio 硬體，或是要
+讓 Mac 的 player 支援某些新的檔案格式，開發者還是可以在 Core Audio 架
+構上寫新的 driver 或 codec，像我們想在 Mac 上播放微軟的 WMA，或是
+RealPlayer 的格式的話，就得安裝額外的 codec。至於用來控制各種外部的電
+子樂器，則會用到 Core MIDI framework，這也是 Core Audio 的一部分。
+
+Audio Unit Processing Graph 是一個可以處理播放與錄音的 API，這層把
+audio 播放的處理過程，抽象化變成一個個的組件，我們可以透過組合這些組件
+創造我們想要的錄製與播放效果。大概來說，Audio Unit Processing Graph
+API 裡頭有三個主要的角色：
+
+- AUNode
+- AudioUnit
+- AUGraph

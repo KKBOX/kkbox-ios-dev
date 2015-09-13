@@ -208,9 +208,9 @@ Toll-Free Bridged 有三個語言關鍵字： `__bridge`、 `__bridge_retained`�
 ----
 
 Objetive-C 語言有了 ARC 之後，除了禁止使用 retain、release 這些關鍵字
-之外，也禁止了一些我們在 ARC 之前的程式寫作方式（或是—奇技淫巧），包括
-我們不可以把Objective-C 物件放進 C Structure 裡頭，Compiler 會告訴我們
-語法錯誤。
+之外，也禁止我們手動建立 NSAutoreleasePool，同時禁止了一些我們在 ARC
+之前的程式寫作方式（或是—奇技淫巧），包括我們不可以把Objective-C 物件
+放進 C Structure 裡頭，Compiler 會告訴我們語法錯誤。
 
 在有 ARC 之前，我們之所以會把 Objective-C 物件放進 C Structure 裡，大
 概會有幾個目的，其一是，假如我們有某個 Class 有很多成員變數，那我們可
@@ -289,7 +289,8 @@ class-dump 衍生出的
 當我們從 class-dump 抽出別人的 App 的 header，看出有哪些 Class，每個
 Class 有哪些成員變數、有哪些 method，也就可以看出整個 App 的架構大致如
 何。這種寫法就是讓別人用 class-dump 倒出我們 App 的 header 時，不會太
-容易可以了解我們一些重要的 Class 是如何運作。
+容易可以了解我們一些重要的 Class 是如何運作，不過，對於做軟體破解的人
+來說，其實只要花上時間，所有軟體都有辦法破解就是了。
 
 怎樣做逆向工程不是這份文件的重點。總之，有了 ARC 之後，我們都無法繼續
 使用以上兩種的程式寫作方式。
@@ -298,8 +299,8 @@ Class 有哪些成員變數、有哪些 method，也就可以看出整個 App �
 --------
 
 - [ARC Best Practices](http://amattn.com/p/arc_best_practices.html)
-- [Transitioning to ARC Release Notes](https://developer.apple.com/library/ios/releasenotes/ObjectiveC/RN-TransitioningToARC/Introduction/Introduction.html)
-- [Advanced Memory Management Programming Guide](https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/MemoryMgmt/Articles/MemoryMgmt.html#//apple_ref/doc/uid/10000011i)
-- [Memory Management Programming Guide for Core Foundation](https://developer.apple.com/library/ios/documentation/CoreFoundation/Conceptual/CFMemoryMgmt/CFMemoryMgmt.html#//apple_ref/doc/uid/10000127i)
-- [Toll-Free Bridged Types](https://developer.apple.com/library/ios/documentation/CoreFoundation/Conceptual/CFDesignConcepts/Articles/tollFreeBridgedTypes.html)
+- [蘋果官方文件 Transitioning to ARC Release Notes](https://developer.apple.com/library/ios/releasenotes/ObjectiveC/RN-TransitioningToARC/Introduction/Introduction.html)
+- [蘋果官方文件 Advanced Memory Management Programming Guide](https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/MemoryMgmt/Articles/MemoryMgmt.html#//apple_ref/doc/uid/10000011i)
+- [蘋果官方文件 Memory Management Programming Guide for Core Foundation](https://developer.apple.com/library/ios/documentation/CoreFoundation/Conceptual/CFMemoryMgmt/CFMemoryMgmt.html#//apple_ref/doc/uid/10000127i)
+- [蘋果官方文件 Toll-Free Bridged Types](https://developer.apple.com/library/ios/documentation/CoreFoundation/Conceptual/CFDesignConcepts/Articles/tollFreeBridgedTypes.html)
 - WWDC 2013 Advances in Objective-C

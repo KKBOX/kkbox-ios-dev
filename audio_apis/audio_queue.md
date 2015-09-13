@@ -176,6 +176,10 @@ Queue 計算播放時間的時候，大概會用 packet 的位置搭配
 `AudioQueueGetCurrentTime` 與 `AudioQueueDeviceGetCurrentTime`，或是搭
 配使用 NSDate 物件計算，但這麼做總是充滿 work around 的感覺。
 
+在 iOS 上，還要記得處理 Audio Session，這點我們稍晚說明。
+
+我們的 Audio Queue Player 程式碼如下：
+
 KKSimplePlayer.h
 
 ``` objc
