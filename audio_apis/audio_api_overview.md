@@ -15,7 +15,7 @@ iOS 與 Mac OS X 的 Audio API 概觀
 - QuickTime
 - AVFoundation
 - Audio Queue
-- Audio Unit Graph
+- Audio Unit Processing Graph
 
 ### System Sound Services
 
@@ -49,8 +49,8 @@ AudioServicesPlaySystemSound (kSystemSoundID_Vibrate)
 
 只能播放 30 秒的未壓縮格式，顯然沒有辦法滿足我們想要播放 MP3、AAC 這些
 格式的需求。另外 System Sound Services 發出的聲音有個特點：只會從 iOS
-裝置上的本機播放出來，就算用鏡像的 AirPlay 模式連到了 AppleTV 上，還是
-只會從本機播放。
+裝置上的本機播放出來，就算用鏡像的 AirPlay 模式連到了 Apple TV 上，還
+是只會從本機播放。
 
 ### OpenAL
 
@@ -97,24 +97,85 @@ QTMovie 這個 Class。QTMovie 可以做到 Mac OS X 系統中 QuickTime Player
 
 在 Mac 與 iOS 上的 AV Foundation 不完全相同。在 AV Foundation 裡頭有三
 個直接與 Audio 播放相關的 class，按照出現的時間排列，分別為
-AVAudioPlayer、AVPlayer 與 AVAudioEngine。
+AVAudioPlayer、AVPlayer 與 AVAudioEngine。AVAudioEngine 的設計上會比較
+接近遊戲音效引擎，而 AVAudioPlayer、AVPlayer 的設計是音樂播放器，我們
+先來看 AVAudioPlayer 與 AVPlayer。
 
-AVAudioPlayer 是在 iPhoneOS 2.2 上推出的，大概是在 iPhoneOS SDK 問世後
-半年左右出現的 API。用 AVAudioPlayer 相當適合用在像是播放遊戲背景音樂
-等應用上，這個 class 明顯的優點是可以播放多種格式的檔案，但也有兩個明
-顯的缺點。
+AVAudioPlayer 是在 iPhoneOS 2.2 上推出，大概是在 iPhoneOS SDK 問世後半
+年左右出現的 API。用 AVAudioPlayer 相當適合用在像是播放遊戲背景音樂等
+應用上，這個 class 明顯的優點是可以播放多種格式的檔案，但也有兩個明顯
+的缺點。
 
 其一是 AVAudioPlayer 只能夠播放位在本機的檔案，而無法指定放在網路上的
 URL 播放，所以，直到 iOS 4 AVPlayer 推出之前，在播放網路上的音檔時，如
 果不想要用底層的 C API，要不就是先把整個檔案抓下來之後用 AVPlayer 播放，
 要不就是用 UIWebView 開啟，但整個畫面都會變成 web view 的播放畫面。
-KKBOX 的 iOS 版本是在 2009 年一月，大約 iPhoneOS 2.1 版左右的時候推出，
-於是只能選擇更底層的 API。
 
 AVAudioPlayer 的另外一個缺點則是，蘋果在 iOS 4 開始支援背景執行，其中
-支援背景 audio 播放，但 AVAudioPlayer 無法在背景播放 audio。
+一項背景模式是支援背景 audio 播放，但 AVAudioPlayer 並不支援，無法在背
+景播放 audio。
 
+iOS 4 時推出的 AVPlayer 是一個好用的元件，AVPlayer 支援多種現在流行的
+檔案格式，不但可以用來播放音訊，也可以播放影片，只要指定要播放的
+URL（包括本機與遠端），便可以開始播放，如果要播放的是影片，則可以搭配
+AVPlayerLayer 顯示畫面，也支援背景播放。
+
+在前一節提到播放網路串流音訊的流程，AVAudioPlayer 與 AVPlayer 都做完裡
+頭的六個步驟；在絕大多數場合中，AVPlayer 可以滿足播放的需求，不過，如
+果你有以下需求：
+
+* 因為商業上的需求，我們要播放的檔案經過加密，在播放的過程中需要先解
+  密才能播放。
+* 我們想要提供更多的播放效果，像是增加迴音、支援 EQ 等化器等…。
+
+那我們就只能夠使用更底層的 Audio API 了。
 
 ### Audio Queue
 
-### Audio Unit Graph
+Audio Queue 是 Mac OS X 與 iOS 上用來播放與錄製音訊的 C API。先看播放
+的部份，對照前一節提到的播放步驟，Audio Queue 可以幫我們簡化最後兩步：
+我們只要一開始指定好 Audio Queue 是哪一種是檔案格式，之後只要提供這種
+格式的資料就可以播放，我們不用自己動手把原本的 MP3 或 AAC 格式轉換成
+LPCM，但前面分析出 packet 這步還是得自己來。
+
+Audio Queue 是
+[Audio Toolbox Framework](https://developer.apple.com/library/mac/documentation/MusicAudio/Reference/CAAudioTooboxRef/)
+的一部分。Audio Toolbox 是一個不算小的 Framework，裡頭包含我們前面提到
+的 System Sound、後面要提到的 Audio Unit Processing Graph 外，也包含我
+們在播放過程中會用到的 parser 與 converter，parser 包括 Audio File
+Services 與 Audio File Stream Services 等，至於 Audio Converter
+Services 便是 converter。
+
+Audio Queue API 主要由兩個主要的資料類型組成：Audio Queue 與 Audio
+Queue Buffer。我們不妨把 Audio Queue 想像成是一個水池，而每個 Audio
+Queue Buffer 則是許許多多的水桶，在要求 Audio Queue 開始播放音訊之後，
+Audio Queue 這個水池一開始是乾的，所以我們要提第一桶水桶，把水桶裡頭的
+水倒進水池裡頭（這一步叫做 enqueue buffer）。接著，這個水池會因為水慢
+慢地被用掉，於是慢慢變乾，但是在完全乾枯之前會通知我們（callback）水快
+沒了，所以跟我們要下一桶水；接著就是這樣的步驟不斷循環。
+
+至於錄音，則是將前述步驟整個倒轉過來，AUdio Queue 與 Audio Queue
+Buffer 仍然扮演水池與水桶的角色，只是我們要先把一個空水桶放進乾掉的水
+池裡頭，當錄音的資料進來的時候，水會裝進這個水池裡頭唯一的水桶裡，當一
+個水桶快要裝滿時，Audio Queue 就會通知我們趕快把裝滿水的水桶拿出去存檔，
+同時再拿一個空的水桶進來裝水。然後不斷循環這個步驟。
+
+在 iOS 上使用 Audio Queue API 的時候，還要搭配正確的 Audio Session。
+Audio Session 是一種用來描述我們的 App 打算怎麼使用 Audio 的 API，要正
+確設定 Audio Session 的類型，並且讓 Audio Session 變成 active，系統才
+會允許我們做一些我們想做的事情，像我們必須告訴系統我們是媒體播放的 App，
+系統才會允許我們執行背景播放，要告訴系統我們是可以播放與錄音的軟體，才
+有辦法使用麥克風錄音。
+
+在使用 Audio Queue API 播放音訊的時候，我們要稍微注意一下對播放時間的
+控制。如果我們想要知道一首歌現在播放到哪個時間，一般在 player 的 UI 上
+我們大概只需要精確到秒就好了，而我們最小可以到達的單位則是 packet 的大
+小，透過我們送出了多少 packet 而推算出播放時間。
+
+我們在建立 Audio Queue Buffer 的時候，通常會建立比較大的 buffer，可能
+會是半秒、一秒甚至更多秒數的 buffer，假如我們送出了一個一秒鐘的 buffer，
+在播放這一秒的時候，其實我們不太能精確掌握「我們播放到了這一秒鐘的哪個
+地方」。Audio Queue 雖然有兩個跟播放時間相關的 C function，這兩個
+function 回傳的時間通常也不是很精確。
+
+### Audio Unit Processing Graph
