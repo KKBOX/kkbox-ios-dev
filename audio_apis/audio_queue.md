@@ -1,6 +1,72 @@
 使用 Audio Queue 開發播放軟體
 -----------------------------
 
+我們現在來寫一個簡單的 Audio Queue Player，這個 Player 能夠播放位在
+server 上的 MP3 檔案。
+
+為了說明如何使用 Audio Queue API，所以這邊程式做了一定程度的簡化，很多
+需要做的事情，其實在這邊沒做。在這個 player 中，我們首先需要以下的成員
+變數：
+
+* 用來保存 pakcket 的 array，在這邊使用了一個 NSMutableArray，裡頭會是
+  一堆 NSData。在真正的產品 code 中其實不該這麼寫，因為這樣等於是把所
+  有收到的 audio 資料都丟進記憶體中，如果是 300 mb 的 MP3，就會用到
+  300 mb 的記憶體，在產品 code 中應該要把一部分資料寫入暫存檔中。
+* AudioQueueRef：就是我們的 Audio Queue。
+* AudioStreamBasicDescription：我們在建立 Audio Queue 時所使用的 Audio
+  檔案格式。
+* AudioFileStreamID：parser。
+* readHead：是一個 size_t，用來表示我們現在讀到第幾個 packet。
+* 一個用來抓取資料的 NSURLConnection 物件。
+
+這個 Player 播放的步驟包括
+
+1. 建立 Parser 與網路連線
+2. 收到部分資料並 parse packet
+3. 收到 parser 分析出的檔案格式資料，建立 Audio Queue
+4. 收到 parser 分析出的 packet，保存 packet
+5. packet 數量夠多的時候，enqueue buffer
+6. 收到 Audio Queue 播放完畢的通知，繼續 enqueue
+
+### 第一步：建立 Parser 與網路連線
+
+在建立 Audio Queue 的時候，需要用 AudioStreamBasicDescription 傳入詳細
+的音訊格式，包括 sample rate、這個檔案有多少 channel 等等，但我們現在
+還不知道遠端音檔的格式，所以會稍晚建立。
+
+我們用 `AudioFileStreamOpen` function 建立 AudioFileStreamID，也就是我
+們的 parser，在這邊我們傳入了 kAudioFileMP3Type，代表說，我們猜測遠端
+的檔案是一個 MP3 檔，而 `AudioFileStreamOpen` 其實只有大概參考這個提示
+而已，如果遠端的檔案是 MP3 之外的其他格式，但我們在
+`AudioFileStreamOpen` 告訴 AudioFileStreamID 的卻是 MP3，我們的
+AudioFileStreamID 還是有能夠辨別出到底是哪種檔案。
+
+不過 `AudioFileStreamOpen` 很容易誤判，如果在建立 AudioFileStreamID 之
+後，我們一開始透過呼叫 `AudioFileStreamParseBytes` 給
+AudioFileStreamID 的資料不夠多，AudioFileStreamID 就常常回傳誤判的結果，
+像明明是 MP3 格式，卻告訴我們是 MP2 或 MP1。
+
+在 `AudioFileStreamParseBytes` 裡頭還要傳入兩個 callback function，在
+這邊我們傳入我們定義好的 `KKAudioFileStreamPropertyListener` 與
+`KKAudioFileStreamPacketsCallback`。
+`KKAudioFileStreamPropertyListener` 是檔案格式的 callback，當
+AudioFileStreamID 分析出檔案格式的時候，會呼叫這個 function。而
+`KKAudioFileStreamPacketsCallback` 則是 packet 的 callback，會在分析出
+了 packet 的時候呼叫。
+
+接著我們就可以用 NSURLConnection 抓取檔案了。
+
+### 第二步：收到部分資料與 parse packet
+
+### 第三步：收到 parser 分析出的檔案格式資料，建立 Audio Queue
+
+### 第四步：收到 parser 分析出的 packet，保存 packet
+
+### 第五步：packet 數量夠多的時候，enqueue buffer
+
+### 第六步：收到 Audio Queue 播放完畢的通知，繼續 enqueue
+
+
 
 KKSimplePlayer.h
 
@@ -9,32 +75,22 @@ KKSimplePlayer.h
 #import <AudioToolbox/AudioToolbox.h>
 
 @interface KKSimplePlayer : NSObject
-
 - (id)initWithURL:(NSURL *)inURL;
 - (void)play;
 - (void)pause;
 @property (readonly, getter=isStopped) BOOL stopped;
-
 @end
 ```
 
 KKSimplePlayer.m
 
-```
+``` objc
 #import "KKSimplePlayer.h"
 
-static void ZBAudioFileStreamPropertyListener(void * inClientData, AudioFileStreamID inAudioFileStream, AudioFileStreamPropertyID inPropertyID, UInt32 * ioFlags);
-static void ZBAudioFileStreamPacketsCallback(void * inClientData, UInt32 inNumberBytes, UInt32 inNumberPackets, const void * inInputData, AudioStreamPacketDescription *inPacketDescriptions);
-static void ZBAudioQueueOutputCallback(void * inUserData, AudioQueueRef inAQ,AudioQueueBufferRef inBuffer);
-static void ZBAudioQueueRunningListener(void * inUserData, AudioQueueRef inAQ, AudioQueuePropertyID inID);
-
-@interface KKPacket : NSObject
-@property (assign, nonatomic) UInt32 length;
-@property (strong, nonatomic) NSData *data;
-@end
-
-@implementation KKPacket
-@end
+static void KKAudioFileStreamPropertyListener(void * inClientData, AudioFileStreamID inAudioFileStream, AudioFileStreamPropertyID inPropertyID, UInt32 * ioFlags);
+static void KKAudioFileStreamPacketsCallback(void * inClientData, UInt32 inNumberBytes, UInt32 inNumberPackets, const void * inInputData, AudioStreamPacketDescription *inPacketDescriptions);
+static void KKAudioQueueOutputCallback(void * inUserData, AudioQueueRef inAQ,AudioQueueBufferRef inBuffer);
+static void KKAudioQueueRunningListener(void * inUserData, AudioQueueRef inAQ, AudioQueuePropertyID inID);
 
 @interface KKSimplePlayer ()
 {
@@ -72,7 +128,7 @@ static void ZBAudioQueueRunningListener(void * inUserData, AudioQueueRef inAQ, A
 
 		// 第一步：建立 Audio Parser，指定 callback，以及建立 HTTP 連線，
 		// 開始下載檔案
-		AudioFileStreamOpen((__bridge void * _Nullable)(self), ZBAudioFileStreamPropertyListener, ZBAudioFileStreamPacketsCallback, kAudioFileMP3Type, &audioFileStreamID);
+		AudioFileStreamOpen((__bridge void * _Nullable)(self), KKAudioFileStreamPropertyListener, KKAudioFileStreamPacketsCallback, kAudioFileMP3Type, &audioFileStreamID);
 		URLConnection = [[NSURLConnection alloc] initWithRequest:[NSURLRequest requestWithURL:inURL] delegate:self];
 	}
 	return self;
@@ -114,7 +170,6 @@ static void ZBAudioQueueRunningListener(void * inUserData, AudioQueueRef inAQ, A
 {
 	// 第二步：抓到了部分檔案，就交由 Audio Parser 開始 parse 出 data
 	// stream 中的 packet。
-	// 如果資料需要解密，也是在這一步解密。
 	AudioFileStreamParseBytes(audioFileStreamID, (UInt32)[data length], [data bytes], 0);
 }
 
@@ -156,7 +211,7 @@ static void ZBAudioQueueRunningListener(void * inUserData, AudioQueueRef inAQ, A
 	UInt32 index;
 
 	for (index = 0 ; index < inPacketCount ; index++) {
-		KKPacket *packet = packets[index + readHead];
+		NSData *packet = packets[index + readHead];
 		totalSize += packet.length;
 	}
 
@@ -172,8 +227,8 @@ static void ZBAudioQueueRunningListener(void * inUserData, AudioQueueRef inAQ, A
 	totalSize = 0;
 	for (index = 0 ; index < inPacketCount ; index++) {
 		size_t readIndex = index + readHead;
-		KKPacket *packet = packets[readIndex];
-		memcpy(buffer->mAudioData + totalSize, [packet.data bytes], packet.length);
+		NSData *packet = packets[readIndex];
+		memcpy(buffer->mAudioData + totalSize, packet.bytes, packet.length);
 
 		AudioStreamPacketDescription description;
 		description.mStartOffset = totalSize;
@@ -190,9 +245,9 @@ static void ZBAudioQueueRunningListener(void * inUserData, AudioQueueRef inAQ, A
 - (void)_createAudioQueueWithAudioStreamDescription:(AudioStreamBasicDescription *)audioStreamBasicDescription
 {
 	memcpy(&streamDescription, audioStreamBasicDescription, sizeof(AudioStreamBasicDescription));
-	OSStatus status = AudioQueueNewOutput(audioStreamBasicDescription, ZBAudioQueueOutputCallback, (__bridge void * _Nullable)(self), CFRunLoopGetCurrent(), kCFRunLoopCommonModes, 0, &outputQueue);
+	OSStatus status = AudioQueueNewOutput(audioStreamBasicDescription, KKAudioQueueOutputCallback, (__bridge void * _Nullable)(self), CFRunLoopGetCurrent(), kCFRunLoopCommonModes, 0, &outputQueue);
 	assert(status == noErr);
-	status = AudioQueueAddPropertyListener(outputQueue, kAudioQueueProperty_IsRunning, ZBAudioQueueRunningListener, (__bridge void * _Nullable)(self));
+	status = AudioQueueAddPropertyListener(outputQueue, kAudioQueueProperty_IsRunning, KKAudioQueueRunningListener, (__bridge void * _Nullable)(self));
 	AudioQueuePrime(outputQueue, 0, NULL);
 	AudioQueueStart(outputQueue, NULL);
 }
@@ -203,9 +258,7 @@ static void ZBAudioQueueRunningListener(void * inUserData, AudioQueueRef inAQ, A
 		SInt64 packetStart = inPacketDescriptions[i].mStartOffset;
 		UInt32 packetSize = inPacketDescriptions[i].mDataByteSize;
 		assert(packetSize > 0);
-		KKPacket *packet = [[KKPacket alloc] init];
-		packet.length = packetSize;
-		packet.data = [NSData dataWithBytes:inInputData + packetStart length:packetSize];
+		NSData *packet = [NSData dataWithBytes:inInputData + packetStart length:packetSize];
 		[packets addObject:packet];
 	}
 
@@ -239,7 +292,7 @@ static void ZBAudioQueueRunningListener(void * inUserData, AudioQueueRef inAQ, A
 
 @end
 
-void ZBAudioFileStreamPropertyListener(void * inClientData, AudioFileStreamID inAudioFileStream, AudioFileStreamPropertyID inPropertyID, UInt32 * ioFlags)
+void KKAudioFileStreamPropertyListener(void * inClientData, AudioFileStreamID inAudioFileStream, AudioFileStreamPropertyID inPropertyID, UInt32 * ioFlags)
 {
 	KKSimplePlayer *self = (__bridge KKSimplePlayer *)inClientData;
 	if (inPropertyID == kAudioFileStreamProperty_DataFormat) {
@@ -268,7 +321,7 @@ void ZBAudioFileStreamPropertyListener(void * inClientData, AudioFileStreamID in
 	}
 }
 
-void ZBAudioFileStreamPacketsCallback(void * inClientData, UInt32 inNumberBytes, UInt32 inNumberPackets, const void * inInputData, AudioStreamPacketDescription *inPacketDescriptions)
+void KKAudioFileStreamPacketsCallback(void * inClientData, UInt32 inNumberBytes, UInt32 inNumberPackets, const void * inInputData, AudioStreamPacketDescription *inPacketDescriptions)
 {
 	// 第四步： Audio Parser 成功 parse 出 packets，我們將這些資料儲存
 	// 起來
@@ -277,14 +330,14 @@ void ZBAudioFileStreamPacketsCallback(void * inClientData, UInt32 inNumberBytes,
 	[self _storePacketsWithNumberOfBytes:inNumberBytes numberOfPackets:inNumberPackets inputData:inInputData packetDescriptions:inPacketDescriptions];
 }
 
-static void ZBAudioQueueOutputCallback(void * inUserData, AudioQueueRef inAQ,AudioQueueBufferRef inBuffer)
+static void KKAudioQueueOutputCallback(void * inUserData, AudioQueueRef inAQ,AudioQueueBufferRef inBuffer)
 {
 	AudioQueueFreeBuffer(inAQ, inBuffer);
 	KKSimplePlayer *self = (__bridge KKSimplePlayer *)inUserData;
 	[self _enqueueDataWithPacketsCount:(int)([self framePerSecond] * 5)];
 }
 
-static void ZBAudioQueueRunningListener(void * inUserData, AudioQueueRef inAQ, AudioQueuePropertyID inID)
+static void KKAudioQueueRunningListener(void * inUserData, AudioQueueRef inAQ, AudioQueuePropertyID inID)
 {
 	KKSimplePlayer *self = (__bridge KKSimplePlayer *)inUserData;
 	UInt32 dataSize;
@@ -296,4 +349,5 @@ static void ZBAudioQueueRunningListener(void * inUserData, AudioQueueRef inAQ, A
 		running ? [self _audioQueueDidStart] : [self _audioQueueDidStop];
 	}
 }
+
 ```
