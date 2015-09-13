@@ -126,7 +126,7 @@ AVPlayerLayer 顯示畫面，也支援背景播放。
 
 * 因為商業上的需求，我們要播放的檔案經過加密，在播放的過程中需要先解
   密才能播放。
-* 我們想要提供更多的播放效果，像是增加迴音、支援 EQ 等化器等…。
+* 我們想要提供更多的播放效果，像是增加迴音、升降 key、支援 EQ 等化器等…。
 
 那我們就只能夠使用更底層的 Audio API 了。
 
@@ -177,5 +177,10 @@ Audio Session 是一種用來描述我們的 App 打算怎麼使用 Audio 的 AP
 在播放這一秒的時候，其實我們不太能精確掌握「我們播放到了這一秒鐘的哪個
 地方」。Audio Queue 雖然有兩個跟播放時間相關的 C function，這兩個
 function 回傳的時間通常也不是很精確。
+
+由於 Audio Queue 只要拿到 AAC、MP3 資料就可以播放，而如果我們想要做一
+些音效的處理，會是在 LPCM 資料這一層做。KKBOX 最早使用 Audio Queue 開
+發播放器，但由於會員一直要求我們能夠提供 EQ 等化器等功能，所以後來重新
+開發了使用 Audio Unit Processing Graph API 為基礎的播放器。
 
 ### Audio Unit Processing Graph
