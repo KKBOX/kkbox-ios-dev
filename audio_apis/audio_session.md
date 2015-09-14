@@ -99,13 +99,18 @@ Session Category 是 AVAudioSessionCategoryPlayback，但是進入節奏遊戲�
 ### Audio Session Category Options
 
 在設了 Audio Session Category 之後，還有許多細項可以設定，包括
-Category Options 與 Mode。先講 Category Options 的部份，共有以下幾個
-option
+Category Options 與 Mode。
+
+先講 Category Options 的部份，共有以下幾個option
 
 - AVAudioSessionCategoryOptionMixWithOthers
 - AVAudioSessionCategoryOptionDuckOthers
 - AVAudioSessionCategoryOptionAllowBluetooth
 - AVAudioSessionCategoryOptionDefaultToSpeaker
+
+我們在設定 Category 的時候，可以同時設定 Category Mode，方法是從原本呼
+叫的 `- setCategory:error:`，換成 `-setCategory:withOptions:error:` 這
+一組 API。
 
 在 KKBOX 的開發過程中，AVAudioSessionCategoryOptionDuckOthers 對我們來
 說影響比較大；並不是 KKBOX 使用了這種 option，而是當其他 App 設定了這
@@ -119,10 +124,104 @@ option
 Papago，因為當 Papago 這樣設定 Audio Session Category Option 後，KKBOX
 的音量一定會減半。
 
-
+AVAudioSessionCategoryOptionAllowBluetooth 以及
+AVAudioSessionCategoryOptionDefaultToSpeaker 與錄音有關，前者是允許拿
+藍芽裝置當做錄音輸入設備，後者則是在一邊錄音一邊播放的時候，允許預設使
+用喇叭作為輸出裝置。至於 AVAudioSessionCategoryOptionMixWithOthers 的
+使用情境有點微妙，如果一套音樂 App 設了這種 mode，就可以與其他音樂 App
+做混音之後一起播放出來，但是在經驗中沒有看過這類的 App。
 
 ### Audio Session Mode
 
+絕大多數的 Audio Session Mode 都與如何錄音相關，設定了其中一個 mode 之
+後，就會決定聲音訊號從硬體送到我們的錄音 API 之間的過程中，會經過怎樣
+的處理後才送進來。蘋果定義了 Video Chat、Voice Chat、Game Chat、Video
+Recording 等類型的聊天情境，在不同情境下對人聲做了一定程度的強化，並且
+消除雜訊，如果想要盡可能錄製到所有的聲音，而不被 iOS 裝置本身過濾過，
+就切換到 AVAudioSessionModeMeasurement 這個 mode。
+
 ### Interrupt
 
+對於音樂類型的 App 來說，我們需要特別處理 Interrupt 與 Audio Route。
+Interrupt 是指當我們的音樂播放到一半的時候，系統發生了其他的事件，因此
+打斷我們的 App 造成我們必須要暫停播放，像是有電話打進來、鬧鐘突然響起，
+或是當我們的 App 在背景的時候，用戶在前景使用其他音樂或影片 App 播放音
+樂或影片。
+
+當我們的 App 被打斷之後，可能需要回復播放，也可能不需要。像如果是來電
+或鬧鐘，那麼當來電或鬧鐘結束，就需要繼續播放；如果是用戶使用其他的 App
+播放影音，就不應該播放。
+
+Audio Session 在 iOS 6 之前是使用 delegate 的方式通知我們 Interrupt，
+在 iOS 6 之後改成使用 notification，當然用 notification 會比較好，因為
+同一個 App 可能好幾個地方需要處理 interrupt。
+
+如果你一開始只有一個單純的音樂 App，那麼可能光用單一的 delegate 處理就
+夠了，可是，有一天這個音樂 App 遇到了簡直喪心病狂的產品設計，在這個音
+樂 App 中又加入了播放 MV 甚至演唱會 video直播甚至節奏遊戲功能，不但是原
+本的audio player 需要管理 interrupt，在 MV 與演唱會直播的地方用到了
+AVPlayer，也要處理 interrupt，就得要分別通知了。
+
+AVAudioSessionInterruptionNotification 就是發生 Interrupt 時會送出的
+notification，我們可以從 notification 的 user info 中，透過
+AVAudioSessionInterruptionTypeKey，判斷是屬於 Interrupt 開始或是結束的
+通知。
+
+如果收到的 type 是 AVAudioSessionInterruptionTypeBegan，代表 Interrupt
+開始，這時我們原本的 Audio Queue 或 Audio Unit Graph 就會被強制暫停，
+我們也需要將 UI 換成是暫停中的 UI；反之，如果收到
+AVAudioSessionInterruptionTypeEnded，就代表 Interrupt 結束—不過，
+Interrupt 不一定代表我們應該繼續播放。
+
+像來電或鬧鐘，我們會收到開始與結束的通知，但如果是其他音樂或影片 App
+打斷我們，就不會收到結束的通知。
+
+之所以說收到 Interrupt 結束不一定代表應該繼續播放，有幾個理由。一是，
+我們在收到 Interrupt 開始的通知的時候，我們的播放器不一定正在播放音樂，
+可能原本就是暫停的，結果電話打進來的時候沒在播放音樂，電話結束卻有音樂
+出來，怎麼看都是 bug。所以我們要透過 Interrupt 開始之前是否有在播放音
+樂，決定 Interrupt 結束的時候該做什麼。
+
+收到 AVAudioSessionInterruptionTypeBegan 的時間，與我們的 Audio Unit
+Graph 被停止的時間雖然接近到可以說是同時，但還是有個先後順序，而這個先
+後順序在幾次系統改版的時候有改變過。在我們的經驗中，iOS 7 與之前，我們
+會先收到 AVAudioSessionInterruptionTypeBegan，Audio Unit Graph 才被暫
+停，但 iOS 8 之後則變成 Audio Unit Graph 被暫停之後，才收到
+AVAudioSessionInterruptionTypeBegan 的通知，所以我們不能夠在收到
+AVAudioSessionInterruptionTypeBegan 的時候去問 Audio Unit Graph 是否在
+播放，決定結束 Interrupt 時的狀態，因為在 iOS 8 上一定是關閉的，而必須
+要用其他方式記錄。
+
+另外，我們會收到一種很奇特的通知，會告訴你 Interrupt 結束，但系統告訴
+你不該繼續播放。在系統的時鐘 App 的第四個 tab 中，我們可以設定倒數計時
+的碼錶，除了設定要倒數多久之外，還可以決定倒數截止的時候該做什麼，我們
+有兩個選擇：播放某個鈴聲，或是「停止播放」，這個「停止播放」選項會對所
+有在播放 audio 的 App 發送 Interrupt 通知，而且帶的
+AVAudioSessionInterruptionOptionKey 並不是
+AVAudioSessionInterruptionOptionShouldResume，如果我們這時候播放了，反
+而違反了 iOS 系統的行為。
+
+![時鐘功能中的停止播放](timer.png)
+
 ### Audio Route
+
+一個夠盡責的音樂 App 還要注意一點：當用戶在拔除耳機的時候，我們應該要
+暫停播放音樂，因為不這麼做，當用戶在人多的公開場合不小心拔除耳機，就會
+導致聲音放出來，干擾周圍的其他人。
+
+要知道用戶是否拔除了耳機，就要收取 Audio Route 改變的通知
+（AVAudioSessionRouteChangeNotification），所謂的 Audio Route 就是聲音
+輸出的各種途徑，像內建喇叭、耳機、往 AppleTV AirPlay 投放，都是 Audio
+Route。
+
+我們想知道拔除耳機這種狀況，就是在收到了
+AVAudioSessionRouteChangeNotification 之後，判斷改變的理由，只要是user
+info 裡頭的 AVAudioSessionRouteChangeReasonKey 是
+AVAudioSessionRouteChangeReasonOldDeviceUnavailable，代表舊裝置不見了，
+就可以當做該停止播放的狀況，因為內建的喇叭不會無故不見，會消失的一定是
+像耳機等外接的裝置。
+
+另外就像我們在講 notification 的時候講到的，
+AVAudioSessionRouteChangeNotification 是少數不在 main thread 發生的
+notification，收到之後如果我們想要更新 UI，就得要再用 GCD 等方式，在
+main thread 執行。
