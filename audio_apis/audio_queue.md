@@ -238,8 +238,6 @@ static void KKAudioQueueRunningListener(void * inUserData,
 {
 	AudioQueueReset(outputQueue);
 	AudioFileStreamClose(audioFileStreamID);
-	free(streamDescription);
-	streamDescription = NULL;
 	[URLConnection cancel];
 }
 
