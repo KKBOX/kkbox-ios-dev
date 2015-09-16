@@ -1,6 +1,30 @@
 使用 Audio Unit Processing Graph 開發播放軟體
 ---------------------------------------------
 
+如果我們選擇要使用 Audio Unit Processing Graph API 開發播放網路串流的
+Player，前半部的工作跟一個 Audio Queue Player 差不多，還是要先發送網路
+連線抓取檔案，建立 parser，並且讓 parser parse 出 pakcet。
+
+但是後半部就變得不一樣，Audio Queue 會幫我們把 packet 從原來的格式轉成
+LCPM 格式，所以我們只要建好 Audio Queue Buffer，再 enque 到 Audio
+Queue 中；但如果我們使用 Audio Unit Processing Graph API，我們就要自己
+透過 converter 將 MP3 等格式轉換成 LPCM 格式播放。
+
+Audio Queue API 與 Audio Unit Processing Graph API 的行為也不太一樣，
+使用 Audio Queue API 的時候，我們會主動把 buffer 送到 Audio Queue 中，
+
+在以下這個範例中，我們先不進入如何使用 AUGraph，只使用了 Remote IO—如
+果我們不需要一些複雜的播放效果，像 EQ 等化器或混音，只要單獨有 Remote
+IO 其實就可以播放。
+
+### 建立 Remote IO 與設定 Render Callback
+
+### 建立 Converter
+
+### 實作 Render Callback
+
+### 實作 Conveter 的 Fill Callback
+
 KKSimpleAUPlayer.h
 
 ``` objc
@@ -74,7 +98,6 @@ AudioStreamBasicDescription KKSignedIntLinearPCMStreamDescription()
 	destFormat.mSampleRate = 44100.0;
 	destFormat.mFormatID = kAudioFormatLinearPCM;
 	destFormat.mFormatFlags = kLinearPCMFormatFlagIsSignedInteger;
-
 	destFormat.mFramesPerPacket = 1;
 	destFormat.mBytesPerPacket = 4;
 	destFormat.mBytesPerFrame = 4;
@@ -108,8 +131,8 @@ AudioStreamBasicDescription KKSignedIntLinearPCMStreamDescription()
 	outputUnitDescription.componentFlags = 0;
 	outputUnitDescription.componentFlagsMask = 0;
 
-	AudioComponent inputComponent = AudioComponentFindNext(NULL, &outputUnitDescription);
-	OSStatus status = AudioComponentInstanceNew(inputComponent, &audioUnit);
+	AudioComponent outputComponent = AudioComponentFindNext(NULL, &outputUnitDescription);
+	OSStatus status = AudioComponentInstanceNew(outputComponent, &audioUnit);
 	NSAssert(noErr == status, @"Must be no error.");
 
 	// 設定 remote IO node 的輸入格式
