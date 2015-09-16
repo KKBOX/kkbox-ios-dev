@@ -203,9 +203,11 @@ RealPlayer 的格式的話，就得安裝額外的 codec。至於用來控制各
 
 Audio Unit Processing Graph 是一個可以處理播放與錄音的 API，這層把
 audio 播放的處理過程，抽象化變成一個個的組件，我們可以透過組合這些組件
-創造我們想要的錄製與播放效果。大概來說，Audio Unit Processing Graph
-API 裡頭有三個主要的角色：
+創造我們想要的錄製與播放效果。Audio Unit Processing Graph API 裡頭大概
+有三個主要的角色：
 
 - AUNode
 - AudioUnit
 - AUGraph
+
+我們不妨想像

@@ -102,5 +102,6 @@
    * [Audio Session](audio_apis/audio_session.md)
    * [教學影片](audio_apis/video.md)
    * [相關閱讀](audio_apis/reading_list.md)
+   * [練習：iOS Audio Player 開發](audio_apis/practice.md)
 * [Accessibility](accessibility/README.md)
 * [Reading List](reading_list/README.md)

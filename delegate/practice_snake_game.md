@@ -1,11 +1,12 @@
-# 練習：貪食蛇
+練習：貪食蛇
+------------
 
 <script async class="speakerdeck-embed"
 data-id="beb706e0e3fc01304bd50ad3499c6df2"
 data-ratio="1.2994923857868"
 src="//speakerdeck.com/assets/embed.js"></script>
 
-## 練習範圍
+### 練習範圍
 
 - MVC
 - DTO (Data Transfer Objects)
@@ -15,7 +16,7 @@ src="//speakerdeck.com/assets/embed.js"></script>
 - NSTimer
 - UIGestureRecognizer
 
-## 練習目標
+### 練習目標
 
 我們要寫一個 iOS 版本的貪食蛇遊戲：
 
@@ -30,9 +31,9 @@ src="//speakerdeck.com/assets/embed.js"></script>
 - 如果蛇的頭碰到了自己的身體，遊戲結束，重新出現開始按鈕。按下開始按鈕
   會重新開始遊戲
 
-## 練習內容
+### 練習內容
 
-### MVC
+#### MVC
 
 我們使用 MVC 架構寫這個小遊戲
 
@@ -61,12 +62,12 @@ src="//speakerdeck.com/assets/embed.js"></script>
 	一次。並且檢查蛇是否撞到了水果或自己的身體，決定是否要延長蛇的身體，
 	或是宣布遊戲結束
 
-### Queue 資料結構
+#### Queue 資料結構
 
 蛇的身體其實是一個 Queue，Queue 裡頭是一堆座標，當蛇在移動的時候，事實
 上是位在尾巴的座標物件被 pop 掉，而我們從蛇的頭的位置 push 進一個座標。
 
-### 單元測試
+#### 單元測試
 
 我們要對蛇的 Model 寫單元測試。寫單元測試時，要注意 AAA 原則：Arrange、
 Act、Assert。像是：

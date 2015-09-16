@@ -1,14 +1,15 @@
-# 練習：小計算機
+練習：小計算機
+--------------
 
 ![screenshot](cal.png)
 
-## 練習範圍
+### 練習範圍
 
 - Interface Builder
 - Target Action
 - Selector
 
-## 練習目標
+### 練習目標
 
 我們要在 iOS 裝置上寫一個小計算機，這個計算機需要有以下功能：
 
@@ -23,7 +24,7 @@
   運算子會代替原本的，而不會立刻執行運算
 - 如果遇到任何數字除 0 的狀況，要跳出 alert
 
-## 練習內容
+### 練習內容
 
 - 首先使用 Interface Builder 拉出所有需要的 UI 元件
 - 建立並連結必要的 IBOutlet 與 IBAction

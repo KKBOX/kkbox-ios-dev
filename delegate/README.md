@@ -1,8 +1,8 @@
 Delegate 與 Protocol
 ====================
 
-在閱讀這一章之前，相信你應該已經寫過一些簡單的 iOS程式，知道如果我們想
-要一個像是系統設定（Setting.app）那樣的表格介面，我們會建立
+在閱讀這一章之前，相信你應該已經寫過一些簡單的 iOS 程式，知道如果我們
+想要一個像是系統設定（Setting.app）那樣的表格介面，我們會建立
 `UITableViewController` 的 subclass，這個 controller 的 view 是
 `UITableView`。
 
@@ -19,7 +19,7 @@ source與 delegate。那，什麼是 delegate？
 
 用我的話來說，delegate 就是 **將眾多的 callback，集中在一個物件上** 。
 
-
-
-
-
+如果你還不知道怎麼建立 Table View 或 Collection View，請先做完
+*Beginning iOS 7 Development Exploring the iOS SDK* 這本書的第七章到第
+十章的相關練習。這本書好像中文只有翻譯出 iOS 5 的版本，叫做《探索 iOS
+5 程式開發實戰》，不過章節位置差不多。
