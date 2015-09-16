@@ -206,8 +206,55 @@ audio 播放的處理過程，抽象化變成一個個的組件，我們可以�
 創造我們想要的錄製與播放效果。Audio Unit Processing Graph API 裡頭大概
 有三個主要的角色：
 
-- AUNode
+- AUNode 或 AudioComponent
 - AudioUnit
 - AUGraph
 
-我們不妨想像
+我們不妨想像我們現在身處在演唱會的舞台上，有錄製歌聲與樂器的麥克風，而
+從麥克風到輸出到音響之間，還串接了大大小小的效果器，在這個過程中，無論
+是麥克風、音響或是效果器，都是不同的 AUNode。AUNode 是這些器材的實體，
+而我們要操控這些器材、改變這些器材的效果屬性，就會需要透過每個器材各自
+的操控介面，這些介面便是AudioUnit，最後構成整個舞台，便是 AUGraph。
+
+AUNode 與 AudioComponent 的差別在於，其實像上面講到的各種器材，除了可
+以放在 AUGraph 使用之外，也可以單獨使用，比方說我們有台音響，我們除了
+把音響放在舞台上使用外，也可以單獨拿這台音響輸出音樂。當我們要在
+AUGraph 中使用某個器材，我們就要使用 AUNode 這種形態，單獨使用時，就使
+用 AudioComponent。但無論是操作 AUNode 或 AudioComponent，都還是得透過
+AudioUnit 這一層操作介面。
+
+AUNode 與 AudioComponent 分成好幾類，包括輸入、輸出、混音、效果處理、
+格式轉換等等，彼此之間可以互相串接。輸入裝置包括像麥克風輸入或 MIDI 樂
+器，效果處理則包括像EQ 等化器、殘響（reverb）、改變音調（pitch）等；至
+於這邊所謂的格式轉換，是指在不同的 LPCM 格式之間轉換，在這一層 API 中
+只支援 LPCM 格式，但LPCM 之間又有很多種，不見得每個 node 都支援所有的
+LPCM 格式，像 reverb效果的 effect node 就只支援浮點數，所以要讓音訊資
+料通過這個 node 之前，就需要先轉換成浮點數格式的 LPCM 資料。
+
+每個 AudioUnit 都有各自的輸入與輸出，在串接的時候，就是從某個
+AudioUnit 的輸出，串接到另外一個 AudioUnit 的輸入，這種輸入輸出的端子
+叫做 bus，而每個 AudioUnit 最少會有一個輸入與輸出的 bus，也可能會有多
+個 bus。以 mixer 來說，就會有多個 bus，當我們從兩個輸入 bus 將資料送到
+同一個 mixer 上時，就可以產生混音效果。
+
+在 Mac OS X 上，我們通常會使用 default output 作為音訊播放的最終輸出的
+AudioUnit，以 default input 作為錄音的起點。在 iOS 上則有一個特別的
+AudioUnit，叫做 Remote IO，這個 AudioUnit 同時代表 iOS 的輸出與輸入裝
+置。Remote IO 有兩個 bus，bus 0 就是 iOS 的預設輸出，bus 1 則是輸入，
+所以我們在 iOS 上播放音樂，就是往 Remote IO 的 bus 0 傳送資料。
+
+Remote IO 的 bus 1 預設是關閉的，當我們要錄音的時候，我們必須先告訴
+Remote IO 把 bus 1 變成 enable，但我們要做這件事情的時候，我們不但要獲
+得使用者給予我們使用麥克風的授權，還要設定正確的 Audio Session。我們會
+在後面說明 Audio Session。
+
+在使用 Audio Unit Processing Graph API 的時候，我們經常需要設定 render
+callback function。以錄音來說，當我們從 Remote IO 的 bus 1 收到資料後，
+想要儲存檔案，我們並沒有一種叫做「存檔」的 AudioUnit，而是我們要對某個
+AudioUnit 設定 callback function，綁定某個 bus，在這個 function 中撰寫
+存檔的程式。以播放來說，當我們告訴 AUGraph 或 Remote IO 開始播放，我們
+也要設定 render callback function，提供用來播放用的資料。
+
+由於這邊只支援 LPCM 格式，因此我們在播放 MP3 或 AAC 資料之前，還得有一
+個將 MP3 或 AAC 轉換成 LPCM 格式的 converter。總之，我們提到播放網路串
+流音樂有六個步驟，當我們用到這一層 API 的時候，這六個步驟都得自己來了。

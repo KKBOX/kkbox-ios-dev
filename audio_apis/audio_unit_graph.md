@@ -592,5 +592,5 @@ OSStatus KKPlayerConverterFiller (AudioConverterRef inAudioConverter,
 間的部份，這個 player 距離產品 code 還有一段距離。
 
 不過，在這個版本的 player 中，我們已經可以拿到 LPCM 資料了，我們可以用
-這些資料做出許多音訊處理的效果，像是畫出頻譜圖，或是在餵給硬體之前改變
-LPCM 資料產生效果，像改變 pitch 等等。
+這些資料做出許多應用，像是畫出頻譜圖，或是在餵給硬體之前改變LPCM 資料，
+直接改變要輸出的聲音。
