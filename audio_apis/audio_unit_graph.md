@@ -83,13 +83,14 @@ destFormat.mReserved = 0;
 `AudioOutputUnitStart`，就會在專屬的 audio render thread 中呼叫這個
 callback function。
 
-```
+``` objc
 AURenderCallbackStruct callbackStruct;
 callbackStruct.inputProcRefCon = (__bridge void *)(self);
 callbackStruct.inputProc = KKPlayerAURenderCallback;
 status = AudioUnitSetProperty(audioUnit,
 	kAudioUnitProperty_SetRenderCallback,
-	kAudioUnitScope_Global, 0,
+	kAudioUnitScope_Global,
+	0, // 代表這個 callback function 綁在 bus 0 上
 	&callbackStruct, sizeof(callbackStruct));
 ```
 
@@ -106,7 +107,68 @@ AudioConverterNew(&streamDescription, &destFormat, &converter);
 
 ### 實作 Render Callback
 
+在 render callback function 裡頭要做的事情，就是把已經收到的 packet 透
+過 converter 轉換成 LCPM 格式之後回傳。
+
+我們的 render callback function 像這樣：
+
+``` objc
+OSStatus KKPlayerAURenderCallback(void *userData,
+	AudioUnitRenderActionFlags *ioActionFlags,
+	const AudioTimeStamp *inTimeStamp,
+	UInt32 inBusNumber,
+	UInt32 inNumberFrames,
+	AudioBufferList *ioData);
+```
+
+在這個 function 中會傳入幾個參數，我們最關心的是 inNumberFrames 與
+ioData，inNumberFrames 就是 Remote IO 現在要跟我們要求多少 frame 的
+audio 資料，我們會根據這個數量，從 MP3 或其他原始格式中轉出多少 frame
+的 LCPM，然後將資料填入到 ioData 中。
+
+至於其他幾個參數，像 userData，就是我們在建立 callback function 的時候
+透過 AURenderCallbackStruct 的 inputProcRefCon 傳入的物件指標，因為我
+們的 packet 是放在我們的 player 物件中，自然要想辦法讓 callback
+function 可以有 reference 找到我們的 player。
+
+ioActionFlags 可以讓我們對 Remote IO Unit 做一些額外的操作，假如我們並
+沒有 pakcet 可以給 Remote IO 播放，或是發生了其他錯誤，這時候我們就會
+在 ` *ioActionFlags |= kAudioUnitRenderAction_OutputIsSilence;` 這行裡
+頭告訴告訴 Remote IO 應該靜音。至於 inTimeStamp 則代表這個 callback 是
+在什麼時間被呼叫的。
+
+inBusNumber 代表這個 callback function 被連接到 Remote IO 的哪個 bus，
+前面提到，Remote IO 的 bus 0 是輸出，用來播放，bus 1 則用來錄音，我們
+現在是處理播放，自然會連接到 bus 0。
+
+如果我們不是對 Remote IO，而是對像 mixer 之類的 node 設定 callback，也
+可能會設定在 bus 0 之外的 bus，像一個 mixer 在 bus 0 或 bus 1 分別設定
+了兩個 callback，就可以對兩個輸入來源做混音處理。
+
 ### 實作 Conveter 的 Fill Callback
+
+AudioConverterRef 有三個可以用來轉換格式的 C function：
+
+- AudioConverterConvertBuffer
+- AudioConverterConvertComplexBuffer
+- AudioConverterFillComplexBuffer
+
+雖然有三個 function，但實際上可以用的只有
+`AudioConverterFillComplexBuffer`；`AudioConverterConvertBuffer` 與
+`AudioConverterConvertComplexBuffer` 都只能夠處理不同的 LPCM 格式之間
+的轉換，像是把整數的 LCPM 轉成浮點的 LCPM。我們想要把 MP3 或 AAC 格式
+轉成 LPCM，只能夠呼叫 `AudioConverterFillComplexBuffer`。
+
+呼叫 `AudioConverterFillComplexBuffer` 的時候，必須要傳入一個converter
+callback function，我們叫他 filler，我們在這邊傳入了
+`KKPlayerConverterFiller`，並且要傳入一個 AudioBufferList。在filler
+function 中，我們把 packet 一個一個餵給 converter讓 converter 轉換，轉
+出的資料就會填入到傳入的 AudioBufferList；轉換完畢之後，
+AudioBufferList 裡頭就會是轉好的 LPCM 檔案。
+
+接著，我們就可以把 AudioBufferList 中的資料，塞入
+`KKPlayerAURenderCallback` 傳入的 ioData 中。如果沒有資料，就像上面說
+的，透過 ioActionFlags 暫停播放。
 
 KKSimpleAUPlayer.h
 
@@ -123,7 +185,6 @@ KKSimpleAUPlayer.h
 ```
 
 KKSimpleAUPlayer.m
-
 
 ``` objc
 #import "KKSimpleAUPlayer.h"
@@ -329,7 +390,6 @@ AudioStreamBasicDescription KKSignedIntLinearPCMStreamDescription()
 	playerStatus.stopped = YES;
 }
 
-
 #pragma mark -
 #pragma mark Audio Parser and Audio Queue callbacks
 
@@ -382,7 +442,7 @@ AudioStreamBasicDescription KKSignedIntLinearPCMStreamDescription()
 				OSStatus status =
 				AudioConverterFillComplexBuffer(converter,
 					KKPlayerConverterFiller,
-					(__bridge void * _Nullable)(self),
+					(__bridge void *)(self),
 					&packetSize, renderBufferList, NULL);
 				if (noErr != status && KKAudioConverterCallbackErr_NoData != status) {
 					OSStatus status = AudioOutputUnitStop(audioUnit);
@@ -393,6 +453,8 @@ AudioStreamBasicDescription KKSignedIntLinearPCMStreamDescription()
 					inIoData->mNumberBuffers = 0;
 				}
 				else {
+					// 在這邊改變 renderBufferList->mBuffers[0].mData
+				    // 可以產生各種效果
 					inIoData->mNumberBuffers = 1;
 					inIoData->mBuffers[0].mNumberChannels = 2;
 					inIoData->mBuffers[0].mDataByteSize = renderBufferList->mBuffers[0].mDataByteSize;
@@ -487,7 +549,7 @@ void KKAudioFileStreamPacketsCallback(void* inClientData,
 		packetDescriptions:inPacketDescriptions];
 }
 
-static OSStatus KKPlayerAURenderCallback(void *userData,
+OSStatus KKPlayerAURenderCallback(void *userData,
 	AudioUnitRenderActionFlags *ioActionFlags,
 	const AudioTimeStamp *inTimeStamp,
 	UInt32 inBusNumber,
@@ -522,3 +584,13 @@ OSStatus KKPlayerConverterFiller (AudioConverterRef inAudioConverter,
 	return result;
 }
 ```
+
+### 還有什麼要做的？
+
+這個 player 和我們在前一章的 Audio Queue player 一樣，把 MP3 資料全部
+放在記憶體中，一樣會有太佔用記憶體的問題。另外我們也沒有實作處理播放時
+間的部份，這個 player 距離產品 code 還有一段距離。
+
+不過，在這個版本的 player 中，我們已經可以拿到 LPCM 資料了，我們可以用
+這些資料做出許多音訊處理的效果，像是畫出頻譜圖，或是在餵給硬體之前改變
+LPCM 資料產生效果，像改變 pitch 等等。
