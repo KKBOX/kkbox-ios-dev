@@ -19,7 +19,90 @@ IO 其實就可以播放。
 
 ### 建立 Remote IO 與設定 Render Callback
 
+由於建立 Audio Queue 的時候需要傳入 audio format，所以我們是在 parser
+取得了 audio foramt 之後，才建立 Audio Queue。不過，使用 Audio Unit
+Processing Graph API 開發播放軟體時，我們是是用 audio format 建立
+conveter，所以我們可以在建立 player 的時候，就先建立好 Remote IO 的
+Audio Unit，並且對 Remote IO 的 Audio Unit 設定好 render callback。
+
+建立 Remote IO 的 Audio Unit 的時候，我們會先建立一個用來表示
+component 條件的 AudioComponentDescription，設定 componentType 為
+kAudioUnitType\_Output，代表我們要的是一個輸出用的 node，然後 subtype
+設定成 kAudioUnitSubType\_RemoteIO。接著使用 `AudioComponentFindNext`
+找到符合的 node，然後從這個 node 中拿出這個 node 的操作介面，也就是
+Audio Unit。
+
+``` objc
+AudioComponentDescription outputUnitDescription;
+bzero(&outputUnitDescription, sizeof(AudioComponentDescription));
+outputUnitDescription.componentType = kAudioUnitType_Output;
+outputUnitDescription.componentSubType = kAudioUnitSubType_RemoteIO;
+outputUnitDescription.componentManufacturer = kAudioUnitManufacturer_Apple;
+outputUnitDescription.componentFlags = 0;
+outputUnitDescription.componentFlagsMask = 0;
+
+AudioComponent outputComponent = AudioComponentFindNext(NULL, &outputUnitDescription);
+OSStatus status = AudioComponentInstanceNew(outputComponent, &audioUnit);
+```
+
+接著是從 Audio Unit 設定輸入格式，我們接下來建立 converter 的時候，也
+會將 MP3 轉成這種格式的 LPCM，然後送到 Remote IO node。
+
+``` objc
+AudioStreamBasicDescription audioFormat = KKSignedIntLinearPCMStreamDescription();
+AudioUnitSetProperty(audioUnit,
+kAudioUnitProperty_StreamFormat,
+	kAudioUnitScope_Input, 0,
+	&audioFormat, sizeof(audioFormat));
+```
+
+我們來看一下輸入格式的部份。前面提到，即使都叫做 LPCM，裡頭也可能有很
+多不同的格式，可能使用整數、也可能使用浮點數表示。
+
+我們在這邊使用的是 16 位元整數，而每個 frame 裡頭有左右兩個聲道，因此
+左右兩個聲道分別有兩個 byte，一個 frame 就是兩個 byte 加起來變成四個
+bytes，因此 mBytesPerFrame 設定為 4。在 LCPM 格式中，一個 packet 只有
+一個 frame，所以每個 packet 也是四個 bytes。
+
+``` objc
+AudioStreamBasicDescription destFormat;
+bzero(&destFormat, sizeof(AudioStreamBasicDescription));
+destFormat.mSampleRate = 44100.0;
+destFormat.mFormatID = kAudioFormatLinearPCM;
+destFormat.mFormatFlags = kLinearPCMFormatFlagIsSignedInteger;
+destFormat.mFramesPerPacket = 1;
+destFormat.mBytesPerPacket = 4;
+destFormat.mBytesPerFrame = 4;
+destFormat.mChannelsPerFrame = 2;
+destFormat.mBitsPerChannel = 16;
+destFormat.mReserved = 0;
+```
+
+接著就是設定 render callback。我們把 render callback 設定成
+`KKPlayerAURenderCallback` 這個 function，之後只要呼叫
+`AudioOutputUnitStart`，就會在專屬的 audio render thread 中呼叫這個
+callback function。
+
+```
+AURenderCallbackStruct callbackStruct;
+callbackStruct.inputProcRefCon = (__bridge void *)(self);
+callbackStruct.inputProc = KKPlayerAURenderCallback;
+status = AudioUnitSetProperty(audioUnit,
+	kAudioUnitProperty_SetRenderCallback,
+	kAudioUnitScope_Global, 0,
+	&callbackStruct, sizeof(callbackStruct));
+```
+
 ### 建立 Converter
+
+等到 Audio File Stream ID parse 出遠端檔案的格式後，我們就可以建立
+converter 了。在建立的過程中，要傳入輸入給 converter 的格式，以及
+converter 應該要轉出的格式。
+
+``` objc
+AudioStreamBasicDescription destFormat = KKSignedIntLinearPCMStreamDescription();
+AudioConverterNew(&streamDescription, &destFormat, &converter);
+```
 
 ### 實作 Render Callback
 
@@ -40,6 +123,7 @@ KKSimpleAUPlayer.h
 ```
 
 KKSimpleAUPlayer.m
+
 
 ``` objc
 #import "KKSimpleAUPlayer.h"
@@ -437,5 +521,4 @@ OSStatus KKPlayerConverterFiller (AudioConverterRef inAudioConverter,
 	}
 	return result;
 }
-
 ```
