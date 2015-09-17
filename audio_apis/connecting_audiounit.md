@@ -33,8 +33,9 @@ AUGraphOpen(audioGraph);
 AudioComponentDescription，但是設定 AudioComponentDescription 的 code
 非常冗長，而且有大量的重複。因此，不少人在寫這段 code 的時候，會想要把
 每個 node 再包裝一層變成 Objective-C 物件，像
-[DDCoreAudio](https://bitbucket.org/ddribin/ddcoreaudio) 就是這樣的專
-案。
+[DDCoreAudio](https://bitbucket.org/ddribin/ddcoreaudio) 、以及更有名
+的 [The Amazing Audio Engine](http://theamazingaudioengine.com)，就是
+這樣的專案。
 
 蘋果在 iOS 7 推出的 AVAudioEngine 也像是一個 AUGraph 的 Objective-C
 wrapper，AVAudioEngine 這個 class 本身就像是 AUGraph，而我們可以透過呼

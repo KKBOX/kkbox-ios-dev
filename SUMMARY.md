@@ -100,6 +100,7 @@
    * [使用 Audio Queue 開發播放軟體](audio_apis/audio_queue.md)
    * [使用 Audio Unit Processing Graph 開發播放軟體](audio_apis/audio_unit_graph.md)
    * [在 AUGraph 中串接 AudioUnit](audio_apis/connecting_audiounit.md)
+   * [Core Audio 到底難在哪？](audio_apis/core_audio_is_hard.md)
    * [Audio Session](audio_apis/audio_session.md)
    * [打造 Player 的完整功能](audio_apis/complete_the_player.md)
    * [教學影片](audio_apis/video.md)
