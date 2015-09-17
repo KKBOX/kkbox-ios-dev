@@ -9,7 +9,7 @@ IO 上。
 
 所以我們有以下成員變數：
 
-``` objc
+``` c
 AUGraph audioGraph; // audio graph
 AudioUnit mixerUnit; // mixer
 AudioUnit EQUnit; // EQ
@@ -22,7 +22,7 @@ AudioUnit outputUnit; // remote IO
 等到晚一點，我們把 Audio Graph 的內容設定完畢之後，我們還要呼叫
 `AUGraphInitialize`。
 
-``` objc
+``` c
 NewAUGraph(&audioGraph);
 AUGraphOpen(audioGraph);
 ```
@@ -44,7 +44,7 @@ wrapper，AVAudioEngine 這個 class 本身就像是 AUGraph，而我們可以�
 要在 Audio Graph 中建立新的 node，方法是呼叫 `AUGraphAddNode`，然後可
 以用 `AUGraphConnectNodeInput` 串接。這段建立與串接實在看起來很可怕：
 
-```
+``` c
 // 建立 mixer node
 AudioComponentDescription mixerUnitDescription;
 mixerUnitDescription.componentType= kAudioUnitType_Mixer;
@@ -93,6 +93,90 @@ AUGraphNodeInfo(audioGraph, EQNode, &EQUnitDescription, &EQUnit);
 AUGraphNodeInfo(audioGraph, mixerNode, &mixerUnitDescription, &mixerUnit);
 ```
 
+### 設定輸入與輸出格式
+
+每個 Audio Unit 在互相串接後，就會將前一個 Audio Unit 的輸出送到下一個
+Audio Unit 的輸入端，因此我們要設定每個 Audio Unit 的輸入與輸出格式，
+讓音訊資料可以正確通過每一個 Audio Unit。設定輸入與輸出格式的方式是修
+改 `kAudioUnitProperty_StreamFormat` 這項屬性，如果要改輸入格式，就將
+scope 設定為 `kAudioUnitScope_Input`，反之就是 `kAudioUnitScope_Output`。
+
+我們的第一個 Audio Unit 是 mixer，而接下來會把 render callback
+function 綁在 mixer 的 bus 0，後面也全部是在 bus 0 上串接，因此，我們
+設定了 mixer 與 EQ 的輸入與輸出格式。由於送到 Remote IO 就會播放，我們
+就不用設定 Remote IO 的輸出格式了。
+
+``` c
+AudioStreamBasicDescription audioFormat = KKSignedIntLinearPCMStreamDescription();
+AudioUnitSetProperty(mixerUnit, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Input, 0, &audioFormat, sizeof(audioFormat));
+AudioUnitSetProperty(mixerUnit, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Output, 0, &audioFormat, sizeof(audioFormat));
+AudioUnitSetProperty(EQUnit, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Input, 0, &audioFormat, sizeof(audioFormat));
+AudioUnitSetProperty(EQUnit, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Output, 0, &audioFormat, sizeof(audioFormat));
+AudioUnitSetProperty(outputUnit, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Input, 0, &audioFormat, sizeof(audioFormat));
+```
+
+### 設定最大 Frame Per Slice
+
+關於這項設定，要參考蘋果
+[Technical Q&A QA1606](https://developer.apple.com/library/ios/qa/qa1606/_index.html)
+這份重要的說明。Audio Unit API 是一種 pull model 的設計，不是我們主動
+把音訊資料推給 AUGraph，而是讓 AUGraph 透過 render callback function
+跟我們索取資料，至於會跟我們要求多少資料，是由系統決定，而不是由我們決
+定。
+
+而 AUGraph 會跟我們要求多少資料會變動的，平常的時候，一次會跟我們要求
+1024 個 frame，但是當 iOS 裝置在 lock screen 的時候，基於節電的理由，
+會變成一次跟我們要比較多的資料，變成 4096 個 frame，但每個 Audio Unit
+預設可以通過的 frame 數量是 1156。所以，如果不調整設定，當裝置進入
+lock screen 之後，就會因為中間串接的 Audio Unit 無法通過 4096 個 frame
+而造成無法播放。
+
+因此我們要將每個 Audio Unit 可以通過的資料量設成 4096。
+
+``` c
+UInt32 maxFPS = 4096;
+AudioUnitSetProperty(mixerUnit, kAudioUnitProperty_MaximumFramesPerSlice, kAudioUnitScope_Global, 0,&maxFPS, sizeof(maxFPS));
+AudioUnitSetProperty(EQUnit, kAudioUnitProperty_MaximumFramesPerSlice, kAudioUnitScope_Global, 0,&maxFPS, sizeof(maxFPS));
+AudioUnitSetProperty(outputUnit, kAudioUnitProperty_MaximumFramesPerSlice, kAudioUnitScope_Global, 0,&maxFPS, sizeof(maxFPS));
+```
+
+這個數字也決定了我們設定給 converter 使用的 renderBufferSize 的大小，
+我們設成 4096 * 4，原因是我們需要提供 4096 個 frame，而每個 frame 裡頭
+有左右聲道，所以會是兩個十六位元整數，每個十六位元整數是 2 bytes。
+
+最後是設定 render callback，方式與前一節相同。
+
+### 調整 player 的各項設定
+
+在這個 player 中我們可以透過 Audio Unit 調整各項設定，比方說，我們想要
+調整這個 player 的音量，便可以透過 AudioUnitSetParameter，對 mixer 的
+bus 0 調整 kMultiChannelMixerParam_Volume 屬性。話說當我們只有 Remote
+IO 的時候，想要調整音量，只要直接調整 Remote IO 的音量即可，但假如果我
+們有了一個 mixer 在裡頭，對 Remote IO 的調整就會變成無效，只能夠透過調
+整 mixer 的音量改變音量。
+
+這個範例中也示範了如何使用 EQ 等化器。iOS 的 EQ 等化器有一些 preset，
+存放在一個 CFArray 中，我們可以從中選擇喜愛的 preset 套用。在
+iPodEQPresetsArray 與 `-selectEQPreset:` 示範了如何使用 EQ 等化器。
+
+``` objc
+- (CFArrayRef)iPodEQPresetsArray
+{
+	CFArrayRef array;
+	UInt32 size = sizeof(array);
+	AudioUnitGetProperty(EQUnit, kAudioUnitProperty_FactoryPresets, kAudioUnitScope_Global, 0, &array, &size);
+	return array;
+}
+
+- (void)selectEQPreset:(NSInteger)value
+{
+	AUPreset *aPreset = (AUPreset*)CFArrayGetValueAtIndex(self.iPodEQPresetsArray, value);
+	AudioUnitSetProperty(EQUnit, kAudioUnitProperty_PresentPreset, kAudioUnitScope_Global, 0, aPreset, sizeof(AUPreset));
+}
+```
+
+完成的範例 Player 如下：
+
 KKSimpleAUPlayer.h
 
 ``` objc
@@ -103,6 +187,9 @@ KKSimpleAUPlayer.h
 - (id)initWithURL:(NSURL *)inURL;
 - (void)play;
 - (void)pause;
+
+@property (readonly, nonatomic) CFArrayRef iPodEQPresetsArray;
+- (void)selectEQPreset:(NSInteger)value;
 @end
 ```
 
@@ -315,9 +402,9 @@ AudioStreamBasicDescription KKSignedIntLinearPCMStreamDescription()
 		// 第一步：建立 Audio Parser，指定 callback，以及建立 HTTP 連線，
 		// 開始下載檔案
 		AudioFileStreamOpen((__bridge void *)(self),
-							KKAudioFileStreamPropertyListener,
-							KKAudioFileStreamPacketsCallback,
-							kAudioFileMP3Type, &audioFileStreamID);
+			KKAudioFileStreamPropertyListener,
+			KKAudioFileStreamPacketsCallback,
+			kAudioFileMP3Type, &audioFileStreamID);
 		URLConnection = [[NSURLConnection alloc] initWithRequest:[NSURLRequest requestWithURL:inURL] delegate:self];
 //		[self play];
 	}
@@ -353,14 +440,18 @@ AudioStreamBasicDescription KKSignedIntLinearPCMStreamDescription()
 	playerStatus.stopped = YES;
 }
 
-- (BOOL)isPlaying
+- (CFArrayRef)iPodEQPresetsArray
 {
-	UInt32 property = 0;
-	UInt32 propertySize = sizeof(property);
-	AudioUnitGetProperty(outputUnit,
-						 kAudioOutputUnitProperty_IsRunning,
-						 kAudioUnitScope_Global, 0, &property, &propertySize);
-	return property != 0;
+	CFArrayRef array;
+	UInt32 size = sizeof(array);
+	AudioUnitGetProperty(EQUnit, kAudioUnitProperty_FactoryPresets, kAudioUnitScope_Global, 0, &array, &size);
+	return array;
+}
+
+- (void)selectEQPreset:(NSInteger)value
+{
+	AUPreset *aPreset = (AUPreset*)CFArrayGetValueAtIndex(self.iPodEQPresetsArray, value);
+	AudioUnitSetProperty(EQUnit, kAudioUnitProperty_PresentPreset, kAudioUnitScope_Global, 0, aPreset, sizeof(AUPreset));
 }
 
 #pragma mark -
