@@ -298,7 +298,7 @@ AudioStreamBasicDescription KKSignedIntLinearPCMStreamDescription()
 	NSAssert(noErr == status, @"Must be no error.");
 
 	//  建立 converter 要使用的 buffer list
-	UInt32 bufferSize = 4096;
+	UInt32 bufferSize = 4096 * 4;
 	renderBufferSize = bufferSize;
 	renderBufferList = (AudioBufferList *)calloc(1, sizeof(UInt32) + sizeof(AudioBuffer));
 	renderBufferList->mNumberBuffers = 1;
