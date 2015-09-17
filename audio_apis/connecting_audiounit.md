@@ -151,10 +151,7 @@ AudioUnitSetProperty(outputUnit, kAudioUnitProperty_MaximumFramesPerSlice, kAudi
 
 在這個 player 中我們可以透過 Audio Unit 調整各項設定，比方說，我們想要
 調整這個 player 的音量，便可以透過 AudioUnitSetParameter，對 mixer 的
-bus 0 調整 kMultiChannelMixerParam_Volume 屬性。話說當我們只有 Remote
-IO 的時候，想要調整音量，只要直接調整 Remote IO 的音量即可，但假如果我
-們有了一個 mixer 在裡頭，對 Remote IO 的調整就會變成無效，只能夠透過調
-整 mixer 的音量改變音量。
+bus 0 調整 kMultiChannelMixerParam_Volume 屬性。
 
 這個範例中也示範了如何使用 EQ 等化器。iOS 的 EQ 等化器有一些 preset，
 存放在一個 CFArray 中，我們可以從中選擇喜愛的 preset 套用。在

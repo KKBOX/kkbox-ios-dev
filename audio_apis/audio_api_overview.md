@@ -258,6 +258,11 @@ AudioUnit 設定 callback function，綁定某個 bus，在這個 function 中�
 個將 MP3 或 AAC 轉換成 LPCM 格式的 converter。總之，我們提到播放網路串
 流音樂有六個步驟，當我們用到這一層 API 的時候，這六個步驟都得自己來了。
 
+Audio Unit 也是一種系統 plug-in，在 Mac OS X 與 iOS 上，除了內建的
+Audio Unit 之外，第三方也可以撰寫自己的 Audio Unit，Mac OS X 一開始就
+支援，不過 iOS 方面，則是 iOS 9 才開放，而且還要包在一個 hosting app
+中。
+
 講完 AUGraph 會比較容易理解 AVFoundation 中最新的 audio player：
 AVAudioEngine，AVAudioEngine 是 Objective-C API，用 Objective-C 物件把
 AUGraph API 多包裝了一層，AVAudioEngine 裡頭的 AVAudioPlayerNode、

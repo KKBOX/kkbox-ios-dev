@@ -51,11 +51,14 @@ screen 播放聲音，也可以在背景播放。這種軟體在有來電、鬧�
 AVAudioSessionCategoryPlayAndRecord 則是用在像 Skype 這類的網路電話軟
 體，設定之後，一樣是在靜音鎖鎖上與 lock screen 時可以使用錄製功能。
 
-最後兩種很少見，在網路上可以看到的資源也很少。根據蘋果文件，
+最後兩種實在不常見，在網路上可以看到的資源也很少。根據蘋果文件，
 AVAudioSessionCategoryAudioProcessing 是用在純粹只使用蘋果的 Audio API
-做音訊的處理，但是沒有任何的輸入與輸出，而
-AVAudioSessionCategoryMultiRoute 的用途則是強制將 audio 從指定的硬體上
-輸入與輸出。
+做音訊的處理，但是沒有任何的輸入與輸出。而設定了
+AVAudioSessionCategoryMultiRoute 之後，會讓 iOS 裝置原本只會選擇一個單
+一的輸入或輸出裝置的預設行為，變成可以同時使用多台裝置，比方說，我們原
+本用耳機孔接了耳機，接著用 Lighting 線接了某個喇叭之後，就變成
+Lighting 輸出，設了 AVAudioSessionCategoryMultiRoute，就可以同時往耳機
+與 Lighting 輸出。這部份請參見 WWDC 2012 的說明。
 
 ### 決定 Audio Session Category 的時機
 
