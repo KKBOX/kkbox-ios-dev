@@ -1,6 +1,98 @@
 在 AUGraph 中串接 AudioUnit
 ---------------------------
 
+前一節當中示範了如何只用 Remote IO 呼叫 Audio Unit Processing Graph
+API，在這一節中，整個 player 的架構基本上是差不多的，不過，我們從建立
+Remote IO component 換成 AUGraph，並且在 AUGraph 當中串接多個 node。在
+這個範例中，我們建立了三個 node：mixer、EQ 等化器，然後輸出到 Remote
+IO 上。
+
+所以我們有以下成員變數：
+
+``` objc
+AUGraph audioGraph; // audio graph
+AudioUnit mixerUnit; // mixer
+AudioUnit EQUnit; // EQ
+AudioUnit outputUnit; // remote IO
+```
+
+### 建立 Audio Graph
+
+建立 Audio Graph 的過程很簡單，就是呼叫 `NewAUGraph` 與 `AUGraphOpen`，
+等到晚一點，我們把 Audio Graph 的內容設定完畢之後，我們還要呼叫
+`AUGraphInitialize`。
+
+``` objc
+NewAUGraph(&audioGraph);
+AUGraphOpen(audioGraph);
+```
+
+### 建立與串接 node
+
+我們每次要建立一個 node 的時候，都要傳入指定的
+AudioComponentDescription，但是設定 AudioComponentDescription 的 code
+非常冗長，而且有大量的重複。因此，不少人在寫這段 code 的時候，會想要把
+每個 node 再包裝一層變成 Objective-C 物件，像
+[DDCoreAudio](https://bitbucket.org/ddribin/ddcoreaudio) 就是這樣的專
+案。
+
+蘋果在 iOS 7 推出的 AVAudioEngine 也像是一個 AUGraph 的 Objective-C
+wrapper，AVAudioEngine 這個 class 本身就像是 AUGraph，而我們可以透過呼
+叫 `-attachNode:` 增加 AVAudioNode 物件，然後用 `-connect:to:format:`
+這類的 method 串接 AVAudioNode。
+
+要在 Audio Graph 中建立新的 node，方法是呼叫 `AUGraphAddNode`，然後可
+以用 `AUGraphConnectNodeInput` 串接。這段建立與串接實在看起來很可怕：
+
+```
+// 建立 mixer node
+AudioComponentDescription mixerUnitDescription;
+mixerUnitDescription.componentType= kAudioUnitType_Mixer;
+mixerUnitDescription.componentSubType = kAudioUnitSubType_MultiChannelMixer;
+mixerUnitDescription.componentManufacturer = kAudioUnitManufacturer_Apple;
+mixerUnitDescription.componentFlags = 0;
+mixerUnitDescription.componentFlagsMask = 0;
+AUNode mixerNode;
+AUGraphAddNode(audioGraph, &mixerUnitDescription, &mixerNode);
+
+// 建立 EQ node
+AudioComponentDescription EQUnitDescription;
+EQUnitDescription.componentType= kAudioUnitType_Effect;
+EQUnitDescription.componentSubType = kAudioUnitSubType_AUiPodEQ;
+EQUnitDescription.componentManufacturer = kAudioUnitManufacturer_Apple;
+EQUnitDescription.componentFlags = 0;
+EQUnitDescription.componentFlagsMask = 0;
+AUNode EQNode;
+AUGraphAddNode(audioGraph, &EQUnitDescription, &EQNode);
+
+// 建立 remote IO node
+AudioComponentDescription outputUnitDescription;
+bzero(&outputUnitDescription, sizeof(AudioComponentDescription));
+outputUnitDescription.componentType = kAudioUnitType_Output;
+outputUnitDescription.componentSubType = kAudioUnitSubType_RemoteIO;
+outputUnitDescription.componentManufacturer = kAudioUnitManufacturer_Apple;
+outputUnitDescription.componentFlags = 0;
+outputUnitDescription.componentFlagsMask = 0;
+AUNode outputNode;
+AUGraphAddNode(audioGraph, &outputUnitDescription, &outputNode);
+
+// 將 mixer node 連接到 EQ node
+AUGraphConnectNodeInput(audioGraph, mixerNode, 0, EQNode, 0);
+// 將 EQ node 連接到 Remote IO
+AUGraphConnectNodeInput(audioGraph, EQNode, 0, outputNode, 0);
+```
+
+### 拿出 Audio Unit
+
+Audio Unit 是 Audio Node 的操作介面，在建立了 Audio Node 之後，我們便
+可以用 `AUGraphNodeInfo` 拿出 Audio Unit。
+
+``` objc
+AUGraphNodeInfo(audioGraph, outputNode, &outputUnitDescription, &outputUnit);
+AUGraphNodeInfo(audioGraph, EQNode, &EQUnitDescription, &EQUnit);
+AUGraphNodeInfo(audioGraph, mixerNode, &mixerUnitDescription, &mixerUnit);
+```
+
 KKSimpleAUPlayer.h
 
 ``` objc

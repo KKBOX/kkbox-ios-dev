@@ -97,9 +97,8 @@ QTMovie 這個 Class。QTMovie 可以做到 Mac OS X 系統中 QuickTime Player
 
 在 Mac 與 iOS 上的 AV Foundation 不完全相同。在 AV Foundation 裡頭有三
 個直接與 Audio 播放相關的 class，按照出現的時間排列，分別為
-AVAudioPlayer、AVPlayer 與 AVAudioEngine。AVAudioEngine 的設計上會比較
-接近遊戲音效引擎，而 AVAudioPlayer、AVPlayer 的設計是音樂播放器，我們
-先來看 AVAudioPlayer 與 AVPlayer。
+AVAudioPlayer、AVPlayer 與 AVAudioEngine。我們先來看 AVAudioPlayer 與
+AVPlayer。
 
 AVAudioPlayer 是在 iPhoneOS 2.2 上推出，大概是在 iPhoneOS SDK 問世後半
 年左右出現的 API。用 AVAudioPlayer 相當適合用在像是播放遊戲背景音樂等
@@ -186,7 +185,7 @@ function 回傳的時間通常也不是很精確。
 ### Audio Unit Processing Graph
 
 如果我們想要對音訊播放擁有最完整的控制，那我們最後的選擇，就是最底層的
-Audio Unit Processing Graph 這層 API。上面提到的不少 API，像 OpenAL、
+Audio Unit Processing Graph 這層 C API。上面提到的不少 API，像 OpenAL、
 Audio Queue 以及 AVFoudation 等，也是在這一層 API 上架構的。
 
 我們先來解釋一個名詞：Core Audio。Core Audio 是蘋果的整個 audio 的架構
@@ -258,3 +257,11 @@ AudioUnit 設定 callback function，綁定某個 bus，在這個 function 中�
 由於這邊只支援 LPCM 格式，因此我們在播放 MP3 或 AAC 資料之前，還得有一
 個將 MP3 或 AAC 轉換成 LPCM 格式的 converter。總之，我們提到播放網路串
 流音樂有六個步驟，當我們用到這一層 API 的時候，這六個步驟都得自己來了。
+
+講完 AUGraph 會比較容易理解 AVFoundation 中最新的 audio player：
+AVAudioEngine，AVAudioEngine 是 Objective-C API，用 Objective-C 物件把
+AUGraph API 多包裝了一層，AVAudioEngine 裡頭的 AVAudioPlayerNode、
+AVAudioUnitEffect 等等，都可以找到對應的 C API，但是高階許多。不過，從
+AVAudioPlayerNode 的設計來看，AVAudioEngine 看起來很容易處理本機檔案，
+只要傳入一個 file URL 就可以輕鬆播放，並且加入各種效果。不過，如果是網
+路串流，看起來我們還是得自己轉成 PCM Buffer 送給 AVAudioPlayerNode。
