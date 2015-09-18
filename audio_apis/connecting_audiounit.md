@@ -404,7 +404,7 @@ AudioStreamBasicDescription KKSignedIntLinearPCMStreamDescription()
 			KKAudioFileStreamPacketsCallback,
 			kAudioFileMP3Type, &audioFileStreamID);
 		URLConnection = [[NSURLConnection alloc] initWithRequest:[NSURLRequest requestWithURL:inURL] delegate:self];
-//		[self play];
+		playerStatus.stopped = YES;
 	}
 	return self;
 }
@@ -512,7 +512,7 @@ AudioStreamBasicDescription KKSignedIntLinearPCMStreamDescription()
 	//	播放
 
 	if (readHead == 0 & [packets count] > (int)([self framePerSecond] * 3)) {
-		if (!playerStatus.stopped) {
+		if (playerStatus.stopped) {
 			[self play];
 		}
 	}

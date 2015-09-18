@@ -318,12 +318,12 @@ AudioStreamBasicDescription KKSignedIntLinearPCMStreamDescription()
 
 		// 第一步：建立 Audio Parser，指定 callback，以及建立 HTTP 連線，
 		// 開始下載檔案
-		AudioFileStreamOpen((__bridge void * _Nullable)(self),
+		AudioFileStreamOpen((__bridge void *)(self),
 			KKAudioFileStreamPropertyListener,
 			KKAudioFileStreamPacketsCallback,
 			kAudioFileMP3Type, &audioFileStreamID);
 		URLConnection = [[NSURLConnection alloc] initWithRequest:[NSURLRequest requestWithURL:inURL] delegate:self];
-		[self play];
+		playerStatus.stopped = YES;
 	}
 	return self;
 }
@@ -345,16 +345,6 @@ AudioStreamBasicDescription KKSignedIntLinearPCMStreamDescription()
 {
 	OSStatus status = AudioOutputUnitStop(audioUnit);
 	NSAssert(noErr == status, @"AudioOutputUnitStop, error: %ld", (signed long)status);
-}
-
-- (BOOL)isPlaying
-{
-	UInt32 property = 0;
-	UInt32 propertySize = sizeof(property);
-	AudioUnitGetProperty(audioUnit,
-		kAudioOutputUnitProperty_IsRunning,
-		kAudioUnitScope_Global, 0, &property, &propertySize);
-	return property != 0;
 }
 
 #pragma mark -
@@ -387,7 +377,7 @@ AudioStreamBasicDescription KKSignedIntLinearPCMStreamDescription()
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
 	NSLog(@"Failed to load data: %@", [error localizedDescription]);
-	playerStatus.stopped = YES;
+	[self pause];
 }
 
 #pragma mark -
@@ -417,7 +407,7 @@ AudioStreamBasicDescription KKSignedIntLinearPCMStreamDescription()
 	//	播放
 
 	if (readHead == 0 & [packets count] > (int)([self framePerSecond] * 3)) {
-		if (![self isPlaying]) {
+		if (playerStatus.stopped) {
 			[self play];
 		}
 	}
@@ -445,8 +435,7 @@ AudioStreamBasicDescription KKSignedIntLinearPCMStreamDescription()
 					(__bridge void *)(self),
 					&packetSize, renderBufferList, NULL);
 				if (noErr != status && KKAudioConverterCallbackErr_NoData != status) {
-					OSStatus status = AudioOutputUnitStop(audioUnit);
-					NSAssert(noErr == status, @"AudioOutputUnitStop, error: %ld", (signed long)status);
+					[self pause];
 					return -1;
 				}
 				else if (!packetSize) {
