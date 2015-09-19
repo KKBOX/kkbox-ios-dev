@@ -80,8 +80,8 @@ NSObject
 ```
 
 結論，無論是 iOS 8 或 iOS 7，我們建立的 data task，都不是直接產生
-NSURLSessionDataTask 物件，而是產生 __NSCFLocalDataTask 這樣的 private
-class 的物件。iOS 8 上，__NSCFLocalDataTask 並不繼承
+NSURLSessionDataTask 物件，而是產生 \_\_NSCFLocalDataTask 這樣的 private
+class 的物件。iOS 8 上，\_\_NSCFLocalDataTask 並不繼承
 NSURLSessionDataTask，而 iOS 7 上 __NSCFLocalDataTask 甚至連
 NSURLSessionTask 都不是。
 
@@ -89,8 +89,8 @@ NSURLSessionTask 都不是。
 NSURLSessionDataTask，像呼叫
 `[task isKindOfClass:[NSURLSessionDataTask class]]`，還是會回傳 YES。
 其實 `-isKindOfClass:` 是可以 override 掉的，所以，即使
-__NSCFLocalDataTask 根本就不是 NSURLSessionDataTask，但我們可以把
-__NSCFLocalDataTask 的 `-isKindOfClass` 寫成這樣：
+\_\_NSCFLocalDataTask 根本就不是 NSURLSessionDataTask，但我們可以把
+\_\_NSCFLocalDataTask 的 `-isKindOfClass` 寫成這樣：
 
 ``` objc
 - (BOOL)isKindOfClass:(Class)aClass
