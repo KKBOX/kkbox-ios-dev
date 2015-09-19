@@ -14,6 +14,7 @@
    * [Category 還可以有什麼用途？](category/other_usages.md)
    * [Extensions](category/extensions.md)
    * [Category 是否可以增加新的成員變數或屬性？](category/member_variables_and_categories.md)
+   * [對 NSURLSessionTask 撰寫 Category](category/nsurlsessiontask.md)
    * [相關閱讀](category/reading_list.md)
    * [練習：字串反轉](category/practice_category_for_nsstring.md)
 * [記憶體管理 Part 1 - Retain、Release](memory_management_part_1/README.md)

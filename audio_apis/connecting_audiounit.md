@@ -349,13 +349,13 @@ AudioStreamBasicDescription KKSignedIntLinearPCMStreamDescription()
 
 	// 設定 EQ node 的輸入輸出格式
 	status = AudioUnitSetProperty(EQUnit, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Input, 0, &audioFormat, sizeof(audioFormat));
-	NSAssert(noErr == status, @"We need to set input format of the mixer node. %d", (int)status);
+	NSAssert(noErr == status, @"We need to set input format of the EQ node. %d", (int)status);
 	status = AudioUnitSetProperty(EQUnit, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Output, 0, &audioFormat, sizeof(audioFormat));
-	NSAssert(noErr == status, @"We need to set input format of the mixer effect node. %d", (int)status);
+	NSAssert(noErr == status, @"We need to set input format of the EQ effect node. %d", (int)status);
 
 	// 設定 Remote IO node 的輸入格式
 	status = AudioUnitSetProperty(outputUnit, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Input, 0, &audioFormat, sizeof(audioFormat));
-	NSAssert(noErr == status, @"We need to set input format of the mixer node. %d", (int)status);
+	NSAssert(noErr == status, @"We need to set input format of the	remote IO node. %d", (int)status);
 
 	// 設定 maxFPS
 	UInt32 maxFPS = 4096;

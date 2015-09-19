@@ -36,3 +36,17 @@ thread 裡頭呼叫了 AUGraph API 才會發生…
 
 可是我們明明是在呼叫 `AUGraphStart` 的時候就發生錯誤了，連 render
 thread 都還沒有進去。這個說明跟我們遇到的狀況完全無關啊！
+
+或，我們寫好了前一節的 player 之後，想繼續玩玩看有哪些 effect node 可
+以使用，我們就把原本 EQ node 裡頭這行
+`EQUnitDescription.componentSubType = kAudioUnitSubType_AUiPodEQ` 換成
+`EQUnitDescription.componentSubType = kAudioUnitSubType_Reverb2`，想試
+試看 iOS 上的 reverb 效果如何，結果在設定 effect node 的輸入格式的時候，
+發生 kAudioUnitErr_FormatNotSupported 錯誤（-10868），為什麼呢？你可能
+要花上很長一段時間在網路上搜尋，才在某個論壇的某篇文章知道，iOS 上的
+reverb2 這個 effect node 只接受浮點格式的 LPCM 資料，但我們現在卻是使
+用 16 位元整數，因此會在設定輸入格式的時候失敗。
+
+可是，你去翻蘋果官方文件，卻也根本找不到 reverb2 只能夠接受哪些輸入格
+式的相關說明，唯一跟 kAudioUnitSubType_Reverb2 相關的說明就只有兩行：
+- iPhone only. A reverb for iOS。
