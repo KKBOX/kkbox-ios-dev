@@ -133,7 +133,7 @@ static MyClass *sharedInstace = nil;
 其實現在 Singleton 大多會使用 GCD 的 `dispatch_once` 實作，但是在我們還
 沒有提到 GCD 之前，我們先使用這樣的寫法。我們會在討論 Threading 的時候
 繼續討論 GCD，至於用 GCD 實作 Singleton 的細節，請參見
-[再談 Singleton](../singleton/README.md) 這一章。
+[再談 Singleton](../design_patterns/singleton.md) 這一章。
 
 我們如果 subclass 了 MyClass，卻沒有 override 掉`sharedInstace`，那麼，
 `sharedInstace` 回傳的還是 MyClass 的 singleton instance。而想要
