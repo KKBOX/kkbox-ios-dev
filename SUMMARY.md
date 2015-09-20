@@ -95,7 +95,7 @@
    * [相關閱讀](crash_reports/reading_list.md)
    * [練習：閱讀 Crash Reports](crash_reports/practice.md)
 * [Core Animation](core_animation/README.md)
-   * [CALayer](core_animation/calayer.md.md)
+   * [CALayer](core_animation/calayer.md)
    * [CAAnimation](core_animation/caanimation.md)
    * [CATransaction](core_animation/catransaction.md)
    * [CADisplayLink](core_animation/cadisplaylink.md)
