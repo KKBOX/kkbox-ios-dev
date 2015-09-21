@@ -48,10 +48,12 @@ selector 中再從 NSValue 轉換回來，於是會寫不少轉換用的 code。
 
 另外要注意，如果我們要在背景執行一個 selector，這個 method 裡頭必須要
 有自己的 auto release pool，才能夠正確釋放 auto release 物件（關於auto
-release 請參見[記憶體管理 Part 1](memory_management_part_1/README.md)）。
-要建立 auto release pool，可以手動建立 NSAutoreleasePool 物件，也可以
-使用 `@autoreleasepool` 關鍵字，當然用 `@autoreleasepool` 會比較容易一
-點，像這樣：
+release 請參見
+[記憶體管理 Part 1](../memory_management_part_1/README.md)）。要建立
+auto release pool，可以手動建立 NSAutoreleasePool 物件，也可以使用
+`@autoreleasepool` 關鍵字，當然用 `@autoreleasepool` 會比較容易一點，
+而且在啟用 ARC 之後，也會禁止手動建立 NSAutoreleasePool，只能使用
+`@autoreleasepool`。像這樣：
 
 ``` objc
 - (void)backgroundTask
