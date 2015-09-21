@@ -8,7 +8,7 @@ h1 {
 
 pre {
     white-space: pre-wrap !important;
-    word-wrap: break-word;
+    word-wrap: break-word !important;
  }
 
 code {
