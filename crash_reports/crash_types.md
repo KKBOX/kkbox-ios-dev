@@ -23,8 +23,8 @@ retain count 為 0 了，我們還嘗試呼叫，於是呼叫到錯誤的記憶�
 含 C 的記憶體錯誤，像還沒有 alloc 一塊記憶體就先呼叫。
 
 雖然有了 ARC 之後記憶體問題少很多，但還是會發生。我們在
-[記憶體管理 Part 1](memory_management_part_1/README.md) 與
-[記憶體管理 Part 2 - ARC](memory_management_part_2/README.md) 討論了不
+[記憶體管理 Part 1](../memory_management_part_1/README.md) 與
+[記憶體管理 Part 2 - ARC](../memory_management_part_2/README.md) 討論了不
 少相關議題，在這邊就不重複。
 
 要修正記憶體管理問題，找到 crash 發生在哪一行是第一步，可以找到是哪個
