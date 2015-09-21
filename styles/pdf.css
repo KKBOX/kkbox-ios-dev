@@ -1,5 +1,5 @@
 body {
-    font-size: 12pt;
+    font-size: 12pt !important;
 }
 
 h1 {
@@ -7,11 +7,11 @@ h1 {
 }
 
 pre {
-    white-space: pre-wrap;
-    word-wrap: break-word;
+    white-space: pre-wrap !important;
+    word-wrap: break-word !important;
  }
 
 code {
-    white-space: pre-wrap;
-    word-wrap: break-word;
+    white-space: pre-wrap !important;
+    word-wrap: break-word !important;
  }
