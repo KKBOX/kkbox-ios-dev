@@ -110,6 +110,10 @@ layer 的邊框寬度與顏色，甚至可以設定圓角效果。
 `shadowPath`，用一個 CGPath 描述陰影的外框範圍，設上去之後的效能會快許
 多。
 
+前面提到，絕大多數的 CALayer 的屬性在設定之後，會產生 0.25 的動畫效果；
+打開 CALayer.h，只要看到註解裡頭提到某個屬性是屬於 Animatable，就是會
+產生動畫效果的屬性。
+
 CALayer 在建立完畢之後，預設都是一倍解析度，所以在 Retina Display 的裝
 置上，看起來都會糊糊的，所以需要告訴 CALayer 應該要用怎樣的解析度，方
 法是透過設定 `contentsScale` 屬性。在 iOS 上，我們通常設成 UIScreen 的
@@ -126,10 +130,27 @@ Display 的螢幕或投影機，而一個 window 可能會被拖放到不同的 
 所以，當某個 window 移動到某個 screen 上之後，上面的 layer 也要跟著反
 應，把這些 layer 設定成對應的解析度。我們稍後說明。
 
-### CALayer 的 subclass
+### 實作 CALayer drawInContext: 需要注意的地方
 
-CATextLayer
-CAShapeLayer
-CATiledLayer
-CAGradientLayer
-CAEmitterLayer
+如果我們打算自己實作 `drawInContext:`，就需要注意一下，我們平常在UIKit
+用到的許多跟繪圖相關的功能，都是對 Core Graphics 的 current context 操
+作（也就是呼叫 `UIGraphicsGetImageFromCurrentImageContext()` 回傳的
+CGContextRef），但是在實作 `drawInContext:` 的時候，是要把圖片繪製到指
+定的 context 裡頭；所以我們要先把傳入了 context 變成 current context。
+
+要把某個 context 變成 current context，只要呼叫
+`UIGraphicsPushContext()` 即可，不過，當我們離開 `drawInContext:` 的時
+候，要記得呼叫 `UIGraphicsPopContext()`，還原到原本的設定。
+
+``` objc
+- (void)drawInContext:(CGContextRef)ctx
+{
+	UIGraphicsPushContext(ctx);
+	// Your drawing code here.
+	UIGraphicsPopContext();
+}
+```
+
+了解 CALayer 之後，下一步就是要讓 CALayer 動起來。我們在下一節要討論的
+就是讓 CALayer 移動的 CAAnimation。而 CALayer 其實有許多 subclass，我
+們在後面也會繼續討論一些常用 CALayer subclass 的功能。
