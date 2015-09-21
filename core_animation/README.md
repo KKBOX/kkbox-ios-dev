@@ -7,7 +7,8 @@ Core Animation 是在 iOS 上負責一般 UI 繪圖與動畫的 framework。當�
 Core Animation。掌握了 Core Animation 之後，絕大多數 app 裡頭可能用到
 的動畫，你都應該可以做出來。
 
-Core Animation 大概分成三種主要的 class：
+真的要詳細介紹 Core Animation，其實可以寫成一本專書，我們在這邊盡量簡
+短介紹。Core Animation 大概分成三種主要的 class：
 
 - CALayer
 - CAAnimation
