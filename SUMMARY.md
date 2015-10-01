@@ -50,6 +50,7 @@
    * [Block 作為 Objective-C 物件](blocks/blocks_as_objective-c_objects.md)
    * [哪些事情不要拿 Block 來做](blocks/when_not_to_use_blocks.md)
    * [相關閱讀](blocks/reading_list.md)
+   * [練習：將 Web Service API 包裝成 SDK](blocks/practice_web_service_sdk.md)
 * [Notification Center](notification_center/README.md)
    * [接收與發送 Notification](notification_center/post_and_observe_notifications.md)
    * [Notification Queue](notification_center/notification_queue.md)
