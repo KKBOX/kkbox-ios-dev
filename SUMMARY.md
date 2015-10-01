@@ -65,6 +65,7 @@
    * [圖解設計模式](design_patterns/graphs.md)
    * [為什麼要使用設計模式](design_patterns/why_design_patterns.md)
    * [再談 Singleton](design_patterns/singleton.md)
+   * [練習：探索 Cocoa/Cocoa Touch Framework](design_patterns/practice_explore_frameworks.md)
    * [練習：閱讀程式碼](design_patterns/practice.md)
 * [Responder](responder/README.md)
    * [Run Loop](responder/run_loop.md)
