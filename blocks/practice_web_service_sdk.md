@@ -78,3 +78,6 @@ endpoint，會回傳 JSON、HTML 或圖片格式的資料，我們要使用以�
   dictionary 裡頭也應該要有預期的 key，value 也是預期的型別
 - Act: 呼叫 method，發送連線
 - Assert: 驗證呼叫的結果是否符合預期
+
+另外，如果你打算把這個 class 寫成 singleton 物件，請先跳到後面閱讀
+[再談 Singleton](design_patterns/singleton.md) 這一章。
