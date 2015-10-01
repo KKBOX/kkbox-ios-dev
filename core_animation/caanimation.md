@@ -137,6 +137,14 @@ CIFilter 物件，客製更多的轉場效果。
 
 ### CAPropertyAnimation
 
+CAPropertyAnimation 便是透過設定某個 CALayer 的屬性產生動畫。前面提到，
+只要修改 layer 的屬性會自定產生動畫效果，不過跟使用
+CAPropertyAnimation 的狀況不太一樣，我們對某個 layer 加入了
+CAPropertyAnimation 之後，雖然會產生動畫，但是就只有產生動畫而已，
+layer 屬性原本的值並不會因此改變。
+
+
+
 ### CAKeyframeAnimation
 
 ### CAAnimationGroup
