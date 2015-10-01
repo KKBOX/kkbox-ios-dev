@@ -21,7 +21,7 @@ delegate method。
 但相對的，用 block 處理 callback，就會很難區分某個 block 是否是必須要
 實作：在Xcode 6.3 之前，Objective-C 並沒有 `nullable` 、`nonnull` 等關
 鍵字，讓我們知道某個 property、或某個 method 要傳入的 block 可不可以是
-nil，我們也往往搞不清楚在這些地方傳入 nil，會不會發生什麼危險的事情。
+nil，我們也往往搞不清楚在這些地方傳入 nil，會不會發生什麼危險的事情。[^1]
 
 舉個例子。在 iOS 7 之後，蘋果鼓勵開發者使用 NSURLSession 處理網路連線，
 NSURLSession 就充分表現了「單一 callback 用 block、多重 callback 用
@@ -73,3 +73,5 @@ delegate methods。
 	totalBytesSent:(int64_t)totalBytesSent
 	totalBytesExpectedToSend:(int64_t)totalBytesExpectedToSend;
 ```
+
+[^1]: 其實是把 Swift 的語言特性移植回 Objective-C。
