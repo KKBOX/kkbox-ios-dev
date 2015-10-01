@@ -11,13 +11,22 @@ delegate？
 callback，那麼就使用 block，如果可能會有多個不同的 callback，那麼就使
 用 delegate。
 
-這麼做的好處是：當一個 method 或 function 呼叫會有多種callback 的時候，
-很有可能某些 callback 是沒有必要實作的，如果使用delegate 實作，那麼，
-在 delegate 需要實作的 protocol 中，我們可以用@required 與 @optional
-關鍵字區分哪些是一定需要實作的 delegate method，但是用 block 就會無法
-區分。
+這麼做的好處是：當一個 method 或 function 呼叫會有多種 allback 的時候，
+很有可能某些 callback 是沒有必要實作的。
+
+如果使用 delegate 實作，那麼，在 delegate 需要實作的 protocol 中，我們
+可以用 `@required` 與 `@optional` 關鍵字區分哪些是一定需要實作的
+delegate method。
+
+但相對的，用 block 處理 callback，就會很難區分某個 block 是否是必須要
+實作：在Xcode 6.3 之前，Objective-C 並沒有 `nullable` 、`nonnull` 等關
+鍵字，讓我們知道某個 property、或某個 method 要傳入的 block 可不可以是
+nil，我們也往往搞不清楚在這些地方傳入 nil，會不會發生什麼危險的事情。
 
 舉個例子。在 iOS 7 之後，蘋果鼓勵開發者使用 NSURLSession 處理網路連線，
+NSURLSession 就充分表現了「單一 callback 用 block、多重 callback 用
+delegate」這一點。
+
 假如我們現在想要把 KKBOX 的官網首頁抓下來，我們只要建立一個
 NSURLSessionDataTask 物件，一般來說，我們只需要處理「這個連線做完事情
 的下一步該做什麼」，所以一般也只需要實作這個 task 的 completion
@@ -51,16 +60,16 @@ delegate methods。
 
 ``` objc
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task
-                     willPerformHTTPRedirection:(NSHTTPURLResponse *)response
-                                     newRequest:(NSURLRequest *)request
-                              completionHandler:(void (^)(NSURLRequest *))completionHandler;
+	willPerformHTTPRedirection:(NSHTTPURLResponse *)response
+	newRequest:(NSURLRequest *)request
+	completionHandler:(void (^)(NSURLRequest *))completionHandler;
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task
-                            didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
-                              completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential))completionHandler;
+	didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
+	completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential))completionHandler;
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task
-                              needNewBodyStream:(void (^)(NSInputStream *bodyStream))completionHandler;
+	needNewBodyStream:(void (^)(NSInputStream *bodyStream))completionHandler;
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task
-                                didSendBodyData:(int64_t)bytesSent
-                                 totalBytesSent:(int64_t)totalBytesSent
-                       totalBytesExpectedToSend:(int64_t)totalBytesExpectedToSend;
+	didSendBodyData:(int64_t)bytesSent
+	totalBytesSent:(int64_t)totalBytesSent
+	totalBytesExpectedToSend:(int64_t)totalBytesExpectedToSend;
 ```

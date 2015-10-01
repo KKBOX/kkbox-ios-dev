@@ -71,3 +71,10 @@ endpoint，會回傳 JSON、HTML 或圖片格式的資料，我們要使用以�
 - [Testing in Xcode 6](https://developer.apple.com/videos/wwdc/2014/?id=414)
 - [XCTest​Case/XCTest​Expectation/measure​Block()](http://nshipster.com/xctestcase/)
 - [Asynchronous Testing With Xcode 6](https://www.bignerdranch.com/blog/asynchronous-testing-with-xcode-6/)
+
+請不要忘了 AAA 原則：
+
+- Arrange: 連線應該要成功，而且應該要正確抓回 dictionary 或 image 物件，
+  dictionary 裡頭也應該要有預期的 key，value 也是預期的型別
+- Act: 呼叫 method，發送連線
+- Assert: 驗證呼叫的結果是否符合預期
