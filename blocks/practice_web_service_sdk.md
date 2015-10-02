@@ -63,8 +63,8 @@ endpoint，會回傳 JSON、HTML 或圖片格式的資料，我們要使用以�
 待測試回應，不然就會在連線還沒完成之前，test case 就結束了。
 
 我們以前遇到非同步的 test case，需要自己跑 Run Loop，或是用 GCD 的
-`dispatch_semaphore_t`，可以參考 [Run Loop](responder/run_loop.md) 與
-[NSOperation 與 NSOperationQueue](threading/nsoperation_and_nsoperationqueue.md)
+`dispatch_semaphore_t`，可以參考 [Run Loop](../responder/run_loop.md) 與
+[NSOperation 與 NSOperationQueue](../threading/nsoperation_and_nsoperationqueue.md)
 這兩章後面的章節。不過，在 Xcode 6 之後，比較容易的作法是使用 XCUnit
 提供的 XCTestExpectation；如何在 Xcode 6 中做非同步的測試，請參考
 
@@ -80,4 +80,4 @@ endpoint，會回傳 JSON、HTML 或圖片格式的資料，我們要使用以�
 - Assert: 驗證呼叫的結果是否符合預期
 
 另外，如果你打算把這個 class 寫成 singleton 物件，請先跳到後面閱讀
-[再談 Singleton](design_patterns/singleton.md) 這一章。
+[再談 Singleton](../design_patterns/singleton.md) 這一章。
