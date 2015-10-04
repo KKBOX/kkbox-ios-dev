@@ -138,12 +138,51 @@ CIFilter 物件，客製更多的轉場效果。
 ### CAPropertyAnimation
 
 CAPropertyAnimation 便是透過設定某個 CALayer 的屬性產生動畫。前面提到，
-只要修改 layer 的屬性會自定產生動畫效果，不過跟使用
+只要修改 layer 的 animatable 屬性會自定產生動畫效果，不過，跟使用
 CAPropertyAnimation 的狀況不太一樣，我們對某個 layer 加入了
 CAPropertyAnimation 之後，雖然會產生動畫，但是就只有產生動畫而已，
 layer 屬性原本的值並不會因此改變。
 
+CAPropertyAnimation 是一層介面，我們通常使用的是 CAPropertyAnimation
+的 subclass CABasicAnimation。設定 CABasicAnimation 的時候，主要會設定
+以下屬性：
 
+1. `fromValue`: 要讓某個屬性產生變化的動畫時的初始值
+2. `toValue`: 要讓某個屬性產生變化的動畫時結束的數值
+3. `byValue`: 要讓某個屬性產生變化的動畫時，介於開始與結束的中間值，但
+   是很多時候可以不用特別設定，設成 nil 即可
+4. `duration`: 這個動畫要花上多少時間
+5. `repeatCount`: 我們要執行這個動畫幾次，如果只要跑一次這個動畫，設定
+   成 1 即可；如果我們想要這個動畫一直跑的話，不妨就把這個動畫設成
+   `NSNotFound`，`NSNotFound` 就是整數的最大值。
+
+比方說，當我們想要讓某個 layer 一直不停的旋轉，我們可以修改
+`transform.rotation.x`、`transform.rotation.y`、`transform.rotation.z`
+等，要求這個 layer 是按照 x、y 還是 z 軸旋轉，我們可以讓 fromValue 設
+成 0，代表是初始還沒旋轉的狀態，至於 toValue 設成 M_PI * 2，代表要旋轉
+360 度。像以下這段程式：
+
+``` objc
+[super viewDidLoad];
+[super viewDidLoad];
+self.aLayer = [[CALayer alloc] init];
+self.aLayer.frame = CGRectMake(50, 50, 100, 100);
+self.aLayer.backgroundColor = [UIColor redColor].CGColor;
+CABasicAnimation *rotateAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+rotateAnimation.fromValue = @0.0f;
+rotateAnimation.toValue = @(M_PI * 2);
+rotateAnimation.autoreverses = YES;
+rotateAnimation.repeatCount = NSUIntegerMax;
+rotateAnimation.duration = 2.0;
+[self.aLayer addAnimation:rotateAnimation forKey:@"x"];
+[self.view.layer addSublayer:self.aLayer];
+```
+
+效果如下：
+
+<iframe width="350" height="621"
+src="https://www.youtube.com/embed/3sRDqSIK-nM?rel=0&amp;showinfo=0"
+frameborder="0" allowfullscreen></iframe>
 
 ### CAKeyframeAnimation
 
