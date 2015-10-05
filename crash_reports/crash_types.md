@@ -105,18 +105,14 @@ property 都轉出正確的形態。
 
 無論是對 NSMutableArray 或 NSMutableDictionary 插入 nil，都會發生
 crash。要避免這個問題，就是在做插入的動作之前，都先檢查一下現在要插入
-的物件是否是 nil。
+的物件是否是 nil；或是，如果你使用 Xcode 6.3 之後的版本，也可以使用
+`nullable`、`nonnull` 等關鍵字，確認使用的變數是否是 nil。
 
 要不然就是改寫 Swift：Swift 語法特別強調一個變數是否可以指向 nil，這項
 特性叫做 Optional，一個可以指向 nil 的變數必須設成 Optional，也就是變
 數後方必須加上一個問號，而這個變數以後每次出現，後方都一定會出現問號與
-驚嘆號。
-
-我們不打算在這邊講解太多 Swift，有些人說，蘋果推出 Swift 這門新語言，
-語法比較簡潔所以適合新手入門，這種說法就見仁見智，Swift 從 WWDC 2014推
-出之後語法一直變化，而且一直新增語言關鍵字，而問號驚嘆號更經常讓人眼花
-撩亂。不過，相較於 Objective-C，因為對 nil 與物件型態的強調，Swift會是
-一門更安全的語言。
+驚嘆號。而 Objective-C 的 `nullable`、`nonnull` 等關鍵字其實就是為了與
+Swift API 一致。
 
 #### Out of Bounds
 
