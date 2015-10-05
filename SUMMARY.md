@@ -102,6 +102,7 @@
    * [CALayer](core_animation/calayer.md)
    * [CATransaction](core_animation/catransaction.md)
    * [CAAnimation](core_animation/caanimation.md)
+   * [CAAnimation 的細部設定](core_animation/caanimation_details.md)
    * [CADisplayLink](core_animation/cadisplaylink.md)
    * [教學影片](core_animation/video.md)
    * [練習：KKBOX 動態歌詞](core_animation/practice_rolling_lyrics.md)

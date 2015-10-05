@@ -154,8 +154,11 @@ CAPropertyAnimation 是一層介面，我們通常使用的是 CAPropertyAnimati
 2. `toValue`: 要讓某個屬性產生變化的動畫時結束的數值
 3. `byValue`: 要讓某個屬性產生變化的動畫時，介於開始與結束的中間值，但
    是很多時候可以不用特別設定，設成 nil 即可
-4. `duration`: 這個動畫要花上多少時間
-5. `repeatCount`: 我們要執行這個動畫幾次，如果只要跑一次這個動畫，設定
+
+然後有一些設定是定義在 CAMediaTiming protocol 中，像是：
+
+1. `duration`: 這個動畫要花上多少時間
+2. `repeatCount`: 我們要執行這個動畫幾次，如果只要跑一次這個動畫，設定
    成 1 即可；如果我們想要這個動畫一直跑的話，不妨就把這個動畫設成
    `NSNotFound`，`NSNotFound` 就是整數的最大值。
 
@@ -199,3 +202,4 @@ frameborder="0" allowfullscreen></iframe>
 一個 CALayer 可以同時執行多個 CAAnimation，當我們加入了一個CAAnimation
 之後，就會立刻執行這個動畫。而我們也可以把很多個 animation 物件包裝成
 群組，方法就是建立 CAAnimationGroup 物件，然後把想要變成群組的其他動畫，
+變成 array，設定成 CAAnimationGroup 的 `animations` property。

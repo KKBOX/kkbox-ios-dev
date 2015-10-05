@@ -114,10 +114,15 @@ layer 的邊框寬度與顏色，甚至可以設定圓角效果。
 打開 CALayer.h，只要看到註解裡頭提到某個屬性是屬於 Animatable，就是會
 產生動畫效果的屬性。
 
+因為改變任何屬性都會產生動畫，所以，當我們建立了 layer 之後，通常會先
+設好 frame，才把 layer 加到 super layer 上，不然，如果先加到 super
+layer，才去改變 frame，就會產生很奇怪的動畫效果。
+
 CALayer 在建立完畢之後，預設都是一倍解析度，所以在 Retina Display 的裝
-置上，看起來都會糊糊的，所以需要告訴 CALayer 應該要用怎樣的解析度，方
-法是透過設定 `contentsScale` 屬性。在 iOS 上，我們通常設成 UIScreen 的
-scale。
+置上，看起來都會糊糊的（尤其是使用 CATextLayer 這個用來顯示文字內容的
+layer，更容易凸顯解析度的不足），所以需要告訴 CALayer 應該要用怎樣的解
+析度，方法是透過設定 `contentsScale` 屬性。在 iOS 上，我們通常設成
+UIScreen 的scale。
 
 ``` objc
 layer.contentsScale = [UIScreen mainScreen].scale;
