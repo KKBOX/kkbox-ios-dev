@@ -135,6 +135,9 @@ private API，如果用了可能會被 reject…不過印象中其實有很多 a
 CATransition 還有一個叫做 filter 的屬性，我們可以在這個屬性上加上
 CIFilter 物件，客製更多的轉場效果。
 
+另外要注意，在我們呼叫 `addAnimation:forKey:` 的時候，如果加入的是個
+CATransition 動畫，無論使用了怎樣的名稱當做 key，key 都會是 transition。
+
 ### CAPropertyAnimation
 
 CAPropertyAnimation 便是透過設定某個 CALayer 的屬性產生動畫。前面提到，
@@ -186,4 +189,13 @@ frameborder="0" allowfullscreen></iframe>
 
 ### CAKeyframeAnimation
 
+使用 CAKeyframeAnimation 與 CABasicAnimation 的主要差別在於，我們想要
+透過改變某個屬性產生動畫時，不是設定初始值與結束值，而是使用一個貝茲曲
+線描述（是 CGPath）。所以，當我們希望動畫不只是直線前進，而是按照某種
+曲線移動的時候，就可以使用 CAKeyframeAnimation。
+
 ### CAAnimationGroup
+
+一個 CALayer 可以同時執行多個 CAAnimation，當我們加入了一個CAAnimation
+之後，就會立刻執行這個動畫。而我們也可以把很多個 animation 物件包裝成
+群組，方法就是建立 CAAnimationGroup 物件，然後把想要變成群組的其他動畫，
