@@ -144,7 +144,8 @@ CAPropertyAnimation 便是透過設定某個 CALayer 的屬性產生動畫。前
 只要修改 layer 的 animatable 屬性會自定產生動畫效果，不過，跟使用
 CAPropertyAnimation 的狀況不太一樣，我們對某個 layer 加入了
 CAPropertyAnimation 之後，雖然會產生動畫，但是就只有產生動畫而已，
-layer 屬性原本的值並不會因此改變。
+layer 屬性原本的值並不會因此改變，用蘋果的術語，這種動畫叫做 Explicit
+Animations。
 
 CAPropertyAnimation 是一層介面，我們通常使用的是 CAPropertyAnimation
 的 subclass CABasicAnimation。設定 CABasicAnimation 的時候，主要會設定
@@ -201,5 +202,15 @@ frameborder="0" allowfullscreen></iframe>
 
 一個 CALayer 可以同時執行多個 CAAnimation，當我們加入了一個CAAnimation
 之後，就會立刻執行這個動畫。而我們也可以把很多個 animation 物件包裝成
-群組，方法就是建立 CAAnimationGroup 物件，然後把想要變成群組的其他動畫，
-變成 array，設定成 CAAnimationGroup 的 `animations` property。
+群組（像是 layer 一邊移動位置一邊翻轉），方法就是建立 CAAnimationGroup
+物件，然後把想要變成群組的其他動畫，變成 array，設定成
+CAAnimationGroup 的 `animations` property。
+
+``` objc
+CAAnimationGroup *group = [CAAnimationGroup animation];
+group.duration = 0.5;
+group.animations = @[positionAnimation, flipAnimation];
+group.delegate = self;
+
+[aLayer addAnimation:group forKey:@"group"];
+```
