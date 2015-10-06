@@ -1,6 +1,8 @@
 練習：KKBOX 動態歌詞
 --------------------
 
+![動態歌詞](lyrics.png)
+
 ### 練習範圍
 
 - Core Animation
