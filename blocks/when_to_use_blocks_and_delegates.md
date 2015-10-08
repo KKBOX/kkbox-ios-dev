@@ -11,7 +11,7 @@ delegate？
 callback，那麼就使用 block，如果可能會有多個不同的 callback，那麼就使
 用 delegate。
 
-這麼做的好處是：當一個 method 或 function 呼叫會有多種 allback 的時候，
+這麼做的好處是：當一個 method 或 function 呼叫會有多種 callback 的時候，
 很有可能某些 callback 是沒有必要實作的。
 
 如果使用 delegate 實作，那麼，在 delegate 需要實作的 protocol 中，我們
