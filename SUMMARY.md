@@ -79,6 +79,7 @@
    * [GCD](threading/gcd.md)
    * [NSOperation 與 NSOperationQueue](threading/nsoperation_and_nsoperationqueue.md)
    * [相關閱讀](threading/reading_list.md)
+   * [練習：一個發送多個連線的 Operation](threading/practice.md)
 * [NSCoding](nscoding/README.md)
    * [實作 NSCoding](nscoding/implementing_nscoding_protocol.md)
    * [常見用途](nscoding/usages.md)
