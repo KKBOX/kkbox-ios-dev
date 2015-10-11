@@ -10,15 +10,15 @@
 定，然後進入「輔助使用」（Accesibility）。進入到這一層設定之後，我們馬
 上便可以看到第一個選項就是 VoiceOver，我們可以在這邊選擇要開啟或關閉。
 
-[setting1.png](setting1.png)
+![setting1.png](setting1.png)
 
 不過，每次都要進入設定切換 VoiceOver 相當麻煩，我們通常也會在「輔助使
 用」的設定中，設定最後一項設定「輔助使用快速鍵」（Accessibility
 Shortcut），然後把 VoiceOVer 加入到 Shortcut 中。
 
-[setting2.png](setting2.png)
+![setting2.png](setting2.png)
 
-[setting3.png](setting3.png)
+![setting3.png](setting3.png)
 
 設定了「輔助使用快速鍵」之後，我們就可以透過快速連按 Home 鍵三下，啟用
 我們剛才設定的功能。如果我們在「輔助使用快速鍵」設定中，只設定了
