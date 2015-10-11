@@ -171,7 +171,6 @@ CAPropertyAnimation 是一層介面，我們通常使用的是 CAPropertyAnimati
 
 ``` objc
 [super viewDidLoad];
-[super viewDidLoad];
 self.aLayer = [[CALayer alloc] init];
 self.aLayer.frame = CGRectMake(50, 50, 100, 100);
 self.aLayer.backgroundColor = [UIColor redColor].CGColor;
