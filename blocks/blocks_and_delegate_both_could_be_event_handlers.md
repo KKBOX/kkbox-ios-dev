@@ -121,3 +121,8 @@ typedef void (^changedEventHandler)(id, EventArgs *);
 還是順道一提，在 C\# 裡頭，我們可能會把所有的 callback 都叫做 event，
 但是在 Cocoa 與 Cocoa Touch 的世界裡頭，我們只會把來自硬體的輸入叫做
 event。
+
+由於 block 的主要用途，就在於處理 callback，所以 block 經常就用在各種
+非同步工作的 callback 上，要執行各種非同步的工作，就往往要使用 thread，
+關於在 iOS 與 Mac 上如何使用 thread，我們將會在
+[Threading](../threading/README.md) 這章中討論。

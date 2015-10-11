@@ -129,12 +129,7 @@ UIScreen 的scale。
 layer.contentsScale = [UIScreen mainScreen].scale;
 ```
 
-在 Mac 上這件事情會變得比較複雜：一個 layer 該用怎樣的解析度，會跟這個
-layer 放在哪個 NSWindow 上有關，一台 Mac 可能本身的螢幕具有 Retina
-Display，但是另外用 mini display port 等介面外接了其他不是 Retina
-Display 的螢幕或投影機，而一個 window 可能會被拖放到不同的 screen 上，
-所以，當某個 window 移動到某個 screen 上之後，上面的 layer 也要跟著反
-應，把這些 layer 設定成對應的解析度。我們稍後說明。
+在 Mac 上這件事情會變得比較複雜，我們在後面會說明。
 
 ### 實作 CALayer drawInContext: 需要注意的地方
 

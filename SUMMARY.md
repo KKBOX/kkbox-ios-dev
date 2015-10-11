@@ -105,6 +105,7 @@
    * [CAAnimation](core_animation/caanimation.md)
    * [CAAnimation 的細部設定](core_animation/caanimation_details.md)
    * [CADisplayLink](core_animation/cadisplaylink.md)
+   * [在 Mac 上使用 Core Animation](core_animation/mac.md)
    * [教學影片](core_animation/video.md)
    * [練習：KKBOX 動態歌詞](core_animation/practice_rolling_lyrics.md)
    * [練習：Flappy Bird](core_animation/practice_flappy_bird.md)
