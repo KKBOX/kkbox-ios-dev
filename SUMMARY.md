@@ -124,4 +124,8 @@
    * [相關閱讀](audio_apis/reading_list.md)
    * [練習：iOS Audio Player 開發](audio_apis/practice.md)
 * [Accessibility](accessibility/README.md)
+   * [如何使用 VoiceOver](accessibility/use_voiceover.md)
+   * [基本支援](accessibility/basic_supports.md)
+   * [進階的 Accessibility 設定](accessibility/custom_views.md)
+   * [相關閱讀](accessibility/reading_list.md)
 * [Reading List](reading_list/README.md)

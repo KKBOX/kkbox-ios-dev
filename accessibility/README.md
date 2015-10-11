@@ -1,55 +1,39 @@
 Accessibility
 =============
 
+支援 Accessibility，就是讓具有各種身體障礙的用戶—尤其是視力不良的用戶—
+也可以使用你的 App。
+
 蘋果在 iPhoneOS 3.0 的時候，就加入了三項為視力不佳者服務的設計－如果你
 沒有辦法清楚看到 iPhone 上預設大小的文字，你可以開啟畫面的局部放大功能，
 同時用三隻手指點按畫面，就可以放大手指所在的區域；如果覺得白底黑字不夠
 清楚，可以將畫面反白，切換成黑底白字。
 
 而如果已經完全失去視力，完全無法透過視力操作電腦，iOS 提供一項名為
-Voiceover 的語音功能，開啟後會改變一些觸控的操作行為－原本只要按在畫面
-中某個元件上（例如按鈕等），就會使用這一個元件的功能，在開啟 Voiceover
-之後，單點一下，系統會先告訴你目前點到的地方是怎樣的東西，之後再連續點
-兩下，才是使用這個元件的功能。
+VoiceOver 的語音功能，開啟後會改變一些觸控的操作行為－原本只要按在畫
+面中某個元件上（例如按鈕等），就會使用這一個元件的功能，在開啟
+VoiceOver之後，單點一下，系統會先告訴你目前點到的地方是怎樣的東西，之
+後再連續點兩下，才是使用這個元件的功能。
 
-因為 Voiceover 與觸控介面，iOS 裝置變成非常適合盲人使用的資訊設備－在
+因為 VoiceOver 與觸控介面，iOS 裝置變成非常適合盲人使用的資訊設備－在
 使用鍵盤滑鼠的操作介面中，不管怎樣，盲人都很難確定目前螢幕上滑鼠指標到
 底在什麼地方，但是在觸控介面上，便能夠較為清楚的選擇要點選的是畫面的上
-下左右；而透過 Voiceover，也便能夠讓盲人無需另外安裝軟體，就可以方便地
-收取郵件、閱讀網頁、當你用 iBook 翻閱的書籍時，可以幫你把書中的內容念
-出來… 等。蘋果在推出 Apple Watch 之後，也一樣實作了Voiceover 功能。
-
-製作 Voiceover 友善的軟體
-------------------------
+下左右；透過 Voice0Over，盲人朋友無需另外安裝軟體，就可以方便地收取郵
+件、閱讀網頁、當你用 iBook 翻閱的書籍時，可以幫你把書中的內容念出來…
+等。蘋果在推出 Apple Watch 之後，也一樣實作了 VoiceOver 功能。
 
 在製作軟體時，我們不太需要關心局部放大與反白兩項功能，不過，在
-Voiceover 方面，還是要做一些工作，才能夠完全達成。
+VoiceOver 方面，還是要做一些工作，才能夠完全達成。
 
 如果你的應用程式裡頭，都只有用到 iOS SDK 原本就設計好的那些 UI 元件，
 例如 UIButton、UILabel、UISlider … 等等，基本上就已經具備了支援
-Voiceover 的一定能力，在點選到這些元件上的時候，系統就會把裡頭的文字念
-出來。
+VoiceOver 的一定能力，在點選到這些元件上的時候，系統就會把裡頭的文字
+念出來。
 
 但，假使你不是用文字代表這些元件的意義，而是放入圖片呢？如果圖片來自
 bundle 的 resource 裡頭，你用 `[UIImage imageNamed:]` 載入圖片，那，
-Voiceover 會把圖片檔名念出來，恐怕沒有人能聽的懂是什麼意思；而如果圖片
+VoiceOver 會把圖片檔名念出來，恐怕沒有人能聽的懂是什麼意思；而如果圖片
 是用程式碼產生，就什麼相關資訊都沒有了。
-
-對這些繼承自 UIView 的物件來說，有兩種方法可以處理這種狀況。如果你的
-UI 是在 Interface Builder （以下簡稱 IB）裡頭產生的，在 IB 的
-Inspector 的第四個分頁，就可以設定這個 UI 元件的相關資訊。也可以透過程
-式碼設定，iPhone SDK 定義了 UIAccessibility 這個 informal protocol，所
-有繼承自 NSObject 的物件都具備此一 interface，你可以透過
-accessibilityLabel、accessibilityHint 等屬性，標記 UI 元件的標題與詳細
-說明。
-
-開發過程中，可以使用 iOS Simulator 檢驗目前程式對 Voiceover 的支援狀態，
-方法是在模擬器中的偏好設定中，把 Accessibility Inspector 打開，模擬器
-畫面中就會出現一個小畫面，在選取畫面中某個 UI 元件時，Accessibility
-Inspector 就會列出各種相關資訊。
-
-UIAutomation
-------------
 
 在 iOS 4.0 之後，無障礙支援又有另外一項意義，就是這個功能與新增的 UI
 自動測試（UIAutomation）相關。當你用 Instument 執行某個 iPhone 應用程
@@ -63,53 +47,3 @@ Javascript ，將目前應用程式當前畫面當做物件呼叫，要求回傳
 Javascript 取得的物件列表放在 buttons 這個變數中（型態是 array），那麼，
 要取得這個按鈕，可以這麼呼叫： buttons[‘Edit’]。如果要點選這個按鈕，就
 是 buttons[‘Edit’].tap()。
-
-實作 Accessibility 支援
------------------------
-
-蘋果官方文件
-[Accessibility Programming Guide for iOS](https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/iPhoneAccessibility/Introduction/Introduction.html)
-中，寫得算是詳細，接下來說點文件裡頭沒提到的事。
-
-### Core Animation
-
-如果你要加入無障礙資源的物件是一個 UIView，基本上不需要管這個物件的
-frame，也就是，使用者在螢幕上點到什麼範圍，這個物件才會處理與無障礙支
-援相關的工作。
-
-不過，很多時候，在使用者介面中的重要文字與圖片，並不是放在直接放在某個
-UIView 裡頭，當你使用 Core Animation 製作 UI 的時候，就會把很多東西放
-在 CALayer 裡－某個 layer 裡頭的 content 屬性可能是一張重要的圖，或是
-用了 CATextLayer 呈現文字。
-
-CALayer 物件本身沒辦法處理無障礙資源。想要讓系統知道某個 layer 的存在
-與其所代表的意義，就必須要用一個 container 物件處理，這個 container 通
-常是這個 layer 的 super layer 所在的 view，實作
-UIAccessibilityContainer protocol。需要注意，自己實作了
-UIAccessibilityContainer protocol 之後，會完全改變這個 view 裡頭的無障
-礙支援的行為，所以，如果原本這個 view 的 subviews 中還有許多其他的
-UIView 物件，如果我們自己實作的 UIAccessibilityContainer 並沒有處理到
-這些 subview，這些 subview 原本具有的無障礙支援也就會隨之失效。
-
-我們可以針對每一個 CALayer 物件，產生一個對應的 UIAccessibilityElement
-物件，然後透過 setAccessibilityFrame: 指定對應的 CALayer 在畫面上的範
-圍。
-
-需要注意的是，這邊所指定的位置，必須是這個 layer 在整個應用程式畫面中
-的位置，而不是 layer 原本的 frame 屬性，layer 本身的 frame 屬性只是相
-對於上一層的 layer （super layer）的位置而已。我們在這裡可以透過呼叫
-convertRect:fromLayer:，轉換出目前 layer，與應用程式啟動時，我們所產生
-的那個 UIWindow 物件上的 layer，兩者之間的位置關係，這個 CGRect 才是我
-們想要的資訊。
-
-當 layer 在畫面上的位置有改變時，最後記得要發一次
-UIAccessibilityLayoutChangedNotification。
-
-[未完]
-
-
-相關閱讀
---------
-
-- WWDC 2014 Accessibility on iOS
-- WWDC 2014 Accessibility on Mac

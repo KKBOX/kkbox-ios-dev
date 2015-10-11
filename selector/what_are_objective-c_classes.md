@@ -59,6 +59,8 @@ NSLog(@"%s", (char *)(@selector(doSomething)));
 
 我們會順利印出「doSomething」這個 C 字串。
 
+[xcode](xcode.png)
+
 每次我們對一個物件呼叫某個 method，runtime 在做的事情，就是把 method的
 名稱當做字串，尋找與字串符合的 C function實作，然後執行。也就是說，下
 面這三件事情是一樣的：
