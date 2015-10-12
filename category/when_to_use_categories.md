@@ -111,21 +111,21 @@ NSUserDefault、NSNotificationCenter 以及 Mac OS X上的 NSWorkSpace 等，
 
 ``` objc
 @interface MyClass : NSObject
-+ (MyClass *)sharedInstace;
++ (MyClass *)sharedInstance;
 @end
 ```
 
 實作部分：
 
 ``` objc
-static MyClass *sharedInstace = nil;
+static MyClass *sharedInstance = nil;
 
 @implementation MyClass
-+ (MyClass *)sharedInstace
++ (MyClass *)sharedInstance
 {
-    return sharedInstace ?
-           sharedInstace :
-           (sharedInstace = [[MyClass alloc] init]);
+    return sharedInstance ?
+           sharedInstance :
+           (sharedInstance = [[MyClass alloc] init]);
 }
 @end
 ```
@@ -135,26 +135,26 @@ static MyClass *sharedInstace = nil;
 繼續討論 GCD，至於用 GCD 實作 Singleton 的細節，請參見
 [再談 Singleton](../design_patterns/singleton.md) 這一章。
 
-我們如果 subclass 了 MyClass，卻沒有 override 掉`sharedInstace`，那麼，
-`sharedInstace` 回傳的還是 MyClass 的 singleton instance。而想要
-override 掉 `sharedInstace` 又不見得這麼簡單，因為這個method 裡頭很可
+我們如果 subclass 了 MyClass，卻沒有 override 掉`sharedInstance`，那麼，
+`sharedInstance` 回傳的還是 MyClass 的 singleton instance。而想要
+override 掉 `sharedInstance` 又不見得這麼簡單，因為這個method 裡頭很可
 能又做了許多其他事情，很可能會把一些 initiailize時該做的事情，反而放在
 這邊做（這不是很好的作法，但就是可能發生）。例如MyClass 可能這麼寫：
 
 ``` objc
-+ (MyClass *)sharedInstace
++ (MyClass *)sharedInstance
 {
-    if (!sharedInstace) {
-        sharedInstace = [[MyClass alloc] init];
-        [sharedInstace doSomething];
-        [sharedInstace doAnotherThine];
+    if (!sharedInstance) {
+        sharedInstance = [[MyClass alloc] init];
+        [sharedInstance doSomething];
+        [sharedInstance doAnotherThine];
     }
-    return sharedInstace;
+    return sharedInstance;
 }
 ```
 
 如果我們並沒有 MyClass 的程式碼，這個 class 是在其他的 library 或是
-framework 中，我們直接 override 了`sharedInstace`，就很有可能有事情沒
+framework 中，我們直接 override 了`sharedInstance`，就很有可能有事情沒
 做，而產生不符合預期的結果。
 
 ### 在專案中出現次數已經多不勝數
