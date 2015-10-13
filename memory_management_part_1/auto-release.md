@@ -4,7 +4,7 @@ Auto-Release
 如果我們今天有一個 method，會回傳一個 Objective-C 物件，假使寫成這樣：
 
 ``` objc
-- (void)one
+- (NSNumber *)one
 {
     return [[NSNumber alloc] initWithInt:1];
 }
@@ -15,7 +15,7 @@ Auto-Release
 auto-release的物件。像是寫成這樣：
 
 ``` objc
-- (void)one
+- (NSNumber *)one
 {
     return [[[NSNumber alloc] initWithInt:1] autorelease];
 }
