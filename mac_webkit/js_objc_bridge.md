@@ -16,7 +16,7 @@ JavaScript 呼叫一段用 Objective-C實作的功能。
 
 ### 用 Objective-C 取得與設定 JavaScript 物件
 
-要從 Objective-C 取得網頁中的 JavaScript 物件，也就是對
+要從 Objective-C 取得與設定得網頁中的 JavaScript 物件，也就是對
 `windowScriptObject` 做一些 KVC 呼叫，像是 `valueForKey:` 與
 `valueForKeyPath:` 。如果我們在 JavaScript裡頭，想要知道目前的網頁位置，
 會這麼寫：
@@ -142,7 +142,7 @@ WebKit 裡頭，所有的 DOM 物件都繼承自 `DOMObject`，`DOMObject` 又�
 `WebScriptObject`，所以我們在取得了某個 DOM 物件之後，也可以從
 Objective-C 程式中，要求這個 DOM 物件執行 Javascript 程式。
 
-假如我們的網頁中，有一個 id 叫做 “\#s” 的文字輸入框（text
+假如我們的網頁中，有一個 id 叫做 “#s” 的文字輸入框（text
 input），而我們希望現在鍵盤輸入的焦點放在這個輸入框上，在 JS
 裡頭會這樣寫：
 
@@ -184,7 +184,7 @@ WebView 的frame loading delegate（用 setFrameLoadDelegate:），並且實作
 }
 ```
 
-如此一來，只要呼叫 `window.controller`，就可以呼叫我們的 Objective-C物
+如此一來，只要呼叫 `window.controller`，就可以呼叫我們的 Objective-C 物
 件。假如我們的 Objective-C Class 裡頭有這些成員變數：
 
 ``` objc
@@ -208,12 +208,11 @@ WebView 的frame loading delegate（用 setFrameLoadDelegate:），並且實作
 ``` objc
 stringValue = @"string";
 numberValue = 24;
-arrayValue = [[NSArray arrayWithObjects:@"text",
-                       [NSNumber numberWithInt:30], nil] retain];
-dateValue = [[NSDate date] retain];
-dictValue = [[NSDictionary dictionaryWithObjectsAndKeys:@"value1", @"key1",
+arrayValue = [NSArray arrayWithObjects:@"text", [NSNumber numberWithInt:30], nil];
+dateValue = [NSDate date];
+dictValue = [NSDictionary dictionaryWithObjectsAndKeys:@"value1", @"key1",
               @"value2", @"key2",
-              @"value3", @"key3", nil] retain];
+              @"value3", @"key3", nil];
 frameValue = [window frame];
 ```
 
@@ -224,20 +223,20 @@ var c = window.controller;
 var main = document.getElementById('main');
 var HTML = '';
 if (c) {
-    HTML += '<p>' + c.stringValue + '<p>';
-    HTML += '<p>' + c.numberValue + '<p>';
-    HTML += '<p>' + c.arrayValue + '<p>';
-    HTML += '<p>' + c.dateValue + '<p>';
-    HTML += '<p>' + c.dictValue + '<p>';
-    HTML += '<p>' + c.frameValue + '<p>';
-    main.innerHTML = HTML;
+	HTML += '<p>' + c.stringValue + '<p>';
+	HTML += '<p>' + c.numberValue + '<p>';
+	HTML += '<p>' + c.arrayValue + '<p>';
+	HTML += '<p>' + c.dateValue + '<p>';
+	HTML += '<p>' + c.dictValue + '<p>';
+	HTML += '<p>' + c.frameValue + '<p>';
+	main.innerHTML = HTML;
 }
 ```
 
-結果如下： ..
+結果如下：
 
 > string 24 text,30 2010-09-09 00:01:04 +0800 { key1 = value1; key2 =
-> value2; key3 = value3; } NSRect: {{275, 72}, {570, 657}}
+> value2; key3 = value3; } NSRect: \{\{275, 72}, {570, 657}}
 
 不過，如果你看完上面的範例，就直接照做，應該不會直接成功出現正確的結果，
 而是會拿到一堆`undefined`，原因是，Objective-C 物件的 Value 預設被保護
