@@ -31,8 +31,8 @@ NULL 其實並不算是 Objective-C 的東西，而是屬於 C 語言。NULL 就
 
 而像 UIView 的 `beginAnimations:context` 的定義是：
 
-```
-+ (void)beginAnimations:(nullable NSString *)animationID context:(void *)context;
+``` objc
++ (void)beginAnimations:(NSString *)animationID context:(void *)context;
 ```
 
 傳入 NULL 就會比較好。

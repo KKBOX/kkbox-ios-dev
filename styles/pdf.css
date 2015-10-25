@@ -1,9 +1,10 @@
 body {
     font-size: 12pt !important;
-}
+    font-family: "Times New Roman", Times, "PingFang TC", "Noto Sans", "Noto Sans CJK TC", "Noto Sans CJK", "Apple LiGothic Medium", "LiHei Pro Medium", serif !important;
+  }
 
 h1 {
-    font-family: Georgia, Times, "Noto Sans", "Noto Sans CJK TC", "Noto Sans CJK", serif;
+    font-family: Georgia, Times, "PingFang TC", "Noto Sans", "Noto Sans CJK TC", "Noto Sans CJK", "Apple LiGothic Medium", "LiHei Pro Medium", serif;
 }
 
 pre {
