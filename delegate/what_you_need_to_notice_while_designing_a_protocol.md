@@ -53,7 +53,7 @@ method 也往往以傳入的 class名稱開頭，讓我們可以辨識這是屬�
 ```
 
 Method 的名稱就以「tableView」開頭，讓我們知道這是屬於 Table View 的
-delegate method，然後第一個參數把這個 Table View 的 iinstance傳入，接
+delegate method，然後第一個參數把這個 Table View 的 instance傳入，接
 下來才傳入到底是哪一列被選起來的資訊。
 
 至少把是誰呼叫了這個 delegate method 傳入的理由很簡單。以我們的
