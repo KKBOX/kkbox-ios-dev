@@ -1,6 +1,63 @@
 進階的 Accessibility 設定
 -----------------------
 
+### 可以調整數值的元件
+
+如果我們寫了一個客製化元件是個 slider，可以讓用戶調整裡頭的數值，那麼，
+在 VoiceOver 打開的時候，用戶就可以用向上或向下 swipe 的手勢操作。要實
+作這樣的行為，就要實作 `accessibilityIncrement` 與
+`accessibilityDecrement`。
+
+在以下的範例中，我們寫了一個叫做 KKProgressSlider（繼承自 UIControl），
+實作了 `accessibilityIncrement` 與`accessibilityDecrement，這兩個
+method 都會改變 value，增加或減少 5，觸發之後，就會告訴 target 執行對
+應到 UIControlEventValueChanged 的 action。
+
+``` objc
+- (BOOL)isAccessibilityElement
+{
+	return YES;
+}
+
+- (UIAccessibilityTraits)accessibilityTraits
+{
+	return UIAccessibilityTraitAdjustable | UIAccessibilityTraitUpdatesFrequently;
+}
+
+- (NSString *)accessibilityLabel
+{
+	return LFLSTR(@"Playing progress");
+}
+
+- (void)_updateValueByAccessibility
+{
+	if (value < self.minimumValue) {
+		value = self.minimumValue;
+	}
+	if (value > self.maximumValue) {
+		value = self.maximumValue;
+	}
+	for (id target in [[self allTargets] allObjects]) {
+		NSArray *actions = [self actionsForTarget:target forControlEvent:UIControlEventValueChanged];
+		for (NSString *action in actions) {
+			[self sendAction:NSSelectorFromString(action) to:target forEvent:nil];
+		}
+	}
+}
+
+- (void)accessibilityIncrement
+{
+	value += 5.0;
+	[self _updateValueByAccessibility];
+}
+
+- (void)accessibilityDecrement
+{
+	value -= 5.0;
+	[self _updateValueByAccessibility];
+}
+```
+
 ### UIAccessibilityContainer
 
 很多時候，在使用者介面中的重要文字與圖片，並不是放在直接放在某個UIView
@@ -62,6 +119,7 @@ for (NSUInteger index = 0; index < itemsCount; index++) {
 	itemlayer.accessibilityElement = anElement;
 	[layerArray addObject:itemlayer];
 }
+UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, nil);
 ```
 
 最後實作 UIAccessibilityContainer
