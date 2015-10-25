@@ -132,6 +132,6 @@
    * [練習：KKBOX 動態歌詞](accessibility/practice_rolling_lyrics.md)
 * [Mac 上的 WebKit](mac_webkit/README.md)
    * [用 Objective-C 操作 DOM](mac_webkit/objc_dom.md)
-   * [Javascript 與 Objective-C 的溝通](mac_webkit/js_objc_bridge.md)
-   * [JavascriptCore](mac_webkit/javascript_core.md)
+   * [JavaScript 與 Objective-C 的溝通](mac_webkit/js_objc_bridge.md)
+   * [JavaScriptCore](mac_webkit/javascript_core.md)
 * [Reading List](reading_list/README.md)
