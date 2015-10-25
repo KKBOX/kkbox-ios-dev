@@ -126,6 +126,7 @@
 * [Accessibility](accessibility/README.md)
    * [如何使用 VoiceOver](accessibility/use_voiceover.md)
    * [基本支援](accessibility/basic_supports.md)
+   * [VoiceOver 的方向](accessibility/direction.md)
    * [進階的 Accessibility 設定](accessibility/custom_views.md)
    * [相關閱讀](accessibility/reading_list.md)
 * [Reading List](reading_list/README.md)

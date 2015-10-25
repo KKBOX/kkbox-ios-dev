@@ -23,13 +23,12 @@ closeButton 的按鈕時，就可以這樣寫：
 ```
 
 說一下 accessibility identifier 與 accesibility label 的差別：
-Voice-over 基本上只會念出 accesibility label，而不會念出 accesibility
+VoiceOver 基本上只會念出 accesibility label，而不會念出 accesibility
 identifier，但我們往往也會額外設計 accesibility identifier，原因是，
-accessibility 資訊除了用在 Voice-over 上，也會用在自動化 UI 測試上，當
+accessibility 資訊除了用在 VoiceOver 上，也會用在自動化 UI 測試上，當
 我們在寫 UI 自動化測試時，就會比較想使用 accessibility identifier 而不
-是 accessibility label 尋找特定元件，理由是 accessibility identifier
-不會因為切換多國語系而影響，但是在不同語系下，accessibility label 會改
-變。
+是 accessibility label 尋找特定元件，理由是 accessibility identifier不
+會因為切換多國語系而影響，但是在不同語系下，accessibility label 會改變。
 
 在設置 UISegmentedControl 的 accessibility 資訊的時候，要特別注意圖片
 型態的 segment。每個 segment 當中可以是文字或是圖片，我們可以用
@@ -48,7 +47,7 @@ UIAccessibility 根本就是 NSObject 的 category。
 ```
 
 開發過程中，除了實機測試之外，也可以使用 iOS Simulator 檢驗目前程式對
-Voice-over 的支援狀態，方法是在模擬器中的偏好設定中，把 Accessibility
+VoiceOver 的支援狀態，方法是在模擬器中的偏好設定中，把 Accessibility
 Inspector 打開，模擬器畫面中就會出現一個小畫面，在選取畫面中某個 UI 元
 件時，Accessibility Inspector 就會列出各種相關資訊。
 
