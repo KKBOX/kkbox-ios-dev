@@ -70,7 +70,7 @@
    * [練習：閱讀程式碼](design_patterns/practice.md)
 * [一些新手常常搞混的東西](uncategorized/README.md)
    * [bool 與 BOOL](uncategorized/boolean.md)
-   * [NULL、nil、Nil…](uncategorized/boolean.md)
+   * [NULL、nil、Nil…](uncategorized/nil.md)
 * [Responder](responder/README.md)
    * [Run Loop](responder/run_loop.md)
    * [Application](responder/application.md)
