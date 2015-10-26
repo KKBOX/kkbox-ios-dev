@@ -42,24 +42,3 @@ view 的一部分而已，但是我們希望在這個 view 裡頭的任何地方
 方文件
 *[Multitouch Events](https://developer.apple.com/library/ios/documentation/EventHandling/Conceptual/EventHandlingiPhoneOS/multitouch_background/multitouch_background.html#//apple_ref/doc/uid/TP40009541-CH5-SW9)*
 當中，就說明了怎樣用上面這些 UIResponder method，處理各些複雜手勢。
-
-### 觸控螢幕的掃描速率
-
-在 iOS 9 之後，我們要注意 UITouch 物件中的 `coalescedTouchesForTouch`
-這個屬性。
-
-當我們看到 `touchesBegan:withEvent:` 這些 API，大概可以想到，我們會在
-每一輪 runloop 收到一次 touch 物件，所以觸控螢幕在接收 touch 物件的速
-度，大概會是跟 runloop 的速度差不多。於是，當開發者在開發一些在 iPad上
-的繪圖應用的時候，往往就覺得在 iPad 上會有延遲的現象：手指已經在螢幕上
-畫過去了，但是畫面卻是慢慢地更新。
-
-蘋果在 iPad Air 2 的觸控螢幕上加快了對觸控事件的掃描頻率，比起之前的
-iPad 快上一倍，但是，run loop 的速度並沒有改變，因此，在 iOS 9 的 API
-中，會把這些比以前來得多的觸控事件，變成 UITouch 物件的
-`coalescedTouchesForTouch` 屬性，在 `coalescedTouchesForTouch` 中，可
-以拿到更多的 UITouch，可以讓我們在搭配 iOS 9 的 iPad Air 2 上抓到更多
-touch 物件，繪製更精細的線條。
-
-相關說明請參見 WWDC 2015 影片
-[WWDC 2015 Advanced Touch Input on iOS](https://developer.apple.com/videos/wwdc/2015/?id=233)。

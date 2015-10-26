@@ -77,6 +77,7 @@
    * [Application](responder/application.md)
    * [Window](responder/window.md)
    * [View](responder/view.md)
+   * [UITouch](responder/uitouch.md)
    * [相關閱讀](responder/reading_list.md)
 * [Threading](threading/README.md)
    * [performSelector:](threading/perform_selector.md)
