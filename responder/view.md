@@ -42,3 +42,16 @@ view 的一部分而已，但是我們希望在這個 view 裡頭的任何地方
 方文件
 *[Multitouch Events](https://developer.apple.com/library/ios/documentation/EventHandling/Conceptual/EventHandlingiPhoneOS/multitouch_background/multitouch_background.html#//apple_ref/doc/uid/TP40009541-CH5-SW9)*
 當中，就說明了怎樣用上面這些 UIResponder method，處理各些複雜手勢。
+
+要了解事件是怎樣從 Application 一路送到 View，最簡單的方法，就是寫一個
+簡單的 App：這個 App 只有一個按鈕，然後我們在這個按鈕的 action 打上一
+個 break point，然後來看一下這個時候的 back trace：
+
+![xcode](xcode.png)
+
+- frame 16 是 `main()`，裡頭執行 UIApplicationMain
+- frame 10-14 便是在執行 Runloop
+- 在 frame 7-9，可以看到 Runloop 把事件送給 UIApplication
+- 在 frame 5-6，可以看到 UIWindow 在處理來自 UIApplication 的事件
+- frame 4 在處理我們剛剛講到的 `touchesEnded:withEvent:`
+- 最後在 frame 0-3，便是在處理這個按鈕上的 target/action
