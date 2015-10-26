@@ -13,10 +13,7 @@ iOS App 如果不懂 NSCoding，相當於寫 JavaScript 卻不懂什麼是 JSON 
 最近似乎有種JSON 快要統一天下的趨勢，我們現在大概在所有的語言當中，都
 可以將 JSON 與各種物件做雙向的轉換。
 
-不過，不同於 JSON 與 JavaScript 的轉換，Objective-C 物件在序列化之後，
-不是轉換成文字格式，而是變成 Binary 格式。也就是說，NSCoding 在做的事
-情就是，把各式各樣的不同物件，轉換成 NSData。
-
-
-
-
+在 Cocoa/Cocoa Framework 中，我們也可以將資料序列化成 JSON 格式，不過
+在屬於這個開發 Framework 的傳統中，會更常使用 Plist 格式與 NSCoding。
+Plist 格式有多種格式，包括文字與 Binary 格式，而 NSCoding 在做的事情則
+是把各式各樣的不同物件，轉換成 NSData。
