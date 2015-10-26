@@ -127,5 +127,53 @@ if (cls != Nil) {
 
 ### NSNull
 
+不同於 NULL、nil 與 Nil，NSNull 是確實存在的 Objective-C 物件。前面講
+過，我們無法在 array 或 dictionary 中插入 nil，但有的時候我們會需要用
+一個東西代表「沒有東西」，就會使用 `[NSNull null]` 這個物件。
+
+假如我們拿到一個 JSON 檔案，然後透過 NSJSONSerialization，把 JSON 檔案
+轉換成 Objective-C 物件，在這個物件中，JSON dictionary 會轉成
+NSDictionary，array 會轉成 NSArray，字串與數字分別會轉換成 NSString 與
+NSNumber，而 JSON 裡頭的 null 則會轉成 NSNull 物件。
 
 ### NSNotFound
+
+NSNotFound 所代表的是「找不到這個東西的 index」。比方說，我們有一個
+array 是 `@[@1, @2, @3]`，當我們想要問在這個 array 中，`@4` 是第幾筆資
+料的時候（呼叫 `indexOfObject:`），因為 `@4` 並不在這個 array 裡頭，所
+以會回傳 NSNotFound，表示我們沒有在 array 裡頭找到想要的東西。
+
+同樣的，如果我們在一個字串裡頭找不到某一段片段，像我們想在
+`@"KKBOX"`這個字串裡頭找某 `@"a"`，呼叫 `rangeOfString:` 的結果
+（`[@"KKBOX" rangeOfString:@"a"]`）是一個 NSRange，這個 range 的
+location 也一樣是 NSNotFound。
+
+NSNotFound 是整數的最大值，我們通常不會建立這麼大的 array，所以用最大
+的整數代表找不到。我們要注意，在 64 位元與 32 位元下的的整數最大值是不
+一樣的，所以在 64 位元與 32 位元下，NSNotFound 代表的是不同的數字，64
+位元下是 9223372036854775807 （2 的 63 次方減一），32 位元下是
+2147483647（2 的 31 次方減一）。
+
+所以下面這段程式在 32 位元下正常，但是 64 位元環境下就有問題。
+
+``` objc
+int x = [@[@1, @2, @3] indexOfObject:@4];
+if (x != NSNotFound) {
+	NSLog(@"Found!");
+}
+```
+
+在 32 位元環境下，我們用的是 32 位元整數，所以 x 會等於 NSNotFound；在
+64 位元環境下，NSNotFound 是 64 位元整數最大值，但 x 被 cast 成 32 位
+元整數，所以 x 就無法等於 NSNotFound 了。
+
+### WebUndefined
+
+在 Mac OS X 上，我們還有可能遇到另外一種代表「沒有東西」的物件，便是
+WebUndefined。在 Mac 上使用 WebView 的時候，如果我們讓 WebView裡頭的
+JavaScript 來呼叫 Objective-C 或 Swift 的 native 實作，那麼，在
+JavaScript 裡頭的 undefined 傳到 Objective-C 或 Swift 的 method 裡頭時，
+就會變成 WebUndefined 物件。
+
+相關說明可以參閱 [JavaScript 與 Objective-C 的溝通](../mac_webkit/js_objc_bridge.md)
+這一節。
