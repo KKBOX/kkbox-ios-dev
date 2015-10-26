@@ -42,6 +42,8 @@ typedef signed char BOOL;
 或是32 位元的 iOS 環境下，BOOL 就會被定義成是一個 char，而 BOOL 與
 bool，就分別是一個 byte 或是四個 bytes 的差別。
 
+![xcode1](xcode1.png)
+
 所以，在 64 位元或 Apple Watch 上，BOOL 與 bool 並沒有差別，但我們通常
 不能假設我們寫的 code 只會在這種環境下執行，雖然在其他環境下，使用BOOL
 或是 bool 通常也沒什麼影響，但既然某個 API 明確就是要求你傳入BOOL，那
