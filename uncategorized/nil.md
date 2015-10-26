@@ -89,9 +89,41 @@ NSMutableArray *a = [[NSMutableArray alloc] init];
 NSArray *a = @[(id)nil];
 ```
 
-
 ### Nil
 
+nil 是空的 instance，而開頭大寫的 Nil 則是指空的 class。比方說，當我們
+想要判斷某個 Class 是不是空的，語意上應該用 Nil 而不是 nil。
+
+我們其實不常判斷一個 Class 是不是 Nil。比較有可能的場合，是為了處理向
+下相容，像某個 Class 只在某一版的新 OS 上存在，但我們還需要支援舊的 OS，
+所以我們會在確定某個 Class 不是 Nil 的狀況下，才執行某段程式碼：
+
+``` objc
+Class cls = NSClassFromString(@"Abcdefg");
+if (cls != Nil) {
+	// Do something.
+}
+```
+
+但如果我們去看 <objc/objc.h>，nil 與 Nil 其實是一樣的。
+
+``` objc
+#ifndef Nil
+# if __has_feature(cxx_nullptr)
+#   define Nil nullptr
+# else
+#   define Nil __DARWIN_NULL
+# endif
+#endif
+
+#ifndef nil
+# if __has_feature(cxx_nullptr)
+#   define nil nullptr
+# else
+#   define nil __DARWIN_NULL
+# endif
+#endif
+```
 
 ### NSNull
 
