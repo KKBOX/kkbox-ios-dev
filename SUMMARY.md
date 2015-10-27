@@ -141,4 +141,5 @@
    * [用 Objective-C 操作 DOM](mac_webkit/objc_dom.md)
    * [JavaScript 與 Objective-C 的溝通](mac_webkit/js_objc_bridge.md)
    * [JavaScriptCore](mac_webkit/javascript_core.md)
-* [Reading List](reading_list/README.md)
+* [小結](final_thoughts/README.md)
+* [其他閱讀資料](reading_list/README.md)
