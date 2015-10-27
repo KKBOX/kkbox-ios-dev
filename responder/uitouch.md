@@ -44,6 +44,17 @@ UIViewControllerPreviewingDelegate protocol）之外，便是 UITouch 物件本
 身也加入了 `force` 與 `maximumPossibleForce` 等屬性，用來判斷觸控的力
 道。
 
+在 iOS 9 與 iPhone 6S 上，`touchesMoved:withEvent:` 的行為也發生了變化，
+原本只有 Touch 事件的 X 軸或 Y 軸有改變的時候，系統才會觸發
+`touchesMoved:withEvent:`，但是在有了 3D Touch 之後，觸控壓力的改變，也
+會觸發 `touchesMoved:withEvent:`，換言之，這個 method 被呼叫的時候，我
+們不能夠假設用戶的手指真的移動了位置，很有可能只是壓力的改變而已。要知
+道手指的位置是否真的移動了，我們需要另外比對 UITouch 物件的 X 軸或 Y 軸
+的位置，不然就可能會把單點誤判成 Swipe。
+
+當然，如果只是要知道用戶是否單點在一個位置上，用 UIGestureRecognizer 還
+是比較簡單，也是比較保險的方法。
+
 ### Apple Pencil
 
 在 iOS 9 推出的同時，Apple 同時宣布了 iPad Pro 這條產品線，在 iPad Pro
