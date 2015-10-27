@@ -50,7 +50,8 @@ UIViewControllerPreviewingDelegate protocol）之外，便是 UITouch 物件本
 會觸發 `touchesMoved:withEvent:`，換言之，這個 method 被呼叫的時候，我
 們不能夠假設用戶的手指真的移動了位置，很有可能只是壓力的改變而已。要知
 道手指的位置是否真的移動了，我們需要另外比對 UITouch 物件的 X 軸或 Y 軸
-的位置，不然就可能會把單點誤判成 Swipe。
+的位置，不然就可能會把單點誤判成 Swipe。這部份說明請參見
+ [iOS 9.1 Release Note](https://developer.apple.com/library/prerelease/ios/releasenotes/General/RN-iOSSDK-9.1/index.html)。
 
 當然，如果只是要知道用戶是否單點在一個位置上，用 UIGestureRecognizer 還
 是比較簡單，也是比較保險的方法。
