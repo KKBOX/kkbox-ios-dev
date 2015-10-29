@@ -160,10 +160,10 @@ Audio Session 在 iOS 6 之前是使用 delegate 的方式通知我們 Interrupt
 同一個 App 可能好幾個地方需要處理 interrupt。
 
 如果你一開始只有一個單純的音樂 App，那麼可能光用單一的 delegate 處理就
-夠了，可是，有一天這個音樂 App 遇到了簡直喪心病狂的產品設計，在這個音
-樂 App 中又加入了播放 MV 甚至演唱會 video直播甚至節奏遊戲功能，不但是原
-本的audio player 需要管理 interrupt，在 MV 與演唱會直播的地方用到了
-AVPlayer，也要處理 interrupt，就得要分別通知了。
+夠了，可是，有一天這個音樂 App 被瘋狂地加入各種功能，包括播放 MV、播放
+演唱會 video 直播，甚至可以在裡頭玩節奏遊戲，不但是原本的audio player
+需要管理 interrupt，在 MV 與演唱會直播的地方用到了AVPlayer，也要處理
+interrupt，就得要分別通知了。
 
 AVAudioSessionInterruptionNotification 就是發生 Interrupt 時會送出的
 notification，我們可以從 notification 的 user info 中，透過
