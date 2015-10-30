@@ -84,7 +84,7 @@ method，而在 Cocoa Framework 中所有的物件都繼承自 `NSObject`，所�
 作」。而其實，最後底層執行的是`objc_msgSend` 。
 
 ``` objc
-objc_msgSend(myObject, @selector(doSomething), NULL};
+objc_msgSend(myObject, @selector(doSomething), NULL);
 ```
 
 我們常常會說「要求某個 object 執行某個 methood」、「要求某個 object執
