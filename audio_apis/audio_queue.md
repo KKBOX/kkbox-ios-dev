@@ -229,7 +229,7 @@ static void KKAudioQueueRunningListener(void * inUserData,
 	NSMutableArray *packets;
 	size_t readHead;
 }
-- (double)framePerSecond;
+- (double)packetsPerSecond;
 @end
 
 @implementation KKSimplePlayer
@@ -259,7 +259,7 @@ static void KKAudioQueueRunningListener(void * inUserData,
 	return self;
 }
 
-- (double)framePerSecond
+- (double)packetsPerSecond
 {
 	if (streamDescription.mFramesPerPacket) {
 		return streamDescription.mSampleRate / streamDescription.mFramesPerPacket;
@@ -402,9 +402,9 @@ static void KKAudioQueueRunningListener(void * inUserData,
 	//	第五步，因為 parse 出來的 packets 夠多，緩衝內容夠大，因此開始
 	//	播放
 
-	if (readHead == 0 & [packets count] > (int)([self framePerSecond] * 3)) {
+	if (readHead == 0 && [packets count] > (int)([self packetsPerSecond] * 3)) {
 		AudioQueueStart(outputQueue, NULL);
-		[self _enqueueDataWithPacketsCount: (int)([self framePerSecond] * 2)];
+		[self _enqueueDataWithPacketsCount: (int)([self packetsPerSecond] * 2)];
 	}
 }
 
@@ -486,7 +486,7 @@ static void KKAudioQueueOutputCallback(void * inUserData,
 {
 	AudioQueueFreeBuffer(inAQ, inBuffer);
 	KKSimplePlayer *self = (__bridge KKSimplePlayer *)inUserData;
-	[self _enqueueDataWithPacketsCount:(int)([self framePerSecond] * 5)];
+	[self _enqueueDataWithPacketsCount:(int)([self packetsPerSecond] * 5)];
 }
 
 static void KKAudioQueueRunningListener(void * inUserData,

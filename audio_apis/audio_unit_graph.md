@@ -233,7 +233,7 @@ static AudioStreamBasicDescription KKSignedIntLinearPCMStreamDescription();
 	NSMutableArray *packets;
 	size_t readHead;
 }
-- (double)framePerSecond;
+- (double)packetsPerSecond;
 @end
 
 AudioStreamBasicDescription KKSignedIntLinearPCMStreamDescription()
@@ -328,7 +328,7 @@ AudioStreamBasicDescription KKSignedIntLinearPCMStreamDescription()
 	return self;
 }
 
-- (double)framePerSecond
+- (double)packetsPerSecond
 {
 	if (streamDescription.mFramesPerPacket) {
 		return streamDescription.mSampleRate / streamDescription.mFramesPerPacket;
@@ -406,7 +406,7 @@ AudioStreamBasicDescription KKSignedIntLinearPCMStreamDescription()
 	//	第五步，因為 parse 出來的 packets 夠多，緩衝內容夠大，因此開始
 	//	播放
 
-	if (readHead == 0 & [packets count] > (int)([self framePerSecond] * 3)) {
+	if (readHead == 0 && [packets count] > (int)([self packetsPerSecond] * 3)) {
 		if (playerStatus.stopped) {
 			[self play];
 		}
