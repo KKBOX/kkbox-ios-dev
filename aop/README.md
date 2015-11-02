@@ -40,3 +40,35 @@ handler，取得 crash report 回報。但使用數據分析的 SDK，要改動�
 在使用數據分析的 SDK 的時候，只要是想要知道數據的地方，就要加一段
 tracking code，所以，如果我們想要知道 App 中所有畫面的使用量，就得改動
 所有的 view controller，有一百個畫面，就可能要有一百段 tracking code。
+
+Tracking code 往往寫了一次之後又經常改動，而改動的範圍又往往不是簡單的
+增加或刪除，而是整批改動。像是，我們可能一開始用 Flurry，用了一陣子之
+後覺得不好用，想要換成 Google Analytics，之後又覺得不好用，打算改用
+MixPanel 統計數據。結果就是，你一開始寫了一百段 tracking code 之後，又
+先把這一百個散亂在專案中一堆地方的 tracking code 拔掉，再重新在專案中
+一百個不同的地方，寫上一百段 tracking code。
+
+當我們遇到重複的程式碼的時候，第一個想到的，大概就是使用繼承。比方說，
+當我們的所有的 view controller 在 `viewWillAppear:` 的地方，都想要加上
+一段 tracking code，我們大概就會想要讓所有的 view controller 都繼承自
+某個最上層的 view controller，在最上層這邊實作一次數據統計的 tracking
+code。
+
+但這樣做實際上很麻煩，假使我們希望我們在這個專案的 view controller 可
+以在其他專案中重複使用，就會發現，這樣我們還得把實作 tracking code 的
+這個最上層的 view controller class 一起搬到另外一個 class 裡頭；另一方
+面，我們可能在專案中使用來自第三方的各種套件，像是 Cocoapods 提供的元
+件，或是來自某個 git submodule，也沒什麼空間讓我們改動這些 class。
+
+所以我們就想問：
+
+- 有沒有可能，我們可以把這些 tracking code 拆出來，不要寫在原本的
+  class 裡頭？在不改動原本的 code 的狀況下，就可以產生數據分析所需要的
+  log？
+- 有沒有可能，我們可以把這些 tracking code 集中在一起，集中在同一個檔
+  案中。當我們不想使用原本所提供的數據分析服務的時候，只要把這個檔案砍
+  掉就可以了？
+
+當我們遇到這樣的問題，眼光自然就會投向 Aspect-oriented programming，
+在台灣通常翻譯成切面導向或剖面導向的程式設計，對岸通常翻譯成面向側面的
+編程，不過大家會更常直接稱呼簡稱—AOP。
