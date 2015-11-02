@@ -118,8 +118,8 @@ unrecognized selector sent to instance 錯誤而導致應用程式 crash。
 [^2]
 
 如果我們不想要用 category，而想要自己動手寫點程式，手動將某些 method
-加入到某個 class 中，我們可以這麼寫。首先宣告一個 C function，只少要有
-兩個參數，第一個參數是執行 method 的物件，第二個參數是 selector，這這
+加入到某個 class 中，我們可以這麼寫。首先宣告一個 C function，至少要有
+兩個參數，第一個參數是執行 method 的物件，第二個參數是 selector，像這
 樣：
 
 ``` objc
