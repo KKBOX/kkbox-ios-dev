@@ -9,3 +9,6 @@ runtime時加入的，我們可以透過 runtime 提供的一個叫做 `class_ad
 method，使用 category 會是更容易理解與寫作的方法，因為可以使用與宣告
 class 時差不多的語法，同時也以一般實作 method 的方式，實作我們要加入的
 method。
+
+至於在 Swift 語言中，Swift 的 Extension 特性，也與 Objective-C 的
+Category 差不多。
