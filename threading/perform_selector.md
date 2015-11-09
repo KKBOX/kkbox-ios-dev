@@ -41,7 +41,7 @@ NSOperationQueue 會比較容易些。
 所以，當你有一件工作想要放在指定的 thread 執行的，又必須要傳遞多個參數
 的時候，就必須將這些參數包裝成 NSArray 或 NSDictionary 的物件。
 
-如果你不想寫一個專屬用來傳遞參數的 Class，只想要船第一個 NSArray 過去，
+如果你不想寫一個專屬用來傳遞參數的 Class，只想要傳遞一個 NSArray 過去，
 而你有一些 C primitive type 的參數，像是數字、指標或 C structure，為了
 要能夠插入到 NSArray 中，就得要先轉換成對應的 NSValue，在我們要執行的
 selector 中再從 NSValue 轉換回來，於是會寫不少轉換用的 code。
@@ -58,8 +58,8 @@ auto release pool，可以手動建立 NSAutoreleasePool 物件，也可以使�
 ``` objc
 - (void)backgroundTask
 {
-	@autoreleasepool {
-	// Write your code here.
-	}
+    @autoreleasepool {
+    // Write your code here.
+    }
 }
 ```
