@@ -9,14 +9,14 @@ Constaint：**描述 views 之間相對關係**
 
 
 ## NSLayoutConstraint
-```
+```  objc
 @interface NSLayoutConstraint : NSObject
 @property UILayoutPriority priority; // 1~1000
 @property CGFloat constant;
 @end
 ```
 
-```
+```  objc
 typedef float UILayoutPriority;
 static const UILayoutPriority UILayoutPriorityRequired NS_AVAILABLE_IOS(6_0) = 1000;
 static const UILayoutPriority UILayoutPriorityDefaultHigh NS_AVAILABLE_IOS(6_0) = 750;
@@ -30,7 +30,7 @@ static const UILayoutPriority UILayoutPriorityFittingSizeLevel NS_AVAILABLE_IOS(
 
 若想要在 Runtime 時動態改變 Layout ，可以透過調整 Constaint 數值(priority or contant) 或是新增/移除 Constaints 觸發 Auto Layout Engine 重算 UI Layout 。
 
-```
+```  objc
 - (IBAction)makeLabelSamllerAction:(id)sender
 {
 	self.userNameLabelWidth.constant = 20; // from 100 to 20	

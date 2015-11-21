@@ -7,13 +7,13 @@ http://www.appcoda.com/self-sizing-cells/
 
 
 在 viewController 之中加入 `tableView.estimatedRowHeight` 與 `tableView.rowHeight = UITableViewAutomaticDimension`
-```
+``` objc
 tableView.estimatedRowHeight = 44.0;
 tableView.rowHeight = UITableViewAutomaticDimension;
 ```
 
 最後再 `viewDidAppear:`中加入 `tableView.reloadData()`
-```
+``` objc
 override func viewDidAppear(animated: Bool) {
 	tableView.reloadData()
 }

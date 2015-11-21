@@ -5,7 +5,7 @@
 尤其是我們在 `-loadView` or `-viewDidLoad` 加入 CALayer 的時候，因為 self.view.frame 還沒更新導致加入的 layer 算錯。
 
 
-```
+```  objc
 // use xib
 frame = {{0, 0}, {600, 600}}, loadView
 frame = {{0, 0}, {600, 600}}, viewDidLoad

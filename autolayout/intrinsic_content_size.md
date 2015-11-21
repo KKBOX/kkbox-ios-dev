@@ -8,7 +8,7 @@ Intrinsic Content Size
 例如說一個 `送出(submit)`的按鈕使用不同語言時，它要根據文字的寬度去調整 Button 的 Layout，在此情境下給一個固定寬度的 Constraint 不能滿足我們的需求。
 
 
-```
+```  objc
 |----------|      |-------|
 |  submit  |      |  送出  |
 |----------|      |-------|
@@ -24,7 +24,7 @@ Auto Layout 將`適應內容`拆解成兩個概念，分別是`內容吸附 (Con
 
 **原理**
 Auto Layout Engine 會將固有內容尺寸和這些優先權被轉換為 Constraints。一個內容尺寸為 {100，30} 的 label，預設水平/垂直壓縮阻力優先值為 750，水平/垂直的內容吸附性優先值為 250，這四個約束條件將會生成。
-```
+```  objc
 H:[label(>=100@750)] (content compressing : width >=100@750)
 H:[label(<=100@250)] (content hugging : width <= 100@250)
 V:[label(<=30@250)] (content hugging : height <= 30@250)
