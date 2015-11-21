@@ -1,5 +1,6 @@
-Lifecycle 
+xib 在 UIViewController lifecycle 的陷阱
 ---------------------------
+
 ### 小心別中 frame 的陷阱`
 當你使用 .xib 從 nib loadView 時，一開始的 frame 會是 nib 裡面的 frame，而它會延遲到`-updateViewConstraints:`的時候才會得到正確的 frame size ，而使用 .storyboard 時就可以一開始拿到正確的 frame size 。
 
