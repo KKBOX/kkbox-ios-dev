@@ -22,6 +22,9 @@ Auto Layout 將`適應內容`拆解成兩個概念，分別是`內容吸附 (Con
 - 內容吸附 - 當元件被拉伸時(內容尺寸比 super view 小的時候)，向內拉動的力量
 - 內容壓縮阻力 - 當元件被擠壓時(內容尺寸比 super view 大的時候)，向外推擠的力量
 
+![intrinsic_content_size_2x.png](./intrinsic_content_size_2x.png)
+
+
 **原理**
 Auto Layout Engine 會將固有內容尺寸和這些優先權被轉換為 Constraints。一個內容尺寸為 {100，30} 的 label，預設水平/垂直壓縮阻力優先值為 750，水平/垂直的內容吸附性優先值為 250，這四個約束條件將會生成。
 ```  objc
