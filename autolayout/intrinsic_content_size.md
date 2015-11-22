@@ -38,6 +38,13 @@ V:[label(>=30@750)] (content compressing : height >=30@750)
 
 ![固有內容原理示意圖](./content_hugging_and_compression_demo.png)
 
-如上圖所示，第一組 Labels 都是空間大於內容尺寸，此時會比較哪一個 Label 的 content hugging priority 比較高，該 Label 的 Layout 就會優先包覆其 Label。
+如上圖所示，第一組 Labels 都是擁有的空間大於內容尺寸，此時會比較哪一個 Label 的 content hugging priority 比較高，該 Label 的 Layout 就會優先包覆其 Label。
 
-而第二組則是兩個 Label 都是內容大於所擁有的空間，所以比較誰的 conetne compression resistance priority 比較高，該 Label 就可以優先取用所需的 UI 空間。
+而在這組情境下，紅色Label 有著較高的 hugging ，所以藍色Label 會被拉扯過去。
+
+
+
+
+而第二組則是兩個 Label 都是內容大於所擁有的空間，所以比較誰的 content compression resistance priority 比較高，該 Label 就可以優先取用所需的 UI 空間。
+
+在這組情境下，藍色 Label 的 compression 比較高，所以壓縮了紅色 Label 擁有的空間。
