@@ -8,7 +8,7 @@ CFNotificationCenter 是 NSNotificationCenter 在 Core Foundation 中的 C
 
 比較有可能用到 CFNotificationCenter 的場合，大概是 iOS 8 之後，Hosting
 App 與 Extension 之間的溝通。iOS 8 之後推出了 Extension，可以允許開發
-者撰寫 Today Widget、Share Widget 以及模擬鍵盤等功能，Applw Watch 上的
+者撰寫 Today Widget、Share Widget 以及模擬鍵盤等功能，Apple Watch 上的
 Watch App 也屬於 Extension；每個 Extension都是額外可以讓作業系統載入的
 Bundle，Extension 與我們原本的 App（便是 Hosting App）之間，可以用
 Shared Data 共用資料，但是當 App 發生改變要通知 Extension，卻沒有什麼
