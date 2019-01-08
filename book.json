@@ -2,8 +2,13 @@
     "title": "KKBOX iOS/Mac OS X 基礎開發教材",
     "version": "2.4.0",
     "language": "zh-TW",
-    "plugins": [],
-    "pluginsConfig": {},
+    "plugins": ["japanese-support", "toc", "tree"],
+    "pluginsConfig": {
+        "toc": {
+            "addClass": true,
+            "className": "toc"
+        }
+	},
     "pdf": {
         "fontSize": 12
     },

@@ -16,10 +16,3 @@ Block 是 Cocoa/Cocoa Touch Framework 中的匿名函式（Anonymous Functions�
 callback function 的 pointer，或是使用 target/action pattern）。在 iOS
 4 有了 block 之後，可以看到蘋果自己便大幅改寫了 UIKit 等 Framework 的
 API，把原本使用 delegate 處理 callback 的地方，都大幅換成了 block。
-
-
-
-
-
-
-

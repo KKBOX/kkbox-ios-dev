@@ -12,13 +12,13 @@ report，但內容不是很完整，只保留了發生 Bad Access 時的 thread�
 從 run loop 中，UIApplication 首先收到了記憶體不足警告，UIApplication
 接著就透過 Notification Center 通知所有的 view controller 記憶體不足，
 我們在
-[記憶體管理 Part 3 - Memory Warnings](memory_management_part_3/README.md)
+[記憶體管理 Part 3 - Memory Warnings](../memory_management_part_3/README.md)
 提過，iOS 5 之前，只要發生記憶體警告，就會要求所有不是在最前景的 view
 controller 將自己的 view 釋放掉，`purgeMemoryForReason:` 與
-`unloadViewForced:` 在做的，就是強迫釋放 view 這件事情。在強迫釋放
-view 發生 crash，於是可以推斷，就算我們沒有把 Pinterest 的 crash
-report 解開，也可以看出，0x0005995e 這個位置會是某個 view controller
-的 `viewDidUnload`。
+`unloadViewForced:` 在做的，就是強迫釋放 view 這件事情。在強迫釋放view
+發生 crash，於是可以推斷，就算我們沒有把 Pinterest 的 crash report 解
+開，也可以看出，0x0005995e 這個位置會是某個 view controller的
+`viewDidUnload`。
 
 雖然 iOS 5 就推出了 ARC，但當時很多在 iOS 5 問世之前就寫出來的 App，並
 沒有立刻轉換到 ARC 架構上，這份 crash report 呈現了當時這段轉換期。另

@@ -110,25 +110,26 @@ layer 的邊框寬度與顏色，甚至可以設定圓角效果。
 `shadowPath`，用一個 CGPath 描述陰影的外框範圍，設上去之後的效能會快許
 多。
 
-前面提到，絕大多數的 CALayer 的屬性在設定之後，會產生 0.25 的動畫效果；
-打開 CALayer.h，只要看到註解裡頭提到某個屬性是屬於 Animatable，就是會
-產生動畫效果的屬性。
+前面提到，絕大多數的 CALayer 的屬性在設定之後，會產生 0.25 的動畫效果，
+這種因為改變屬性而產生的動畫，蘋果的術語叫做 Implicit Animations；打開
+CALayer.h，只要看到註解裡頭提到某個屬性是屬於 Animatable，就是會產生動
+畫效果的屬性。
+
+因為改變任何屬性都會產生動畫，所以，當我們建立了 layer 之後，通常會先
+設好 frame，才把 layer 加到 super layer 上，不然，如果先加到 super
+layer，才去改變 frame，就會產生很奇怪的動畫效果。
 
 CALayer 在建立完畢之後，預設都是一倍解析度，所以在 Retina Display 的裝
-置上，看起來都會糊糊的，所以需要告訴 CALayer 應該要用怎樣的解析度，方
-法是透過設定 `contentsScale` 屬性。在 iOS 上，我們通常設成 UIScreen 的
-scale。
+置上，看起來都會糊糊的（尤其是使用 CATextLayer 這個用來顯示文字內容的
+layer，更容易凸顯解析度的不足），所以需要告訴 CALayer 應該要用怎樣的解
+析度，方法是透過設定 `contentsScale` 屬性。在 iOS 上，我們通常設成
+UIScreen 的scale。
 
 ``` objc
 layer.contentsScale = [UIScreen mainScreen].scale;
 ```
 
-在 Mac 上這件事情會變得比較複雜：一個 layer 該用怎樣的解析度，會跟這個
-layer 放在哪個 NSWindow 上有關，一台 Mac 可能本身的螢幕具有 Retina
-Display，但是另外用 mini display port 等介面外接了其他不是 Retina
-Display 的螢幕或投影機，而一個 window 可能會被拖放到不同的 screen 上，
-所以，當某個 window 移動到某個 screen 上之後，上面的 layer 也要跟著反
-應，把這些 layer 設定成對應的解析度。我們稍後說明。
+在 Mac 上這件事情會變得比較複雜，我們在後面會說明。
 
 ### 實作 CALayer drawInContext: 需要注意的地方
 

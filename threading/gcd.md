@@ -87,8 +87,8 @@ dispatch_sync(dispatch_get_main_queue(), ^{
 #### dispatch_once
 
 `dispatch_once` 保證某個 block 只會被執行一次，現在大家最常使用這個特
-性實作 singleton。我們在「[再談 Singleton](design_patterns/singleton.md)」這一
-章當中也提過。
+性實作 singleton。我們在
+「[再談 Singleton](../design_patterns/singleton.md)」這一章當中也提過。
 
 #### dispatch_after
 

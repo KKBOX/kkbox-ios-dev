@@ -6,7 +6,27 @@
 到。當我們發現有程式沒有被測試到之後，便進一步撰寫更多的 test case，確
 保我們的程式經過完整測試。
 
-要讓 Xcode 幫我們產生覆蓋率報告，我們要調整一下 Xcode 裡頭的專案設定，
+### Xcode 7
+
+Xcode 7 當中直接包含計算覆蓋率的功能。要在 Xcode 7 中顯示覆蓋率，首先
+是在 Scheme 中，勾選 "Gather Coverage Data"。
+
+![Xcode 設定](coverage_xcode7_1.png)
+
+接著，在執行單元測試的時候，就可以看到有一個顯示 Coverage 的分頁，顯示
+每個檔案的覆蓋率是多少。
+
+![Xcode 設定](coverage_xcode7_2.png)
+
+選擇任一檔案編輯，便可以看到在畫面的最右方，可以看到每行程式在 test
+case 中被執行了幾次，如果沒有執行到（執行次數為 0），背景就會變成紅色，
+提醒我們應該要對這部份寫單元測試。
+
+![Xcode 設定](coverage_xcode7_3.png)
+
+### Xcode 6
+
+要讓 Xcode 6 幫我們產生覆蓋率報告，我們要調整一下 Xcode 裡頭的專案設定，
 將 Build Setting 下 Apple LLVM 區段的三項設定設成 YES。分別是：
 
 - Generate Debug Symbol

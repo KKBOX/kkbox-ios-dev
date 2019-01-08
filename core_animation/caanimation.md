@@ -135,8 +135,81 @@ private API，如果用了可能會被 reject…不過印象中其實有很多 a
 CATransition 還有一個叫做 filter 的屬性，我們可以在這個屬性上加上
 CIFilter 物件，客製更多的轉場效果。
 
+另外要注意，在我們呼叫 `addAnimation:forKey:` 的時候，如果加入的是個
+CATransition 動畫，無論使用了怎樣的名稱當做 key，key 都會是 transition。
+
 ### CAPropertyAnimation
+
+CAPropertyAnimation 便是透過設定某個 CALayer 的屬性產生動畫。前面提到，
+只要修改 layer 的 animatable 屬性會自定產生動畫效果，不過，跟使用
+CAPropertyAnimation 的狀況不太一樣，我們對某個 layer 加入了
+CAPropertyAnimation 之後，雖然會產生動畫，但是就只有產生動畫而已，
+layer 屬性原本的值並不會因此改變，用蘋果的術語，這種動畫叫做 Explicit
+Animations。
+
+CAPropertyAnimation 是一層介面，我們通常使用的是 CAPropertyAnimation
+的 subclass CABasicAnimation。設定 CABasicAnimation 的時候，主要會設定
+以下屬性：
+
+1. `fromValue`: 要讓某個屬性產生變化的動畫時的初始值
+2. `toValue`: 要讓某個屬性產生變化的動畫時結束的數值
+3. `byValue`: 要讓某個屬性產生變化的動畫時，介於開始與結束的中間值，但
+   是很多時候可以不用特別設定，設成 nil 即可
+
+然後有一些設定是定義在 CAMediaTiming protocol 中，像是：
+
+1. `duration`: 這個動畫要花上多少時間
+2. `repeatCount`: 我們要執行這個動畫幾次，如果只要跑一次這個動畫，設定
+   成 1 即可；如果我們想要這個動畫一直跑的話，不妨就把這個動畫設成
+   `NSNotFound`，`NSNotFound` 就是整數的最大值。
+
+比方說，當我們想要讓某個 layer 一直不停的旋轉，我們可以修改
+`transform.rotation.x`、`transform.rotation.y`、`transform.rotation.z`
+等，要求這個 layer 是按照 x、y 還是 z 軸旋轉，我們可以讓 fromValue 設
+成 0，代表是初始還沒旋轉的狀態，至於 toValue 設成 M_PI * 2，代表要旋轉
+360 度。像以下這段程式：
+
+``` objc
+[super viewDidLoad];
+self.aLayer = [[CALayer alloc] init];
+self.aLayer.frame = CGRectMake(50, 50, 100, 100);
+self.aLayer.backgroundColor = [UIColor redColor].CGColor;
+CABasicAnimation *rotateAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+rotateAnimation.fromValue = @0.0f;
+rotateAnimation.toValue = @(M_PI * 2);
+rotateAnimation.autoreverses = YES;
+rotateAnimation.repeatCount = NSUIntegerMax;
+rotateAnimation.duration = 2.0;
+[self.aLayer addAnimation:rotateAnimation forKey:@"x"];
+[self.view.layer addSublayer:self.aLayer];
+```
+
+效果如下：
+
+<iframe width="350" height="621"
+src="https://www.youtube.com/embed/3sRDqSIK-nM?rel=0&amp;showinfo=0"
+frameborder="0" allowfullscreen></iframe>
 
 ### CAKeyframeAnimation
 
+使用 CAKeyframeAnimation 與 CABasicAnimation 的主要差別在於，我們想要
+透過改變某個屬性產生動畫時，不是設定初始值與結束值，而是使用一個貝茲曲
+線描述（是 CGPath）。所以，當我們希望動畫不只是直線前進，而是按照某種
+曲線移動的時候，就可以使用 CAKeyframeAnimation。
+
 ### CAAnimationGroup
+
+一個 CALayer 可以同時執行多個 CAAnimation，當我們加入了一個CAAnimation
+之後，就會立刻執行這個動畫。而我們也可以把很多個 animation 物件包裝成
+群組（像是 layer 一邊移動位置一邊翻轉），方法就是建立 CAAnimationGroup
+物件，然後把想要變成群組的其他動畫，變成 array，設定成
+CAAnimationGroup 的 `animations` property。
+
+``` objc
+CAAnimationGroup *group = [CAAnimationGroup animation];
+group.duration = 0.5;
+group.animations = @[positionAnimation, flipAnimation];
+group.delegate = self;
+
+[aLayer addAnimation:group forKey:@"group"];
+```

@@ -7,6 +7,8 @@
 
 ### 練習目標
 
+說起來這個練習很簡單。
+
 我們要對 NSString 寫一個 category，裡頭有一個叫做 `reversedString` 的
 method，這個 method 可以輸出反轉後的字串。
 

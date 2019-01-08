@@ -198,9 +198,10 @@ NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1.0
 
 ### 接收 NSNotification
 
-我們稍晚才會討論 NSNotification 以及 NSNotificationCenter，不過在
-這邊先簡單提到：如果我們要接收 NSNotification，我們也要在開始訂閱通
-知的時候，指定要由哪個 selector 處理這個通知。詳見 [Notification Center](notification_center/README.md) 這一章。
+我們稍晚才會討論 NSNotification 以及 NSNotificationCenter，不過在這邊
+先簡單提到：如果我們要接收 NSNotification，我們也要在開始訂閱通知的時
+候，指定要由哪個 selector 處理這個通知。詳見
+[Notification Center](../notification_center/README.md) 這一章。
 
 ### 在某個 Thread 執行 method
 

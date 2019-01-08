@@ -59,6 +59,8 @@ NSLog(@"%s", (char *)(@selector(doSomething)));
 
 我們會順利印出「doSomething」這個 C 字串。
 
+![xcode](xcode.png)
+
 每次我們對一個物件呼叫某個 method，runtime 在做的事情，就是把 method的
 名稱當做字串，尋找與字串符合的 C function實作，然後執行。也就是說，下
 面這三件事情是一樣的：
@@ -82,7 +84,7 @@ method，而在 Cocoa Framework 中所有的物件都繼承自 `NSObject`，所�
 作」。而其實，最後底層執行的是`objc_msgSend` 。
 
 ``` objc
-objc_msgSend(myObject, @selector(doSomething), NULL};
+objc_msgSend(myObject, @selector(doSomething), NULL);
 ```
 
 我們常常會說「要求某個 object 執行某個 methood」、「要求某個 object執
@@ -116,8 +118,8 @@ unrecognized selector sent to instance 錯誤而導致應用程式 crash。
 [^2]
 
 如果我們不想要用 category，而想要自己動手寫點程式，手動將某些 method
-加入到某個 class 中，我們可以這麼寫。首先宣告一個 C function，只少要有
-兩個參數，第一個參數是執行 method 的物件，第二個參數是 selector，這這
+加入到某個 class 中，我們可以這麼寫。首先宣告一個 C function，至少要有
+兩個參數，第一個參數是執行 method 的物件，第二個參數是 selector，像這
 樣：
 
 ``` objc

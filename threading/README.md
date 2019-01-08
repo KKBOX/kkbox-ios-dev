@@ -11,6 +11,12 @@ Threading
 執行，在工作完成之後、或是需要更新進度的時機，才告訴 main thread 更新
 UI。
 
+Thread 通常翻譯成「線程」或是「執行緒」，也就是在同一個 process（也就
+是同一個 app 中），會同時存在、進行多條的程式執行路徑，每條執行路徑之
+間，不用等到某條執行路徑結束，另外一條執行路徑才能開始。作業系統會安排
+某條 thread 在 CPU 的某個核心上執行，或是會先打斷某條 thread，讓其他的
+thread 先執行。
+
 以網路連線來說，我們會避免使用 NSData 或 NSString 的
 `-initWithContentsOfURL:` 這個 API，而使用 NSURLSession 或
 NSURLConnection 發送非同步的連線，NSURLSession 與 NSURLConnection在做
