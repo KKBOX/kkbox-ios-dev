@@ -61,16 +61,15 @@ Wikipedia 上對 Factory Method Pattern 的解釋是：
 
 翻譯成中文：Factory Method Pattern 是一套用來解決不用特別指定是哪個
 class，就可以建立物件的方法。比方說，某個 class底下，其實有一堆
-subclass，但對外部來說並不需要確實知道這些 subclass而是只要 **對最上層
-的class，輸入指定的條件，就會從挑選一個符合指定條件的 subclass、建立
+subclass，但對外部來說並不需要確實知道這些 subclass而是只要 **對最上層的class，
+輸入指定的條件，就會從挑選一個符合指定條件的 subclass、建立
 instance 回傳** 。
 
-在 UIKit 中，UIButton 就是個好例子。我們在建立 UIButton 物件的時候，並
-不是呼叫 `init` 或是 `initWithFrame:`，而是呼叫 UIButton 的 class
-method：`buttonWithType:`，透過傳遞按鈕的 type建立按鈕物件。在大多數狀
-況下，會回傳 UIButton 物件，但假如我們傳入的type 是
-`UIButtonTypeRoundedRect`，卻會回傳繼承自 UIButton 的
-`UIRoundedRectButton`。
+在 UIKit 中，UIButton 就是個好例子。在某些版本的 iOS 當中，在我們在建立 UIButton
+物件的時候，並不是呼叫 `init` 或是 `initWithFrame:`，而是呼叫 UIButton 的 class
+method：`buttonWithType:`，透過傳遞按鈕的 type建立按鈕物件。在大多數狀況下，會回
+傳 UIButton 物件，但假如我們傳入的type 是`UIButtonTypeRoundedRect`，卻會回傳繼承
+自 UIButton 的`UIRoundedRectButton`。
 
 檢查一下：
 
@@ -85,8 +84,10 @@ NSLog(@"UsIButtonTypeRoundedRect %@",
 
 輸出結果： :
 
-    UIButtonTypeCustom UIButton
-    UIButtonTypeRoundedRect UIRoundedRectButton
+```
+UIButtonTypeCustom UIButton
+UIButtonTypeRoundedRect UIRoundedRectButton
+```
 
 我們想要擴充 `UIButton`，但拿到的卻是 `UIRoundedRectButton`，而
 `UIRoundedRectButton` 卻無法繼承，因為這個物件不在公開的 header中，我
