@@ -678,5 +678,4 @@ func KKAudioQueueRunningListener(clientData: UnsafeMutablePointer<Void>, AQ: Aud
 		this.stopped = running == 0
 	}
 }
-
 ```
