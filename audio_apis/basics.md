@@ -29,7 +29,7 @@
 之間，帶號浮點數就可能會在 -1 到 1 之間。
 
 這種完全還沒有壓縮過的資料，就叫做 PCM （Pulse-code modulation）格式（請參考
-https://en.wikipedia.org/wiki/Pulse-code_modulation），我們常用的WAV、AIFF、CAF
+https://en.wikipedia.org/wiki/Pulse-code_modulation ），我們常用的WAV、AIFF、CAF
 檔案，都是這種格式，而 Audio 硬體最後要播放的，也是這種資料。所以，CD其實就是一
 秒鐘有44100 個 16 位元帶正負號的整數，而從 CD 開始，其實我們就已經進入了數位音樂
 時代。
