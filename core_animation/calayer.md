@@ -23,7 +23,7 @@ UIView 的樣子，其實是裡頭的 CALayer 的樣子。
 系列 method，其實並不是 View 本身產生動畫，而是 View 裡頭的 CALayer 物
 件的功勞。或這麼說：其實 UIView 裡頭的 CALayer 本身就具有產生動畫的能
 力，而改動 CALayer 的任何屬性，都會產生 0.25 秒的動畫，只是我們平常在
-設定 UIView 的時候，UIKit 的設計是刻意把動畫觀關閉了。
+設定 UIView 的時候，UIKit 的設計是刻意把動畫關閉了。
 
 我們在前面幾節的練習中，像我們在寫貪食蛇這個練習的時候，知道如果要改變
 一個 view 的外觀，可以透過在 UIView 的 subclass 中 override 掉
