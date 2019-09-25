@@ -1,5 +1,5 @@
-Audio APIs
-==========
+Audio API
+=========
 
 KKBOX 是一套音樂服務，總是要來講一些跟 Audio 相關的開發。
 

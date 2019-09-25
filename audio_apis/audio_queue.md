@@ -124,7 +124,7 @@ description，我們可以從 packet description 中知道每個 packet 相對�
 多少 packet 決定 buffer 的大小。我們在這邊寫成每次要 enqueue 五秒的
 buffer，相當於大約 190 個 packet，所以我們跑了一個簡單的迴圈把每個
 packet 的大小加總，就是 buffer 的大小，然後把放在 packet 裡頭的 bytes
-用 memcpy 複製到 buffer 的 mAudioData 裡頭。
+用 `memcpy` 複製到 buffer 的 mAudioData 裡頭。
 
 Enqueue buffer 之後，我們會調整 read head 的位置，記錄已經送出了多少
 packet。
@@ -187,7 +187,7 @@ KKSimplePlayer.h
 #import <AudioToolbox/AudioToolbox.h>
 
 @interface KKSimplePlayer : NSObject
-- (id)initWithURL:(NSURL *)inURL;
+- (instancetype)initWithURL:(NSURL *)inURL;
 - (void)play;
 - (void)pause;
 @property (readonly, getter=isStopped) BOOL stopped;
@@ -241,7 +241,7 @@ static void KKAudioQueueRunningListener(void * inUserData,
 	[URLConnection cancel];
 }
 
-- (id)initWithURL:(NSURL *)inURL
+- (instancetype)initWithURL:(NSURL *)inURL
 {
 	self = [super init];
 	if (self) {
