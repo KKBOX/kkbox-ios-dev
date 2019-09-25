@@ -119,7 +119,7 @@ static void KKAudioFileStreamPacketsCallback(void* inClientData,
         BOOL loaded;
     } playerStatus ;
 
-	AudioFileStreamID audioFileStreamID;
+    AudioFileStreamID audioFileStreamID;
 }
 
 @property (strong, nonatomic) AVAudioEngine *audioEngine;
@@ -136,104 +136,104 @@ static void KKAudioFileStreamPacketsCallback(void* inClientData,
 
 - (instancetype)initWithURL:(NSURL *)inURL
 {
-	self = [super init];
-	if (self) {
-		self.audioEngine = [[AVAudioEngine alloc] init];
-		self.player = [[AVAudioPlayerNode alloc] init];
-		[self.audioEngine attachNode:self.player];
-		[self.audioEngine connect:self.player to:self.audioEngine.mainMixerNode fromBus:0 toBus:0 format:nil];
-		self.packets = [[NSMutableArray alloc] init];
-		self.destinationPCMFormat = [[AVAudioFormat alloc] initWithCommonFormat:AVAudioPCMFormatFloat32 sampleRate:44100 channels:2 interleaved:NO];
+    self = [super init];
+    if (self) {
+        self.audioEngine = [[AVAudioEngine alloc] init];
+        self.player = [[AVAudioPlayerNode alloc] init];
+        [self.audioEngine attachNode:self.player];
+        [self.audioEngine connect:self.player to:self.audioEngine.mainMixerNode fromBus:0 toBus:0 format:nil];
+        self.packets = [[NSMutableArray alloc] init];
+        self.destinationPCMFormat = [[AVAudioFormat alloc] initWithCommonFormat:AVAudioPCMFormatFloat32 sampleRate:44100 channels:2 interleaved:NO];
 
-		// 第一步：建立 Audio Parser，指定 callback，以及建立 HTTP 連線，
+        // 第一步：建立 Audio Parser，指定 callback，以及建立 HTTP 連線，
         // 開始下載檔案
-		AudioFileStreamOpen((__bridge void *)(self),
+        AudioFileStreamOpen((__bridge void *)(self),
             KKAudioFileStreamPropertyListener,
             KKAudioFileStreamPacketsCallback,
             kAudioFileMP3Type, &audioFileStreamID);
         self.URLConnection = [[NSURLConnection alloc] initWithRequest:[NSURLRequest requestWithURL:inURL] delegate:self];
         playerStatus.stopped = YES;
 
-	}
-	return self;
+    }
+    return self;
 }
 
 - (AVAudioPCMBuffer *)read
 {
-	const NSInteger packetPerSlice = 8;
+    const NSInteger packetPerSlice = 8;
 
-	AVAudioPCMBuffer *pcmBuffer = [[AVAudioPCMBuffer alloc] initWithPCMFormat:self.destinationPCMFormat frameCapacity:self.format.streamDescription->mFramesPerPacket * packetPerSlice];
-	NSError *error = nil;
-	AVAudioConverterOutputStatus status = [self.converter convertToBuffer:pcmBuffer error:&error withInputFromBlock:^AVAudioBuffer * _Nullable(AVAudioPacketCount inNumberOfPackets, AVAudioConverterInputStatus * _Nonnull outStatus) {
+    AVAudioPCMBuffer *pcmBuffer = [[AVAudioPCMBuffer alloc] initWithPCMFormat:self.destinationPCMFormat frameCapacity:self.format.streamDescription->mFramesPerPacket * packetPerSlice];
+    NSError *error = nil;
+    AVAudioConverterOutputStatus status = [self.converter convertToBuffer:pcmBuffer error:&error withInputFromBlock:^AVAudioBuffer * _Nullable(AVAudioPacketCount inNumberOfPackets, AVAudioConverterInputStatus * _Nonnull outStatus) {
 
-		if (self.readHead >= self.packets.count) {
-			*outStatus = AVAudioConverterInputStatus_EndOfStream;
-			return nil;
-		}
+        if (self.readHead >= self.packets.count) {
+            *outStatus = AVAudioConverterInputStatus_EndOfStream;
+            return nil;
+        }
 
-		NSMutableData *packetData = [NSMutableData data];
-		AudioStreamPacketDescription *packetDescriptions = calloc(sizeof(AudioStreamPacketDescription), packetPerSlice);
-		NSInteger i = 0;
-		for (i = 0; i < packetPerSlice; i++) {
-			NSData *data = self.packets[self.readHead];
-			AudioStreamPacketDescription packetDescription;
-			packetDescription.mVariableFramesInPacket = 1;
-			packetDescription.mDataByteSize = (UInt32)data.length;
-			packetDescription.mStartOffset = (UInt32)packetData.length;
-			memcpy(&packetDescriptions[i], &packetDescription, sizeof(AudioStreamPacketDescription));
-			[packetData appendData:data];
-			self.readHead++;
-			if (self.readHead >= self.packets.count) {
-				break;
-			}
-		}
-		AVAudioCompressedBuffer *compressedBuffer = [[AVAudioCompressedBuffer alloc] initWithFormat:self.format packetCapacity:packetPerSlice maximumPacketSize:self.format.streamDescription->mFramesPerPacket];
+        NSMutableData *packetData = [NSMutableData data];
+        AudioStreamPacketDescription *packetDescriptions = calloc(sizeof(AudioStreamPacketDescription), packetPerSlice);
+        NSInteger i = 0;
+        for (i = 0; i < packetPerSlice; i++) {
+            NSData *data = self.packets[self.readHead];
+            AudioStreamPacketDescription packetDescription;
+            packetDescription.mVariableFramesInPacket = 1;
+            packetDescription.mDataByteSize = (UInt32)data.length;
+            packetDescription.mStartOffset = (UInt32)packetData.length;
+            memcpy(&packetDescriptions[i], &packetDescription, sizeof(AudioStreamPacketDescription));
+            [packetData appendData:data];
+            self.readHead++;
+            if (self.readHead >= self.packets.count) {
+                break;
+            }
+        }
+        AVAudioCompressedBuffer *compressedBuffer = [[AVAudioCompressedBuffer alloc] initWithFormat:self.format packetCapacity:packetPerSlice maximumPacketSize:self.format.streamDescription->mFramesPerPacket];
 
-		memcpy(compressedBuffer.data, packetData.bytes, packetData.length);
-		memcpy(compressedBuffer.packetDescriptions, packetDescriptions, sizeof(AudioStreamPacketDescription) * i);
-		free(packetDescriptions);
+        memcpy(compressedBuffer.data, packetData.bytes, packetData.length);
+        memcpy(compressedBuffer.packetDescriptions, packetDescriptions, sizeof(AudioStreamPacketDescription) * i);
+        free(packetDescriptions);
 
-		compressedBuffer.packetCount = (AVAudioPacketCount)i;
-		compressedBuffer.byteLength = (uint32_t)packetData.length;
-		*outStatus = AVAudioConverterInputStatus_HaveData;
-		return compressedBuffer;
+        compressedBuffer.packetCount = (AVAudioPacketCount)i;
+        compressedBuffer.byteLength = (uint32_t)packetData.length;
+        *outStatus = AVAudioConverterInputStatus_HaveData;
+        return compressedBuffer;
 
-	}];
-	if (status != AVAudioConverterOutputStatus_HaveData) {
-		return nil;
-	}
-	return pcmBuffer;
+    }];
+    if (status != AVAudioConverterOutputStatus_HaveData) {
+        return nil;
+    }
+    return pcmBuffer;
 }
 
 - (void)enqueueBuffer
 {
-	// 第六步：讀出 PCM Buffer，加到 AVAudioPlayerNode 中
-	AVAudioPCMBuffer *buffer = [self read];
-	if (buffer) {
-		[self.player scheduleBuffer:buffer completionHandler:^{
-			[self enqueueBuffer];
-		}];
-	}
+    // 第六步：讀出 PCM Buffer，加到 AVAudioPlayerNode 中
+    AVAudioPCMBuffer *buffer = [self read];
+    if (buffer) {
+        [self.player scheduleBuffer:buffer completionHandler:^{
+            [self enqueueBuffer];
+        }];
+    }
 }
 
 - (void)play
 {
-	NSError *error = nil;
-	[self.audioEngine startAndReturnError:&error];
-	if (error) {
-		return;
-	}
-	[self.player play];
-	[self enqueueBuffer];
-	playerStatus.stopped = NO;
+    NSError *error = nil;
+    [self.audioEngine startAndReturnError:&error];
+    if (error) {
+        return;
+    }
+    [self.player play];
+    [self enqueueBuffer];
+    playerStatus.stopped = NO;
 }
 
 - (void)pause
 {
-	NSError *error = nil;
-	[self.audioEngine startAndReturnError:&error];
-	[self.player stop];
-	playerStatus.stopped = YES;
+    NSError *error = nil;
+    [self.audioEngine startAndReturnError:&error];
+    [self.player stop];
+    playerStatus.stopped = YES;
 }
 
 - (double)packetsPerSecond
@@ -246,8 +246,8 @@ static void KKAudioFileStreamPacketsCallback(void* inClientData,
 
 - (void)_createAudioConverterWithAudioStreamDescription:(AudioStreamBasicDescription *)audioStreamBasicDescription
 {
-	self.format = [[AVAudioFormat alloc] initWithStreamDescription:audioStreamBasicDescription];
-	self.converter = [[AVAudioConverter alloc] initFromFormat:self.format toFormat:self.destinationPCMFormat];
+    self.format = [[AVAudioFormat alloc] initWithStreamDescription:audioStreamBasicDescription];
+    self.converter = [[AVAudioConverter alloc] initFromFormat:self.format toFormat:self.destinationPCMFormat];
 }
 
 - (void)_storePacketsWithNumberOfBytes:(UInt32)inNumberBytes
@@ -275,7 +275,7 @@ static void KKAudioFileStreamPacketsCallback(void* inClientData,
 
 - (BOOL)playing
 {
-	return playerStatus.stopped == NO;
+    return playerStatus.stopped == NO;
 }
 
 #pragma mark -
