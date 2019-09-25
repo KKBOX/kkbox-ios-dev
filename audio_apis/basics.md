@@ -41,7 +41,7 @@ MP3 等壓縮格式開始流行，音樂變得可以在網路上傳輸、交換�
 業，人們從購買 CD 變成透過網路取得音樂，也讓現在可以有 KKBOX 這樣的網路串流音樂
 服務。
 
-### 壓縮音檔
+### 壓縮音檔：Codec 與 Container
 
 壓縮過的音訊檔案尺寸大大降低，但像 MP3 等格式是破壞性的壓縮，在壓縮過程中，也會
 造成音質的降低與失真，所以壓縮的比例同時影響壓縮後的大小與聆聽時感受到的品質。
@@ -66,7 +66,7 @@ packet，以及 packet 的長度，一個 MP3 檔案，就是連續的檔頭與 
 能還會有其他的 atom。其中最主要的兩個 atom 分別是 moov 與 mdat，mdat 裡頭是連續
 的 packet 資料，但是這一段資料中並不會特別著名哪一個 packet 從哪裡開始到結束，而
 moov 這邊有所有的 packet的 offset 位置，也就是，mdat 裡頭有哪些 packet，要拿
-moov 這段資料當做索引。
+moov 這段資料當做索引。用來包裝 packet 的格式，就叫做 container。
 
 moov 與 mdat 不一定要哪個在前哪個在後，但如果你要使用 Core Audio API播放 MP4 檔
 案，moov 一定要放在 mdat 前方，不然 Core Audio API 所提供的格式 parser 會告訴
@@ -75,13 +75,22 @@ moov 與 mdat 不一定要哪個在前哪個在後，但如果你要使用 Core 
 但很奇妙，如果你把這個檔案拿去 iTunes 或 QuickTime 裡頭，卻可以正常播放；所以
 呢，其實蘋果自己的播放軟體裡頭用的底層，與蘋果公開的 API 並不是相同的東西，我們
 也不能期待用蘋果的播放軟體能夠播的檔案，我們就能夠播出來。如果想要知道某個檔案能
-不能用蘋果的公開 API 播放，可以使用command line 底下的 afinfo 與 afplay 指令檢
+不能用蘋果的公開 API 播放，可以使用 command line 底下的 afinfo 與 afplay 指令檢
 查。
 
 當然，如果你不信任系統提供的 parser，也可以寫自己的 parser。iOS 與 Mac OS X 上的
 audio format parser 叫做 Audio File Stream Service，在 Mac上是 10.5 以後才出現的
 API；KKBOX Mac 版是在 2008 年開始開發，當時還必須支援 10.4，因此我們最早也寫了自
 己的 MP3 parser。
+
+所以，當我們在稱呼一種音檔的時候，通常得要同時說明這種音檔的 codec 與 Container：
+
+* MP3 同時是一種 codec 與 container，所以可以直接稱呼成 MP3
+* AAC 是一種 codec，但是有 MP4 與 ADTS 這幾種不同的 container 格式，所以我們會稱
+  為 AAC MP4 或是 AAC ADTS。
+* OGG 是一種 container，裡頭用的 codec 通常是 Vorbis，但 FLAC 格式雖然平常放在
+  FLAC 自己的 container 中，但也有可能用 OGG container 格式包裝 FLAC 資料，這種
+  格式我們就會稱為 OGG FLAC。
 
 ### 播放網路串流的流程
 
