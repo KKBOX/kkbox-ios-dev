@@ -1,36 +1,34 @@
 使用 Audio Unit Processing Graph 開發播放軟體
 ---------------------------------------------
 
-如果我們選擇要使用 Audio Unit Processing Graph API 開發播放網路串流的
-Player，前半部的工作跟一個 Audio Queue Player 差不多，還是要先發送網路
-連線抓取檔案，建立 parser，並且讓 parser parse 出 pakcet。
+如果我們選擇要使用 Audio Unit Processing Graph API 開發播放網路串流的Player，前
+半部的工作跟一個 Audio Queue Player 差不多，還是要先發送網路連線抓取檔案，建立
+parser，並且讓 parser parse 出 pakcet。
 
-但是後半部就變得不一樣，Audio Queue 會幫我們把 packet 從原來的格式轉成
-LPCM 格式，所以我們只要建好 Audio Queue Buffer，再 enque 到 Audio
-Queue 中；但如果我們使用 Audio Unit Processing Graph API，我們就要自己
-透過 converter 將 MP3 等格式轉換成 LPCM 格式播放。
+但是後半部就變得不一樣，Audio Queue 會幫我們把 packet 從原來的格式轉成LPCM 格
+式，所以我們只要建好 Audio Queue Buffer，再 enque 到 Audio Queue 中；但如果我們
+使用 Audio Unit Processing Graph API，我們就要自己透過 converter 將 MP3 等格式轉
+換成 LPCM 格式播放。
 
-Audio Queue API 與 Audio Unit Processing Graph API 的行為也不太一樣，
-使用 Audio Queue API 的時候，我們會主動把 buffer 送到 Audio Queue 中，
+Audio Queue API 與 Audio Unit Processing Graph API 的行為也不太一樣，使用 Audio
+Queue API 的時候，我們會主動把 buffer 送到 Audio Queue 中，
 
-在以下這個範例中，我們先不進入如何使用 AUGraph，只使用了 Remote IO—如
-果我們不需要一些複雜的播放效果，像 EQ 等化器或混音，只要單獨有 Remote
-IO 其實就可以播放。
+在以下這個範例中，我們先不進入如何使用 AUGraph，只使用了 Remote IO—如果我們不需
+要一些複雜的播放效果，像 EQ 等化器或混音，只要單獨有 Remote IO 其實就可以播放。
 
 ### 建立 Remote IO 與設定 Render Callback
 
-由於建立 Audio Queue 的時候需要傳入 audio format，所以我們是在 parser
-取得了 audio foramt 之後，才建立 Audio Queue。不過，使用 Audio Unit
-Processing Graph API 開發播放軟體時，我們是是用 audio format 建立
-conveter，所以我們可以在建立 player 的時候，就先建立好 Remote IO 的
-Audio Unit，並且對 Remote IO 的 Audio Unit 設定好 render callback。
+由於建立 Audio Queue 的時候需要傳入 audio format，所以我們是在 parser取得了
+audio foramt 之後，才建立 Audio Queue。不過，使用 Audio Unit Processing Graph
+API 開發播放軟體時，我們是是用 audio format 建立conveter，所以我們可以在建立
+player 的時候，就先建立好 Remote IO 的Audio Unit，並且對 Remote IO 的 Audio Unit
+設定好 render callback。
 
-建立 Remote IO 的 Audio Unit 的時候，我們會先建立一個用來表示
-component 條件的 AudioComponentDescription，設定 componentType 為
-kAudioUnitType\_Output，代表我們要的是一個輸出用的 node，然後 subtype
-設定成 kAudioUnitSubType\_RemoteIO。接著使用 `AudioComponentFindNext`
-找到符合的 node，然後從這個 node 中拿出這個 node 的操作介面，也就是
-Audio Unit。
+建立 Remote IO 的 Audio Unit 的時候，我們會先建立一個用來表示component 條件的
+AudioComponentDescription，設定 componentType 為kAudioUnitType\_Output，代表我們
+要的是一個輸出用的 node，然後 subtype設定成 kAudioUnitSubType\_RemoteIO。接著使
+用 `AudioComponentFindNext`找到符合的 node，然後從這個 node 中拿出這個 node 的操
+作介面，也就是Audio Unit。
 
 ``` objc
 AudioComponentDescription outputUnitDescription;
@@ -45,8 +43,8 @@ AudioComponent outputComponent = AudioComponentFindNext(NULL, &outputUnitDescrip
 OSStatus status = AudioComponentInstanceNew(outputComponent, &audioUnit);
 ```
 
-接著是從 Audio Unit 設定輸入格式，我們接下來建立 converter 的時候，也
-會將 MP3 轉成這種格式的 LPCM，然後送到 Remote IO node。
+接著是從 Audio Unit 設定輸入格式，我們接下來建立 converter 的時候，也會將 MP3 轉
+成這種格式的 LPCM，然後送到 Remote IO node。
 
 ``` objc
 AudioStreamBasicDescription audioFormat = KKSignedIntLinearPCMStreamDescription();
@@ -56,13 +54,13 @@ kAudioUnitProperty_StreamFormat,
     &audioFormat, sizeof(audioFormat));
 ```
 
-我們來看一下輸入格式的部份。前面提到，即使都叫做 LPCM，裡頭也可能有很
-多不同的格式，可能使用整數、也可能使用浮點數表示。
+我們來看一下輸入格式的部份。前面提到，即使都叫做 LPCM，裡頭也可能有很多不同的格
+式，可能使用整數、也可能使用浮點數表示。
 
-我們在這邊使用的是 16 位元整數，而每個 frame 裡頭有左右兩個聲道，因此
-左右兩個聲道分別有兩個 byte，一個 frame 就是兩個 byte 加起來變成四個
-bytes，因此 mBytesPerFrame 設定為 4。在 LPCM 格式中，一個 packet 只有
-一個 frame，所以每個 packet 也是四個 bytes。
+我們在這邊使用的是 16 位元整數，而每個 frame 裡頭有左右兩個聲道，因此左右兩個聲
+道分別有兩個 byte，一個 frame 就是兩個 byte 加起來變成四個bytes，因此
+mBytesPerFrame 設定為 4。在 LPCM 格式中，一個 packet 只有一個 frame，所以每個
+packet 也是四個 bytes。
 
 ``` objc
 AudioStreamBasicDescription destFormat;
@@ -79,9 +77,8 @@ destFormat.mReserved = 0;
 ```
 
 接著就是設定 render callback。我們把 render callback 設定成
-`KKPlayerAURenderCallback` 這個 function，之後只要呼叫
-`AudioOutputUnitStart`，就會在專屬的 audio render thread 中呼叫這個
-callback function。
+`KKPlayerAURenderCallback` 這個 function，之後只要呼叫`AudioOutputUnitStart`，就
+會在專屬的 audio render thread 中呼叫這個callback function。
 
 ``` objc
 AURenderCallbackStruct callbackStruct;
@@ -96,9 +93,8 @@ status = AudioUnitSetProperty(audioUnit,
 
 ### 建立 Converter
 
-等到 Audio File Stream ID parse 出遠端檔案的格式後，我們就可以建立
-converter 了。在建立的過程中，要傳入輸入給 converter 的格式，以及
-converter 應該要轉出的格式。
+等到 Audio File Stream ID parse 出遠端檔案的格式後，我們就可以建立converter 了。
+在建立的過程中，要傳入輸入給 converter 的格式，以及converter 應該要轉出的格式。
 
 ``` objc
 AudioStreamBasicDescription destFormat = KKSignedIntLinearPCMStreamDescription();
@@ -121,29 +117,28 @@ OSStatus KKPlayerAURenderCallback(void *userData,
     AudioBufferList *ioData);
 ```
 
-在這個 function 中會傳入幾個參數，我們最關心的是 inNumberFrames 與
-ioData，inNumberFrames 就是 Remote IO 現在要跟我們要求多少 frame 的
-audio 資料，我們會根據這個數量，從 MP3 或其他原始格式中轉出多少 frame
-的 LPCM，然後將資料填入到 ioData 中。
+在這個 function 中會傳入幾個參數，我們最關心的是 inNumberFrames 與ioData，
+inNumberFrames 就是 Remote IO 現在要跟我們要求多少 frame 的audio 資料，我們會根
+據這個數量，從 MP3 或其他原始格式中轉出多少 frame的 LPCM，然後將資料填入到ioData
+中。
 
-至於其他幾個參數，像 userData，就是我們在建立 callback function 的時候
-透過 AURenderCallbackStruct 的 inputProcRefCon 傳入的物件指標，因為我
-們的 packet 是放在我們的 player 物件中，自然要想辦法讓 callback
-function 可以有 reference 找到我們的 player。
+至於其他幾個參數，像 userData，就是我們在建立 callback function 的時候透過
+AURenderCallbackStruct 的 inputProcRefCon 傳入的物件指標，因為我們的 packet 是放
+在我們的 player 物件中，自然要想辦法讓 callback function 可以有 reference 找到我
+們的 player。
 
-ioActionFlags 可以讓我們對 Remote IO Unit 做一些額外的操作，假如我們並
-沒有 pakcet 可以給 Remote IO 播放，或是發生了其他錯誤，這時候我們就會
-在 ` *ioActionFlags |= kAudioUnitRenderAction_OutputIsSilence;` 這行裡
-頭告訴告訴 Remote IO 應該靜音。至於 inTimeStamp 則代表這個 callback 是
-在什麼時間被呼叫的。
+ioActionFlags 可以讓我們對 Remote IO Unit 做一些額外的操作，假如我們並沒有pakcet
+可以給 Remote IO 播放，或是發生了其他錯誤，這時候我們就會在 ` *ioActionFlags |=
+kAudioUnitRenderAction_OutputIsSilence;` 這行裡頭告訴告訴Remote IO 應該靜音。至
+於 inTimeStamp 則代表這個 callback 是在什麼時間被呼叫的。
 
-inBusNumber 代表這個 callback function 被連接到 Remote IO 的哪個 bus，
-前面提到，Remote IO 的 bus 0 是輸出，用來播放，bus 1 則用來錄音，我們
-現在是處理播放，自然會連接到 bus 0。
+inBusNumber 代表這個 callback function 被連接到 Remote IO 的哪個 bus，前面提到，
+Remote IO 的 bus 0 是輸出，用來播放，bus 1 則用來錄音，我們現在是處理播放，自然
+會連接到 bus 0。
 
-如果我們不是對 Remote IO，而是對像 mixer 之類的 node 設定 callback，也
-可能會設定在 bus 0 之外的 bus，像一個 mixer 在 bus 0 或 bus 1 分別設定
-了兩個 callback，就可以對兩個輸入來源做混音處理。
+如果我們不是對 Remote IO，而是對像 mixer 之類的 node 設定 callback，也可能會設定
+在 bus 0 之外的 bus，像一個 mixer 在 bus 0 或 bus 1 分別設定了兩個 callback，就
+可以對兩個輸入來源做混音處理。
 
 ### 實作 Conveter 的 Fill Callback
 
@@ -153,31 +148,28 @@ AudioConverterRef 有三個可以用來轉換格式的 C function：
 - AudioConverterConvertComplexBuffer
 - AudioConverterFillComplexBuffer
 
-雖然有三個 function，但實際上可以用的只有
-`AudioConverterFillComplexBuffer`；`AudioConverterConvertBuffer` 與
-`AudioConverterConvertComplexBuffer` 都只能夠處理不同的 LPCM 格式之間
-的轉換，像是把整數的 LPCM 轉成浮點的 LPCM。我們想要把 MP3 或 AAC 格式
-轉成 LPCM，只能夠呼叫 `AudioConverterFillComplexBuffer`。
+雖然有三個 function，但實際上可以用的只有`AudioConverterFillComplexBuffer`；
+`AudioConverterConvertBuffer` 與`AudioConverterConvertComplexBuffer` 都只能夠處
+理不同的 LPCM 格式之間的轉換，像是把整數的 LPCM 轉成浮點的 LPCM。我們想要把 MP3
+或 AAC 格式轉成 LPCM，只能夠呼叫 `AudioConverterFillComplexBuffer`。
 
-呼叫 `AudioConverterFillComplexBuffer` 的時候，必須要傳入一個converter
-callback function，我們叫他 filler，我們在這邊傳入了
-`KKPlayerConverterFiller`，並且要傳入一個 AudioBufferList。在filler
-function 中，我們把 packet 一個一個餵給 converter讓 converter 轉換，轉
-出的資料就會填入到傳入的 AudioBufferList；轉換完畢之後，
+呼叫 `AudioConverterFillComplexBuffer` 的時候，必須要傳入一個converter callback
+function，我們叫他 filler，我們在這邊傳入了`KKPlayerConverterFiller`，並且要傳入
+一個 AudioBufferList。在filler function 中，我們把 packet 一個一個餵給 converter
+讓 converter 轉換，轉出的資料就會填入到傳入的 AudioBufferList；轉換完畢之後，
 AudioBufferList 裡頭就會是轉好的 LPCM 檔案。
 
-接著，我們就可以把 AudioBufferList 中的資料，塞入
-`KKPlayerAURenderCallback` 傳入的 ioData 中。如果沒有資料，就像上面說
-的，透過 ioActionFlags 暫停播放。
+接著，我們就可以把 AudioBufferList 中的資料，塞入`KKPlayerAURenderCallback` 傳入
+的 ioData 中。如果沒有資料，就像上面說的，透過 ioActionFlags 暫停播放。
 
 KKSimpleAUPlayer.h
 
 ``` objc
-#import <Foundation/Foundation.h>
-#import <AudioToolbox/AudioToolbox.h>
+@import Foundation;
+@import AudioToolbox;
 
 @interface KKSimpleAUPlayer : NSObject
-- (id)initWithURL:(NSURL *)inURL;
+- (instancetype)initWithURL:(NSURL *)inURL;
 - (void)play;
 - (void)pause;
 @property (readonly, getter=isPlaying) BOOL playing;
@@ -307,7 +299,7 @@ AudioStreamBasicDescription KKSignedIntLinearPCMStreamDescription()
     renderBufferList->mBuffers[0].mData = calloc(1, bufferSize);
 }
 
-- (id)initWithURL:(NSURL *)inURL
+- (instancetype)initWithURL:(NSURL *)inURL
 {
     self = [super init];
     if (self) {
@@ -383,7 +375,7 @@ AudioStreamBasicDescription KKSignedIntLinearPCMStreamDescription()
 #pragma mark -
 #pragma mark Audio Parser and Audio Queue callbacks
 
-- (void)_createAudioQueueWithAudioStreamDescription:(AudioStreamBasicDescription *)audioStreamBasicDescription
+- (void)_createAudioConverterWithAudioStreamDescription:(AudioStreamBasicDescription *)audioStreamBasicDescription
 {
     memcpy(&streamDescription, audioStreamBasicDescription, sizeof(AudioStreamBasicDescription));
     AudioStreamBasicDescription destFormat = KKSignedIntLinearPCMStreamDescription();
@@ -518,7 +510,7 @@ void KKAudioFileStreamPropertyListener(void * inClientData,
         // 第三步： Audio Parser 成功 parse 出 audio 檔案格式，我們根據
         // 檔案格式資訊，建立 converter
 
-        [self _createAudioQueueWithAudioStreamDescription:&audioStreamDescription];
+        [self _createAudioConverterWithAudioStreamDescription:&audioStreamDescription];
     }
 }
 
