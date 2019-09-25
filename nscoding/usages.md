@@ -202,7 +202,7 @@ controller，要實作兩個 method：
 果要的話，我們就回傳 YES。
 
 二、前一步回傳 YES 之後，系統就會透過
-`-application:shouldRestoreApplicationState:`，提供我們一個 NSCoder，
+`-application:willEncodeRestorableStateWithCoder:`，提供我們一個 NSCoder，
 讓我們把必要的狀態透過這個 NSCoder archive 起來。如果我們的 App 裡頭有
 一個 navigation controller，而我們想把整個 navigation controller 保存
 起來，可以這麼寫：

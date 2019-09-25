@@ -546,15 +546,6 @@ class KKSimplePlayer: NSObject {
 		AudioFileStreamClose(audioFileStreamID)
 	}
 
-	var framePerSecond: Double {
-		get {
-			if let streamDescription = self.streamDescription where streamDescription.mFramesPerPacket > 0 {
-				return Double(streamDescription.mSampleRate) / Double(streamDescription.mFramesPerPacket)
-			}
-			return 44100.0 / 1152.0
-		}
-	}
-
 	func play() {
 		if self.outputQueue != nil {
 			AudioQueueStart(outputQueue, nil)
@@ -592,9 +583,9 @@ class KKSimplePlayer: NSObject {
 			self.packets.append(packetData)
 		}
 
-		if readHead == 0 && Double(packets.count) > self.framePerSecond * 3 {
+		if readHead == 0 && Double(packets.count) > self.packetsPerSecond * 3 {
 			AudioQueueStart(self.outputQueue, nil)
-			self.enqueueDataWithPacketsCount(Int(self.framePerSecond * 3))
+			self.enqueueDataWithPacketsCount(Int(self.packetsPerSecond * 3))
 		}
 	}
 
@@ -663,7 +654,7 @@ func KKAudioFileStreamPacketsCallback(clientData: UnsafeMutablePointer<Void>, nu
 func KKAudioQueueOutputCallback(clientData: UnsafeMutablePointer<Void>, AQ: AudioQueueRef, buffer: AudioQueueBufferRef) {
 	let this = Unmanaged<KKSimplePlayer>.fromOpaque(COpaquePointer(clientData)).takeUnretainedValue()
 	AudioQueueFreeBuffer(AQ, buffer)
-	this.enqueueDataWithPacketsCount(Int(this.framePerSecond * 5))
+	this.enqueueDataWithPacketsCount(Int(this.packetsPerSecond * 5))
 }
 
 func KKAudioQueueRunningListener(clientData: UnsafeMutablePointer<Void>, AQ: AudioQueueRef, propertyID: AudioQueuePropertyID) {
