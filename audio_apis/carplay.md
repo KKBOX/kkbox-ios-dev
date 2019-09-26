@@ -38,3 +38,12 @@ MPPlayableContentManager 的 data source，MPPlayableContentManager 也不會開
 data source 要求資料。倒是 MPNowPlayingInfoCenter 可以稍晚設定。
 
 ### MPRemoteCommandCenter
+
+一般來說，我們至少會實作以下的 MPRemoteCommandCenter 指令：
+
+* playCommand：開始播放。
+* pauseCommand：暫停播放。
+* stopCommand：完全停止播放。Pause 與 Stop 的差別在於，Pause 只是停止目前正在播
+  放用的 Audio Graph/AVAudioEngine/Audio Queue，但是 Stop 會完全放開目前播放器元
+  件參考到的歌單/歌曲物件。
+* togglePlayPauseCommand：檢查目前是否正在播放，播放中就執行 pause，反之則執行 play。
