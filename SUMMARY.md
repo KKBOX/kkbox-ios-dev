@@ -129,6 +129,7 @@
    * [從 Audio Unit Processing Graph 到 AVAudioEngine](audio_apis/migrate_to_avaudioengine.md)
    * [Audio Session](audio_apis/audio_session.md)
    * [打造 Player 的完整功能](audio_apis/complete_the_player.md)
+   * [CarPlay](audio_apis/carplay.md)
    * [教學影片](audio_apis/video.md)
    * [相關閱讀](audio_apis/reading_list.md)
    * [練習：iOS Audio Player 開發](audio_apis/practice.md)
