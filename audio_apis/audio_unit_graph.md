@@ -3,12 +3,12 @@
 
 如果我們選擇要使用 Audio Unit Processing Graph API 開發播放網路串流的Player，前
 半部的工作跟一個 Audio Queue Player 差不多，還是要先發送網路連線抓取檔案，建立
-parser，並且讓 parser parse 出 pakcet。
+parser，並且讓 parser parse 出 packet。
 
-但是後半部就變得不一樣，Audio Queue 會幫我們把 packet 從原來的格式轉成LPCM 格
-式，所以我們只要建好 Audio Queue Buffer，再 enque 到 Audio Queue 中；但如果我們
-使用 Audio Unit Processing Graph API，我們就要自己透過 converter 將 MP3 等格式轉
-換成 LPCM 格式播放。
+但是後半部就變得不一樣，Audio Queue 會幫我們把 packet 從原來的格式轉成 LPCM 格
+式，所以我們只要建好 Audio Queue Buffer，再 enqueue 到 Audio Queue 中；但如果我
+們使用 Audio Unit Processing Graph API，我們就要自己透過 converter 將 MP3 等格式
+轉換成 LPCM 格式播放。
 
 Audio Queue API 與 Audio Unit Processing Graph API 的行為也不太一樣，使用 Audio
 Queue API 的時候，我們會主動把 buffer 送到 Audio Queue 中，
@@ -18,17 +18,17 @@ Queue API 的時候，我們會主動把 buffer 送到 Audio Queue 中，
 
 ### 建立 Remote IO 與設定 Render Callback
 
-由於建立 Audio Queue 的時候需要傳入 audio format，所以我們是在 parser取得了
-audio foramt 之後，才建立 Audio Queue。不過，使用 Audio Unit Processing Graph
-API 開發播放軟體時，我們是是用 audio format 建立conveter，所以我們可以在建立
-player 的時候，就先建立好 Remote IO 的Audio Unit，並且對 Remote IO 的 Audio Unit
-設定好 render callback。
+由於建立 Audio Queue 的時候需要傳入 audio format，所以我們是在 parser取得了audio
+format 之後，才建立 Audio Queue。不過，使用 Audio Unit Processing Graph API 開發
+播放軟體時，我們是是用 audio format 建立 converter，所以我們可以在建立 player
+時，就先建立好 Remote IO 的Audio Unit，並且對 Remote IO 的 Audio Unit 設定好
+render callback。
 
 建立 Remote IO 的 Audio Unit 的時候，我們會先建立一個用來表示component 條件的
-AudioComponentDescription，設定 componentType 為kAudioUnitType\_Output，代表我們
-要的是一個輸出用的 node，然後 subtype設定成 kAudioUnitSubType\_RemoteIO。接著使
-用 `AudioComponentFindNext`找到符合的 node，然後從這個 node 中拿出這個 node 的操
-作介面，也就是Audio Unit。
+AudioComponentDescription，將 componentType 設定成 kAudioUnitType\_Output，代表
+我們要的是一個輸出用的 node，然後 subtype 設定成 kAudioUnitSubType\_RemoteIO。接
+著使用 `AudioComponentFindNext`找到符合的 node，然後從這個 node 中拿出這個 node
+的操作介面，也就是Audio Unit。
 
 ``` objc
 AudioComponentDescription outputUnitDescription;

@@ -126,6 +126,7 @@
    * [修改 LPCM 資料](audio_apis/modify_pcm_data.md)
    * [Core Audio 到底難在哪？](audio_apis/core_audio_is_hard.md)
    * [使用 AVAudioEngine 開發播放軟體](audio_apis/avaudioengine.md)
+   * [從 Audio Unit Processing Graph 到 AVAudioEngine](audio_apis/migrate_to_avaudioengine.md)
    * [Audio Session](audio_apis/audio_session.md)
    * [打造 Player 的完整功能](audio_apis/complete_the_player.md)
    * [教學影片](audio_apis/video.md)

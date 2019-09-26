@@ -69,7 +69,8 @@ AAC 之類的檔案，手動轉換成 PCM 資料。在 AVAudioEngine API 中，�
 
 ## 用 AVAudioEngine 實作播放器
 
-用 AVAudioEngine 實作一個播放器的流程大概是：
+由於 AVAudioEngine 是把 AUGraph 用 Objective-C 包裝起來，所以整體流程與前一章差
+不多。用 AVAudioEngine 實作一個播放器的流程大概是：
 
 * 建立 `AVAudioEngine` 的 instance
 * 將各種音效處理的 AVAudioUnit 物件加入到 `AVAudioEngine` 中，這時候會呼叫到
