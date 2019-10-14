@@ -37,7 +37,7 @@ data source 與 delegate，透過 data source 與 delegate 提供資料。
 MPPlayableContentManager 的 data source，MPPlayableContentManager 也不會開始向
 data source 要求資料。倒是 MPNowPlayingInfoCenter 可以稍晚設定。
 
-### MPRemoteCommandCenter
+### 再談 MPRemoteCommandCenter
 
 一般來說，我們至少會實作以下的 MPRemoteCommandCenter 指令：
 
@@ -47,3 +47,45 @@ data source 要求資料。倒是 MPNowPlayingInfoCenter 可以稍晚設定。
   放用的 Audio Graph/AVAudioEngine/Audio Queue，但是 Stop 會完全放開目前播放器元
   件參考到的歌單/歌曲物件。
 * togglePlayPauseCommand：檢查目前是否正在播放，播放中就執行 pause，反之則執行 play。
+
+然後以下幾個指令需要特別注意：
+
+* changeRepeatModeCommand：修改循環模式，包括循環播放、不循環播放、單手循環播放
+* changeShuffleModeCommand：修改播放模式，包括循序播放、隨機播放…等
+
+在 MPRemoteCommandCenter 當中絕大多數的指令，都是用戶真的做了手動操作、在各種地
+方按下按鈕之後才觸發，但是 changeShuffleModeCommand 不一樣，如果我們實作了
+changeShuffleModeCommand，在用戶接上了一般的車用音響之後，就會被直接呼叫一次。
+
+iPhone 除了支援 CarPlay 車用音響之外，也支援更早之前的車用音響。蘋果在 2001 年就
+推出了最早的 iPod，在 iPhone 推出之前，就已經有一套讓車用音響支援 iPod 的協定，
+所以，在這樣的車用音響上，iPhone 會被當成是一支 iPod，也就是說，
+MPRemoteCommandCenter的指令，其實不只會用在 CarPlay 車機上，也會用在非 CarPlay車
+機上。所以，當我們在實作 changeShuffleModeCommand 與 changeShuffleModeCommand 的
+時候，必須參考從外部傳進來的新狀態。像是：
+
+先指定 changeRepeatModeCommand 與 changeShuffleModeCommand 的 target/action：
+
+``` swift
+center.changeRepeatModeCommand.addTarget(self, action: #selector(changeRepeatMode(_:)))
+center.changeShuffleModeCommand.addTarget(self, action: #selector(changeShuffleMode(_:)))
+```
+
+實作方式：
+
+``` swift
+@objc func changeRepeatMode(_ event: MPChangeRepeatModeCommandEvent) -> MPRemoteCommandHandlerStatus {
+    let type = event.repeatType
+    /// 使用傳入的 repeatType
+    return .success
+}
+
+@objc func changeShuffleMode(_ event: MPChangeShuffleModeCommandEvent) -> MPRemoteCommandHandlerStatus {
+    var type = event.shuffleType
+    /// 使用傳入的 shuffleType
+    return .success
+	}
+
+```
+
+
