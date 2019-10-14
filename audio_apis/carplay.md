@@ -39,6 +39,8 @@ data source 要求資料。倒是 MPNowPlayingInfoCenter 可以稍晚設定。
 
 ### 再談 MPRemoteCommandCenter
 
+#### 一般指令
+
 一般來說，我們至少會實作以下的 MPRemoteCommandCenter 指令：
 
 * playCommand：開始播放。
@@ -47,6 +49,8 @@ data source 要求資料。倒是 MPNowPlayingInfoCenter 可以稍晚設定。
   放用的 Audio Graph/AVAudioEngine/Audio Queue，但是 Stop 會完全放開目前播放器元
   件參考到的歌單/歌曲物件。
 * togglePlayPauseCommand：檢查目前是否正在播放，播放中就執行 pause，反之則執行 play。
+
+#### 播放模式
 
 然後以下幾個指令需要特別注意：
 
@@ -84,8 +88,24 @@ center.changeShuffleModeCommand.addTarget(self, action: #selector(changeShuffleM
     var type = event.shuffleType
     /// 使用傳入的 shuffleType
     return .success
-	}
+}
 
 ```
 
+#### 播放進度
 
+跟前述「播放模式」相關的指令一樣，如果我們想要讓我們的 App 可以從待機畫面
+/CarPlay 畫面調整播放進度，在實作 changePlaybackPositionCommand 的時候，也需要使用傳入的值。
+
+``` swift
+center.changePlaybackPositionCommand.addTarget(self, action: #selector(changePlaybackPosition(_:)))
+```
+
+``` swift
+@objc func changePlaybackPosition(_ event: MPChangePlaybackPositionCommandEvent) -> MPRemoteCommandHandlerStatus {
+    let time = event.positionTime
+    self.seek(to: time) // 要求播放器調整到指定的位置
+    self.updateNowPlayingInfo() // 更新 MPNowPlayingInfoCenter 中的資料
+    return .success
+}
+```
