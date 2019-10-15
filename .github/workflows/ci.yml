@@ -16,6 +16,14 @@ jobs:
         run: gitbook install
       - name: Gitbook Build
         run: gitbook build
+      - name: Gitbook Epub
+        run: gitbook epub
+      - name: Gitbook PDF
+        run: gitbook pdf
+      - name: Move File
+        run: mv book.epub ./_book/.
+      - name: Move File
+        run: mv book.pdf ./_book/.
       - name: Build and Deploy
         uses: JamesIves/github-pages-deploy-action@master
         env:
