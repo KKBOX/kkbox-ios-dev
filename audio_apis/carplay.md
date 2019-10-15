@@ -43,12 +43,14 @@ data source 要求資料。倒是 MPNowPlayingInfoCenter 可以稍晚設定。
 
 一般來說，我們至少會實作以下的 MPRemoteCommandCenter 指令：
 
-* playCommand：開始播放。
-* pauseCommand：暫停播放。
+* playCommand：開始播放
+* pauseCommand：暫停播放
 * stopCommand：完全停止播放。Pause 與 Stop 的差別在於，Pause 只是停止目前正在播
   放用的 Audio Graph/AVAudioEngine/Audio Queue，但是 Stop 會完全放開目前播放器元
-  件參考到的歌單/歌曲物件。
-* togglePlayPauseCommand：檢查目前是否正在播放，播放中就執行 pause，反之則執行 play。
+  件參考到的歌單/歌曲物件
+* togglePlayPauseCommand：檢查目前是否正在播放，播放中就執行 pause，反之則執行 play
+* previousTrackCommand：跳到前一首歌曲
+* nextTrackCommand：跳到下一首歌曲
 
 #### 播放模式
 
@@ -89,17 +91,22 @@ center.changeShuffleModeCommand.addTarget(self, action: #selector(changeShuffleM
     /// 使用傳入的 shuffleType
     return .success
 }
-
 ```
 
 #### 播放進度
 
 跟前述「播放模式」相關的指令一樣，如果我們想要讓我們的 App 可以從待機畫面
-/CarPlay 畫面調整播放進度，在實作 changePlaybackPositionCommand 的時候，也需要使用傳入的值。
+/CarPlay 畫面中，在播放進度列上拖拉調整，就要實作
+changePlaybackPositionCommand。在實作changePlaybackPositionCommand 的時候，也需
+要使用傳入的時間。
+
+首先指定 target/action：
 
 ``` swift
 center.changePlaybackPositionCommand.addTarget(self, action: #selector(changePlaybackPosition(_:)))
 ```
+
+然後從傳入的 event 取出用戶想指定的播放時間位置：
 
 ``` swift
 @objc func changePlaybackPosition(_ event: MPChangePlaybackPositionCommandEvent) -> MPRemoteCommandHandlerStatus {
@@ -109,6 +116,35 @@ center.changePlaybackPositionCommand.addTarget(self, action: #selector(changePla
     return .success
 }
 ```
+
+以下也是可以用來調整播放進度的指令：
+
+* seekBackwardCommand
+* seekForwardCommand
+* skipBackwardCommand
+* skipForwardCommand
+
+#### 喜愛歌曲（Feedback Commands）
+
+在 iOS 的待機畫面中，其實支援兩種不同模式的控制方式：
+
+* 一般模式：可以跳到前一首、下一首歌曲，以及調整播放進度
+* 電台模式：只能夠跳到下一首，不能夠跳到前一首，而前一首歌曲的按鈕位置變成一個選
+  單，在選單中，可以讓用戶決定是否要將歌曲加到「我的最愛」或是「書籤」中
+
+只要實作了以下指令，就會進入電台模式：
+
+* likeCommand：將目前歌曲加入到我的最愛
+* dislikeCommand：將目前的歌曲移出我的最愛
+* bookmarkCommand：將目前歌曲加入書籤
+
+不過，當我們想要從電台模式跳回一般模式的時候，只是將這些 command 設成 enabled 為
+NO 是不夠的，必須要呼叫 `removeTarget` 才行。
+
+另外，在 iOS 11 上，如果呼叫了這些指令，也會同時觸發 `seekForwardCommand`，而在
+呼叫`nextTrackCommand` 與 `previousTrackCommand` 的時候，也會莫名其妙的呼叫到
+`seekBackwardCommand`。由於這些行為都不符合預期，我們建議在 iOS 11 上，不要實作
+`seekForwardCommand` 與 `seekBackwardCommand`。
 
 ### 實作 MPPlayableContentManager 的 Data Source 與 Delegate
 
@@ -134,9 +170,6 @@ subclass。
 載入某一層目錄當中的資料，在載入成功之後呼叫傳入的 callback block。而如果是用來
 播放用的節點的話，就要實作 `play(callback:)`，無論成功或是失敗，都要呼叫
 callback block。
-
-
-這個 library 基本上在
 
 ### 在連接 CarPlay 裝置時 Audio Graph 的行為
 
