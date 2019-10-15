@@ -4,20 +4,23 @@ on: [push]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-    
+
     container:
       image: zonble/gitbook_tools:latest
-    
+
     steps:
-    - name: Checkout
-      uses: actions/checkout@v1
-    - name: Build and Deploy
-      uses: JamesIves/github-pages-deploy-action@master
-      env:
-        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-        BASE_BRANCH: master # The branch the action should deploy from.
-        BRANCH: gh-pages # The branch the action should deploy to.
-        FOLDER: _book # The folder the action should deploy.
-        BUILD_SCRIPT: gitbook install && gitbook build
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Gitbook Install
+        run: gitbook install
+      - name: Gitbook Build
+        run: gitbook build
+      - name: Build and Deploy
+        uses: JamesIves/github-pages-deploy-action@master
+        env:
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          BASE_BRANCH: master # The branch the action should deploy from.
+          BRANCH: gh-pages # The branch the action should deploy to.
+          FOLDER: _book # The folder the action should deploy.
+          BUILD_SCRIPT: echo 'hi'
