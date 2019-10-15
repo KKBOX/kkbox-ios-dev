@@ -109,3 +109,37 @@ center.changePlaybackPositionCommand.addTarget(self, action: #selector(changePla
     return .success
 }
 ```
+
+### 實作 MPPlayableContentManager 的 Data Source 與 Delegate
+
+為了方便起見，我們實作了一套叫做
+[KKCarPlayManager](https://github.com/KKBOX/KKCarPlayManager) 的 library，實作
+MPPlayableContentManager 的 data Source 與 delegate，並且在 GitHub 上面公開程式
+碼，可以用 CocoaPods 或 Swift Package Manager 的方式載入。
+MPPlayableContentManager會向他的 data source 要求每個層次的 MPContentItem 物件，
+組合成一個樹狀結構，最後形成在 CarPlay 螢幕上的選單介面。
+
+在 KKCarPlayManager 中，我們有一個繼承自 MPContentItem 的 KKBasicContentItem，要
+完成整個 CarPlay 的功能，就是按照實際情況，繼續建立更多 KKCarPlayManager 的
+subclass。
+
+這個 item 上加了一個叫做 children 的 property，以及這兩個 method：
+
+* `loadChildren(callback:)`
+* `play(callback:)`
+
+在這個樹狀結構中，會分成是目錄的節點、或是可以播放的節點，你可以用 MPContentItem
+的 `container` 與 `playable` 這兩個 property，來標示是哪一種節點。如果某一層的節
+點是一個目錄的話，就要實作 `loadChildren(callback:)`，這代表我們發現用戶想要開始
+載入某一層目錄當中的資料，在載入成功之後呼叫傳入的 callback block。而如果是用來
+播放用的節點的話，就要實作 `play(callback:)`，無論成功或是失敗，都要呼叫
+callback block。
+
+
+這個 library 基本上在
+
+### 在連接 CarPlay 裝置時 Audio Graph 的行為
+
+在使用 Audio Graph 的時候，我們要盡量避免呼叫了 `AUGraphStop()` 之後，馬上再呼叫
+`AUGraphStart()`。在一般的狀況下，這樣寫並沒有什麼問題，但是當 iOS 裝置接上了
+CarPlay 車機之後，這樣呼叫的時候，`AUGraphStart()` 就會發生失敗而無法繼續播放。
