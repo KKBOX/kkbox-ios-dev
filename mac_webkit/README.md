@@ -1,11 +1,13 @@
 Mac 上的 WebKit
 ===============
 
+**蘋果後來推出了 WKWebView，其實現在也會比較建議使用 WKWebView，但是因為一些歷史因素，我們還是保留了原本的說明文件，請視需要閱讀。**
+
 KKBOX 在推出 iOS 版本之前，在 2008 年九月就推出了 Mac 版本。我們會在這
 一章當中，討論一個專屬 Mac OS X 平台的問題： WebKit。
 
 iOS 上面一樣有 Web 瀏覽器元件可以使用，包括 UIWebView、WKWebview 以及
-iOS 9 之後的 Safari View Cotroller。不過，因為蘋果政策的關係，iOS 上的
+iOS 9 之後的 Safari View Controller。不過，因為蘋果政策的關係，iOS 上的
 Web 瀏覽元件受限非常大，但相對的，在 Mac OS X 平台上，我們可說可以完整
 控制 WebKit framework 中的 WebView。
 
