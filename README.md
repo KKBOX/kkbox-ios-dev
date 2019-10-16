@@ -39,7 +39,7 @@ KKBOX iOS/Mac OS X 基礎開發教材
 這份教材
 
 * 位置是 https://zonble.gitbooks.io/kkbox-ios-dev/content/
-* 資料都放在 GitHub 上 https://github.com/zonble/kkbox-ios-dev
+* 資料都放在 GitHub 上 https://github.com/KKBOX/kkbox-ios-dev
 
 您如果發現任何的錯誤，可以直接發 Pull Request 修改，如果您有什麼問題，也可以寫信
 到zonble @ gmail . com 。
