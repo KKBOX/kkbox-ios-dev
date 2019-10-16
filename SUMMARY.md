@@ -153,3 +153,4 @@
    * [JavaScriptCore](mac_webkit/javascript_core.md)
 * [小結](final_thoughts/README.md)
 * [其他閱讀資料](reading_list/README.md)
+* [版本記錄](changelog.md)
