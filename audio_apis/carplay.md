@@ -132,6 +132,15 @@ center.changePlaybackPositionCommand.addTarget(self, action: #selector(changePla
 * 電台模式：只能夠跳到下一首，不能夠跳到前一首，而前一首歌曲的按鈕位置變成一個選
   單，在選單中，可以讓用戶決定是否要將歌曲加到「我的最愛」或是「書籤」中
 
+一般模式如下圖：
+
+![remote1.png](remote1.png)
+
+電台模式如下圖：
+
+![remote2.png](remote2.png)
+
+
 只要實作了以下指令，就會進入電台模式：
 
 * likeCommand：將目前歌曲加入到我的最愛
