@@ -130,6 +130,7 @@
    * [Audio Session](audio_apis/audio_session.md)
    * [打造 Player 的完整功能](audio_apis/complete_the_player.md)
    * [CarPlay](audio_apis/carplay.md)
+   * [MFI 助聽器](audio_apis/mfi_hearing_aids.md)
    * [教學影片](audio_apis/video.md)
    * [相關閱讀](audio_apis/reading_list.md)
    * [練習：iOS Audio Player 開發](audio_apis/practice.md)
