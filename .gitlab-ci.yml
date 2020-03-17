@@ -1,2 +1,30 @@
-job1:
-    script: "gitbook install; gitbook build"
+image: zonble/gitbook_tools:latest
+
+pages:
+  stage: deploy
+  artifacts:
+    paths:
+      - public
+    expire_in: 1 week
+  before_script:
+    - env
+    - echo "LC_ALL=en_US.UTF-8" >> /etc/environment
+    - echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
+    - echo "LANG=en_US.UTF-8" > /etc/locale.conf
+    - apt-get clean && apt-get update && apt-get install -y locales
+    - locale-gen en_US.UTF-8
+    - export LANG="en_US.UTF-8"
+    - export LANGUAGE="en_US:en"
+    - export LC_CTYPE="en_US.UTF-8"
+    - gitbook install
+  script:
+    - gitbook build . public
+    - gitbook epub
+    - gitbook pdf
+    - gitbook mobi
+    - mv book.epub ./public/.
+    - mv book.pdf ./public/.
+    - mv book.mobi ./public/.
+  tags:
+    - docker
+  allow_failure: true

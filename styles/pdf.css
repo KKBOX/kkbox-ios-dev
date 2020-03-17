@@ -3,10 +3,6 @@ body {
     font-family: "Times New Roman", Times, "PingFang TC", "Noto Sans", "Noto Sans CJK TC", "Noto Sans CJK", "Apple LiGothic Medium", "LiHei Pro Medium", serif !important;
   }
 
-h1 {
-    font-family: Georgia, Times, "PingFang TC", "Noto Sans", "Noto Sans CJK TC", "Noto Sans CJK", "Apple LiGothic Medium", "LiHei Pro Medium", serif;
-}
-
 pre {
     white-space: pre-wrap !important;
     word-wrap: break-word !important;
@@ -15,4 +11,17 @@ pre {
 code {
     white-space: pre-wrap !important;
     word-wrap: break-word !important;
+ }
+
+ h1,
+ h2,
+ h3,
+ h4,
+ h5,
+ h6,
+ strong {
+     font-family:
+         Helvetica,
+         "Noto Sans CJK TC",
+         sans-serif;
  }
