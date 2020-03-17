@@ -1,0 +1,2495 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-TW" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>iOS 與 Mac OS X 的 Audio API 概觀 · KKBOX iOS/Mac OS X 基礎開發教材</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-tree/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+        <link rel="stylesheet" href="../styles/website.css">
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="audio_queue.html" />
+    
+    
+    <link rel="prev" href="basics.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="輸入並搜尋" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    前言
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../selector/">
+            
+                <a href="../selector/">
+            
+                    
+                    Selector
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../selector/what_are_objective-c_classes.html">
+            
+                <a href="../selector/what_are_objective-c_classes.html">
+            
+                    
+                    Objective-C Class/Object 到底是什麼？
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../selector/usage.html">
+            
+                <a href="../selector/usage.html">
+            
+                    
+                    Selector 有什麼用途？
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="../selector/what_you_way_need_to_notice_on_calling_performselecotr.html">
+            
+                <a href="../selector/what_you_way_need_to_notice_on_calling_performselecotr.html">
+            
+                    
+                    呼叫 performSelector: 需要注意的地方
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4" data-path="../selector/selector_is_where_the_magic_begins.html">
+            
+                <a href="../selector/selector_is_where_the_magic_begins.html">
+            
+                    
+                    Selector 是 Objective-C 中所有魔法的開始
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.5" data-path="../selector/reading_list.html">
+            
+                <a href="../selector/reading_list.html">
+            
+                    
+                    相關閱讀
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.6" data-path="../selector/practice_simple_calculator.html">
+            
+                <a href="../selector/practice_simple_calculator.html">
+            
+                    
+                    練習：小計算機
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../category/">
+            
+                <a href="../category/">
+            
+                    
+                    Category
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../category/when_to_use_categories.html">
+            
+                <a href="../category/when_to_use_categories.html">
+            
+                    
+                    什麼時候應該要使用 Category
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../category/implementing_categories.html">
+            
+                <a href="../category/implementing_categories.html">
+            
+                    
+                    實作 Category
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="../category/other_usages.html">
+            
+                <a href="../category/other_usages.html">
+            
+                    
+                    Category 還可以有什麼用途？
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="../category/extensions.html">
+            
+                <a href="../category/extensions.html">
+            
+                    
+                    Extensions
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.5" data-path="../category/member_variables_and_categories.html">
+            
+                <a href="../category/member_variables_and_categories.html">
+            
+                    
+                    Category 是否可以增加新的成員變數或屬性？
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.6" data-path="../category/nsurlsessiontask.html">
+            
+                <a href="../category/nsurlsessiontask.html">
+            
+                    
+                    對 NSURLSessionTask 撰寫 Category
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.7" data-path="../category/reading_list.html">
+            
+                <a href="../category/reading_list.html">
+            
+                    
+                    相關閱讀
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.8" data-path="../category/practice_category_for_nsstring.html">
+            
+                <a href="../category/practice_category_for_nsstring.html">
+            
+                    
+                    練習：字串反轉
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../memory_management_part_1/">
+            
+                <a href="../memory_management_part_1/">
+            
+                    
+                    記憶體管理 Part 1 - Retain、Release
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../memory_management_part_1/reference_cout.html">
+            
+                <a href="../memory_management_part_1/reference_cout.html">
+            
+                    
+                    Reference Count/Retain/Release
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../memory_management_part_1/auto-release.html">
+            
+                <a href="../memory_management_part_1/auto-release.html">
+            
+                    
+                    Auto-release
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../memory_management_part_1/principles.html">
+            
+                <a href="../memory_management_part_1/principles.html">
+            
+                    
+                    基本原則
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="../memory_management_part_1/getter_setter.html">
+            
+                <a href="../memory_management_part_1/getter_setter.html">
+            
+                    
+                    Getter/Setter 與 Property 語法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" data-path="../memory_management_part_1/reading_list.html">
+            
+                <a href="../memory_management_part_1/reading_list.html">
+            
+                    
+                    相關閱讀
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../memory_management_part_2/">
+            
+                <a href="../memory_management_part_2/">
+            
+                    
+                    記憶體管理 Part 2 - ARC
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../memory_management_part_3/">
+            
+                <a href="../memory_management_part_3/">
+            
+                    
+                    記憶體管理 Part 3 - Memory Warnings
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../delegate/">
+            
+                <a href="../delegate/">
+            
+                    
+                    Delegate 與 Protocol
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="../delegate/other_platforms.html">
+            
+                <a href="../delegate/other_platforms.html">
+            
+                    
+                    從其他平台來看 Objective-C 的 Delegate
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.2" data-path="../delegate/designing_protocols.html">
+            
+                <a href="../delegate/designing_protocols.html">
+            
+                    
+                    設計 Protocol 與實作 Delegate 的方式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.3" data-path="../delegate/what_you_need_to_notice_while_designing_a_protocol.html">
+            
+                <a href="../delegate/what_you_need_to_notice_while_designing_a_protocol.html">
+            
+                    
+                    注意事項
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.4" data-path="../delegate/data_sources_and_delegates.html">
+            
+                <a href="../delegate/data_sources_and_delegates.html">
+            
+                    
+                    Data Source 與 Delegate 的差別？
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.5" data-path="../delegate/formal_and_informal_protocols.html">
+            
+                <a href="../delegate/formal_and_informal_protocols.html">
+            
+                    
+                    Formal Protocol 與 Informal Protocol
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.6" data-path="../delegate/delegate_anywhere.html">
+            
+                <a href="../delegate/delegate_anywhere.html">
+            
+                    
+                    無所不在的 Delegate
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.7" data-path="../delegate/so_called_delegates.html">
+            
+                <a href="../delegate/so_called_delegates.html">
+            
+                    
+                    其他平台上所謂的 Delegate
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.8" data-path="../delegate/the_mistakes_that_i_ever_made.html">
+            
+                <a href="../delegate/the_mistakes_that_i_ever_made.html">
+            
+                    
+                    我們曾經犯過的低級錯誤
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.9" data-path="../delegate/reading_list.html">
+            
+                <a href="../delegate/reading_list.html">
+            
+                    
+                    相關閱讀
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.10" data-path="../delegate/practice_snake_game.html">
+            
+                <a href="../delegate/practice_snake_game.html">
+            
+                    
+                    練習：貪食蛇
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="../unit_test/">
+            
+                <a href="../unit_test/">
+            
+                    
+                    單元測試
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="../unit_test/3a.html">
+            
+                <a href="../unit_test/3a.html">
+            
+                    
+                    AAA 原則
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.2" data-path="../unit_test/run_test.html">
+            
+                <a href="../unit_test/run_test.html">
+            
+                    
+                    執行測試
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.3" data-path="../unit_test/tdd.html">
+            
+                <a href="../unit_test/tdd.html">
+            
+                    
+                    測試驅動開發（TDD）
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.4" data-path="../unit_test/coverage.html">
+            
+                <a href="../unit_test/coverage.html">
+            
+                    
+                    覆蓋率
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.5" data-path="../unit_test/reading_list.html">
+            
+                <a href="../unit_test/reading_list.html">
+            
+                    
+                    相關閱讀
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="../blocks/">
+            
+                <a href="../blocks/">
+            
+                    
+                    Blocks
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.1" data-path="../blocks/synatx.html">
+            
+                <a href="../blocks/synatx.html">
+            
+                    
+                    Block 的語法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.2" data-path="../blocks/apis_used_to_be_implemented_with_delegates.html">
+            
+                <a href="../blocks/apis_used_to_be_implemented_with_delegates.html">
+            
+                    
+                    Block 如何代替了 Delegate
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.3" data-path="../blocks/blocks_and_delegate_both_could_be_event_handlers.html">
+            
+                <a href="../blocks/blocks_and_delegate_both_could_be_event_handlers.html">
+            
+                    
+                    Block 與 Delegate 都可以想成是 Event Handler
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.4" data-path="../blocks/when_to_use_blocks_and_delegates.html">
+            
+                <a href="../blocks/when_to_use_blocks_and_delegates.html">
+            
+                    
+                    什麼時候該用 Blocks？什麼時候該用 Delegate？
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.5" data-path="../blocks/keywords.html">
+            
+                <a href="../blocks/keywords.html">
+            
+                    
+                    block 與 weak 關鍵字
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.6" data-path="../blocks/blocks_as_objective-c_objects.html">
+            
+                <a href="../blocks/blocks_as_objective-c_objects.html">
+            
+                    
+                    Block 作為 Objective-C 物件
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.7" data-path="../blocks/when_not_to_use_blocks.html">
+            
+                <a href="../blocks/when_not_to_use_blocks.html">
+            
+                    
+                    哪些事情不要拿 Block 來做
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.8" data-path="../blocks/callback_hell.html">
+            
+                <a href="../blocks/callback_hell.html">
+            
+                    
+                    Callback Hell
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.9" data-path="../blocks/reading_list.html">
+            
+                <a href="../blocks/reading_list.html">
+            
+                    
+                    相關閱讀
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.10" data-path="../blocks/practice_web_service_sdk.html">
+            
+                <a href="../blocks/practice_web_service_sdk.html">
+            
+                    
+                    練習：將 Web Service API 包裝成 SDK
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.11" data-path="../blocks/practice_web_service_sdk2.html">
+            
+                <a href="../blocks/practice_web_service_sdk2.html">
+            
+                    
+                    練習：將 Web Service API 包裝成 SDK Part2
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="../notification_center/">
+            
+                <a href="../notification_center/">
+            
+                    
+                    Notification Center
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1" data-path="../notification_center/post_and_observe_notifications.html">
+            
+                <a href="../notification_center/post_and_observe_notifications.html">
+            
+                    
+                    接收與發送 Notification
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.2" data-path="../notification_center/notification_queue.html">
+            
+                <a href="../notification_center/notification_queue.html">
+            
+                    
+                    Notification Queue
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.3" data-path="../notification_center/notification_centers_on_mac.html">
+            
+                <a href="../notification_center/notification_centers_on_mac.html">
+            
+                    
+                    Mac 上的其他 Notification Center
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.4" data-path="../notification_center/cfnotificationcenter.html">
+            
+                <a href="../notification_center/cfnotificationcenter.html">
+            
+                    
+                    CFNotificationCenter
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.5" data-path="../notification_center/reading_list.html">
+            
+                <a href="../notification_center/reading_list.html">
+            
+                    
+                    相關閱讀
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.6" data-path="../notification_center/practice_word_game.html">
+            
+                <a href="../notification_center/practice_word_game.html">
+            
+                    
+                    練習：填字遊戲
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.7" data-path="../notification_center/practice_kknotificationcenter.html">
+            
+                <a href="../notification_center/practice_kknotificationcenter.html">
+            
+                    
+                    練習：自行實作 NSNotificationCenter
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="../design_patterns/">
+            
+                <a href="../design_patterns/">
+            
+                    
+                    所謂的設計模式
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.1" data-path="../design_patterns/graphs.html">
+            
+                <a href="../design_patterns/graphs.html">
+            
+                    
+                    圖解設計模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2" data-path="../design_patterns/why_design_patterns.html">
+            
+                <a href="../design_patterns/why_design_patterns.html">
+            
+                    
+                    為什麼要使用設計模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.3" data-path="../design_patterns/singleton.html">
+            
+                <a href="../design_patterns/singleton.html">
+            
+                    
+                    再談 Singleton
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.4" data-path="../design_patterns/practice_explore_frameworks.html">
+            
+                <a href="../design_patterns/practice_explore_frameworks.html">
+            
+                    
+                    練習：探索 Cocoa/Cocoa Touch Framework
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.5" data-path="../design_patterns/practice.html">
+            
+                <a href="../design_patterns/practice.html">
+            
+                    
+                    練習：閱讀程式碼
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="../uncategorized/">
+            
+                <a href="../uncategorized/">
+            
+                    
+                    一些新手常常搞混的東西
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.12.1" data-path="../uncategorized/boolean.html">
+            
+                <a href="../uncategorized/boolean.html">
+            
+                    
+                    bool 與 BOOL
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.2" data-path="../uncategorized/nsinterger.html">
+            
+                <a href="../uncategorized/nsinterger.html">
+            
+                    
+                    NSInteger 與 NSUInteger
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.3" data-path="../uncategorized/nil.html">
+            
+                <a href="../uncategorized/nil.html">
+            
+                    
+                    NULL、nil、Nil…
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="../responder/">
+            
+                <a href="../responder/">
+            
+                    
+                    Responder
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.13.1" data-path="../responder/run_loop.html">
+            
+                <a href="../responder/run_loop.html">
+            
+                    
+                    Run Loop
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13.2" data-path="../responder/application.html">
+            
+                <a href="../responder/application.html">
+            
+                    
+                    Application
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13.3" data-path="../responder/window.html">
+            
+                <a href="../responder/window.html">
+            
+                    
+                    Window
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13.4" data-path="../responder/view.html">
+            
+                <a href="../responder/view.html">
+            
+                    
+                    View
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13.5" data-path="../responder/viewcontroller.html">
+            
+                <a href="../responder/viewcontroller.html">
+            
+                    
+                    View Controller
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13.6" data-path="../responder/uitouch.html">
+            
+                <a href="../responder/uitouch.html">
+            
+                    
+                    UITouch
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13.7" data-path="../responder/reading_list.html">
+            
+                <a href="../responder/reading_list.html">
+            
+                    
+                    相關閱讀
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14" data-path="../threading/">
+            
+                <a href="../threading/">
+            
+                    
+                    Threading
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.14.1" data-path="../threading/perform_selector.html">
+            
+                <a href="../threading/perform_selector.html">
+            
+                    
+                    performSelector:
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.2" data-path="../threading/gcd.html">
+            
+                <a href="../threading/gcd.html">
+            
+                    
+                    GCD
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.3" data-path="../threading/nsoperation_and_nsoperationqueue.html">
+            
+                <a href="../threading/nsoperation_and_nsoperationqueue.html">
+            
+                    
+                    NSOperation 與 NSOperationQueue
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.4" data-path="../threading/reading_list.html">
+            
+                <a href="../threading/reading_list.html">
+            
+                    
+                    相關閱讀
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.5" data-path="../threading/practice.html">
+            
+                <a href="../threading/practice.html">
+            
+                    
+                    練習：一個發送多個連線的 Operation
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" data-path="../nscoding/">
+            
+                <a href="../nscoding/">
+            
+                    
+                    NSCoding
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.15.1" data-path="../nscoding/implementing_nscoding_protocol.html">
+            
+                <a href="../nscoding/implementing_nscoding_protocol.html">
+            
+                    
+                    實作 NSCoding
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.2" data-path="../nscoding/usages.html">
+            
+                <a href="../nscoding/usages.html">
+            
+                    
+                    常見用途
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.3" data-path="../nscoding/reading_list.html">
+            
+                <a href="../nscoding/reading_list.html">
+            
+                    
+                    相關閱讀
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16" data-path="../crash_reports/">
+            
+                <a href="../crash_reports/">
+            
+                    
+                    Crash Reports
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.1" data-path="../crash_reports/collection.html">
+            
+                <a href="../crash_reports/collection.html">
+            
+                    
+                    如何收集 Crash Reports
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2" data-path="../crash_reports/memory.html">
+            
+                <a href="../crash_reports/memory.html">
+            
+                    
+                    記憶體不足時產生的 Crash Report
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.3" data-path="../crash_reports/3parts.html">
+            
+                <a href="../crash_reports/3parts.html">
+            
+                    
+                    Crash Reports 的三部分
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4" data-path="../crash_reports/symbolicate.html">
+            
+                <a href="../crash_reports/symbolicate.html">
+            
+                    
+                    解開記憶體位置
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.5" data-path="../crash_reports/crash_types.html">
+            
+                <a href="../crash_reports/crash_types.html">
+            
+                    
+                    常見 Crash 的類型
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.6" data-path="../crash_reports/zen.html">
+            
+                <a href="../crash_reports/zen.html">
+            
+                    
+                    禪與 App 維修的藝術
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.7" data-path="../crash_reports/crash_on_bad_access.html">
+            
+                <a href="../crash_reports/crash_on_bad_access.html">
+            
+                    
+                    實戰：Bad Access
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.8" data-path="../crash_reports/crash_on_category.html">
+            
+                <a href="../crash_reports/crash_on_category.html">
+            
+                    
+                    實戰：因為 Category 造成的 Crash
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.8.1" data-path="../crash_reports/crash_on_category_log.html">
+            
+                <a href="../crash_reports/crash_on_category_log.html">
+            
+                    
+                    Crash Report
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.9" data-path="../crash_reports/crash_on_exception_jb.html">
+            
+                <a href="../crash_reports/crash_on_exception_jb.html">
+            
+                    
+                    實戰：JB 造成的 Exception
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.9.1" data-path="../crash_reports/crash_on_exception_jb_log.html">
+            
+                <a href="../crash_reports/crash_on_exception_jb_log.html">
+            
+                    
+                    Crash Report
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.10" data-path="../crash_reports/crash_on_baskcground_task_too_long.html">
+            
+                <a href="../crash_reports/crash_on_baskcground_task_too_long.html">
+            
+                    
+                    實戰：背景作業執行太久
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.10.1" data-path="../crash_reports/crash_on_baskcground_task_too_long_log.html">
+            
+                <a href="../crash_reports/crash_on_baskcground_task_too_long_log.html">
+            
+                    
+                    Crash Report
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.11" data-path="../crash_reports/reading_list.html">
+            
+                <a href="../crash_reports/reading_list.html">
+            
+                    
+                    相關閱讀
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.12" data-path="../crash_reports/practice.html">
+            
+                <a href="../crash_reports/practice.html">
+            
+                    
+                    練習：閱讀 Crash Reports
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17" data-path="../core_animation/">
+            
+                <a href="../core_animation/">
+            
+                    
+                    Core Animation
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.17.1" data-path="../core_animation/calayer.html">
+            
+                <a href="../core_animation/calayer.html">
+            
+                    
+                    CALayer
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.2" data-path="../core_animation/catransaction.html">
+            
+                <a href="../core_animation/catransaction.html">
+            
+                    
+                    CATransaction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.3" data-path="../core_animation/caanimation.html">
+            
+                <a href="../core_animation/caanimation.html">
+            
+                    
+                    CAAnimation
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.4" data-path="../core_animation/caanimation_details.html">
+            
+                <a href="../core_animation/caanimation_details.html">
+            
+                    
+                    CAAnimation 的細部設定
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.5" data-path="../core_animation/cadisplaylink.html">
+            
+                <a href="../core_animation/cadisplaylink.html">
+            
+                    
+                    CADisplayLink
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.6" data-path="../core_animation/mac.html">
+            
+                <a href="../core_animation/mac.html">
+            
+                    
+                    在 Mac 上使用 Core Animation
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.7" data-path="../core_animation/video.html">
+            
+                <a href="../core_animation/video.html">
+            
+                    
+                    教學影片
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.8" data-path="../core_animation/practice_rolling_lyrics.html">
+            
+                <a href="../core_animation/practice_rolling_lyrics.html">
+            
+                    
+                    練習：KKBOX 動態歌詞
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.9" data-path="../core_animation/practice_flappy_bird.html">
+            
+                <a href="../core_animation/practice_flappy_bird.html">
+            
+                    
+                    練習：Flappy Bird
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.10" data-path="../core_animation/practice_free_your_mind.html">
+            
+                <a href="../core_animation/practice_free_your_mind.html">
+            
+                    
+                    練習：自由發揮
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Audio API
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.18.1" data-path="basics.html">
+            
+                <a href="basics.html">
+            
+                    
+                    基礎知識
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.18.2" data-path="audio_api_overview.html">
+            
+                <a href="audio_api_overview.html">
+            
+                    
+                    iOS 與 Mac OS X 的 Audio API 概觀
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18.3" data-path="audio_queue.html">
+            
+                <a href="audio_queue.html">
+            
+                    
+                    使用 Audio Queue 開發播放軟體
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18.4" data-path="audio_unit_graph.html">
+            
+                <a href="audio_unit_graph.html">
+            
+                    
+                    使用 Audio Unit Processing Graph 開發播放軟體
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18.5" data-path="connecting_audiounit.html">
+            
+                <a href="connecting_audiounit.html">
+            
+                    
+                    在 AUGraph 中串接 AudioUnit
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18.6" data-path="modify_pcm_data.html">
+            
+                <a href="modify_pcm_data.html">
+            
+                    
+                    修改 LPCM 資料
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18.7" data-path="core_audio_is_hard.html">
+            
+                <a href="core_audio_is_hard.html">
+            
+                    
+                    Core Audio 到底難在哪？
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18.8" data-path="avaudioengine.html">
+            
+                <a href="avaudioengine.html">
+            
+                    
+                    使用 AVAudioEngine 開發播放軟體
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18.9" data-path="migrate_to_avaudioengine.html">
+            
+                <a href="migrate_to_avaudioengine.html">
+            
+                    
+                    從 Audio Unit Processing Graph 到 AVAudioEngine
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18.10" data-path="audio_session.html">
+            
+                <a href="audio_session.html">
+            
+                    
+                    Audio Session
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18.11" data-path="complete_the_player.html">
+            
+                <a href="complete_the_player.html">
+            
+                    
+                    打造 Player 的完整功能
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18.12" data-path="carplay.html">
+            
+                <a href="carplay.html">
+            
+                    
+                    CarPlay
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18.13" data-path="mfi_hearing_aids.html">
+            
+                <a href="mfi_hearing_aids.html">
+            
+                    
+                    MFI 助聽器
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18.14" data-path="video.html">
+            
+                <a href="video.html">
+            
+                    
+                    教學影片
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18.15" data-path="reading_list.html">
+            
+                <a href="reading_list.html">
+            
+                    
+                    相關閱讀
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18.16" data-path="practice.html">
+            
+                <a href="practice.html">
+            
+                    
+                    練習：iOS Audio Player 開發
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.19" data-path="../autolayout/">
+            
+                <a href="../autolayout/">
+            
+                    
+                    Auto Layout
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.19.1" data-path="../autolayout/what_is_constraint.html">
+            
+                <a href="../autolayout/what_is_constraint.html">
+            
+                    
+                    什麼是約束 (NSConstraint)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.19.2" data-path="../autolayout/intrinsic_content_size.html">
+            
+                <a href="../autolayout/intrinsic_content_size.html">
+            
+                    
+                    固有內容尺寸 (Intrinsic Content Size)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.19.3" data-path="../autolayout/uiscrollview_autolayout.html">
+            
+                <a href="../autolayout/uiscrollview_autolayout.html">
+            
+                    
+                    UIScrollView 與 Auto Layout
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.19.4" data-path="../autolayout/lifecycle_autolayout.html">
+            
+                <a href="../autolayout/lifecycle_autolayout.html">
+            
+                    
+                    .xib 在 UIViewController lifecycle 的陷阱
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.19.5" data-path="../autolayout/selfsizing_uitableviewcell.html">
+            
+                <a href="../autolayout/selfsizing_uitableviewcell.html">
+            
+                    
+                    Self-sizing UITableViewCell height
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.19.6" data-path="../autolayout/animation_autolayout.html">
+            
+                <a href="../autolayout/animation_autolayout.html">
+            
+                    
+                    Animation with Auto Layout
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.20" data-path="../accessibility/">
+            
+                <a href="../accessibility/">
+            
+                    
+                    Accessibility
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.20.1" data-path="../accessibility/use_voiceover.html">
+            
+                <a href="../accessibility/use_voiceover.html">
+            
+                    
+                    如何使用 VoiceOver
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.20.2" data-path="../accessibility/basic_supports.html">
+            
+                <a href="../accessibility/basic_supports.html">
+            
+                    
+                    基本支援
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.20.3" data-path="../accessibility/direction.html">
+            
+                <a href="../accessibility/direction.html">
+            
+                    
+                    VoiceOver 的方向
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.20.4" data-path="../accessibility/custom_views.html">
+            
+                <a href="../accessibility/custom_views.html">
+            
+                    
+                    進階的 Accessibility 設定
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.20.5" data-path="../accessibility/reading_list.html">
+            
+                <a href="../accessibility/reading_list.html">
+            
+                    
+                    相關閱讀
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.20.6" data-path="../accessibility/practice_rolling_lyrics.html">
+            
+                <a href="../accessibility/practice_rolling_lyrics.html">
+            
+                    
+                    練習：KKBOX 動態歌詞
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.21" data-path="../mac_webkit/">
+            
+                <a href="../mac_webkit/">
+            
+                    
+                    Mac 上的 WebKit
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.21.1" data-path="../mac_webkit/objc_dom.html">
+            
+                <a href="../mac_webkit/objc_dom.html">
+            
+                    
+                    用 Objective-C 操作 DOM
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.21.2" data-path="../mac_webkit/js_objc_bridge.html">
+            
+                <a href="../mac_webkit/js_objc_bridge.html">
+            
+                    
+                    JavaScript 與 Objective-C 的溝通
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.21.3" data-path="../mac_webkit/javascript_core.html">
+            
+                <a href="../mac_webkit/javascript_core.html">
+            
+                    
+                    JavaScriptCore
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.22" data-path="../final_thoughts/">
+            
+                <a href="../final_thoughts/">
+            
+                    
+                    小結
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.23" data-path="../reading_list/">
+            
+                <a href="../reading_list/">
+            
+                    
+                    其他閱讀資料
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.24" data-path="../changelog.html">
+            
+                <a href="../changelog.html">
+            
+                    
+                    版本記錄
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本書使用 GitBook 釋出
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >iOS 與 Mac OS X 的 Audio API 概觀</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h2 id="ios-&#x8207;-mac-os-x-&#x7684;-audio-api-&#x6982;&#x89C0;">iOS &#x8207; Mac OS X &#x7684; Audio API &#x6982;&#x89C0;</h2>
+<p>&#x6211;&#x5011;&#x77E5;&#x9053;&#x4E32;&#x6D41;&#x97F3;&#x6A02;&#x7684;&#x64AD;&#x653E;&#x6D41;&#x7A0B;&#x4E4B;&#x5F8C;&#xFF0C;&#x73FE;&#x5728;&#x5C31;&#x4F86;&#x770B;&#x4E00;&#x4E0B; iOS &#x8207; Mac OS X &#x4E0A;&#x6709;&#x54EA;&#x4E9B;&#x9069;&#x5408;&#x7684;
+Audio API&#x3002;&#x6211;&#x5011;&#x5927;&#x6982;&#x5206;&#x6210;&#x5169;&#x7FA4;</p>
+<p>&#x4E0D;&#x9069;&#x5408;&#x7528;&#x5728;&#x97F3;&#x6A02;&#x64AD;&#x653E;&#x7684;&#xFF1A;</p>
+<ul>
+<li>System Sound</li>
+<li>OpenAL</li>
+</ul>
+<p>&#x53EF;&#x4EE5;&#x7528;&#x7528;&#x5728;&#x97F3;&#x6A02;&#x64AD;&#x653E;&#x7684;&#xFF1A;</p>
+<ul>
+<li>NSSound</li>
+<li>QuickTime</li>
+<li>AVFoundation</li>
+<li>Audio Queue</li>
+<li>Audio Unit Processing Graph</li>
+<li>AVAudioEngine</li>
+</ul>
+<h3 id="system-sound-services">System Sound Services</h3>
+<p>&#x5728; iOS &#x4E0A;&#xFF0C;&#x5982;&#x679C;&#x6211;&#x5011;&#x60F3;&#x8981;&#x767C;&#x51FA;&#x7C21;&#x77ED;&#x7684;&#x7CFB;&#x7D71;&#x63D0;&#x793A;&#x97F3;&#x6548;&#xFF0C;&#x50CF;&#x662F;&#x6309;&#x4E86;&#x67D0;&#x500B;&#x6309;&#x9215;&#x8981;&#x767C;&#x51FA;&#x7684;&#x8072;&#x97FF;&#xFF0C;&#x6703;&#x9078;&#x64C7;&#x4F7F;&#x7528; System Sound Services&#x3002;</p>
+<p>System Sound Services &#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x4E9B; C API &#x53EF;&#x4EE5;&#x8B93;&#x6211;&#x5011;&#x64AD;&#x653E;&#x5C0F;&#x65BC;&#x4E09;&#x5341;&#x79D2;&#x7684; CAF
+&#xFF08;Core Audio Format&#xFF09;&#x6A94;&#x6848;&#x3002;&#x53EA;&#x8981;&#x900F;&#x904E; <code>AudioServicesCreateSystemSoundID</code>
+&#x8F09;&#x5165;&#x6307;&#x5B9A;&#x7684;&#x6A94;&#x6848; URL&#x3001;&#x5EFA;&#x7ACB; SystemSoundID &#x5F8C;&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x7528;</p>
+<pre><code class="lang-objc"><span class="hljs-keyword">static</span> SystemSoundID soundFileObject;
+<span class="hljs-keyword">if</span> (!soundFileObject) {
+        <span class="hljs-built_in">CFBundleRef</span> mainBundle;
+        mainBundle = <span class="hljs-built_in">CFBundleGetMainBundle</span>();
+        <span class="hljs-built_in">CFURLRef</span> soundFileURLRef;
+        soundFileURLRef = <span class="hljs-built_in">CFBundleCopyResourceURL</span>(mainBundle, <span class="hljs-built_in">CFSTR</span>(<span class="hljs-string">&quot;sound&quot;</span>), <span class="hljs-built_in">CFSTR</span>(<span class="hljs-string">&quot;aiff&quot;</span>), <span class="hljs-literal">NULL</span>);
+        AudioServicesCreateSystemSoundID(soundFileURLRef, &amp;soundFileObject);
+        <span class="hljs-built_in">CFRelease</span>(soundFileURLRef);
+}
+AudioServicesPlaySystemSound(soundFileObject);
+</code></pre>
+<p>&#x6B64;&#x5916;&#xFF0C;&#x7576;&#x6211;&#x5011;&#x60F3;&#x8981;&#x8B93; iPhone &#x51FA;&#x73FE;&#x50CF;&#x4F86;&#x96FB;&#x6642;&#x7684;&#x9707;&#x52D5;&#x6548;&#x679C;&#xFF0C;&#x4E5F;&#x662F;&#x547C;&#x53EB; System Sound
+Services&#xFF0C;&#x56E0;&#x70BA;&#x9707;&#x52D5;&#x6548;&#x679C;&#x5176;&#x5BE6;&#x88AB;&#x5B9A;&#x7FA9;&#x6210;&#x4E00;&#x7A2E;&#x7CFB;&#x7D71;&#x97F3;&#x6548;&#x3002;&#x6211;&#x5011;&#x60F3;&#x8B93;&#x624B;&#x6A5F;&#x9707;&#x52D5;&#xFF0C;&#x5C31;&#x547C;&#x53EB;&#xFF1A;</p>
+<pre><code class="lang-objc">AudioServicesPlaySystemSound (kSystemSoundID_Vibrate)
+</code></pre>
+<p>&#x53EA;&#x80FD;&#x64AD;&#x653E; 30 &#x79D2;&#x7684;&#x672A;&#x58D3;&#x7E2E;&#x683C;&#x5F0F;&#xFF0C;&#x986F;&#x7136;&#x6C92;&#x6709;&#x8FA6;&#x6CD5;&#x6EFF;&#x8DB3;&#x6211;&#x5011;&#x60F3;&#x8981;&#x64AD;&#x653E; MP3&#x3001;AAC &#x9019;&#x4E9B;&#x683C;&#x5F0F;&#x7684;&#x9700;&#x6C42;&#x3002;&#x53E6;&#x5916; System Sound Services &#x767C;&#x51FA;&#x7684;&#x8072;&#x97F3;&#x6709;&#x500B;&#x7279;&#x9EDE;&#xFF1A;&#x53EA;&#x6703;&#x5F9E; iOS&#x88DD;&#x7F6E;&#x4E0A;&#x7684;&#x672C;&#x6A5F;&#x64AD;&#x653E;&#x51FA;&#x4F86;&#xFF0C;&#x5C31;&#x7B97;&#x7528;&#x93E1;&#x50CF;&#x7684; AirPlay &#x6A21;&#x5F0F;&#x9023;&#x5230;&#x4E86; Apple TV &#x4E0A;&#xFF0C;&#x9084;&#x662F;&#x53EA;&#x6703;&#x5F9E;&#x672C;&#x6A5F;&#x64AD;&#x653E;&#x3002;</p>
+<h3 id="openal">OpenAL</h3>
+<p>OpenAL &#x662F;&#x4E00;&#x5957;&#x958B;&#x653E;&#x898F;&#x683C;&#xFF0C;&#x7528;&#x9014;&#x662F;&#x7522;&#x751F;&#x5728;&#x904A;&#x6232;&#x7576;&#x4E2D;&#x63D0;&#x4F9B;&#x7ACB;&#x9AD4;&#x7684;&#x97F3;&#x6548;&#x3002;&#x7576;&#x6211;&#x5011;&#x5728;&#x73A9;&#x4E00;&#x6B3E;&#x7B2C;&#x4E00;&#x4EBA;&#x7A31;&#x5C04;&#x64CA;&#x904A;&#x6232;&#x7684;&#x6642;&#x5019;&#xFF0C;&#x5982;&#x679C;&#x611F;&#x53D7;&#x5230;&#x6575;&#x4EBA;&#x7684;&#x8173;&#x6B65;&#x8072;&#x7531;&#x9060;&#x800C;&#x8FD1;&#xFF0C;&#x6216;&#x662F;&#x53EF;&#x4EE5;&#x7528;&#x69CD;&#x8072;&#x7684;&#x4F86;&#x6E90;&#x611F;&#x53D7;&#x5230;&#x6575;&#x4EBA;&#x7684;&#x4F4D;&#x7F6E;&#xFF0C;&#x9019;&#x7A2E;&#x6548;&#x679C;&#x4FBF;&#x53EF;&#x4EE5;&#x900F;&#x904E; OpenAL &#x9054;&#x6210;&#x3002;</p>
+<p>&#x6700;&#x8FD1;&#x4F3C;&#x4E4E;&#x5927;&#x5BB6;&#x90FD;&#x5F88;&#x5C11;&#x76F4;&#x63A5;&#x547C;&#x53EB; OpenAL API&#xFF0C;&#x8A31;&#x591A;&#x7684;&#x904A;&#x6232;&#x5F15;&#x64CE;&#x90FD;&#x5728; OpenAL &#x7684;&#x57FA;&#x790E;&#x4E0A;&#x53C8;&#x53E6;&#x5916;&#x67B6;&#x8A2D;&#x4E86;&#x4E00;&#x5957;&#x97F3;&#x6548;&#x5F15;&#x64CE;&#xFF0C;&#x5C31;&#x9023;&#x860B;&#x679C;&#x81EA;&#x5DF1;&#x7684; SpriteKit &#x88E1;&#x982D;&#x90FD;&#x6709;&#x64AD;&#x653E;&#x97F3;&#x6548;&#x7528;&#x7684; API&#x3002;</p>
+<p>OpenAL &#x4E00;&#x6A23;&#x662F; C API&#xFF0C;&#x4E00;&#x6A23;&#x53EA;&#x80FD;&#x5920;&#x64AD;&#x653E;&#x672A;&#x58D3;&#x7E2E;&#x7684;&#x97F3;&#x6A94;&#xFF0C;&#x64AD;&#x653E;&#x6D41;&#x7A0B;&#x662F;&#x5148;&#x5C07;&#x6574;&#x500B;&#x97F3;&#x6A94;&#x7684;&#x8CC7;&#x6599;&#x8F09;&#x5165;&#x5230; buffer &#x4E2D;&#xFF0C;&#x7136;&#x5F8C;&#x5C07; buffer &#x4E1F;&#x5165; source &#x64AD;&#x653E;&#xFF0C;&#x7136;&#x5F8C;&#x53EF;&#x4EE5;&#x5C0D;source &#x505A;&#x50CF;&#x662F;&#x4F4D;&#x7F6E;&#x7B49;&#x8A2D;&#x5B9A;&#x3002;</p>
+<p>&#x5982;&#x679C;&#x8981;&#x62FF; OpenAL &#x64AD;&#x653E; MP3&#x2026;&#x4E5F;&#x4E0D;&#x662F;&#x4E0D;&#x884C;&#xFF0C;&#x6211;&#x5011;&#x53EF;&#x4EE5;&#x5148;&#x628A; MP3 &#x6A94;&#x6848;&#x8F09;&#x5165;&#x5230;&#x8A18;&#x61B6;&#x9AD4;&#x4E2D;&#xFF0C;&#x7528;
+converter &#x5C07;&#x6574;&#x500B; MP3 &#x6A94;&#x6848;&#x8F49;&#x6210; LPCM &#x683C;&#x5F0F;&#xFF0C;&#x5982;&#x679C;&#x662F;&#x4E09;&#x5206;&#x9418;&#x7684;&#x6B4C;&#xFF0C;&#x5C31;&#x628A;30MB &#x7684;&#x8CC7;&#x6599;&#x8F09;&#x5165;&#x5230;&#x8A18;&#x61B6;&#x9AD4;&#x4E2D;&#xFF0C;&#x807D;&#x8D77;&#x4F86;&#x5C31;&#x4E0D;&#x592A;&#x53EF;&#x884C;&#x3002;</p>
+<p>&#x64AD;&#x653E;&#x4E32;&#x6D41;&#x97F3;&#x6A02;&#x7684;&#x6642;&#x5019;&#xFF0C;&#x6211;&#x5011;&#x53EA;&#x6703;&#x628A;&#x5C11;&#x91CF;&#x7684;&#x8CC7;&#x6599;&#x8F49;&#x63DB;&#x6210; LPCM &#x683C;&#x5F0F;&#x64AD;&#x653E;&#xFF0C;&#x7B49;&#x524D;&#x4E00;&#x5305;&#x8CC7;&#x6599;&#x64AD;&#x653E;&#x5B8C;&#x7562;&#x5F8C;&#xFF0C;&#x518D;&#x7E7C;&#x7E8C;&#x63D0;&#x4F9B;&#x4E0B;&#x4E00;&#x5305;&#x7684;&#x8CC7;&#x6599;&#x3002;&#x90A3;&#x6211;&#x5011;&#x6709;&#x6C92;&#x6709;&#x8FA6;&#x6CD5;&#x7528;&#x9019;&#x500B;&#x539F;&#x5247;&#x5148;&#x628A;&#x6574;&#x500B;&#x6A94;&#x6848;&#x5207;&#x6210;&#x5E7E;&#x500B;&#x5C0F;&#x5305;&#xFF0C;&#x7136;&#x5F8C;&#x4EA4;&#x7D66; OpenAL &#x64AD;&#x653E;&#x5462;&#xFF1F;&#x5BE6;&#x969B;&#x4E0A;&#x4E0D;&#x592A;&#x53EF;&#x884C;&#xFF0C;&#x56E0;&#x70BA;OpenAL &#x88E1;&#x982D;&#x7F3A;&#x4E4F;&#x97F3;&#x6548;&#x64AD;&#x653E;&#x5B8C;&#x7562;&#x7684;
+callback &#x6A5F;&#x5236;&#xFF0C;&#x4E0D;&#x6703;&#x901A;&#x77E5;&#x6211;&#x5011;&#x54EA;&#x500B;&#x97F3;&#x6548;&#x64AD;&#x653E;&#x5B8C;&#x7562;&#xFF0C;&#x7576;&#x7136;&#x4E5F;&#x53EF;&#x4EE5;&#x7528; timer &#x7B97;&#x597D;&#x6642;&#x9593;&#x64AD;&#x653E;&#x67D0;&#x500B;
+buffer&#xFF0C;&#x4F46;&#x6211;&#x5011;&#x524D;&#x9762;&#x4E5F;&#x63D0;&#x5230;&#x4E86;timer &#x7684;&#x539F;&#x7406;&#xFF0C;&#x77E5;&#x9053; timer &#x5176;&#x5BE6;&#x4E26;&#x4E0D;&#x7CBE;&#x78BA;&#x3002;</p>
+<h3 id="nssound&#x3001;quicktime&#x3001;av-foundation">NSSound&#x3001;QuickTime&#x3001;AV Foundation</h3>
+<p>NSSound&#x3001;QuickTime &#x8207; AV Foundation &#x662F; Mac OS X &#x8207; iOS &#x4E0A;&#x7684;&#x9AD8;&#x968E; API&#xFF0C;&#x53EA;&#x8981;&#x63D0;&#x4F9B;&#x6A94;&#x6848;&#x7684;&#x9060;&#x7AEF;&#x6216;&#x672C;&#x6A5F; URL&#xFF0C;&#x4FBF;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x958B;&#x59CB;&#x64AD;&#x653E;&#xFF0C;</p>
+<p>NSSound &#x4E3B;&#x8981;&#x662F;&#x7528;&#x5728; Mac &#x4E0A;&#x7528;&#x4F86;&#x64AD;&#x653E;&#x7C21;&#x77ED;&#x7684;&#x63D0;&#x793A;&#x97F3;&#x6548;&#x7528;&#x7684; API&#x2014;&#x7576;&#x7136;&#xFF0C;&#x7576;&#x6211;&#x5011;&#x53EA;&#x60F3;&#x8981;&#x5728; Mac
+&#x4E0A;&#x767C;&#x51FA;&#x4E00;&#x500B;&#x7528;&#x4F86;&#x63D0;&#x793A;&#x932F;&#x8AA4;&#x7528;&#x7684;&#x8072;&#x97FF;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x7C21;&#x55AE;&#x547C;&#x53EB; <code>NSBeep()</code>&#x5C31;&#x53EF;&#x4EE5;&#x4E86;&#x2014;&#x96D6;&#x7136;&#x5B9A;&#x4F4D;&#x5F88;&#x63A5;&#x8FD1;
+System Sound Services&#xFF0C;&#x4F46; NSSound &#x5176;&#x5BE6;&#x53EF;&#x4EE5;&#x8F09;&#x5165;&#x591A;&#x7A2E;&#x683C;&#x5F0F;&#x3001;&#x800C;&#x4E14;&#x6A94;&#x6848;&#x9577;&#x5EA6;&#x8F03;&#x9577;&#x7684;&#x97F3;&#x6A94;&#xFF0C;&#x6211;&#x5011;&#x9084;&#x53EF;&#x4EE5;&#x77E5;&#x9053;&#x64AD;&#x653E;&#x7684;&#x6A94;&#x6848;&#x9577;&#x5EA6;&#xFF0C;&#x8981;&#x6C42;&#x6307;&#x5B9A;&#x7684;&#x64AD;&#x653E;&#x6642;&#x9593;&#x4F4D;&#x7F6E;&#xFF08;random seek&#xFF09;&#xFF0C;&#x9084;&#x53EF;&#x4EE5;&#x8ABF;&#x6574;&#x97F3;&#x91CF;&#x3001;&#x8981;&#x6C42;&#x4E00;&#x76F4; loop &#x91CD;&#x64AD;&#x7B49;&#x3002;</p>
+<p>&#x96D6;&#x7136; NSSound &#x53EF;&#x4EE5;&#x8AAA;&#x662F;&#x4E00;&#x500B;&#x5B8C;&#x6574;&#x7684; Audio Player&#xFF0C;&#x4E0D;&#x904E;&#x5B9A;&#x4F4D;&#x4E0A;&#x9084;&#x662F;&#x504F;&#x5411;&#x7528;&#x4F86;&#x64AD;&#x653E;&#x7CFB;&#x7D71;&#x63D0;&#x793A;&#x97F3;&#x6548;&#x5728;&#x860B;&#x679C;&#x70BA;&#x4E86; API &#x4E00;&#x81F4;&#x3001;&#x5C07; AV Foundation &#x5F9E; iOS port &#x56DE; Mac&#x4E4B;&#x524D;&#xFF0C;&#x5728; Mac &#x4E0A;&#x64AD;&#x653E;&#x5404;&#x7A2E;&#x5A92;&#x9AD4;&#x6A94;&#x6848;&#xFF0C;&#x6703;&#x66F4;&#x5E38;&#x4F7F;&#x7528; QuickTime API &#x88E1;&#x982D;&#x7684;QTMovie &#x9019;&#x500B; Class&#x3002;QTMovie &#x53EF;&#x4EE5;&#x505A;&#x5230; Mac OS X &#x7CFB;&#x7D71;&#x4E2D; QuickTime Player&#x53EF;&#x4EE5;&#x505A;&#x5230;&#x7684;&#x4E8B;&#x60C5;&#xFF0C;&#x9664;&#x4E86;&#x64AD;&#x653E; audio &#x4E4B;&#x5916;&#xFF0C;&#x9084;&#x5305;&#x62EC;&#x64AD;&#x653E;&#x751A;&#x81F3;&#x7DE8;&#x8F2F; QuickTime &#x5F71;&#x7247;&#x7684;&#x529F;&#x80FD;&#x3002;&#x4E0D;&#x904E;&#xFF0C;&#x860B;&#x679C;&#x5728; Mac OS X 10.9 &#x4E2D;&#x5C31;&#x5C07; QTMovie &#x6A19;&#x6210;
+deprecated&#x3002;</p>
+<p>&#x5728; Mac &#x8207; iOS &#x4E0A;&#x7684; AV Foundation &#x4E0D;&#x5B8C;&#x5168;&#x76F8;&#x540C;&#x3002;&#x5728; AV Foundation &#x88E1;&#x982D;&#x6709;&#x4E09;&#x500B;&#x76F4;&#x63A5;&#x8207;
+Audio &#x64AD;&#x653E;&#x76F8;&#x95DC;&#x7684; class&#xFF0C;&#x6309;&#x7167;&#x51FA;&#x73FE;&#x7684;&#x6642;&#x9593;&#x6392;&#x5217;&#xFF0C;&#x5206;&#x5225;&#x70BA;AVAudioPlayer&#x3001;AVPlayer &#x8207;
+AVAudioEngine&#x3002;&#x6211;&#x5011;&#x5148;&#x4F86;&#x770B; AVAudioPlayer &#x8207;AVPlayer&#x3002;</p>
+<p>AVAudioPlayer &#x662F;&#x5728; iPhoneOS 2.2 &#x4E0A;&#x63A8;&#x51FA;&#xFF0C;&#x5927;&#x6982;&#x662F;&#x5728; iPhoneOS SDK &#x554F;&#x4E16;&#x5F8C;&#x534A;&#x5E74;&#x5DE6;&#x53F3;&#x51FA;&#x73FE;&#x7684; API&#x3002;&#x7528; AVAudioPlayer &#x76F8;&#x7576;&#x9069;&#x5408;&#x7528;&#x5728;&#x50CF;&#x662F;&#x64AD;&#x653E;&#x904A;&#x6232;&#x80CC;&#x666F;&#x97F3;&#x6A02;&#x7B49;&#x61C9;&#x7528;&#x4E0A;&#xFF0C;&#x9019;&#x500B; class &#x660E;&#x986F;&#x7684;&#x512A;&#x9EDE;&#x662F;&#x53EF;&#x4EE5;&#x64AD;&#x653E;&#x591A;&#x7A2E;&#x683C;&#x5F0F;&#x7684;&#x6A94;&#x6848;&#xFF0C;&#x4F46;&#x4E5F;&#x6709;&#x5169;&#x500B;&#x660E;&#x986F;&#x7684;&#x7F3A;&#x9EDE;&#x3002;</p>
+<p>&#x5176;&#x4E00;&#x662F; AVAudioPlayer &#x53EA;&#x80FD;&#x5920;&#x64AD;&#x653E;&#x4F4D;&#x5728;&#x672C;&#x6A5F;&#x7684;&#x6A94;&#x6848;&#xFF0C;&#x800C;&#x7121;&#x6CD5;&#x6307;&#x5B9A;&#x653E;&#x5728;&#x7DB2;&#x8DEF;&#x4E0A;&#x7684;URL &#x64AD;&#x653E;&#xFF0C;&#x6240;&#x4EE5;&#xFF0C;&#x76F4;&#x5230; iOS 4 AVPlayer &#x63A8;&#x51FA;&#x4E4B;&#x524D;&#xFF0C;&#x5728;&#x64AD;&#x653E;&#x7DB2;&#x8DEF;&#x4E0A;&#x7684;&#x97F3;&#x6A94;&#x6642;&#xFF0C;&#x5982;&#x679C;&#x4E0D;&#x60F3;&#x8981;&#x7528;&#x5E95;&#x5C64;&#x7684; C
+API&#xFF0C;&#x8981;&#x4E0D;&#x5C31;&#x662F;&#x5148;&#x628A;&#x6574;&#x500B;&#x6A94;&#x6848;&#x6293;&#x4E0B;&#x4F86;&#x4E4B;&#x5F8C;&#x7528; AVPlayer &#x64AD;&#x653E;&#xFF0C;&#x8981;&#x4E0D;&#x5C31;&#x662F;&#x7528; UIWebView &#x958B;&#x555F;&#xFF0C;&#x4F46;&#x6574;&#x500B;&#x756B;&#x9762;&#x90FD;&#x6703;&#x8B8A;&#x6210; web view &#x7684;&#x64AD;&#x653E;&#x756B;&#x9762;&#x3002;</p>
+<p>AVAudioPlayer &#x7684;&#x53E6;&#x5916;&#x4E00;&#x500B;&#x7F3A;&#x9EDE;&#x5247;&#x662F;&#xFF0C;&#x860B;&#x679C;&#x5728; iOS 4 &#x958B;&#x59CB;&#x652F;&#x63F4;&#x80CC;&#x666F;&#x57F7;&#x884C;&#xFF0C;&#x5176;&#x4E2D;&#x4E00;&#x9805;&#x80CC;&#x666F;&#x6A21;&#x5F0F;&#x662F;&#x652F;&#x63F4;&#x80CC;&#x666F; audio &#x64AD;&#x653E;&#xFF0C;&#x4F46; AVAudioPlayer &#x4E26;&#x4E0D;&#x652F;&#x63F4;&#xFF0C;&#x7121;&#x6CD5;&#x5728;&#x80CC;&#x666F;&#x64AD;&#x653E; audio&#x3002;</p>
+<p>iOS 4 &#x6642;&#x63A8;&#x51FA;&#x7684; AVPlayer &#x662F;&#x4E00;&#x500B;&#x597D;&#x7528;&#x7684;&#x5143;&#x4EF6;&#xFF0C;AVPlayer &#x652F;&#x63F4;&#x591A;&#x7A2E;&#x73FE;&#x5728;&#x6D41;&#x884C;&#x7684;&#x6A94;&#x6848;&#x683C;&#x5F0F;&#xFF0C;&#x4E0D;&#x4F46;&#x53EF;&#x4EE5;&#x7528;&#x4F86;&#x64AD;&#x653E;&#x97F3;&#x8A0A;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x64AD;&#x653E;&#x5F71;&#x7247;&#xFF0C;&#x53EA;&#x8981;&#x6307;&#x5B9A;&#x8981;&#x64AD;&#x653E;&#x7684;URL&#xFF08;&#x5305;&#x62EC;&#x672C;&#x6A5F;&#x8207;&#x9060;&#x7AEF;&#xFF09;&#xFF0C;&#x4FBF;&#x53EF;&#x4EE5;&#x958B;&#x59CB;&#x64AD;&#x653E;&#xFF0C;&#x5982;&#x679C;&#x8981;&#x64AD;&#x653E;&#x7684;&#x662F;&#x5F71;&#x7247;&#xFF0C;&#x5247;&#x53EF;&#x4EE5;&#x642D;&#x914D;AVPlayerLayer &#x986F;&#x793A;&#x756B;&#x9762;&#xFF0C;&#x4E5F;&#x652F;&#x63F4;&#x80CC;&#x666F;&#x64AD;&#x653E;&#x3002;</p>
+<p>&#x5728;&#x524D;&#x4E00;&#x7BC0;&#x63D0;&#x5230;&#x64AD;&#x653E;&#x7DB2;&#x8DEF;&#x4E32;&#x6D41;&#x97F3;&#x8A0A;&#x7684;&#x6D41;&#x7A0B;&#xFF0C;AVAudioPlayer &#x8207; AVPlayer &#x90FD;&#x505A;&#x5B8C;&#x88E1;&#x982D;&#x7684;&#x516D;&#x500B;&#x6B65;&#x9A5F;&#xFF1B;&#x5728;&#x7D55;&#x5927;&#x591A;&#x6578;&#x5834;&#x5408;&#x4E2D;&#xFF0C;AVPlayer &#x53EF;&#x4EE5;&#x6EFF;&#x8DB3;&#x64AD;&#x653E;&#x7684;&#x9700;&#x6C42;&#xFF0C;&#x4E0D;&#x904E;&#xFF0C;&#x5982;&#x679C;&#x4F60;&#x6709;&#x4EE5;&#x4E0B;&#x9700;&#x6C42;&#xFF1A;</p>
+<ul>
+<li>&#x56E0;&#x70BA;&#x5546;&#x696D;&#x4E0A;&#x7684;&#x9700;&#x6C42;&#xFF0C;&#x6211;&#x5011;&#x8981;&#x64AD;&#x653E;&#x7684;&#x6A94;&#x6848;&#x7D93;&#x904E;&#x52A0;&#x5BC6;&#xFF0C;&#x5728;&#x64AD;&#x653E;&#x7684;&#x904E;&#x7A0B;&#x4E2D;&#x9700;&#x8981;&#x5148;&#x89E3;&#x5BC6;&#x624D;&#x80FD;&#x64AD;&#x653E;&#x3002;</li>
+<li>&#x6211;&#x5011;&#x60F3;&#x8981;&#x63D0;&#x4F9B;&#x66F4;&#x591A;&#x7684;&#x64AD;&#x653E;&#x6548;&#x679C;&#xFF0C;&#x50CF;&#x662F;&#x589E;&#x52A0;&#x8FF4;&#x97F3;&#x3001;&#x5347;&#x964D; key&#x3001;&#x652F;&#x63F4; EQ &#x7B49;&#x5316;&#x5668;&#x7B49;&#x2026;&#x3002;</li>
+</ul>
+<p>&#x90A3;&#x6211;&#x5011;&#x5C31;&#x53EA;&#x80FD;&#x5920;&#x4F7F;&#x7528;&#x66F4;&#x5E95;&#x5C64;&#x7684; Audio API &#x4E86;&#x3002;</p>
+<h3 id="audio-queue">Audio Queue</h3>
+<p>Audio Queue &#x662F; Mac OS X &#x8207; iOS &#x4E0A;&#x7528;&#x4F86;&#x64AD;&#x653E;&#x8207;&#x9304;&#x88FD;&#x97F3;&#x8A0A;&#x7684; C API&#x3002;&#x5148;&#x770B;&#x64AD;&#x653E;&#x7684;&#x90E8;&#x4EFD;&#xFF0C;&#x5C0D;&#x7167;&#x524D;&#x4E00;&#x7BC0;&#x63D0;&#x5230;&#x7684;&#x64AD;&#x653E;&#x6B65;&#x9A5F;&#xFF0C;Audio Queue &#x53EF;&#x4EE5;&#x5E6B;&#x6211;&#x5011;&#x7C21;&#x5316;&#x6700;&#x5F8C;&#x5169;&#x6B65;&#xFF1A;&#x6211;&#x5011;&#x53EA;&#x8981;&#x4E00;&#x958B;&#x59CB;&#x6307;&#x5B9A;&#x597D;
+Audio Queue &#x662F;&#x54EA;&#x4E00;&#x7A2E;&#x662F;&#x6A94;&#x6848;&#x683C;&#x5F0F;&#xFF0C;&#x4E4B;&#x5F8C;&#x53EA;&#x8981;&#x63D0;&#x4F9B;&#x9019;&#x7A2E;&#x683C;&#x5F0F;&#x7684;&#x8CC7;&#x6599;&#x5C31;&#x53EF;&#x4EE5;&#x64AD;&#x653E;&#xFF0C;&#x6211;&#x5011;&#x4E0D;&#x7528;&#x81EA;&#x5DF1;&#x52D5;&#x624B;&#x628A;&#x539F;&#x672C;&#x7684; MP3 &#x6216; AAC &#x683C;&#x5F0F;&#x8F49;&#x63DB;&#x6210;LPCM&#xFF0C;&#x4F46;&#x524D;&#x9762;&#x5206;&#x6790;&#x51FA; packet &#x9019;&#x6B65;&#x9084;&#x662F;&#x5F97;&#x81EA;&#x5DF1;&#x4F86;&#x3002;</p>
+<p>Audio Queue &#x662F;<a href="https://developer.apple.com/library/mac/documentation/MusicAudio/Reference/CAAudioTooboxRef/" target="_blank">Audio Toolbox
+Framework</a>
+&#x7684;&#x4E00;&#x90E8;&#x5206;&#x3002;Audio Toolbox &#x662F;&#x4E00;&#x500B;&#x4E0D;&#x7B97;&#x5C0F;&#x7684; Framework&#xFF0C;&#x88E1;&#x982D;&#x5305;&#x542B;&#x6211;&#x5011;&#x524D;&#x9762;&#x63D0;&#x5230;&#x7684; System
+Sound&#x3001;&#x5F8C;&#x9762;&#x8981;&#x63D0;&#x5230;&#x7684; Audio Unit Processing Graph &#x5916;&#xFF0C;&#x4E5F;&#x5305;&#x542B;&#x6211;&#x5011;&#x5728;&#x64AD;&#x653E;&#x904E;&#x7A0B;&#x4E2D;&#x6703;&#x7528;&#x5230;&#x7684; parser &#x8207; converter&#xFF0C;parser &#x5305;&#x62EC; Audio File Services &#x8207; Audio File Stream
+Services &#x7B49;&#xFF0C;&#x81F3;&#x65BC; Audio Converter Services &#x4FBF;&#x662F; converter&#x3002;</p>
+<p>Audio Queue API &#x4E3B;&#x8981;&#x7531;&#x5169;&#x500B;&#x4E3B;&#x8981;&#x7684;&#x8CC7;&#x6599;&#x985E;&#x578B;&#x7D44;&#x6210;&#xFF1A;Audio Queue &#x8207; Audio Queue
+Buffer&#x3002;&#x6211;&#x5011;&#x4E0D;&#x59A8;&#x628A; Audio Queue &#x60F3;&#x50CF;&#x6210;&#x662F;&#x4E00;&#x500B;&#x6C34;&#x6C60;&#xFF0C;&#x800C;&#x6BCF;&#x500B; Audio Queue Buffer &#x5247;&#x662F;&#x8A31;&#x8A31;&#x591A;&#x591A;&#x7684;&#x6C34;&#x6876;&#xFF0C;&#x5728;&#x8981;&#x6C42; Audio Queue &#x958B;&#x59CB;&#x64AD;&#x653E;&#x97F3;&#x8A0A;&#x4E4B;&#x5F8C;&#xFF0C;Audio Queue &#x9019;&#x500B;&#x6C34;&#x6C60;&#x4E00;&#x958B;&#x59CB;&#x662F;&#x4E7E;&#x7684;&#xFF0C;&#x6240;&#x4EE5;&#x6211;&#x5011;&#x8981;&#x63D0;&#x7B2C;&#x4E00;&#x6876;&#x6C34;&#x6876;&#xFF0C;&#x628A;&#x6C34;&#x6876;&#x88E1;&#x982D;&#x7684;&#x6C34;&#x5012;&#x9032;&#x6C34;&#x6C60;&#x88E1;&#x982D;&#xFF08;&#x9019;&#x4E00;&#x6B65;&#x53EB;&#x505A; enqueue
+buffer&#xFF09;&#x3002;&#x63A5;&#x8457;&#xFF0C;&#x9019;&#x500B;&#x6C34;&#x6C60;&#x6703;&#x56E0;&#x70BA;&#x6C34;&#x6162;&#x6162;&#x5730;&#x88AB;&#x7528;&#x6389;&#xFF0C;&#x65BC;&#x662F;&#x6162;&#x6162;&#x8B8A;&#x4E7E;&#xFF0C;&#x4F46;&#x662F;&#x5728;&#x5B8C;&#x5168;&#x4E7E;&#x67AF;&#x4E4B;&#x524D;&#x6703;&#x901A;&#x77E5;&#x6211;&#x5011;&#xFF08;callback&#xFF09;&#x6C34;&#x5FEB;&#x6C92;&#x4E86;&#xFF0C;&#x6240;&#x4EE5;&#x8DDF;&#x6211;&#x5011;&#x8981;&#x4E0B;&#x4E00;&#x6876;&#x6C34;&#xFF1B;&#x63A5;&#x8457;&#x5C31;&#x662F;&#x9019;&#x6A23;&#x7684;&#x6B65;&#x9A5F;&#x4E0D;&#x65B7;&#x5FAA;&#x74B0;&#x3002;</p>
+<p>&#x81F3;&#x65BC;&#x9304;&#x97F3;&#xFF0C;&#x5247;&#x662F;&#x5C07;&#x524D;&#x8FF0;&#x6B65;&#x9A5F;&#x6574;&#x500B;&#x5012;&#x8F49;&#x904E;&#x4F86;&#xFF0C;AUdio Queue &#x8207; Audio Queue Buffer &#x4ECD;&#x7136;&#x626E;&#x6F14;&#x6C34;&#x6C60;&#x8207;&#x6C34;&#x6876;&#x7684;&#x89D2;&#x8272;&#xFF0C;&#x53EA;&#x662F;&#x6211;&#x5011;&#x8981;&#x5148;&#x628A;&#x4E00;&#x500B;&#x7A7A;&#x6C34;&#x6876;&#x653E;&#x9032;&#x4E7E;&#x6389;&#x7684;&#x6C34;&#x6C60;&#x88E1;&#x982D;&#xFF0C;&#x7576;&#x9304;&#x97F3;&#x7684;&#x8CC7;&#x6599;&#x9032;&#x4F86;&#x7684;&#x6642;&#x5019;&#xFF0C;&#x6C34;&#x6703;&#x88DD;&#x9032;&#x9019;&#x500B;&#x6C34;&#x6C60;&#x88E1;&#x982D;&#x552F;&#x4E00;&#x7684;&#x6C34;&#x6876;&#x88E1;&#xFF0C;&#x7576;&#x4E00;&#x500B;&#x6C34;&#x6876;&#x5FEB;&#x8981;&#x88DD;&#x6EFF;&#x6642;&#xFF0C;Audio Queue &#x5C31;&#x6703;&#x901A;&#x77E5;&#x6211;&#x5011;&#x8D95;&#x5FEB;&#x628A;&#x88DD;&#x6EFF;&#x6C34;&#x7684;&#x6C34;&#x6876;&#x62FF;&#x51FA;&#x53BB;&#x5B58;&#x6A94;&#xFF0C;&#x540C;&#x6642;&#x518D;&#x62FF;&#x4E00;&#x500B;&#x7A7A;&#x7684;&#x6C34;&#x6876;&#x9032;&#x4F86;&#x88DD;&#x6C34;&#x3002;&#x7136;&#x5F8C;&#x4E0D;&#x65B7;&#x5FAA;&#x74B0;&#x9019;&#x500B;&#x6B65;&#x9A5F;&#x3002;</p>
+<p>&#x5728; iOS &#x4E0A;&#x4F7F;&#x7528; Audio Queue API &#x7684;&#x6642;&#x5019;&#xFF0C;&#x9084;&#x8981;&#x642D;&#x914D;&#x6B63;&#x78BA;&#x7684; Audio Session&#x3002;Audio
+Session &#x662F;&#x4E00;&#x7A2E;&#x7528;&#x4F86;&#x63CF;&#x8FF0;&#x6211;&#x5011;&#x7684; App &#x6253;&#x7B97;&#x600E;&#x9EBC;&#x4F7F;&#x7528; Audio &#x7684; API&#xFF0C;&#x8981;&#x6B63;&#x78BA;&#x8A2D;&#x5B9A; Audio
+Session &#x7684;&#x985E;&#x578B;&#xFF0C;&#x4E26;&#x4E14;&#x8B93; Audio Session &#x8B8A;&#x6210; active&#xFF0C;&#x7CFB;&#x7D71;&#x624D;&#x6703;&#x5141;&#x8A31;&#x6211;&#x5011;&#x505A;&#x4E00;&#x4E9B;&#x6211;&#x5011;&#x60F3;&#x505A;&#x7684;&#x4E8B;&#x60C5;&#xFF0C;&#x50CF;&#x6211;&#x5011;&#x5FC5;&#x9808;&#x544A;&#x8A34;&#x7CFB;&#x7D71;&#x6211;&#x5011;&#x662F;&#x5A92;&#x9AD4;&#x64AD;&#x653E;&#x7684; App&#xFF0C;&#x7CFB;&#x7D71;&#x624D;&#x6703;&#x5141;&#x8A31;&#x6211;&#x5011;&#x57F7;&#x884C;&#x80CC;&#x666F;&#x64AD;&#x653E;&#xFF0C;&#x8981;&#x544A;&#x8A34;&#x7CFB;&#x7D71;&#x6211;&#x5011;&#x662F;&#x53EF;&#x4EE5;&#x64AD;&#x653E;&#x8207;&#x9304;&#x97F3;&#x7684;&#x8EDF;&#x9AD4;&#xFF0C;&#x624D;&#x6709;&#x8FA6;&#x6CD5;&#x4F7F;&#x7528;&#x9EA5;&#x514B;&#x98A8;&#x9304;&#x97F3;&#x3002;</p>
+<p>&#x5728;&#x4F7F;&#x7528; Audio Queue API &#x64AD;&#x653E;&#x97F3;&#x8A0A;&#x7684;&#x6642;&#x5019;&#xFF0C;&#x6211;&#x5011;&#x8981;&#x7A0D;&#x5FAE;&#x6CE8;&#x610F;&#x4E00;&#x4E0B;&#x5C0D;&#x64AD;&#x653E;&#x6642;&#x9593;&#x7684;&#x63A7;&#x5236;&#x3002;&#x5982;&#x679C;&#x6211;&#x5011;&#x60F3;&#x8981;&#x77E5;&#x9053;&#x4E00;&#x9996;&#x6B4C;&#x73FE;&#x5728;&#x64AD;&#x653E;&#x5230;&#x54EA;&#x500B;&#x6642;&#x9593;&#xFF0C;&#x4E00;&#x822C;&#x5728; player &#x7684; UI &#x4E0A;&#x6211;&#x5011;&#x5927;&#x6982;&#x53EA;&#x9700;&#x8981;&#x7CBE;&#x78BA;&#x5230;&#x79D2;&#x5C31;&#x597D;&#x4E86;&#xFF0C;&#x800C;&#x6211;&#x5011;&#x6700;&#x5C0F;&#x53EF;&#x4EE5;&#x5230;&#x9054;&#x7684;&#x55AE;&#x4F4D;&#x5247;&#x662F; packet &#x7684;&#x5927;&#x5C0F;&#xFF0C;&#x900F;&#x904E;&#x6211;&#x5011;&#x9001;&#x51FA;&#x4E86;&#x591A;&#x5C11; packet
+&#x800C;&#x63A8;&#x7B97;&#x51FA;&#x64AD;&#x653E;&#x6642;&#x9593;&#x3002;</p>
+<p>&#x6211;&#x5011;&#x5728;&#x5EFA;&#x7ACB; Audio Queue Buffer &#x7684;&#x6642;&#x5019;&#xFF0C;&#x901A;&#x5E38;&#x6703;&#x5EFA;&#x7ACB;&#x6BD4;&#x8F03;&#x5927;&#x7684; buffer&#xFF0C;&#x53EF;&#x80FD;&#x6703;&#x662F;&#x534A;&#x79D2;&#x3001;&#x4E00;&#x79D2;&#x751A;&#x81F3;&#x66F4;&#x591A;&#x79D2;&#x6578;&#x7684; buffer&#xFF0C;&#x5047;&#x5982;&#x6211;&#x5011;&#x9001;&#x51FA;&#x4E86;&#x4E00;&#x500B;&#x4E00;&#x79D2;&#x9418;&#x7684; buffer&#xFF0C;&#x5728;&#x64AD;&#x653E;&#x9019;&#x4E00;&#x79D2;&#x7684;&#x6642;&#x5019;&#xFF0C;&#x5176;&#x5BE6;&#x6211;&#x5011;&#x4E0D;&#x592A;&#x80FD;&#x7CBE;&#x78BA;&#x638C;&#x63E1;&#x300C;&#x6211;&#x5011;&#x64AD;&#x653E;&#x5230;&#x4E86;&#x9019;&#x4E00;&#x79D2;&#x9418;&#x7684;&#x54EA;&#x500B;&#x5730;&#x65B9;&#x300D;&#x3002;Audio Queue &#x96D6;&#x7136;&#x6709;&#x5169;&#x500B;&#x8DDF;&#x64AD;&#x653E;&#x6642;&#x9593;&#x76F8;&#x95DC;&#x7684; C function&#xFF0C;&#x9019;&#x5169;&#x500B;function &#x56DE;&#x50B3;&#x7684;&#x6642;&#x9593;&#x901A;&#x5E38;&#x4E5F;&#x4E0D;&#x662F;&#x5F88;&#x7CBE;&#x78BA;&#x3002;</p>
+<p>&#x7531;&#x65BC; Audio Queue &#x53EA;&#x8981;&#x62FF;&#x5230; AAC&#x3001;MP3 &#x8CC7;&#x6599;&#x5C31;&#x53EF;&#x4EE5;&#x64AD;&#x653E;&#xFF0C;&#x800C;&#x5982;&#x679C;&#x6211;&#x5011;&#x60F3;&#x8981;&#x505A;&#x4E00;&#x4E9B;&#x97F3;&#x6548;&#x7684;&#x8655;&#x7406;&#xFF0C;&#x6703;&#x662F;&#x5728; LPCM &#x8CC7;&#x6599;&#x9019;&#x4E00;&#x5C64;&#x505A;&#x3002;KKBOX &#x6700;&#x65E9;&#x4F7F;&#x7528; Audio Queue &#x958B;&#x767C;&#x64AD;&#x653E;&#x5668;&#xFF0C;&#x4F46;&#x7531;&#x65BC;&#x6703;&#x54E1;&#x4E00;&#x76F4;&#x8981;&#x6C42;&#x6211;&#x5011;&#x80FD;&#x5920;&#x63D0;&#x4F9B; EQ &#x7B49;&#x5316;&#x5668;&#x7B49;&#x529F;&#x80FD;&#xFF0C;&#x6240;&#x4EE5;&#x5F8C;&#x4F86;&#x91CD;&#x65B0;&#x958B;&#x767C;&#x4E86;&#x4F7F;&#x7528; Audio Unit
+Processing Graph API &#x70BA;&#x57FA;&#x790E;&#x7684;&#x64AD;&#x653E;&#x5668;&#x3002;</p>
+<h3 id="audio-unit-processing-graph-&#x8207;-avaudioengine">Audio Unit Processing Graph &#x8207; AVAudioEngine</h3>
+<p>&#x5982;&#x679C;&#x6211;&#x5011;&#x60F3;&#x8981;&#x5C0D;&#x97F3;&#x8A0A;&#x64AD;&#x653E;&#x64C1;&#x6709;&#x6700;&#x5B8C;&#x6574;&#x7684;&#x63A7;&#x5236;&#xFF0C;&#x90A3;&#x6211;&#x5011;&#x6700;&#x5F8C;&#x7684;&#x9078;&#x64C7;&#xFF0C;&#x5C31;&#x662F;&#x6700;&#x5E95;&#x5C64;&#x7684;Audio Unit
+Processing Graph &#x9019;&#x5C64; C API&#xFF0C;&#x4EE5;&#x53CA;&#x628A; Audio Unit Processing Graph &#x518D;&#x7528; Objective C
+&#x5305;&#x88DD;&#x4E00;&#x5C64;&#x7684; AVAudioEngine&#x3002;</p>
+<p>&#x4E0A;&#x9762;&#x63D0;&#x5230;&#x7684;&#x4E0D;&#x5C11; API&#xFF0C;&#x50CF; OpenAL&#x3001;Audio Queue &#x4EE5;&#x53CA;AVFoudation &#x7B49;&#xFF0C;&#x4E5F;&#x662F;&#x5728; Audio Unit
+Processing Graph API &#x4E0A;&#x67B6;&#x69CB;&#x7684;&#x3002;</p>
+<p>&#x6211;&#x5011;&#x5148;&#x4F86;&#x89E3;&#x91CB;&#x4E00;&#x500B;&#x540D;&#x8A5E;&#xFF1A;Core Audio&#x3002;Core Audio &#x662F;&#x860B;&#x679C;&#x7684;&#x6574;&#x500B; audio &#x7684;&#x67B6;&#x69CB;&#x5E95;&#x5C64;&#xFF0C;&#x6211;&#x5011;&#x524D;&#x9762;&#x6240;&#x8B1B;&#x7684; Audio Toolbox framework &#x7684; API&#xFF0C;&#x662F;&#x5C6C;&#x65BC; Core Audio&#x7684;&#x61C9;&#x7528;&#x5C64;&#xFF0C;Audio Unit
+Processing Graph &#x7B97;&#x662F;&#x61C9;&#x7528;&#x5C64;&#x7684;&#x6700;&#x5E95;&#x5C64;&#xFF0C;&#x5DF2;&#x7D93;&#x8DDD;&#x96E2;&#x64CD;&#x63A7;&#x786C;&#x9AD4;&#x4E0D;&#x9060;&#x4E86;&#x3002;</p>
+<p>&#x6B64;&#x5916;&#x9084;&#x6709;&#x6211;&#x5011;&#x5E73;&#x5E38;&#x6BD4;&#x8F03;&#x4E0D;&#x6703;&#x63A5;&#x89F8;&#x5230;&#x7684;&#x786C;&#x9AD4;&#x8207; codec &#x9019;&#x5E7E;&#x584A;&#xFF0C;&#x5728; iOS &#x4E0A;&#x6211;&#x5011;&#x5B8C;&#x5168;&#x7121;&#x6CD5;&#x4FEE;&#x6539;&#xFF0C;&#x4F46;&#x662F;&#x5728; Mac OS X &#x4E0A;&#xFF0C;&#x5982;&#x679C;&#x6211;&#x5011;&#x505A;&#x4E86;&#x4EC0;&#x9EBC;&#x65B0;&#x7684; audio &#x786C;&#x9AD4;&#xFF0C;&#x6216;&#x662F;&#x8981;&#x8B93; Mac &#x7684; player &#x652F;&#x63F4;&#x67D0;&#x4E9B;&#x65B0;&#x7684;&#x6A94;&#x6848;&#x683C;&#x5F0F;&#xFF0C;&#x958B;&#x767C;&#x8005;&#x9084;&#x662F;&#x53EF;&#x4EE5;&#x5728; Core Audio &#x67B6;&#x69CB;&#x4E0A;&#x5BEB;&#x65B0;&#x7684; driver &#x6216; codec&#xFF0C;&#x50CF;&#x6211;&#x5011;&#x60F3;&#x5728; Mac &#x4E0A;&#x64AD;&#x653E;&#x5FAE;&#x8EDF;&#x7684; WMA&#xFF0C;&#x6216;&#x662F;RealPlayer &#x7684;&#x683C;&#x5F0F;&#x7684;&#x8A71;&#xFF0C;&#x5C31;&#x5F97;&#x5B89;&#x88DD;&#x984D;&#x5916;&#x7684; codec&#x3002;&#x81F3;&#x65BC;&#x7528;&#x4F86;&#x63A7;&#x5236;&#x5404;&#x7A2E;&#x5916;&#x90E8;&#x7684;&#x96FB;&#x5B50;&#x6A02;&#x5668;&#xFF0C;&#x5247;&#x6703;&#x7528;&#x5230; Core MIDI framework&#xFF0C;&#x9019;&#x4E5F;&#x662F; Core Audio &#x7684;&#x4E00;&#x90E8;&#x5206;&#x3002;</p>
+<p>Audio Unit Processing Graph &#x662F;&#x4E00;&#x500B;&#x53EF;&#x4EE5;&#x8655;&#x7406;&#x64AD;&#x653E;&#x8207;&#x9304;&#x97F3;&#x7684; API&#xFF0C;&#x9019;&#x5C64;&#x628A;audio &#x64AD;&#x653E;&#x7684;&#x8655;&#x7406;&#x904E;&#x7A0B;&#xFF0C;&#x62BD;&#x8C61;&#x5316;&#x8B8A;&#x6210;&#x4E00;&#x500B;&#x500B;&#x7684;&#x7D44;&#x4EF6;&#xFF0C;&#x6211;&#x5011;&#x53EF;&#x4EE5;&#x900F;&#x904E;&#x7D44;&#x5408;&#x9019;&#x4E9B;&#x7D44;&#x4EF6;&#x5275;&#x9020;&#x6211;&#x5011;&#x60F3;&#x8981;&#x7684;&#x9304;&#x88FD;&#x8207;&#x64AD;&#x653E;&#x6548;&#x679C;&#x3002;Audio Unit Processing Graph API &#x88E1;&#x982D;&#x5927;&#x6982;&#x6709;&#x4E09;&#x500B;&#x4E3B;&#x8981;&#x7684;&#x89D2;&#x8272;&#xFF1A;</p>
+<ul>
+<li>AUNode &#x6216; AudioComponent</li>
+<li>AudioUnit</li>
+<li>AUGraph</li>
+</ul>
+<p>&#x6211;&#x5011;&#x4E0D;&#x59A8;&#x60F3;&#x50CF;&#x6211;&#x5011;&#x73FE;&#x5728;&#x8EAB;&#x8655;&#x5728;&#x6F14;&#x5531;&#x6703;&#x7684;&#x821E;&#x53F0;&#x4E0A;&#xFF0C;&#x6709;&#x9304;&#x88FD;&#x6B4C;&#x8072;&#x8207;&#x6A02;&#x5668;&#x7684;&#x9EA5;&#x514B;&#x98A8;&#xFF0C;&#x800C;&#x5F9E;&#x9EA5;&#x514B;&#x98A8;&#x5230;&#x8F38;&#x51FA;&#x5230;&#x97F3;&#x97FF;&#x4E4B;&#x9593;&#xFF0C;&#x9084;&#x4E32;&#x63A5;&#x4E86;&#x5927;&#x5927;&#x5C0F;&#x5C0F;&#x7684;&#x6548;&#x679C;&#x5668;&#xFF0C;&#x5728;&#x9019;&#x500B;&#x904E;&#x7A0B;&#x4E2D;&#xFF0C;&#x7121;&#x8AD6;&#x662F;&#x9EA5;&#x514B;&#x98A8;&#x3001;&#x97F3;&#x97FF;&#x6216;&#x662F;&#x6548;&#x679C;&#x5668;&#xFF0C;&#x90FD;&#x662F;&#x4E0D;&#x540C;&#x7684; AUNode&#x3002;AUNode &#x662F;&#x9019;&#x4E9B;&#x5668;&#x6750;&#x7684;&#x5BE6;&#x9AD4;&#xFF0C;&#x800C;&#x6211;&#x5011;&#x8981;&#x64CD;&#x63A7;&#x9019;&#x4E9B;&#x5668;&#x6750;&#x3001;&#x6539;&#x8B8A;&#x9019;&#x4E9B;&#x5668;&#x6750;&#x7684;&#x6548;&#x679C;&#x5C6C;&#x6027;&#xFF0C;&#x5C31;&#x6703;&#x9700;&#x8981;&#x900F;&#x904E;&#x6BCF;&#x500B;&#x5668;&#x6750;&#x5404;&#x81EA;&#x7684;&#x64CD;&#x63A7;&#x4ECB;&#x9762;&#xFF0C;&#x9019;&#x4E9B;&#x4ECB;&#x9762;&#x4FBF;&#x662F;AudioUnit&#xFF0C;&#x6700;&#x5F8C;&#x69CB;&#x6210;&#x6574;&#x500B;&#x821E;&#x53F0;&#xFF0C;&#x4FBF;&#x662F; AUGraph&#x3002;</p>
+<p>AUNode &#x8207; AudioComponent &#x7684;&#x5DEE;&#x5225;&#x5728;&#x65BC;&#xFF0C;&#x5176;&#x5BE6;&#x50CF;&#x4E0A;&#x9762;&#x8B1B;&#x5230;&#x7684;&#x5404;&#x7A2E;&#x5668;&#x6750;&#xFF0C;&#x9664;&#x4E86;&#x53EF;&#x4EE5;&#x653E;&#x5728;
+AUGraph &#x4F7F;&#x7528;&#x4E4B;&#x5916;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x55AE;&#x7368;&#x4F7F;&#x7528;&#xFF0C;&#x6BD4;&#x65B9;&#x8AAA;&#x6211;&#x5011;&#x6709;&#x53F0;&#x97F3;&#x97FF;&#xFF0C;&#x6211;&#x5011;&#x9664;&#x4E86;&#x628A;&#x97F3;&#x97FF;&#x653E;&#x5728;&#x821E;&#x53F0;&#x4E0A;&#x4F7F;&#x7528;&#x5916;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x55AE;&#x7368;&#x62FF;&#x9019;&#x53F0;&#x97F3;&#x97FF;&#x8F38;&#x51FA;&#x97F3;&#x6A02;&#x3002;&#x7576;&#x6211;&#x5011;&#x8981;&#x5728;AUGraph &#x4E2D;&#x4F7F;&#x7528;&#x67D0;&#x500B;&#x5668;&#x6750;&#xFF0C;&#x6211;&#x5011;&#x5C31;&#x8981;&#x4F7F;&#x7528; AUNode &#x9019;&#x7A2E;&#x5F62;&#x614B;&#xFF0C;&#x55AE;&#x7368;&#x4F7F;&#x7528;&#x6642;&#xFF0C;&#x5C31;&#x4F7F;&#x7528; AudioComponent&#x3002;&#x4F46;&#x7121;&#x8AD6;&#x662F;&#x64CD;&#x4F5C; AUNode &#x6216;
+AudioComponent&#xFF0C;&#x90FD;&#x9084;&#x662F;&#x5F97;&#x900F;&#x904E;AudioUnit &#x9019;&#x4E00;&#x5C64;&#x64CD;&#x4F5C;&#x4ECB;&#x9762;&#x3002;</p>
+<p>AUNode &#x8207; AudioComponent &#x5206;&#x6210;&#x597D;&#x5E7E;&#x985E;&#xFF0C;&#x5305;&#x62EC;&#x8F38;&#x5165;&#x3001;&#x8F38;&#x51FA;&#x3001;&#x6DF7;&#x97F3;&#x3001;&#x6548;&#x679C;&#x8655;&#x7406;&#x3001;&#x683C;&#x5F0F;&#x8F49;&#x63DB;&#x7B49;&#x7B49;&#xFF0C;&#x5F7C;&#x6B64;&#x4E4B;&#x9593;&#x53EF;&#x4EE5;&#x4E92;&#x76F8;&#x4E32;&#x63A5;&#x3002;&#x8F38;&#x5165;&#x88DD;&#x7F6E;&#x5305;&#x62EC;&#x50CF;&#x9EA5;&#x514B;&#x98A8;&#x8F38;&#x5165;&#x6216; MIDI &#x6A02;&#x5668;&#xFF0C;&#x6548;&#x679C;&#x8655;&#x7406;&#x5247;&#x5305;&#x62EC;&#x50CF;
+EQ &#x7B49;&#x5316;&#x5668;&#x3001;&#x6B98;&#x97FF;&#xFF08;reverb&#xFF09;&#x3001;&#x6539;&#x8B8A;&#x97F3;&#x8ABF;&#xFF08;pitch&#xFF09;&#x7B49;&#xFF1B;&#x81F3;&#x65BC;&#x9019;&#x908A;&#x6240;&#x8B02;&#x7684;&#x683C;&#x5F0F;&#x8F49;&#x63DB;&#xFF0C;&#x662F;&#x6307;&#x5728;&#x4E0D;&#x540C;&#x7684; LPCM &#x683C;&#x5F0F;&#x4E4B;&#x9593;&#x8F49;&#x63DB;&#xFF0C;&#x5728;&#x9019;&#x4E00;&#x5C64; API &#x4E2D;&#x53EA;&#x652F;&#x63F4; LPCM &#x683C;&#x5F0F;&#xFF0C;&#x4F46;LPCM &#x4E4B;&#x9593;&#x53C8;&#x6709;&#x5F88;&#x591A;&#x7A2E;&#xFF0C;&#x4E0D;&#x898B;&#x5F97;&#x6BCF;&#x500B; node &#x90FD;&#x652F;&#x63F4;&#x6240;&#x6709;&#x7684;LPCM &#x683C;&#x5F0F;&#xFF0C;&#x50CF; reverb&#x6548;&#x679C;&#x7684; effect node &#x5C31;&#x53EA;&#x652F;&#x63F4;&#x6D6E;&#x9EDE;&#x6578;&#xFF0C;&#x6240;&#x4EE5;&#x8981;&#x8B93;&#x97F3;&#x8A0A;&#x8CC7;&#x6599;&#x901A;&#x904E;&#x9019;&#x500B; node &#x4E4B;&#x524D;&#xFF0C;&#x5C31;&#x9700;&#x8981;&#x5148;&#x8F49;&#x63DB;&#x6210;&#x6D6E;&#x9EDE;&#x6578;&#x683C;&#x5F0F;&#x7684; LPCM &#x8CC7;&#x6599;&#x3002;</p>
+<p>&#x6BCF;&#x500B; AudioUnit &#x90FD;&#x6709;&#x5404;&#x81EA;&#x7684;&#x8F38;&#x5165;&#x8207;&#x8F38;&#x51FA;&#xFF0C;&#x5728;&#x4E32;&#x63A5;&#x7684;&#x6642;&#x5019;&#xFF0C;&#x5C31;&#x662F;&#x5F9E;&#x67D0;&#x500B;AudioUnit &#x7684;&#x8F38;&#x51FA;&#xFF0C;&#x4E32;&#x63A5;&#x5230;&#x53E6;&#x5916;&#x4E00;&#x500B; AudioUnit &#x7684;&#x8F38;&#x5165;&#xFF0C;&#x9019;&#x7A2E;&#x8F38;&#x5165;&#x8F38;&#x51FA;&#x7684;&#x7AEF;&#x5B50;&#x53EB;&#x505A; bus&#xFF0C;&#x800C;&#x6BCF;&#x500B; AudioUnit &#x6700;&#x5C11;&#x6703;&#x6709;&#x4E00;&#x500B;&#x8F38;&#x5165;&#x8207;&#x8F38;&#x51FA;&#x7684; bus&#xFF0C;&#x4E5F;&#x53EF;&#x80FD;&#x6703;&#x6709;&#x591A;&#x500B; bus&#x3002;&#x4EE5; mixer &#x4F86;&#x8AAA;&#xFF0C;&#x5C31;&#x6703;&#x6709;&#x591A;&#x500B; bus&#xFF0C;&#x7576;&#x6211;&#x5011;&#x5F9E;&#x5169;&#x500B;&#x8F38;&#x5165; bus &#x5C07;&#x8CC7;&#x6599;&#x9001;&#x5230;&#x540C;&#x4E00;&#x500B; mixer &#x4E0A;&#x6642;&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x7522;&#x751F;&#x6DF7;&#x97F3;&#x6548;&#x679C;&#x3002;</p>
+<p>&#x5728; Mac OS X &#x4E0A;&#xFF0C;&#x6211;&#x5011;&#x901A;&#x5E38;&#x6703;&#x4F7F;&#x7528; default output &#x4F5C;&#x70BA;&#x97F3;&#x8A0A;&#x64AD;&#x653E;&#x7684;&#x6700;&#x7D42;&#x8F38;&#x51FA;&#x7684;
+AudioUnit&#xFF0C;&#x4EE5; default input &#x4F5C;&#x70BA;&#x9304;&#x97F3;&#x7684;&#x8D77;&#x9EDE;&#x3002;&#x5728; iOS &#x4E0A;&#x5247;&#x6709;&#x4E00;&#x500B;&#x7279;&#x5225;&#x7684;AudioUnit&#xFF0C;&#x53EB;&#x505A; Remote IO&#xFF0C;&#x9019;&#x500B; AudioUnit &#x540C;&#x6642;&#x4EE3;&#x8868; iOS &#x7684;&#x8F38;&#x51FA;&#x8207;&#x8F38;&#x5165;&#x88DD;&#x7F6E;&#x3002;Remote IO &#x6709;&#x5169;&#x500B;
+bus&#xFF0C;bus 0 &#x5C31;&#x662F; iOS &#x7684;&#x9810;&#x8A2D;&#x8F38;&#x51FA;&#xFF0C;bus 1 &#x5247;&#x662F;&#x8F38;&#x5165;&#xFF0C;&#x6240;&#x4EE5;&#x6211;&#x5011;&#x5728; iOS &#x4E0A;&#x64AD;&#x653E;&#x97F3;&#x6A02;&#xFF0C;&#x5C31;&#x662F;&#x5F80; Remote IO &#x7684; bus 0 &#x50B3;&#x9001;&#x8CC7;&#x6599;&#x3002;</p>
+<p>Remote IO &#x7684; bus 1 &#x9810;&#x8A2D;&#x662F;&#x95DC;&#x9589;&#x7684;&#xFF0C;&#x7576;&#x6211;&#x5011;&#x8981;&#x9304;&#x97F3;&#x7684;&#x6642;&#x5019;&#xFF0C;&#x6211;&#x5011;&#x5FC5;&#x9808;&#x5148;&#x544A;&#x8A34;Remote IO &#x628A;
+bus 1 &#x8B8A;&#x6210; enable&#xFF0C;&#x4F46;&#x6211;&#x5011;&#x8981;&#x505A;&#x9019;&#x4EF6;&#x4E8B;&#x60C5;&#x7684;&#x6642;&#x5019;&#xFF0C;&#x6211;&#x5011;&#x4E0D;&#x4F46;&#x8981;&#x7372;&#x5F97;&#x4F7F;&#x7528;&#x8005;&#x7D66;&#x4E88;&#x6211;&#x5011;&#x4F7F;&#x7528;&#x9EA5;&#x514B;&#x98A8;&#x7684;&#x6388;&#x6B0A;&#xFF0C;&#x9084;&#x8981;&#x8A2D;&#x5B9A;&#x6B63;&#x78BA;&#x7684; Audio Session&#x3002;&#x6211;&#x5011;&#x6703;&#x5728;&#x5F8C;&#x9762;&#x8AAA;&#x660E; Audio Session&#x3002;</p>
+<p>&#x5728;&#x4F7F;&#x7528; Audio Unit Processing Graph API &#x7684;&#x6642;&#x5019;&#xFF0C;&#x6211;&#x5011;&#x7D93;&#x5E38;&#x9700;&#x8981;&#x8A2D;&#x5B9A; render callback
+function&#x3002;&#x4EE5;&#x9304;&#x97F3;&#x4F86;&#x8AAA;&#xFF0C;&#x7576;&#x6211;&#x5011;&#x5F9E; Remote IO &#x7684; bus 1 &#x6536;&#x5230;&#x8CC7;&#x6599;&#x5F8C;&#xFF0C;&#x60F3;&#x8981;&#x5132;&#x5B58;&#x6A94;&#x6848;&#xFF0C;&#x6211;&#x5011;&#x4E26;&#x6C92;&#x6709;&#x4E00;&#x7A2E;&#x53EB;&#x505A;&#x300C;&#x5B58;&#x6A94;&#x300D;&#x7684; AudioUnit&#xFF0C;&#x800C;&#x662F;&#x6211;&#x5011;&#x8981;&#x5C0D;&#x67D0;&#x500B;AudioUnit &#x8A2D;&#x5B9A; callback
+function&#xFF0C;&#x7D81;&#x5B9A;&#x67D0;&#x500B; bus&#xFF0C;&#x5728;&#x9019;&#x500B; function &#x4E2D;&#x64B0;&#x5BEB;&#x5B58;&#x6A94;&#x7684;&#x7A0B;&#x5F0F;&#x3002;&#x4EE5;&#x64AD;&#x653E;&#x4F86;&#x8AAA;&#xFF0C;&#x7576;&#x6211;&#x5011;&#x544A;&#x8A34;
+AUGraph &#x6216; Remote IO &#x958B;&#x59CB;&#x64AD;&#x653E;&#xFF0C;&#x6211;&#x5011;&#x4E5F;&#x8981;&#x8A2D;&#x5B9A; render callback function&#xFF0C;&#x63D0;&#x4F9B;&#x7528;&#x4F86;&#x64AD;&#x653E;&#x7528;&#x7684;&#x8CC7;&#x6599;&#x3002;</p>
+<p>&#x7531;&#x65BC;&#x9019;&#x908A;&#x53EA;&#x652F;&#x63F4; LPCM &#x683C;&#x5F0F;&#xFF0C;&#x56E0;&#x6B64;&#x6211;&#x5011;&#x5728;&#x64AD;&#x653E; MP3 &#x6216; AAC &#x8CC7;&#x6599;&#x4E4B;&#x524D;&#xFF0C;&#x9084;&#x5F97;&#x6709;&#x4E00;&#x500B;&#x5C07; MP3
+&#x6216; AAC &#x8F49;&#x63DB;&#x6210; LPCM &#x683C;&#x5F0F;&#x7684; converter&#x3002;&#x7E3D;&#x4E4B;&#xFF0C;&#x6211;&#x5011;&#x63D0;&#x5230;&#x64AD;&#x653E;&#x7DB2;&#x8DEF;&#x4E32;&#x6D41;&#x97F3;&#x6A02;&#x6709;&#x516D;&#x500B;&#x6B65;&#x9A5F;&#xFF0C;&#x7576;&#x6211;&#x5011;&#x7528;&#x5230;&#x9019;&#x4E00;&#x5C64; API &#x7684;&#x6642;&#x5019;&#xFF0C;&#x9019;&#x516D;&#x500B;&#x6B65;&#x9A5F;&#x90FD;&#x5F97;&#x81EA;&#x5DF1;&#x4F86;&#x4E86;&#x3002;</p>
+<p>Audio Unit &#x4E5F;&#x662F;&#x4E00;&#x7A2E;&#x7CFB;&#x7D71; plug-in&#xFF0C;&#x5728; Mac OS X &#x8207; iOS &#x4E0A;&#xFF0C;&#x9664;&#x4E86;&#x5167;&#x5EFA;&#x7684;Audio Unit &#x4E4B;&#x5916;&#xFF0C;&#x7B2C;&#x4E09;&#x65B9;&#x4E5F;&#x53EF;&#x4EE5;&#x64B0;&#x5BEB;&#x81EA;&#x5DF1;&#x7684; Audio Unit&#xFF0C;Mac OS X &#x4E00;&#x958B;&#x59CB;&#x5C31;&#x652F;&#x63F4;&#xFF0C;&#x4E0D;&#x904E; iOS &#x65B9;&#x9762;&#xFF0C;&#x5247;&#x662F; iOS 9 &#x624D;&#x958B;&#x653E;&#xFF0C;&#x800C;&#x4E14;&#x9084;&#x8981;&#x5305;&#x5728;&#x4E00;&#x500B; hosting app&#x4E2D;&#x3002;</p>
+<p>&#x8B1B;&#x5B8C; AUGraph &#x6703;&#x6BD4;&#x8F03;&#x5BB9;&#x6613;&#x7406;&#x89E3; AVAudioEngine&#xFF0C;AVAudioEngine &#x662F; Objective-C API&#xFF0C;&#x7528;
+Objective-C &#x7269;&#x4EF6;&#x628A;AUGraph API &#x591A;&#x5305;&#x88DD;&#x4E86;&#x4E00;&#x5C64;&#xFF0C;AVAudioEngine &#x88E1;&#x982D;&#x7684;
+AVAudioPlayerNode&#x3001;AVAudioUnitEffect &#x7B49;&#x7B49;&#xFF0C;&#x90FD;&#x53EF;&#x4EE5;&#x627E;&#x5230;&#x5C0D;&#x61C9;&#x7684; C API&#xFF0C;&#x4F46;&#x662F;&#x9AD8;&#x968E;&#x8A31;&#x591A;&#x3002;&#x4E0D;&#x904E;&#xFF0C;&#x5F9E;AVAudioPlayerNode &#x7684;&#x8A2D;&#x8A08;&#x4F86;&#x770B;&#xFF0C;AVAudioEngine &#x770B;&#x8D77;&#x4F86;&#x5F88;&#x5BB9;&#x6613;&#x8655;&#x7406;&#x672C;&#x6A5F;&#x6A94;&#x6848;&#xFF0C;&#x53EA;&#x8981;&#x50B3;&#x5165;&#x4E00;&#x500B; file URL &#x5C31;&#x53EF;&#x4EE5;&#x8F15;&#x9B06;&#x64AD;&#x653E;&#xFF0C;&#x4E26;&#x4E14;&#x52A0;&#x5165;&#x5404;&#x7A2E;&#x6548;&#x679C;&#x3002;&#x4E0D;&#x904E;&#xFF0C;&#x5982;&#x679C;&#x662F;&#x7DB2;&#x8DEF;&#x4E32;&#x6D41;&#xFF0C;&#x770B;&#x8D77;&#x4F86;&#x6211;&#x5011;&#x9084;&#x662F;&#x5F97;&#x81EA;&#x5DF1;&#x8F49;&#x6210; PCM Buffer &#x9001;&#x7D66; AVAudioPlayerNode&#x3002;</p>
+<p>&#x860B;&#x679C;&#x5728; iOS 13 &#x4E2D; deprecate &#x4E86; AUGraph&#xFF0C;&#x5E0C;&#x671B;&#x958B;&#x767C;&#x8005;&#x4EE5;&#x5F8C;&#x4E0D;&#x8981;&#x4F7F;&#x7528;&#xFF0C;&#x4E0D;&#x904E;&#xFF0C;AUGraph &#x5176;&#x5BE6;&#x662F; AVAudioEngine &#x7684;&#x5E95;&#x5C64;&#xFF0C;&#x6240;&#x4EE5;&#x6211;&#x5011;&#x9810;&#x671F;&#x77ED;&#x6642;&#x9593;&#x4E4B;&#x5167; AUGraph &#x4E5F;&#x4E0D;&#x6703;&#x5B8C;&#x5168;&#x6D88;&#x5931;&#x3002;</p>
+<script type="text/javascript">var targetUl = document.getElementsByClassName('page-inner')[0].getElementsByTagName('ul')[0];if(targetUl.getElementsByTagName('a').length>0){targetUl.className='toc';}</script>
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="basics.html" class="navigation navigation-prev " aria-label="Previous page: 基礎知識">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="audio_queue.html" class="navigation navigation-next " aria-label="Next page: 使用 Audio Queue 開發播放軟體">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"iOS 與 Mac OS X 的 Audio API 概觀","level":"1.18.2","depth":2,"next":{"title":"使用 Audio Queue 開發播放軟體","level":"1.18.3","depth":2,"path":"audio_apis/audio_queue.md","ref":"audio_apis/audio_queue.md","articles":[]},"previous":{"title":"基礎知識","level":"1.18.1","depth":2,"path":"audio_apis/basics.md","ref":"audio_apis/basics.md","articles":[]},"dir":"ltr"},"config":{"plugins":["japanese-support","toc","tree"],"styles":{"website":"styles/website.css","ebook":"styles/ebook.css","pdf":"styles/pdf.css","mobi":"styles/mobi.css","epub":"styles/epub.css"},"pluginsConfig":{"toc":{"addClass":true,"className":"toc"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"japanese-support":{},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"tree":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"version":"2.4.0","title":"KKBOX iOS/Mac OS X 基礎開發教材","language":"zh-TW","gitbook":"*"},"file":{"path":"audio_apis/audio_api_overview.md","mtime":"2020-03-17T04:52:15.767Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-03-17T04:53:02.596Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-tree/jquery.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-tree/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

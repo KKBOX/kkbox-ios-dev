@@ -1,0 +1,2452 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-TW" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>記憶體不足時產生的 Crash Report · KKBOX iOS/Mac OS X 基礎開發教材</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-tree/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+        <link rel="stylesheet" href="../styles/website.css">
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="3parts.html" />
+    
+    
+    <link rel="prev" href="collection.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="輸入並搜尋" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    前言
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../selector/">
+            
+                <a href="../selector/">
+            
+                    
+                    Selector
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../selector/what_are_objective-c_classes.html">
+            
+                <a href="../selector/what_are_objective-c_classes.html">
+            
+                    
+                    Objective-C Class/Object 到底是什麼？
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../selector/usage.html">
+            
+                <a href="../selector/usage.html">
+            
+                    
+                    Selector 有什麼用途？
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="../selector/what_you_way_need_to_notice_on_calling_performselecotr.html">
+            
+                <a href="../selector/what_you_way_need_to_notice_on_calling_performselecotr.html">
+            
+                    
+                    呼叫 performSelector: 需要注意的地方
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4" data-path="../selector/selector_is_where_the_magic_begins.html">
+            
+                <a href="../selector/selector_is_where_the_magic_begins.html">
+            
+                    
+                    Selector 是 Objective-C 中所有魔法的開始
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.5" data-path="../selector/reading_list.html">
+            
+                <a href="../selector/reading_list.html">
+            
+                    
+                    相關閱讀
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.6" data-path="../selector/practice_simple_calculator.html">
+            
+                <a href="../selector/practice_simple_calculator.html">
+            
+                    
+                    練習：小計算機
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../category/">
+            
+                <a href="../category/">
+            
+                    
+                    Category
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../category/when_to_use_categories.html">
+            
+                <a href="../category/when_to_use_categories.html">
+            
+                    
+                    什麼時候應該要使用 Category
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../category/implementing_categories.html">
+            
+                <a href="../category/implementing_categories.html">
+            
+                    
+                    實作 Category
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="../category/other_usages.html">
+            
+                <a href="../category/other_usages.html">
+            
+                    
+                    Category 還可以有什麼用途？
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="../category/extensions.html">
+            
+                <a href="../category/extensions.html">
+            
+                    
+                    Extensions
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.5" data-path="../category/member_variables_and_categories.html">
+            
+                <a href="../category/member_variables_and_categories.html">
+            
+                    
+                    Category 是否可以增加新的成員變數或屬性？
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.6" data-path="../category/nsurlsessiontask.html">
+            
+                <a href="../category/nsurlsessiontask.html">
+            
+                    
+                    對 NSURLSessionTask 撰寫 Category
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.7" data-path="../category/reading_list.html">
+            
+                <a href="../category/reading_list.html">
+            
+                    
+                    相關閱讀
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.8" data-path="../category/practice_category_for_nsstring.html">
+            
+                <a href="../category/practice_category_for_nsstring.html">
+            
+                    
+                    練習：字串反轉
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../memory_management_part_1/">
+            
+                <a href="../memory_management_part_1/">
+            
+                    
+                    記憶體管理 Part 1 - Retain、Release
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../memory_management_part_1/reference_cout.html">
+            
+                <a href="../memory_management_part_1/reference_cout.html">
+            
+                    
+                    Reference Count/Retain/Release
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../memory_management_part_1/auto-release.html">
+            
+                <a href="../memory_management_part_1/auto-release.html">
+            
+                    
+                    Auto-release
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../memory_management_part_1/principles.html">
+            
+                <a href="../memory_management_part_1/principles.html">
+            
+                    
+                    基本原則
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="../memory_management_part_1/getter_setter.html">
+            
+                <a href="../memory_management_part_1/getter_setter.html">
+            
+                    
+                    Getter/Setter 與 Property 語法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" data-path="../memory_management_part_1/reading_list.html">
+            
+                <a href="../memory_management_part_1/reading_list.html">
+            
+                    
+                    相關閱讀
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../memory_management_part_2/">
+            
+                <a href="../memory_management_part_2/">
+            
+                    
+                    記憶體管理 Part 2 - ARC
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../memory_management_part_3/">
+            
+                <a href="../memory_management_part_3/">
+            
+                    
+                    記憶體管理 Part 3 - Memory Warnings
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../delegate/">
+            
+                <a href="../delegate/">
+            
+                    
+                    Delegate 與 Protocol
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="../delegate/other_platforms.html">
+            
+                <a href="../delegate/other_platforms.html">
+            
+                    
+                    從其他平台來看 Objective-C 的 Delegate
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.2" data-path="../delegate/designing_protocols.html">
+            
+                <a href="../delegate/designing_protocols.html">
+            
+                    
+                    設計 Protocol 與實作 Delegate 的方式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.3" data-path="../delegate/what_you_need_to_notice_while_designing_a_protocol.html">
+            
+                <a href="../delegate/what_you_need_to_notice_while_designing_a_protocol.html">
+            
+                    
+                    注意事項
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.4" data-path="../delegate/data_sources_and_delegates.html">
+            
+                <a href="../delegate/data_sources_and_delegates.html">
+            
+                    
+                    Data Source 與 Delegate 的差別？
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.5" data-path="../delegate/formal_and_informal_protocols.html">
+            
+                <a href="../delegate/formal_and_informal_protocols.html">
+            
+                    
+                    Formal Protocol 與 Informal Protocol
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.6" data-path="../delegate/delegate_anywhere.html">
+            
+                <a href="../delegate/delegate_anywhere.html">
+            
+                    
+                    無所不在的 Delegate
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.7" data-path="../delegate/so_called_delegates.html">
+            
+                <a href="../delegate/so_called_delegates.html">
+            
+                    
+                    其他平台上所謂的 Delegate
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.8" data-path="../delegate/the_mistakes_that_i_ever_made.html">
+            
+                <a href="../delegate/the_mistakes_that_i_ever_made.html">
+            
+                    
+                    我們曾經犯過的低級錯誤
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.9" data-path="../delegate/reading_list.html">
+            
+                <a href="../delegate/reading_list.html">
+            
+                    
+                    相關閱讀
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.10" data-path="../delegate/practice_snake_game.html">
+            
+                <a href="../delegate/practice_snake_game.html">
+            
+                    
+                    練習：貪食蛇
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="../unit_test/">
+            
+                <a href="../unit_test/">
+            
+                    
+                    單元測試
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="../unit_test/3a.html">
+            
+                <a href="../unit_test/3a.html">
+            
+                    
+                    AAA 原則
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.2" data-path="../unit_test/run_test.html">
+            
+                <a href="../unit_test/run_test.html">
+            
+                    
+                    執行測試
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.3" data-path="../unit_test/tdd.html">
+            
+                <a href="../unit_test/tdd.html">
+            
+                    
+                    測試驅動開發（TDD）
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.4" data-path="../unit_test/coverage.html">
+            
+                <a href="../unit_test/coverage.html">
+            
+                    
+                    覆蓋率
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.5" data-path="../unit_test/reading_list.html">
+            
+                <a href="../unit_test/reading_list.html">
+            
+                    
+                    相關閱讀
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="../blocks/">
+            
+                <a href="../blocks/">
+            
+                    
+                    Blocks
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.1" data-path="../blocks/synatx.html">
+            
+                <a href="../blocks/synatx.html">
+            
+                    
+                    Block 的語法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.2" data-path="../blocks/apis_used_to_be_implemented_with_delegates.html">
+            
+                <a href="../blocks/apis_used_to_be_implemented_with_delegates.html">
+            
+                    
+                    Block 如何代替了 Delegate
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.3" data-path="../blocks/blocks_and_delegate_both_could_be_event_handlers.html">
+            
+                <a href="../blocks/blocks_and_delegate_both_could_be_event_handlers.html">
+            
+                    
+                    Block 與 Delegate 都可以想成是 Event Handler
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.4" data-path="../blocks/when_to_use_blocks_and_delegates.html">
+            
+                <a href="../blocks/when_to_use_blocks_and_delegates.html">
+            
+                    
+                    什麼時候該用 Blocks？什麼時候該用 Delegate？
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.5" data-path="../blocks/keywords.html">
+            
+                <a href="../blocks/keywords.html">
+            
+                    
+                    block 與 weak 關鍵字
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.6" data-path="../blocks/blocks_as_objective-c_objects.html">
+            
+                <a href="../blocks/blocks_as_objective-c_objects.html">
+            
+                    
+                    Block 作為 Objective-C 物件
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.7" data-path="../blocks/when_not_to_use_blocks.html">
+            
+                <a href="../blocks/when_not_to_use_blocks.html">
+            
+                    
+                    哪些事情不要拿 Block 來做
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.8" data-path="../blocks/callback_hell.html">
+            
+                <a href="../blocks/callback_hell.html">
+            
+                    
+                    Callback Hell
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.9" data-path="../blocks/reading_list.html">
+            
+                <a href="../blocks/reading_list.html">
+            
+                    
+                    相關閱讀
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.10" data-path="../blocks/practice_web_service_sdk.html">
+            
+                <a href="../blocks/practice_web_service_sdk.html">
+            
+                    
+                    練習：將 Web Service API 包裝成 SDK
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.11" data-path="../blocks/practice_web_service_sdk2.html">
+            
+                <a href="../blocks/practice_web_service_sdk2.html">
+            
+                    
+                    練習：將 Web Service API 包裝成 SDK Part2
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="../notification_center/">
+            
+                <a href="../notification_center/">
+            
+                    
+                    Notification Center
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1" data-path="../notification_center/post_and_observe_notifications.html">
+            
+                <a href="../notification_center/post_and_observe_notifications.html">
+            
+                    
+                    接收與發送 Notification
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.2" data-path="../notification_center/notification_queue.html">
+            
+                <a href="../notification_center/notification_queue.html">
+            
+                    
+                    Notification Queue
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.3" data-path="../notification_center/notification_centers_on_mac.html">
+            
+                <a href="../notification_center/notification_centers_on_mac.html">
+            
+                    
+                    Mac 上的其他 Notification Center
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.4" data-path="../notification_center/cfnotificationcenter.html">
+            
+                <a href="../notification_center/cfnotificationcenter.html">
+            
+                    
+                    CFNotificationCenter
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.5" data-path="../notification_center/reading_list.html">
+            
+                <a href="../notification_center/reading_list.html">
+            
+                    
+                    相關閱讀
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.6" data-path="../notification_center/practice_word_game.html">
+            
+                <a href="../notification_center/practice_word_game.html">
+            
+                    
+                    練習：填字遊戲
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.7" data-path="../notification_center/practice_kknotificationcenter.html">
+            
+                <a href="../notification_center/practice_kknotificationcenter.html">
+            
+                    
+                    練習：自行實作 NSNotificationCenter
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="../design_patterns/">
+            
+                <a href="../design_patterns/">
+            
+                    
+                    所謂的設計模式
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.1" data-path="../design_patterns/graphs.html">
+            
+                <a href="../design_patterns/graphs.html">
+            
+                    
+                    圖解設計模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2" data-path="../design_patterns/why_design_patterns.html">
+            
+                <a href="../design_patterns/why_design_patterns.html">
+            
+                    
+                    為什麼要使用設計模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.3" data-path="../design_patterns/singleton.html">
+            
+                <a href="../design_patterns/singleton.html">
+            
+                    
+                    再談 Singleton
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.4" data-path="../design_patterns/practice_explore_frameworks.html">
+            
+                <a href="../design_patterns/practice_explore_frameworks.html">
+            
+                    
+                    練習：探索 Cocoa/Cocoa Touch Framework
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.5" data-path="../design_patterns/practice.html">
+            
+                <a href="../design_patterns/practice.html">
+            
+                    
+                    練習：閱讀程式碼
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="../uncategorized/">
+            
+                <a href="../uncategorized/">
+            
+                    
+                    一些新手常常搞混的東西
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.12.1" data-path="../uncategorized/boolean.html">
+            
+                <a href="../uncategorized/boolean.html">
+            
+                    
+                    bool 與 BOOL
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.2" data-path="../uncategorized/nsinterger.html">
+            
+                <a href="../uncategorized/nsinterger.html">
+            
+                    
+                    NSInteger 與 NSUInteger
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.3" data-path="../uncategorized/nil.html">
+            
+                <a href="../uncategorized/nil.html">
+            
+                    
+                    NULL、nil、Nil…
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="../responder/">
+            
+                <a href="../responder/">
+            
+                    
+                    Responder
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.13.1" data-path="../responder/run_loop.html">
+            
+                <a href="../responder/run_loop.html">
+            
+                    
+                    Run Loop
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13.2" data-path="../responder/application.html">
+            
+                <a href="../responder/application.html">
+            
+                    
+                    Application
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13.3" data-path="../responder/window.html">
+            
+                <a href="../responder/window.html">
+            
+                    
+                    Window
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13.4" data-path="../responder/view.html">
+            
+                <a href="../responder/view.html">
+            
+                    
+                    View
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13.5" data-path="../responder/viewcontroller.html">
+            
+                <a href="../responder/viewcontroller.html">
+            
+                    
+                    View Controller
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13.6" data-path="../responder/uitouch.html">
+            
+                <a href="../responder/uitouch.html">
+            
+                    
+                    UITouch
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13.7" data-path="../responder/reading_list.html">
+            
+                <a href="../responder/reading_list.html">
+            
+                    
+                    相關閱讀
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14" data-path="../threading/">
+            
+                <a href="../threading/">
+            
+                    
+                    Threading
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.14.1" data-path="../threading/perform_selector.html">
+            
+                <a href="../threading/perform_selector.html">
+            
+                    
+                    performSelector:
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.2" data-path="../threading/gcd.html">
+            
+                <a href="../threading/gcd.html">
+            
+                    
+                    GCD
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.3" data-path="../threading/nsoperation_and_nsoperationqueue.html">
+            
+                <a href="../threading/nsoperation_and_nsoperationqueue.html">
+            
+                    
+                    NSOperation 與 NSOperationQueue
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.4" data-path="../threading/reading_list.html">
+            
+                <a href="../threading/reading_list.html">
+            
+                    
+                    相關閱讀
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.5" data-path="../threading/practice.html">
+            
+                <a href="../threading/practice.html">
+            
+                    
+                    練習：一個發送多個連線的 Operation
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" data-path="../nscoding/">
+            
+                <a href="../nscoding/">
+            
+                    
+                    NSCoding
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.15.1" data-path="../nscoding/implementing_nscoding_protocol.html">
+            
+                <a href="../nscoding/implementing_nscoding_protocol.html">
+            
+                    
+                    實作 NSCoding
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.2" data-path="../nscoding/usages.html">
+            
+                <a href="../nscoding/usages.html">
+            
+                    
+                    常見用途
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.3" data-path="../nscoding/reading_list.html">
+            
+                <a href="../nscoding/reading_list.html">
+            
+                    
+                    相關閱讀
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Crash Reports
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.1" data-path="collection.html">
+            
+                <a href="collection.html">
+            
+                    
+                    如何收集 Crash Reports
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.16.2" data-path="memory.html">
+            
+                <a href="memory.html">
+            
+                    
+                    記憶體不足時產生的 Crash Report
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.3" data-path="3parts.html">
+            
+                <a href="3parts.html">
+            
+                    
+                    Crash Reports 的三部分
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4" data-path="symbolicate.html">
+            
+                <a href="symbolicate.html">
+            
+                    
+                    解開記憶體位置
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.5" data-path="crash_types.html">
+            
+                <a href="crash_types.html">
+            
+                    
+                    常見 Crash 的類型
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.6" data-path="zen.html">
+            
+                <a href="zen.html">
+            
+                    
+                    禪與 App 維修的藝術
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.7" data-path="crash_on_bad_access.html">
+            
+                <a href="crash_on_bad_access.html">
+            
+                    
+                    實戰：Bad Access
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.8" data-path="crash_on_category.html">
+            
+                <a href="crash_on_category.html">
+            
+                    
+                    實戰：因為 Category 造成的 Crash
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.8.1" data-path="crash_on_category_log.html">
+            
+                <a href="crash_on_category_log.html">
+            
+                    
+                    Crash Report
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.9" data-path="crash_on_exception_jb.html">
+            
+                <a href="crash_on_exception_jb.html">
+            
+                    
+                    實戰：JB 造成的 Exception
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.9.1" data-path="crash_on_exception_jb_log.html">
+            
+                <a href="crash_on_exception_jb_log.html">
+            
+                    
+                    Crash Report
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.10" data-path="crash_on_baskcground_task_too_long.html">
+            
+                <a href="crash_on_baskcground_task_too_long.html">
+            
+                    
+                    實戰：背景作業執行太久
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.10.1" data-path="crash_on_baskcground_task_too_long_log.html">
+            
+                <a href="crash_on_baskcground_task_too_long_log.html">
+            
+                    
+                    Crash Report
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.11" data-path="reading_list.html">
+            
+                <a href="reading_list.html">
+            
+                    
+                    相關閱讀
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.12" data-path="practice.html">
+            
+                <a href="practice.html">
+            
+                    
+                    練習：閱讀 Crash Reports
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17" data-path="../core_animation/">
+            
+                <a href="../core_animation/">
+            
+                    
+                    Core Animation
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.17.1" data-path="../core_animation/calayer.html">
+            
+                <a href="../core_animation/calayer.html">
+            
+                    
+                    CALayer
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.2" data-path="../core_animation/catransaction.html">
+            
+                <a href="../core_animation/catransaction.html">
+            
+                    
+                    CATransaction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.3" data-path="../core_animation/caanimation.html">
+            
+                <a href="../core_animation/caanimation.html">
+            
+                    
+                    CAAnimation
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.4" data-path="../core_animation/caanimation_details.html">
+            
+                <a href="../core_animation/caanimation_details.html">
+            
+                    
+                    CAAnimation 的細部設定
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.5" data-path="../core_animation/cadisplaylink.html">
+            
+                <a href="../core_animation/cadisplaylink.html">
+            
+                    
+                    CADisplayLink
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.6" data-path="../core_animation/mac.html">
+            
+                <a href="../core_animation/mac.html">
+            
+                    
+                    在 Mac 上使用 Core Animation
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.7" data-path="../core_animation/video.html">
+            
+                <a href="../core_animation/video.html">
+            
+                    
+                    教學影片
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.8" data-path="../core_animation/practice_rolling_lyrics.html">
+            
+                <a href="../core_animation/practice_rolling_lyrics.html">
+            
+                    
+                    練習：KKBOX 動態歌詞
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.9" data-path="../core_animation/practice_flappy_bird.html">
+            
+                <a href="../core_animation/practice_flappy_bird.html">
+            
+                    
+                    練習：Flappy Bird
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.10" data-path="../core_animation/practice_free_your_mind.html">
+            
+                <a href="../core_animation/practice_free_your_mind.html">
+            
+                    
+                    練習：自由發揮
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18" data-path="../audio_apis/">
+            
+                <a href="../audio_apis/">
+            
+                    
+                    Audio API
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.18.1" data-path="../audio_apis/basics.html">
+            
+                <a href="../audio_apis/basics.html">
+            
+                    
+                    基礎知識
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18.2" data-path="../audio_apis/audio_api_overview.html">
+            
+                <a href="../audio_apis/audio_api_overview.html">
+            
+                    
+                    iOS 與 Mac OS X 的 Audio API 概觀
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18.3" data-path="../audio_apis/audio_queue.html">
+            
+                <a href="../audio_apis/audio_queue.html">
+            
+                    
+                    使用 Audio Queue 開發播放軟體
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18.4" data-path="../audio_apis/audio_unit_graph.html">
+            
+                <a href="../audio_apis/audio_unit_graph.html">
+            
+                    
+                    使用 Audio Unit Processing Graph 開發播放軟體
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18.5" data-path="../audio_apis/connecting_audiounit.html">
+            
+                <a href="../audio_apis/connecting_audiounit.html">
+            
+                    
+                    在 AUGraph 中串接 AudioUnit
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18.6" data-path="../audio_apis/modify_pcm_data.html">
+            
+                <a href="../audio_apis/modify_pcm_data.html">
+            
+                    
+                    修改 LPCM 資料
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18.7" data-path="../audio_apis/core_audio_is_hard.html">
+            
+                <a href="../audio_apis/core_audio_is_hard.html">
+            
+                    
+                    Core Audio 到底難在哪？
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18.8" data-path="../audio_apis/avaudioengine.html">
+            
+                <a href="../audio_apis/avaudioengine.html">
+            
+                    
+                    使用 AVAudioEngine 開發播放軟體
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18.9" data-path="../audio_apis/migrate_to_avaudioengine.html">
+            
+                <a href="../audio_apis/migrate_to_avaudioengine.html">
+            
+                    
+                    從 Audio Unit Processing Graph 到 AVAudioEngine
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18.10" data-path="../audio_apis/audio_session.html">
+            
+                <a href="../audio_apis/audio_session.html">
+            
+                    
+                    Audio Session
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18.11" data-path="../audio_apis/complete_the_player.html">
+            
+                <a href="../audio_apis/complete_the_player.html">
+            
+                    
+                    打造 Player 的完整功能
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18.12" data-path="../audio_apis/carplay.html">
+            
+                <a href="../audio_apis/carplay.html">
+            
+                    
+                    CarPlay
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18.13" data-path="../audio_apis/mfi_hearing_aids.html">
+            
+                <a href="../audio_apis/mfi_hearing_aids.html">
+            
+                    
+                    MFI 助聽器
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18.14" data-path="../audio_apis/video.html">
+            
+                <a href="../audio_apis/video.html">
+            
+                    
+                    教學影片
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18.15" data-path="../audio_apis/reading_list.html">
+            
+                <a href="../audio_apis/reading_list.html">
+            
+                    
+                    相關閱讀
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18.16" data-path="../audio_apis/practice.html">
+            
+                <a href="../audio_apis/practice.html">
+            
+                    
+                    練習：iOS Audio Player 開發
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.19" data-path="../autolayout/">
+            
+                <a href="../autolayout/">
+            
+                    
+                    Auto Layout
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.19.1" data-path="../autolayout/what_is_constraint.html">
+            
+                <a href="../autolayout/what_is_constraint.html">
+            
+                    
+                    什麼是約束 (NSConstraint)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.19.2" data-path="../autolayout/intrinsic_content_size.html">
+            
+                <a href="../autolayout/intrinsic_content_size.html">
+            
+                    
+                    固有內容尺寸 (Intrinsic Content Size)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.19.3" data-path="../autolayout/uiscrollview_autolayout.html">
+            
+                <a href="../autolayout/uiscrollview_autolayout.html">
+            
+                    
+                    UIScrollView 與 Auto Layout
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.19.4" data-path="../autolayout/lifecycle_autolayout.html">
+            
+                <a href="../autolayout/lifecycle_autolayout.html">
+            
+                    
+                    .xib 在 UIViewController lifecycle 的陷阱
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.19.5" data-path="../autolayout/selfsizing_uitableviewcell.html">
+            
+                <a href="../autolayout/selfsizing_uitableviewcell.html">
+            
+                    
+                    Self-sizing UITableViewCell height
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.19.6" data-path="../autolayout/animation_autolayout.html">
+            
+                <a href="../autolayout/animation_autolayout.html">
+            
+                    
+                    Animation with Auto Layout
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.20" data-path="../accessibility/">
+            
+                <a href="../accessibility/">
+            
+                    
+                    Accessibility
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.20.1" data-path="../accessibility/use_voiceover.html">
+            
+                <a href="../accessibility/use_voiceover.html">
+            
+                    
+                    如何使用 VoiceOver
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.20.2" data-path="../accessibility/basic_supports.html">
+            
+                <a href="../accessibility/basic_supports.html">
+            
+                    
+                    基本支援
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.20.3" data-path="../accessibility/direction.html">
+            
+                <a href="../accessibility/direction.html">
+            
+                    
+                    VoiceOver 的方向
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.20.4" data-path="../accessibility/custom_views.html">
+            
+                <a href="../accessibility/custom_views.html">
+            
+                    
+                    進階的 Accessibility 設定
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.20.5" data-path="../accessibility/reading_list.html">
+            
+                <a href="../accessibility/reading_list.html">
+            
+                    
+                    相關閱讀
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.20.6" data-path="../accessibility/practice_rolling_lyrics.html">
+            
+                <a href="../accessibility/practice_rolling_lyrics.html">
+            
+                    
+                    練習：KKBOX 動態歌詞
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.21" data-path="../mac_webkit/">
+            
+                <a href="../mac_webkit/">
+            
+                    
+                    Mac 上的 WebKit
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.21.1" data-path="../mac_webkit/objc_dom.html">
+            
+                <a href="../mac_webkit/objc_dom.html">
+            
+                    
+                    用 Objective-C 操作 DOM
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.21.2" data-path="../mac_webkit/js_objc_bridge.html">
+            
+                <a href="../mac_webkit/js_objc_bridge.html">
+            
+                    
+                    JavaScript 與 Objective-C 的溝通
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.21.3" data-path="../mac_webkit/javascript_core.html">
+            
+                <a href="../mac_webkit/javascript_core.html">
+            
+                    
+                    JavaScriptCore
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.22" data-path="../final_thoughts/">
+            
+                <a href="../final_thoughts/">
+            
+                    
+                    小結
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.23" data-path="../reading_list/">
+            
+                <a href="../reading_list/">
+            
+                    
+                    其他閱讀資料
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.24" data-path="../changelog.html">
+            
+                <a href="../changelog.html">
+            
+                    
+                    版本記錄
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本書使用 GitBook 釋出
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >記憶體不足時產生的 Crash Report</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h2 id="&#x8A18;&#x61B6;&#x9AD4;&#x4E0D;&#x8DB3;&#x6642;&#x7522;&#x751F;&#x7684;-crash-report">&#x8A18;&#x61B6;&#x9AD4;&#x4E0D;&#x8DB3;&#x6642;&#x7522;&#x751F;&#x7684; Crash Report</h2>
+<p>&#x56E0;&#x70BA;&#x7CFB;&#x7D71;&#x6574;&#x9AD4;&#x8A18;&#x61B6;&#x9AD4;&#x4E0D;&#x8DB3;&#x6240;&#x7522;&#x751F;&#x7684; crash report&#xFF0C;&#x8207;&#x5176;&#x4ED6;&#x7684; crash report &#x9577;&#x5F97;&#x4E0D;&#x592A;&#x4E00;&#x6A23;&#x2014;&#x9019;&#x7A2E; crash report &#x4E2D;&#x53EA;&#x6703;&#x986F;&#x793A;&#x7576;&#x6642;&#x6BCF;&#x500B; process &#x4F7F;&#x7528;&#x4E86;&#x591A;&#x5C11;&#x7CFB;&#x7D71;&#x8CC7;&#x6E90;&#x3002;&#x6B64;&#x5916;&#xFF0C;&#x5C31;&#x50CF;&#x524D;&#x4E00;&#x7AE0;&#x8B1B;&#x5230;&#x7684;&#xFF0C;&#x4F60;&#x53EF;&#x80FD;&#x5F9E; Xcode &#x6216; iTunes Connect &#x4E0A;&#x8490;&#x96C6;&#x5230;&#x9019;&#x7A2E; crash report&#xFF0C;&#x5728; Crashlytics &#x6216; HockeyApp &#x4E0A;&#x627E;&#x4E0D;&#x5230;&#x3002;</p>
+<p>&#x7576;&#x6211;&#x5011;&#x5728;&#x95B1;&#x8B80;&#x9019;&#x985E;&#x578B; crash report &#x7684;&#x6642;&#x5019;&#xFF0C;&#x9700;&#x8981;&#x77E5;&#x9053; rpage &#x7684;&#x55AE;&#x4F4D;&#xFF0C;&#x4E00;&#x500B;
+rpage &#x76F8;&#x7576;&#x65BC; 4k &#x7684;&#x8A18;&#x61B6;&#x9AD4;&#x3002;&#x6240;&#x4EE5;&#x6211;&#x5011;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#xFF0C;&#x5728;&#x9019;&#x53F0; iPad Mini &#x4E0A;&#xFF0C;KKBOX
+&#x7528;&#x4E86;22810 &#x500B; rpage&#xFF0C;&#x6240;&#x4EE5; KKBOX &#x5927;&#x6982;&#x4F7F;&#x7528;&#x4E86; 87 MB &#x7684;&#x8A18;&#x61B6;&#x9AD4;&#xFF08;22810 * 4 /
+1024&#xFF09;&#x3002;</p>
+<p>&#x8981;&#x600E;&#x6A23;&#x4FEE;&#x6B63;&#x9019;&#x7A2E;&#x554F;&#x984C;&#x5462;&#xFF1F;&#x9996;&#x5148;&#xFF0C;87 MB &#x5728; iPad &#x4E0A;&#xFF0C;&#x5176;&#x5BE6;&#x4E0D;&#x7B97;&#x592A;&#x591A;&#xFF0C;&#x7531;&#x65BC;&#x8A18;&#x61B6;&#x9AD4;&#x4E0D;&#x8DB3;&#x4E0D;&#x898B;&#x5F97;&#x662F;&#x55AE;&#x4E00; App &#x7684;&#x554F;&#x984C;&#xFF0C;&#x800C;&#x662F;&#x6240;&#x6709;&#x7684; App &#x5171;&#x540C;&#x628A;&#x8A18;&#x61B6;&#x9AD4;&#x7528;&#x5B8C;&#x4E86;&#xFF0C;&#x6211;&#x5011;&#x770B;&#x5230;&#x5E7E;&#x500B;&#x7CFB;&#x7D71;&#x670D;&#x52D9;&#x4E5F;&#x628A;&#x8A18;&#x61B6;&#x9AD4;&#x7528;&#x5F97;&#x5F88;&#x5147;&#xFF0C;&#x50CF; mediaserverd&#xFF08;&#x7CFB;&#x7D71;&#x5E95;&#x5C64;&#x4E00;&#x500B;&#x7528;&#x4F86;&#x64AD;&#x653E;&#x5F71;&#x97F3;&#x7684; service&#xFF09;&#x7528;&#x4E86; 100 MB&#x3001;SpringBoard&#xFF08;&#x5C31;&#x662F; iOS &#x88DD;&#x7F6E;&#x6309;&#x4E0B; Home &#x6309;&#x9215;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x7684; App &#x5217;&#x8868;&#x756B;&#x9762;&#xFF09;&#x4E5F;&#x7528;&#x4E86;&#x5C07;&#x8FD1; 40 MB&#x3002;&#x6240;&#x4EE5;&#xFF0C;&#x6211;&#x5011;&#x53EF;&#x4EE5;&#x5148;&#x8A66;&#x8A66;&#x770B;&#x91CD;&#x65B0;&#x958B;&#x6A5F;&#xFF0C;&#x628A;&#x7CFB;&#x7D71;&#x670D;&#x52D9;&#x4F54;&#x7528;&#x7684;&#x8CC7;&#x6E90;&#x662F;&#x653E;&#x6389;&#xFF0C;&#x518D;&#x4F86;&#x770B;&#x770B;&#x57F7;&#x884C; KKBOX &#x6703;&#x4E0D;&#x6703;&#x51FA;&#x554F;&#x984C;&#x3002;</p>
+<p>&#x4E00;&#x500B; App &#x5230;&#x5E95;&#x53EF;&#x4EE5;&#x7528;&#x591A;&#x5C11;&#x8A18;&#x61B6;&#x9AD4;&#xFF1F;&#x860B;&#x679C;&#x4E00;&#x76F4;&#x6C92;&#x6709;&#x8AAA;&#x5F97;&#x5F88;&#x6E05;&#x695A;&#xFF0C;&#x6211;&#x5011;&#x6700;&#x65E9;&#x5728;
+iPhone 3G &#x4E0A;&#x958B;&#x767C; KKBOX &#x6642;&#xFF0C;KKBOX &#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x7684;&#x8A18;&#x61B6;&#x9AD4;&#x6975;&#x9650;&#x5927;&#x6982;&#x5728; 40 MB &#x5DE6;&#x53F3;&#xFF0C;&#x7531;&#x65BC;&#x6211;&#x5011;&#x9084;&#x8981;&#x628A;&#x4E00;&#x5B9A;&#x6BD4;&#x4F8B;&#x7684;&#x6B4C;&#x66F2;&#x8CC7;&#x6599;&#x8F09;&#x5165;&#x5230;&#x8A18;&#x61B6;&#x9AD4;&#x4E2D;&#xFF0C;&#x6240;&#x4EE5;&#x5728;&#x756B;&#x9762;&#x4E0A;&#x80FD;&#x4F7F;&#x7528;&#x7684;&#x8A18;&#x61B6;&#x9AD4;&#x5C31;&#x5FC5;&#x9808;&#x76E1;&#x91CF;&#x7BC0;&#x7701;&#x3002;&#x5728;&#x6BD4;&#x8F03;&#x5F8C;&#x4F86;&#x7684;&#x6A5F;&#x7A2E;&#x4E0A;&#xFF0C;&#x50CF; iPhone 5S &#x6216; iPad 3 &#x4E4B;&#x5F8C;&#xFF0C;&#x5927;&#x6982;&#x7528;&#x5230; 200MB &#x5DE6;&#x53F3;&#x90FD;&#x6C92;&#x554F;&#x984C;&#xFF0C;&#x7531;&#x65BC;&#x6BCF;&#x500B;&#x6A5F;&#x7A2E;&#x80FD;&#x7528;&#x7684;&#x8CC7;&#x6E90;&#x90FD;&#x4E0D;&#x592A;&#x4E00;&#x6A23;&#xFF0C;&#x9700;&#x8981;&#x7684;&#x6642;&#x5019;&#xFF0C;&#x6211;&#x5011;&#x53EF;&#x4EE5;&#x5BEB;&#x500B;&#x4E00;&#x76F4; alloc &#x8A18;&#x61B6;&#x9AD4;&#x7684;&#x8FF4;&#x5708;&#x505A;&#x5BE6;&#x9A57;&#xFF0C;&#x4E0D;&#x904E;&#x5728; KKBOX &#x9019;&#x908A;&#xFF0C;&#x6211;&#x5011;&#x624B;&#x4E0A;&#x7684;&#x88DD;&#x7F6E;&#x4E5F;&#x6C92;&#x6709;&#x5F88;&#x9F4A;&#x5168;&#x3002;</p>
+<p>&#x5982;&#x679C;&#x6211;&#x5011;&#x771F;&#x7684;&#x767C;&#x73FE; App &#x4E2D;&#x8A18;&#x61B6;&#x9AD4;&#x7528;&#x592A;&#x591A;&#xFF0C;&#x5C31;&#x53EA;&#x80FD;&#x5920;&#x60F3;&#x8FA6;&#x6CD5;&#x7BC0;&#x7701;&#x8A18;&#x61B6;&#x9AD4;&#x3002;&#x60F3;&#x8981;&#x7BC0;&#x7701;&#x8A18;&#x61B6;&#x9AD4;&#x7528;&#x91CF;&#xFF0C;&#x6700;&#x91CD;&#x8981;&#x7684;&#x539F;&#x5247;&#x5C31;&#x662F;&#x2014;&#x54EA;&#x908A;&#x7528;&#x4E86;&#x6BD4;&#x8F03;&#x591A;&#x7684;&#x8A18;&#x61B6;&#x9AD4;&#xFF0C;&#x4E0D;&#x8981;&#x900F;&#x904E;&#x95B1;&#x8B80;&#x7A0B;&#x5F0F;&#x78BC;&#x731C;&#x6E2C;&#xFF0C;&#x800C;&#x662F;&#x76F4;&#x63A5;&#x7528; Instrument &#x8DD1; profiling &#x89C0;&#x5BDF;&#xFF0C;&#x78BA;&#x5BE6;&#x627E;&#x5230;&#x8A18;&#x61B6;&#x9AD4;&#x7684;&#x74F6;&#x9838;&#x3002;</p>
+<p>&#x81F3;&#x65BC;&#x8981;&#x7BC0;&#x7701;&#x8A18;&#x61B6;&#x9AD4;&#x7528;&#x91CF;&#x7684;&#x4F5C;&#x6CD5;&#xFF0C;&#x5927;&#x6982;&#x5C31;&#x662F;&#xFF0C;&#x5982;&#x679C;&#x4E00;&#x4EFD;&#x8CC7;&#x6599;&#x5728;&#x7576;&#x4E0B;&#x6C92;&#x6709;&#x5FC5;&#x8981;&#x653E;&#x5728;&#x8A18;&#x61B6;&#x9AD4;&#x4E2D;&#xFF0C;&#x53EF;&#x4EE5;&#x8003;&#x616E;&#x5148;&#x653E;&#x5165;&#x6A94;&#x6848;&#x4E2D;&#xFF0C;&#x81F3;&#x65BC;&#x8981;&#x907F;&#x514D;&#x7522;&#x751F;&#x592A;&#x591A; view &#x4F54;&#x7528;&#x8A18;&#x61B6;&#x9AD4;&#xFF0C;&#x53EF;&#x4EE5;&#x53C3;&#x8003;
+<a href="../memory_management_part_3/">&#x8A18;&#x61B6;&#x9AD4;&#x7BA1;&#x7406; Part 3 - Memory Warnings</a>
+&#x9019;&#x4E00;&#x7AE0;&#x3002;</p>
+<p>&#x7BC4;&#x4F8B; crash report &#x5982;&#x4E0B;&#xFF1A;</p>
+<pre><code>Incident Identifier: 7BC7B59F-A13D-44C1-8D57-62508830C0C2
+CrashReporter Key:   fe242c8a27a16318ac7bbe16c6fbaaff6ce8a3a0
+Hardware Model:      iPad2,5
+OS Version:          iPhone OS 7.0.4 (11B554a)
+Kernel Version:      Darwin Kernel Version 14.0.0: Fri Sep 27 23:00:49 PDT 2013; root:xnu-2423.3.12~1/RELEASE_ARM_S5L8942X
+Date:                2015-08-07 11:20:54 +0800
+Time since snapshot: 56 ms
+
+Free pages:                              922
+Active pages:                            3697
+Inactive pages:                          2197
+Speculative pages:                       7
+Throttled pages:                         74156
+Purgeable pages:                         0
+Wired pages:                             47617
+File-backed pages:                       5424
+Anonymous pages:                         477
+Compressions:                            0
+Decompressions:                          0
+Compressor Size:                         0
+Uncompressed Pages in Compressor:        0
+Largest process:   mediaserverd
+
+Processes
+     Name                    &lt;UUID&gt;                       rpages       recent_max   fds      [reason]          (state)
+
+      MobileMail &lt;b3574f4bded1315cb2e50e5de205be48&gt;         1113             1113  200   [vm-pageshortage]  (resume) (continuous)
+            tccd &lt;1fea8c5a71943151b5cd304c7eb0fd8c&gt;          170              170  200   [vm-pageshortage]  (daemon)
+             kbd &lt;be2d64e41bf43e48a09a23fb129eb0b4&gt;          381              381  200   [vm-pageshortage]  (daemon)
+           KKBOX &lt;8367b00614e735f5861044b98c96cd1c&gt;        22810            22810  200   [vm-pageshortage]  (frontmost) (resume)
+            ptpd &lt;db9048c36f6c3c18a7330fc96d93a0cf&gt;          657              657  200                      (daemon)
+identityservices &lt;18cc20db2e4739a782cc8e38e03eff52&gt;          349              349  200                      (daemon)
+         syslogd &lt;6539f4cf4dcf34daadf1d99991926680&gt;          157              157   50                      (daemon)
+          powerd &lt;0a253ac2a99236809422214be1700bc0&gt;          121              121  100                      (daemon)
+         imagent &lt;bef102e1faef39209926fb25f428a71e&gt;          298              298  100                      (daemon)
+   iaptransportd &lt;42faa147f61a314bb735e239f445efaf&gt;          219              219   50                      (daemon)
+   mDNSResponder &lt;8922e9954d893eb9a1ab27ca4723bbab&gt;          228              228  100                      (daemon)
+            apsd &lt;0dd1fd7c2edc3cf9899a4830541c1bac&gt;          468              468  100                      (daemon)
+     dataaccessd &lt;5da732b6ce6935f2928461a022101aba&gt;         1228             1228  200                      (daemon)
+    mediaremoted &lt;476eb521b8423428b4e6df20d3fe4091&gt;          327              327   50                      (daemon)
+           wifid &lt;a5cf99e5a0f032a69bc2f65050b44291&gt;         1859             1859  200                      (daemon)
+    mediaserverd &lt;71101024312538ccae5799b88681e38d&gt;        25807            25807  200                      (daemon)
+        sharingd &lt;a95c2cea41b43cc69b0bbe9a03730d45&gt;          460              460  200                      (daemon)
+      calaccessd &lt;77a5672f2f653f64acf7367126a8d173&gt;          420              420  200                      (daemon)
+    itunesstored &lt;c52ea3e4aceb398e9a98ff595c17669f&gt;         1576             1576  200                      (daemon)
+       locationd &lt;c31643022d833911b8b7461fd3964bd5&gt;         2497             2497  200                      (daemon)
+    syslog_relay &lt;c4c1e88d92a537888b15d6118c5fa1d1&gt;          107              107  200                      (daemon)
+     SpringBoard &lt;3c0e305139b331c6b37d2e9516f5804f&gt;        10207            10207  200
+      backboardd &lt;d61df126c4673b25bbfe5d9024be1d48&gt;        13495            13495   50                      (daemon)
+      aggregated &lt;a5dda46586ba3a3cbb298bd8aa545e50&gt;          666              666   50                      (daemon)
+       lockdownd &lt;6f28a28a0025348aa5361078e41914e3&gt;          340              340  100                      (daemon)
+    fairplayd.A2 &lt;6cae0c124e1830598a43f6b4d790917f&gt;          141              141  100                      (daemon)
+         configd &lt;c57db43e53a73f8a9360f4d0d9001704&gt;          686              686  100                      (daemon)
+       fseventsd &lt;5c909a70b62f33c8856e3158834ba071&gt;          336              336  100                      (daemon)
+        BTServer &lt;3933a8148924316b9f19dd3d10a23f00&gt;         3891             3891  100                      (daemon)
+       distnoted &lt;38616bd8864034e7bc741f8bd7313349&gt;         1187             1187  100                      (daemon)
+  UserEventAgent &lt;a3c7e56924ec3690a994a75a0ea79ee8&gt;          850              850  100                      (daemon)
+        networkd &lt;84dfdb49c24132fa8dd10520deb16645&gt;          523              523  100                      (daemon)
+filecoordination &lt;4fa03f2b93363668a1159715de4b0270&gt;          186              186  200                      (daemon)
+EscrowSecurityAl &lt;65547599d6d331f2aec702509cbb1079&gt;          175              175  200                      (daemon)
+    itunescloudd &lt;9a38b56ee4fd3c308766da99af8eeaed&gt;          932              932  200                      (daemon)
+     touchsetupd &lt;02780826b4263a7498bda167721b5f8c&gt;          163              163  200                      (daemon)
+            afcd &lt;5c18557c26f73b88a54ad94f3cd06d0c&gt;          113              113  200                      (daemon)
+notification_pro &lt;852af3fe832e3cc3a3f31d05511a5482&gt;          124              124  200                      (daemon)
+          cplogd &lt;148e9e2ff86130ecb63423c183f68da5&gt;          137              137  200                      (daemon)
+     pasteboardd &lt;6bb2d8a2beb530b095c82dc2c1cda0f7&gt;          119              119  200                      (daemon)
+   wirelessproxd &lt;46066fc432663d45ab7e055082fe0bd6&gt;           11               11  200                      (daemon)
+CommCenterClassi &lt;b836b786e0cb3785a18a94e9b13c9991&gt;          363              363   50                      (daemon)
+         notifyd &lt;35afacabfed73771889e72a017479709&gt;          251              251  100                      (daemon)
+</code></pre><script type="text/javascript">var targetUl = document.getElementsByClassName('page-inner')[0].getElementsByTagName('ul')[0];if(targetUl.getElementsByTagName('a').length>0){targetUl.className='toc';}</script>
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="collection.html" class="navigation navigation-prev " aria-label="Previous page: 如何收集 Crash Reports">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="3parts.html" class="navigation navigation-next " aria-label="Next page: Crash Reports 的三部分">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"記憶體不足時產生的 Crash Report","level":"1.16.2","depth":2,"next":{"title":"Crash Reports 的三部分","level":"1.16.3","depth":2,"path":"crash_reports/3parts.md","ref":"crash_reports/3parts.md","articles":[]},"previous":{"title":"如何收集 Crash Reports","level":"1.16.1","depth":2,"path":"crash_reports/collection.md","ref":"crash_reports/collection.md","articles":[]},"dir":"ltr"},"config":{"plugins":["japanese-support","toc","tree"],"styles":{"website":"styles/website.css","ebook":"styles/ebook.css","pdf":"styles/pdf.css","mobi":"styles/mobi.css","epub":"styles/epub.css"},"pluginsConfig":{"toc":{"addClass":true,"className":"toc"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"japanese-support":{},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"tree":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"version":"2.4.0","title":"KKBOX iOS/Mac OS X 基礎開發教材","language":"zh-TW","gitbook":"*"},"file":{"path":"crash_reports/memory.md","mtime":"2020-03-17T04:52:15.791Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-03-17T04:53:02.596Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-tree/jquery.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-tree/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

@@ -1,0 +1,2635 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-TW" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>JavaScript 與 Objective-C 的溝通 · KKBOX iOS/Mac OS X 基礎開發教材</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-tree/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+        <link rel="stylesheet" href="../styles/website.css">
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="javascript_core.html" />
+    
+    
+    <link rel="prev" href="objc_dom.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="輸入並搜尋" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    前言
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../selector/">
+            
+                <a href="../selector/">
+            
+                    
+                    Selector
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../selector/what_are_objective-c_classes.html">
+            
+                <a href="../selector/what_are_objective-c_classes.html">
+            
+                    
+                    Objective-C Class/Object 到底是什麼？
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../selector/usage.html">
+            
+                <a href="../selector/usage.html">
+            
+                    
+                    Selector 有什麼用途？
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="../selector/what_you_way_need_to_notice_on_calling_performselecotr.html">
+            
+                <a href="../selector/what_you_way_need_to_notice_on_calling_performselecotr.html">
+            
+                    
+                    呼叫 performSelector: 需要注意的地方
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4" data-path="../selector/selector_is_where_the_magic_begins.html">
+            
+                <a href="../selector/selector_is_where_the_magic_begins.html">
+            
+                    
+                    Selector 是 Objective-C 中所有魔法的開始
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.5" data-path="../selector/reading_list.html">
+            
+                <a href="../selector/reading_list.html">
+            
+                    
+                    相關閱讀
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.6" data-path="../selector/practice_simple_calculator.html">
+            
+                <a href="../selector/practice_simple_calculator.html">
+            
+                    
+                    練習：小計算機
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../category/">
+            
+                <a href="../category/">
+            
+                    
+                    Category
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../category/when_to_use_categories.html">
+            
+                <a href="../category/when_to_use_categories.html">
+            
+                    
+                    什麼時候應該要使用 Category
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../category/implementing_categories.html">
+            
+                <a href="../category/implementing_categories.html">
+            
+                    
+                    實作 Category
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="../category/other_usages.html">
+            
+                <a href="../category/other_usages.html">
+            
+                    
+                    Category 還可以有什麼用途？
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="../category/extensions.html">
+            
+                <a href="../category/extensions.html">
+            
+                    
+                    Extensions
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.5" data-path="../category/member_variables_and_categories.html">
+            
+                <a href="../category/member_variables_and_categories.html">
+            
+                    
+                    Category 是否可以增加新的成員變數或屬性？
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.6" data-path="../category/nsurlsessiontask.html">
+            
+                <a href="../category/nsurlsessiontask.html">
+            
+                    
+                    對 NSURLSessionTask 撰寫 Category
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.7" data-path="../category/reading_list.html">
+            
+                <a href="../category/reading_list.html">
+            
+                    
+                    相關閱讀
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.8" data-path="../category/practice_category_for_nsstring.html">
+            
+                <a href="../category/practice_category_for_nsstring.html">
+            
+                    
+                    練習：字串反轉
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../memory_management_part_1/">
+            
+                <a href="../memory_management_part_1/">
+            
+                    
+                    記憶體管理 Part 1 - Retain、Release
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../memory_management_part_1/reference_cout.html">
+            
+                <a href="../memory_management_part_1/reference_cout.html">
+            
+                    
+                    Reference Count/Retain/Release
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../memory_management_part_1/auto-release.html">
+            
+                <a href="../memory_management_part_1/auto-release.html">
+            
+                    
+                    Auto-release
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../memory_management_part_1/principles.html">
+            
+                <a href="../memory_management_part_1/principles.html">
+            
+                    
+                    基本原則
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="../memory_management_part_1/getter_setter.html">
+            
+                <a href="../memory_management_part_1/getter_setter.html">
+            
+                    
+                    Getter/Setter 與 Property 語法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" data-path="../memory_management_part_1/reading_list.html">
+            
+                <a href="../memory_management_part_1/reading_list.html">
+            
+                    
+                    相關閱讀
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../memory_management_part_2/">
+            
+                <a href="../memory_management_part_2/">
+            
+                    
+                    記憶體管理 Part 2 - ARC
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../memory_management_part_3/">
+            
+                <a href="../memory_management_part_3/">
+            
+                    
+                    記憶體管理 Part 3 - Memory Warnings
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../delegate/">
+            
+                <a href="../delegate/">
+            
+                    
+                    Delegate 與 Protocol
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="../delegate/other_platforms.html">
+            
+                <a href="../delegate/other_platforms.html">
+            
+                    
+                    從其他平台來看 Objective-C 的 Delegate
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.2" data-path="../delegate/designing_protocols.html">
+            
+                <a href="../delegate/designing_protocols.html">
+            
+                    
+                    設計 Protocol 與實作 Delegate 的方式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.3" data-path="../delegate/what_you_need_to_notice_while_designing_a_protocol.html">
+            
+                <a href="../delegate/what_you_need_to_notice_while_designing_a_protocol.html">
+            
+                    
+                    注意事項
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.4" data-path="../delegate/data_sources_and_delegates.html">
+            
+                <a href="../delegate/data_sources_and_delegates.html">
+            
+                    
+                    Data Source 與 Delegate 的差別？
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.5" data-path="../delegate/formal_and_informal_protocols.html">
+            
+                <a href="../delegate/formal_and_informal_protocols.html">
+            
+                    
+                    Formal Protocol 與 Informal Protocol
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.6" data-path="../delegate/delegate_anywhere.html">
+            
+                <a href="../delegate/delegate_anywhere.html">
+            
+                    
+                    無所不在的 Delegate
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.7" data-path="../delegate/so_called_delegates.html">
+            
+                <a href="../delegate/so_called_delegates.html">
+            
+                    
+                    其他平台上所謂的 Delegate
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.8" data-path="../delegate/the_mistakes_that_i_ever_made.html">
+            
+                <a href="../delegate/the_mistakes_that_i_ever_made.html">
+            
+                    
+                    我們曾經犯過的低級錯誤
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.9" data-path="../delegate/reading_list.html">
+            
+                <a href="../delegate/reading_list.html">
+            
+                    
+                    相關閱讀
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.10" data-path="../delegate/practice_snake_game.html">
+            
+                <a href="../delegate/practice_snake_game.html">
+            
+                    
+                    練習：貪食蛇
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="../unit_test/">
+            
+                <a href="../unit_test/">
+            
+                    
+                    單元測試
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="../unit_test/3a.html">
+            
+                <a href="../unit_test/3a.html">
+            
+                    
+                    AAA 原則
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.2" data-path="../unit_test/run_test.html">
+            
+                <a href="../unit_test/run_test.html">
+            
+                    
+                    執行測試
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.3" data-path="../unit_test/tdd.html">
+            
+                <a href="../unit_test/tdd.html">
+            
+                    
+                    測試驅動開發（TDD）
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.4" data-path="../unit_test/coverage.html">
+            
+                <a href="../unit_test/coverage.html">
+            
+                    
+                    覆蓋率
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.5" data-path="../unit_test/reading_list.html">
+            
+                <a href="../unit_test/reading_list.html">
+            
+                    
+                    相關閱讀
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="../blocks/">
+            
+                <a href="../blocks/">
+            
+                    
+                    Blocks
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.1" data-path="../blocks/synatx.html">
+            
+                <a href="../blocks/synatx.html">
+            
+                    
+                    Block 的語法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.2" data-path="../blocks/apis_used_to_be_implemented_with_delegates.html">
+            
+                <a href="../blocks/apis_used_to_be_implemented_with_delegates.html">
+            
+                    
+                    Block 如何代替了 Delegate
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.3" data-path="../blocks/blocks_and_delegate_both_could_be_event_handlers.html">
+            
+                <a href="../blocks/blocks_and_delegate_both_could_be_event_handlers.html">
+            
+                    
+                    Block 與 Delegate 都可以想成是 Event Handler
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.4" data-path="../blocks/when_to_use_blocks_and_delegates.html">
+            
+                <a href="../blocks/when_to_use_blocks_and_delegates.html">
+            
+                    
+                    什麼時候該用 Blocks？什麼時候該用 Delegate？
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.5" data-path="../blocks/keywords.html">
+            
+                <a href="../blocks/keywords.html">
+            
+                    
+                    block 與 weak 關鍵字
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.6" data-path="../blocks/blocks_as_objective-c_objects.html">
+            
+                <a href="../blocks/blocks_as_objective-c_objects.html">
+            
+                    
+                    Block 作為 Objective-C 物件
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.7" data-path="../blocks/when_not_to_use_blocks.html">
+            
+                <a href="../blocks/when_not_to_use_blocks.html">
+            
+                    
+                    哪些事情不要拿 Block 來做
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.8" data-path="../blocks/callback_hell.html">
+            
+                <a href="../blocks/callback_hell.html">
+            
+                    
+                    Callback Hell
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.9" data-path="../blocks/reading_list.html">
+            
+                <a href="../blocks/reading_list.html">
+            
+                    
+                    相關閱讀
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.10" data-path="../blocks/practice_web_service_sdk.html">
+            
+                <a href="../blocks/practice_web_service_sdk.html">
+            
+                    
+                    練習：將 Web Service API 包裝成 SDK
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.11" data-path="../blocks/practice_web_service_sdk2.html">
+            
+                <a href="../blocks/practice_web_service_sdk2.html">
+            
+                    
+                    練習：將 Web Service API 包裝成 SDK Part2
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="../notification_center/">
+            
+                <a href="../notification_center/">
+            
+                    
+                    Notification Center
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1" data-path="../notification_center/post_and_observe_notifications.html">
+            
+                <a href="../notification_center/post_and_observe_notifications.html">
+            
+                    
+                    接收與發送 Notification
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.2" data-path="../notification_center/notification_queue.html">
+            
+                <a href="../notification_center/notification_queue.html">
+            
+                    
+                    Notification Queue
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.3" data-path="../notification_center/notification_centers_on_mac.html">
+            
+                <a href="../notification_center/notification_centers_on_mac.html">
+            
+                    
+                    Mac 上的其他 Notification Center
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.4" data-path="../notification_center/cfnotificationcenter.html">
+            
+                <a href="../notification_center/cfnotificationcenter.html">
+            
+                    
+                    CFNotificationCenter
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.5" data-path="../notification_center/reading_list.html">
+            
+                <a href="../notification_center/reading_list.html">
+            
+                    
+                    相關閱讀
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.6" data-path="../notification_center/practice_word_game.html">
+            
+                <a href="../notification_center/practice_word_game.html">
+            
+                    
+                    練習：填字遊戲
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.7" data-path="../notification_center/practice_kknotificationcenter.html">
+            
+                <a href="../notification_center/practice_kknotificationcenter.html">
+            
+                    
+                    練習：自行實作 NSNotificationCenter
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="../design_patterns/">
+            
+                <a href="../design_patterns/">
+            
+                    
+                    所謂的設計模式
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.1" data-path="../design_patterns/graphs.html">
+            
+                <a href="../design_patterns/graphs.html">
+            
+                    
+                    圖解設計模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2" data-path="../design_patterns/why_design_patterns.html">
+            
+                <a href="../design_patterns/why_design_patterns.html">
+            
+                    
+                    為什麼要使用設計模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.3" data-path="../design_patterns/singleton.html">
+            
+                <a href="../design_patterns/singleton.html">
+            
+                    
+                    再談 Singleton
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.4" data-path="../design_patterns/practice_explore_frameworks.html">
+            
+                <a href="../design_patterns/practice_explore_frameworks.html">
+            
+                    
+                    練習：探索 Cocoa/Cocoa Touch Framework
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.5" data-path="../design_patterns/practice.html">
+            
+                <a href="../design_patterns/practice.html">
+            
+                    
+                    練習：閱讀程式碼
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="../uncategorized/">
+            
+                <a href="../uncategorized/">
+            
+                    
+                    一些新手常常搞混的東西
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.12.1" data-path="../uncategorized/boolean.html">
+            
+                <a href="../uncategorized/boolean.html">
+            
+                    
+                    bool 與 BOOL
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.2" data-path="../uncategorized/nsinterger.html">
+            
+                <a href="../uncategorized/nsinterger.html">
+            
+                    
+                    NSInteger 與 NSUInteger
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.3" data-path="../uncategorized/nil.html">
+            
+                <a href="../uncategorized/nil.html">
+            
+                    
+                    NULL、nil、Nil…
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="../responder/">
+            
+                <a href="../responder/">
+            
+                    
+                    Responder
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.13.1" data-path="../responder/run_loop.html">
+            
+                <a href="../responder/run_loop.html">
+            
+                    
+                    Run Loop
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13.2" data-path="../responder/application.html">
+            
+                <a href="../responder/application.html">
+            
+                    
+                    Application
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13.3" data-path="../responder/window.html">
+            
+                <a href="../responder/window.html">
+            
+                    
+                    Window
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13.4" data-path="../responder/view.html">
+            
+                <a href="../responder/view.html">
+            
+                    
+                    View
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13.5" data-path="../responder/viewcontroller.html">
+            
+                <a href="../responder/viewcontroller.html">
+            
+                    
+                    View Controller
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13.6" data-path="../responder/uitouch.html">
+            
+                <a href="../responder/uitouch.html">
+            
+                    
+                    UITouch
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13.7" data-path="../responder/reading_list.html">
+            
+                <a href="../responder/reading_list.html">
+            
+                    
+                    相關閱讀
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14" data-path="../threading/">
+            
+                <a href="../threading/">
+            
+                    
+                    Threading
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.14.1" data-path="../threading/perform_selector.html">
+            
+                <a href="../threading/perform_selector.html">
+            
+                    
+                    performSelector:
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.2" data-path="../threading/gcd.html">
+            
+                <a href="../threading/gcd.html">
+            
+                    
+                    GCD
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.3" data-path="../threading/nsoperation_and_nsoperationqueue.html">
+            
+                <a href="../threading/nsoperation_and_nsoperationqueue.html">
+            
+                    
+                    NSOperation 與 NSOperationQueue
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.4" data-path="../threading/reading_list.html">
+            
+                <a href="../threading/reading_list.html">
+            
+                    
+                    相關閱讀
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.5" data-path="../threading/practice.html">
+            
+                <a href="../threading/practice.html">
+            
+                    
+                    練習：一個發送多個連線的 Operation
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" data-path="../nscoding/">
+            
+                <a href="../nscoding/">
+            
+                    
+                    NSCoding
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.15.1" data-path="../nscoding/implementing_nscoding_protocol.html">
+            
+                <a href="../nscoding/implementing_nscoding_protocol.html">
+            
+                    
+                    實作 NSCoding
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.2" data-path="../nscoding/usages.html">
+            
+                <a href="../nscoding/usages.html">
+            
+                    
+                    常見用途
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.3" data-path="../nscoding/reading_list.html">
+            
+                <a href="../nscoding/reading_list.html">
+            
+                    
+                    相關閱讀
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16" data-path="../crash_reports/">
+            
+                <a href="../crash_reports/">
+            
+                    
+                    Crash Reports
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.1" data-path="../crash_reports/collection.html">
+            
+                <a href="../crash_reports/collection.html">
+            
+                    
+                    如何收集 Crash Reports
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2" data-path="../crash_reports/memory.html">
+            
+                <a href="../crash_reports/memory.html">
+            
+                    
+                    記憶體不足時產生的 Crash Report
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.3" data-path="../crash_reports/3parts.html">
+            
+                <a href="../crash_reports/3parts.html">
+            
+                    
+                    Crash Reports 的三部分
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4" data-path="../crash_reports/symbolicate.html">
+            
+                <a href="../crash_reports/symbolicate.html">
+            
+                    
+                    解開記憶體位置
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.5" data-path="../crash_reports/crash_types.html">
+            
+                <a href="../crash_reports/crash_types.html">
+            
+                    
+                    常見 Crash 的類型
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.6" data-path="../crash_reports/zen.html">
+            
+                <a href="../crash_reports/zen.html">
+            
+                    
+                    禪與 App 維修的藝術
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.7" data-path="../crash_reports/crash_on_bad_access.html">
+            
+                <a href="../crash_reports/crash_on_bad_access.html">
+            
+                    
+                    實戰：Bad Access
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.8" data-path="../crash_reports/crash_on_category.html">
+            
+                <a href="../crash_reports/crash_on_category.html">
+            
+                    
+                    實戰：因為 Category 造成的 Crash
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.8.1" data-path="../crash_reports/crash_on_category_log.html">
+            
+                <a href="../crash_reports/crash_on_category_log.html">
+            
+                    
+                    Crash Report
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.9" data-path="../crash_reports/crash_on_exception_jb.html">
+            
+                <a href="../crash_reports/crash_on_exception_jb.html">
+            
+                    
+                    實戰：JB 造成的 Exception
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.9.1" data-path="../crash_reports/crash_on_exception_jb_log.html">
+            
+                <a href="../crash_reports/crash_on_exception_jb_log.html">
+            
+                    
+                    Crash Report
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.10" data-path="../crash_reports/crash_on_baskcground_task_too_long.html">
+            
+                <a href="../crash_reports/crash_on_baskcground_task_too_long.html">
+            
+                    
+                    實戰：背景作業執行太久
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.10.1" data-path="../crash_reports/crash_on_baskcground_task_too_long_log.html">
+            
+                <a href="../crash_reports/crash_on_baskcground_task_too_long_log.html">
+            
+                    
+                    Crash Report
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.11" data-path="../crash_reports/reading_list.html">
+            
+                <a href="../crash_reports/reading_list.html">
+            
+                    
+                    相關閱讀
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.12" data-path="../crash_reports/practice.html">
+            
+                <a href="../crash_reports/practice.html">
+            
+                    
+                    練習：閱讀 Crash Reports
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17" data-path="../core_animation/">
+            
+                <a href="../core_animation/">
+            
+                    
+                    Core Animation
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.17.1" data-path="../core_animation/calayer.html">
+            
+                <a href="../core_animation/calayer.html">
+            
+                    
+                    CALayer
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.2" data-path="../core_animation/catransaction.html">
+            
+                <a href="../core_animation/catransaction.html">
+            
+                    
+                    CATransaction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.3" data-path="../core_animation/caanimation.html">
+            
+                <a href="../core_animation/caanimation.html">
+            
+                    
+                    CAAnimation
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.4" data-path="../core_animation/caanimation_details.html">
+            
+                <a href="../core_animation/caanimation_details.html">
+            
+                    
+                    CAAnimation 的細部設定
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.5" data-path="../core_animation/cadisplaylink.html">
+            
+                <a href="../core_animation/cadisplaylink.html">
+            
+                    
+                    CADisplayLink
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.6" data-path="../core_animation/mac.html">
+            
+                <a href="../core_animation/mac.html">
+            
+                    
+                    在 Mac 上使用 Core Animation
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.7" data-path="../core_animation/video.html">
+            
+                <a href="../core_animation/video.html">
+            
+                    
+                    教學影片
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.8" data-path="../core_animation/practice_rolling_lyrics.html">
+            
+                <a href="../core_animation/practice_rolling_lyrics.html">
+            
+                    
+                    練習：KKBOX 動態歌詞
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.9" data-path="../core_animation/practice_flappy_bird.html">
+            
+                <a href="../core_animation/practice_flappy_bird.html">
+            
+                    
+                    練習：Flappy Bird
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.10" data-path="../core_animation/practice_free_your_mind.html">
+            
+                <a href="../core_animation/practice_free_your_mind.html">
+            
+                    
+                    練習：自由發揮
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18" data-path="../audio_apis/">
+            
+                <a href="../audio_apis/">
+            
+                    
+                    Audio API
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.18.1" data-path="../audio_apis/basics.html">
+            
+                <a href="../audio_apis/basics.html">
+            
+                    
+                    基礎知識
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18.2" data-path="../audio_apis/audio_api_overview.html">
+            
+                <a href="../audio_apis/audio_api_overview.html">
+            
+                    
+                    iOS 與 Mac OS X 的 Audio API 概觀
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18.3" data-path="../audio_apis/audio_queue.html">
+            
+                <a href="../audio_apis/audio_queue.html">
+            
+                    
+                    使用 Audio Queue 開發播放軟體
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18.4" data-path="../audio_apis/audio_unit_graph.html">
+            
+                <a href="../audio_apis/audio_unit_graph.html">
+            
+                    
+                    使用 Audio Unit Processing Graph 開發播放軟體
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18.5" data-path="../audio_apis/connecting_audiounit.html">
+            
+                <a href="../audio_apis/connecting_audiounit.html">
+            
+                    
+                    在 AUGraph 中串接 AudioUnit
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18.6" data-path="../audio_apis/modify_pcm_data.html">
+            
+                <a href="../audio_apis/modify_pcm_data.html">
+            
+                    
+                    修改 LPCM 資料
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18.7" data-path="../audio_apis/core_audio_is_hard.html">
+            
+                <a href="../audio_apis/core_audio_is_hard.html">
+            
+                    
+                    Core Audio 到底難在哪？
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18.8" data-path="../audio_apis/avaudioengine.html">
+            
+                <a href="../audio_apis/avaudioengine.html">
+            
+                    
+                    使用 AVAudioEngine 開發播放軟體
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18.9" data-path="../audio_apis/migrate_to_avaudioengine.html">
+            
+                <a href="../audio_apis/migrate_to_avaudioengine.html">
+            
+                    
+                    從 Audio Unit Processing Graph 到 AVAudioEngine
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18.10" data-path="../audio_apis/audio_session.html">
+            
+                <a href="../audio_apis/audio_session.html">
+            
+                    
+                    Audio Session
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18.11" data-path="../audio_apis/complete_the_player.html">
+            
+                <a href="../audio_apis/complete_the_player.html">
+            
+                    
+                    打造 Player 的完整功能
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18.12" data-path="../audio_apis/carplay.html">
+            
+                <a href="../audio_apis/carplay.html">
+            
+                    
+                    CarPlay
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18.13" data-path="../audio_apis/mfi_hearing_aids.html">
+            
+                <a href="../audio_apis/mfi_hearing_aids.html">
+            
+                    
+                    MFI 助聽器
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18.14" data-path="../audio_apis/video.html">
+            
+                <a href="../audio_apis/video.html">
+            
+                    
+                    教學影片
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18.15" data-path="../audio_apis/reading_list.html">
+            
+                <a href="../audio_apis/reading_list.html">
+            
+                    
+                    相關閱讀
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18.16" data-path="../audio_apis/practice.html">
+            
+                <a href="../audio_apis/practice.html">
+            
+                    
+                    練習：iOS Audio Player 開發
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.19" data-path="../autolayout/">
+            
+                <a href="../autolayout/">
+            
+                    
+                    Auto Layout
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.19.1" data-path="../autolayout/what_is_constraint.html">
+            
+                <a href="../autolayout/what_is_constraint.html">
+            
+                    
+                    什麼是約束 (NSConstraint)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.19.2" data-path="../autolayout/intrinsic_content_size.html">
+            
+                <a href="../autolayout/intrinsic_content_size.html">
+            
+                    
+                    固有內容尺寸 (Intrinsic Content Size)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.19.3" data-path="../autolayout/uiscrollview_autolayout.html">
+            
+                <a href="../autolayout/uiscrollview_autolayout.html">
+            
+                    
+                    UIScrollView 與 Auto Layout
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.19.4" data-path="../autolayout/lifecycle_autolayout.html">
+            
+                <a href="../autolayout/lifecycle_autolayout.html">
+            
+                    
+                    .xib 在 UIViewController lifecycle 的陷阱
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.19.5" data-path="../autolayout/selfsizing_uitableviewcell.html">
+            
+                <a href="../autolayout/selfsizing_uitableviewcell.html">
+            
+                    
+                    Self-sizing UITableViewCell height
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.19.6" data-path="../autolayout/animation_autolayout.html">
+            
+                <a href="../autolayout/animation_autolayout.html">
+            
+                    
+                    Animation with Auto Layout
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.20" data-path="../accessibility/">
+            
+                <a href="../accessibility/">
+            
+                    
+                    Accessibility
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.20.1" data-path="../accessibility/use_voiceover.html">
+            
+                <a href="../accessibility/use_voiceover.html">
+            
+                    
+                    如何使用 VoiceOver
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.20.2" data-path="../accessibility/basic_supports.html">
+            
+                <a href="../accessibility/basic_supports.html">
+            
+                    
+                    基本支援
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.20.3" data-path="../accessibility/direction.html">
+            
+                <a href="../accessibility/direction.html">
+            
+                    
+                    VoiceOver 的方向
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.20.4" data-path="../accessibility/custom_views.html">
+            
+                <a href="../accessibility/custom_views.html">
+            
+                    
+                    進階的 Accessibility 設定
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.20.5" data-path="../accessibility/reading_list.html">
+            
+                <a href="../accessibility/reading_list.html">
+            
+                    
+                    相關閱讀
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.20.6" data-path="../accessibility/practice_rolling_lyrics.html">
+            
+                <a href="../accessibility/practice_rolling_lyrics.html">
+            
+                    
+                    練習：KKBOX 動態歌詞
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.21" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Mac 上的 WebKit
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.21.1" data-path="objc_dom.html">
+            
+                <a href="objc_dom.html">
+            
+                    
+                    用 Objective-C 操作 DOM
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.21.2" data-path="js_objc_bridge.html">
+            
+                <a href="js_objc_bridge.html">
+            
+                    
+                    JavaScript 與 Objective-C 的溝通
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.21.3" data-path="javascript_core.html">
+            
+                <a href="javascript_core.html">
+            
+                    
+                    JavaScriptCore
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.22" data-path="../final_thoughts/">
+            
+                <a href="../final_thoughts/">
+            
+                    
+                    小結
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.23" data-path="../reading_list/">
+            
+                <a href="../reading_list/">
+            
+                    
+                    其他閱讀資料
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.24" data-path="../changelog.html">
+            
+                <a href="../changelog.html">
+            
+                    
+                    版本記錄
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本書使用 GitBook 釋出
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >JavaScript 與 Objective-C 的溝通</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h2 id="javascript-&#x8207;-objective-c-&#x7684;&#x6E9D;&#x901A;">Javascript &#x8207; Objective-C &#x7684;&#x6E9D;&#x901A;</h2>
+<p>&#x5728;&#x5BEB; JavaScript &#x7684;&#x6642;&#x5019;&#xFF0C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x4E00;&#x500B;&#x53EB;&#x505A; window&#x7684;&#x7269;&#x4EF6;&#xFF0C;&#x50CF;&#x662F;&#x6211;&#x5011;&#x60F3;&#x8981;&#x5F9E;&#x73FE;&#x5728;&#x7684;&#x7DB2;&#x9801;&#x8DF3;&#x5230;&#x53E6;&#x5916;&#x4E00;&#x500B;&#x7DB2;&#x9801;&#x7684;&#x6642;&#x5019;&#xFF0C;&#x5C31;&#x6703;&#x53BB;&#x4FEE;&#x6539;<code>window.location.href</code> &#x7684;&#x4F4D;&#x7F6E;&#xFF1B;&#x5728;&#x6211;&#x5011;&#x7684; Objective-C&#x7A0B;&#x5F0F;&#x78BC;&#x4E2D;&#xFF0C;&#x5982;&#x679C;&#x6211;&#x5011;&#x53EF;&#x4EE5;&#x53D6;&#x5F97;&#x6307;&#x5B9A;&#x7684; WebView &#x7684;&#x6307;&#x6A19;&#xFF0C;&#x4E5F;&#x5C31;&#x53EF;&#x4EE5;&#x62FF;&#x5230;&#x9019;&#x500B;&#x51FA;&#x73FE;&#x5728;JavaScript &#x4E2D;&#x7684; window &#x7269;&#x4EF6;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;
+<code>[webView windowScriptObject]</code>&#x3002;</p>
+<p>&#x9019;&#x500B;&#x7269;&#x4EF6;&#x5C31;&#x662F; WebView &#x88E1;&#x982D;&#x7684; JavaScript &#x8207;&#x6211;&#x5011;&#x7684; Objective-C&#x7A0B;&#x5F0F;&#x4E4B;&#x9593;&#x7684;&#x6A4B;&#x6A11;&#xFF0D;window &#x7269;&#x4EF6;&#x53EF;&#x4EE5;&#x53D6;&#x5F97;&#x7DB2;&#x9801;&#x88E1;&#x982D;&#x6240;&#x6709;&#x7684; JavaScript&#x51FD;&#x6578;&#x8207;&#x7269;&#x4EF6;&#xFF0C;&#x800C;&#x5982;&#x679C;&#x6211;&#x5011;&#x628A;&#x4E00;&#x500B; Objective-C &#x7269;&#x4EF6;&#x8A2D;&#x5B9A;&#x6210; <code>windowScriptObject</code>&#x7684; value&#xFF0C;
+JavaScript &#x4E5F;&#x4FBF;&#x53EF;&#x4EE5;&#x547C;&#x53EB; Objective-C &#x7269;&#x4EF6;&#x7684;method&#x3002;&#x65BC;&#x662F;&#xFF0C;&#x6211;&#x5011;&#x53EF;&#x4EE5;&#x5728;
+Objective-C &#x7A0B;&#x5F0F;&#x88E1;&#x982D;&#x8981;&#x6C42; WebView &#x57F7;&#x884C;&#x4E00;&#x6BB5;JavaScript&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x53CD;&#x904E;&#x4F86;&#x8B93;
+JavaScript &#x547C;&#x53EB;&#x4E00;&#x6BB5;&#x7528; Objective-C&#x5BE6;&#x4F5C;&#x7684;&#x529F;&#x80FD;&#x3002;</p>
+<h3 id="&#x7528;-objective-c-&#x53D6;&#x5F97;&#x8207;&#x8A2D;&#x5B9A;-javascript-&#x7269;&#x4EF6;">&#x7528; Objective-C &#x53D6;&#x5F97;&#x8207;&#x8A2D;&#x5B9A; JavaScript &#x7269;&#x4EF6;</h3>
+<p>&#x8981;&#x5F9E; Objective-C &#x53D6;&#x5F97;&#x8207;&#x8A2D;&#x5B9A;&#x5F97;&#x7DB2;&#x9801;&#x4E2D;&#x7684; JavaScript &#x7269;&#x4EF6;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x5C0D;
+<code>windowScriptObject</code> &#x505A;&#x4E00;&#x4E9B; KVC &#x547C;&#x53EB;&#xFF0C;&#x50CF;&#x662F; <code>valueForKey:</code> &#x8207;
+<code>valueForKeyPath:</code> &#x3002;&#x5982;&#x679C;&#x6211;&#x5011;&#x5728; JavaScript&#x88E1;&#x982D;&#xFF0C;&#x60F3;&#x8981;&#x77E5;&#x9053;&#x76EE;&#x524D;&#x7684;&#x7DB2;&#x9801;&#x4F4D;&#x7F6E;&#xFF0C;&#x6703;&#x9019;&#x9EBC;&#x5BEB;&#xFF1A;</p>
+<pre><code class="lang-js"><span class="hljs-keyword">var</span> location = <span class="hljs-built_in">window</span>.location.href;
+</code></pre>
+<p>&#x7528; ObjC &#x5C31;&#x53EF;&#x4EE5;&#x9019;&#x9EBC;&#x547C;&#x53EB;&#xFF1A;</p>
+<pre><code class="lang-objc"><span class="hljs-built_in">NSString</span> *location = [[webView windowScriptObject]
+    valueForKeyPath:<span class="hljs-string">@&quot;location.href&quot;</span>];
+</code></pre>
+<p>&#x5982;&#x679C;&#x6211;&#x5011;&#x8981;&#x8A2D;&#x5B9A; window.location.href&#xFF0C;&#x8981;&#x6C42;&#x958B;&#x555F;&#x53E6;&#x5916;&#x4E00;&#x500B;&#x7DB2;&#x9801;&#xFF0C;&#x5728; Javascript
+&#x88E1;&#x982D;&#xFF1A;</p>
+<pre><code class="lang-js"><span class="hljs-built_in">window</span>.location.href = <span class="hljs-string">&apos;http://zonble.net&apos;</span>;
+</code></pre>
+<p>Objective-C&#xFF1A;</p>
+<pre><code class="lang-objc">[[webView windowScriptObject] setValue:<span class="hljs-string">@&quot;https://kkbox.com&quot;</span> forKeyPath:<span class="hljs-string">@&quot;location.href&quot;</span>];
+</code></pre>
+<p>&#x7531;&#x65BC; Objective-C &#x8207; Javascript &#x672C;&#x8EAB;&#x7684;&#x8A9E;&#x8A00;&#x7279;&#x6027;&#x4E0D;&#x540C;&#xFF0C;&#x5728;&#x5169;&#x7A2E;&#x8A9E;&#x8A00;&#x4E4B;&#x9593;&#x76F8;&#x4E92;&#x50B3;&#x905E;&#x6771;&#x897F;&#x4E4B;&#x9593;&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x5169;&#x8005;&#x7684;&#x5DEE;&#x5225;&#xFF0D;</p>
+<ul>
+<li>Javascript &#x96D6;&#x7136;&#x662F;&#x7269;&#x4EF6;&#x5C0E;&#x5411;&#x8A9E;&#x8A00;&#xFF0C;&#x4F46;&#x662F;&#x4E26;&#x6C92;&#x6709; class&#xFF0C;&#x6240;&#x4EE5;&#x5C07; JS &#x7269;&#x4EF6;&#x50B3;&#x5230;
+Objective-C &#x7A0B;&#x5F0F;&#x88E1;&#x982D;&#xFF0C;&#x9664;&#x4E86;&#x57FA;&#x672C;&#x5B57;&#x4E32;&#x6703;&#x8F49;&#x63DB;&#x6210;
+<code>NSString</code>&#x3001;&#x57FA;&#x672C;&#x6578;&#x5B57;&#x6703;&#x8F49;&#x6210; <code>NSNumber</code>&#xFF0C;&#x50CF;&#x662F; Array &#x7B49;&#x5176;&#x4ED6;&#x7269;&#x4EF6;&#xFF0C;&#x5728;
+Objective-C &#x4E2D;&#xFF0C;&#x90FD;&#x662F; <code>WebScriptObject</code> &#x9019;&#x500B;
+Class&#x3002;&#x4E5F;&#x5C31;&#x662F;&#xFF0C;Javascript &#x7684; Array &#x4E0D;&#x6703;&#x5E6B;&#x4F60;&#x8F49;&#x63DB;&#x6210; <code>NSArray</code>&#x3002;</li>
+<li>&#x5F9E; Javascript &#x88E1;&#x982D;&#x50B3;&#x4E00;&#x500B;&#x7A7A;&#x7269;&#x4EF6;&#x7D66; Objective-C &#x7A0B;&#x5F0F;&#xFF0C;&#x7528;&#x7684;&#x4E0D;&#x662F;
+Objective-C &#x88E1;&#x982D;&#x539F;&#x672C;&#x8868;&#x793A;&#x300C;&#x6C92;&#x6709;&#x6771;&#x897F;&#x300D;&#x7684;&#x65B9;&#x5F0F;&#xFF0C;&#x50CF;&#x662F;
+<code>NULL</code>&#x3001;<code>nil</code>&#x3001;<code>NSNull</code> &#x7B49;&#xFF0C;&#x800C;&#x662F;&#x5C08;&#x5C6C; WebKit &#x4F7F;&#x7528;&#x7684; <code>WebUndefined</code>&#x3002;</li>
+</ul>
+<p>&#x6240;&#x4EE5;&#xFF0C;&#x5982;&#x679C;&#x6211;&#x5011;&#x60F3;&#x8981;&#x770B;&#x4E00;&#x500B; Javascript Array&#x88E1;&#x982D;&#x6709;&#x4EC0;&#x9EBC;&#x6771;&#x897F;&#xFF0C;&#x5C31;&#x8981;&#x5148;&#x53D6;&#x5F97;&#x9019;&#x500B;&#x7269;&#x4EF6;&#x88E1;&#x982D;&#x53EB;&#x505A; length &#x7684; value&#xFF0C;&#x7136;&#x5F8C;&#x7528; <code>webScriptValueAtIndex:</code> &#x53BB;&#x770B;&#x5728;&#x8A72; index &#x4F4D;&#x7F6E;&#x7684;&#x5167;&#x5BB9;&#x3002;&#x5047;&#x5982;&#x6211;&#x5011;&#x5728; JS &#x88E1;&#x982D;&#x9019;&#x6A23;&#x5BEB;&#xFF1A;</p>
+<pre><code class="lang-js"><span class="hljs-keyword">var</span> JSArray = {<span class="hljs-string">&apos;zonble&apos;</span>, <span class="hljs-string">&apos;dot&apos;</span>, <span class="hljs-string">&apos;net&apos;</span>};
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; JSArray.length; i++) {
+    <span class="hljs-built_in">console</span>.log(JSArray[i]);
+}
+</code></pre>
+<p>Objective-C &#x88E1;&#x982D;&#x5C31;&#x6703;&#x8B8A;&#x6210;&#x9019;&#x6A23;&#xFF1A;</p>
+<pre><code class="lang-objc">WebScriptObject *obj = (WebScriptObject *)JSArray;
+
+<span class="hljs-built_in">NSUInteger</span> count = [[obj valueForKey:<span class="hljs-string">@&quot;length&quot;</span>] integerValue];
+<span class="hljs-built_in">NSMutableArray</span> *a = [<span class="hljs-built_in">NSMutableArray</span> array];
+<span class="hljs-keyword">for</span> (<span class="hljs-built_in">NSUInteger</span> i = <span class="hljs-number">0</span>; i &lt; count; i++) {
+    <span class="hljs-built_in">NSString</span> *item = [obj webScriptValueAtIndex:i];
+    <span class="hljs-built_in">NSLog</span>(<span class="hljs-string">@&quot;item:%@&quot;</span>, item);
+}
+</code></pre>
+<h3 id="&#x7528;-objective-c-&#x547C;&#x53EB;-javascript-function">&#x7528; Objective-C &#x547C;&#x53EB; JavaScript Function</h3>
+<p>&#x8981;&#x7528; Objective-C &#x547C;&#x53EB;&#x7DB2;&#x9801;&#x4E2D;&#x7684; JavaScript function&#xFF0C;&#x5927;&#x6982;&#x6709;&#x5E7E;&#x7A2E;&#x65B9;&#x6CD5;&#x3002;&#x7B2C;&#x4E00;&#x7A2E;&#x662F;&#x76F4;&#x63A5;&#x5BEB;&#x4E00;&#x6BB5;&#x8DDF;&#x4F60;&#x5728;&#x7DB2;&#x9801;&#x4E2D;&#x6703;&#x64B0;&#x5BEB;&#x7684;JavaScript &#x4E00;&#x6A21;&#x4E00;&#x6A23;&#x7684;&#x7A0B;&#x5F0F;&#xFF0C;&#x53EB;
+<code>windowScriptObject</code> &#x7528;<code>evaluateWebScript:</code> &#x57F7;&#x884C;&#x3002;&#x4F8B;&#x5982;&#xFF0C;&#x6211;&#x5011;&#x60F3;&#x8981;&#x5728;&#x7DB2;&#x9801;&#x4E2D;&#x7522;&#x751F;&#x4E00;&#x500B;&#x65B0;&#x7684; JavaScript function&#xFF0C;&#x5167;&#x5BB9;&#x662F;&#xFF1A;</p>
+<pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">x</span>(<span class="hljs-params">x</span>) </span>{
+    <span class="hljs-keyword">return</span> x + <span class="hljs-number">1</span>;
+}
+</code></pre>
+<p>&#x6240;&#x4EE5;&#x5728; Objective-C &#x4E2D;&#x53EF;&#x4EE5;&#x9019;&#x6A23;&#x5BEB;&#xFF1B;</p>
+<pre><code class="lang-objc">[[webView windowScriptObject] evaluateWebScript:<span class="hljs-string">@&quot;function x(x) {return x + 1;}&quot;</span>];
+</code></pre>
+<p>&#x63A5;&#x4E0B;&#x4F86;&#x6211;&#x5011;&#x5C31;&#x53EF;&#x4EE5;&#x547C;&#x53EB; <code>window.x()</code>&#xFF1A;</p>
+<pre><code class="lang-objc"><span class="hljs-built_in">NSNumber</span> *result = [[webView windowScriptObject] evaluateWebScript:<span class="hljs-string">@&quot;x(1)&quot;</span>];
+<span class="hljs-built_in">NSLog</span>(<span class="hljs-string">@&quot;result:%d&quot;</span>, [result integerValue]); <span class="hljs-comment">// Returns 2</span>
+</code></pre>
+<p>&#x7531;&#x65BC;&#x5728; Javascript &#x4E2D;&#xFF0C;&#x6BCF;&#x500B; funciton&#x5176;&#x5BE6;&#x90FD;&#x662F;&#x7269;&#x4EF6;&#xFF0C;&#x6240;&#x4EE5;&#x6211;&#x5011;&#x9084;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x53D6;&#x5F97; <code>window.x</code> &#x53EB;&#x9019;&#x500B;&#x7269;&#x4EF6;&#x57F7;&#x884C;&#x81EA;&#x5DF1;&#x3002;&#x5728; Javascript &#x88E1;&#x982D;&#x5982;&#x679C;&#x9019;&#x6A23;&#x5BEB;&#xFF1A;</p>
+<pre><code class="lang-js"><span class="hljs-built_in">window</span>.x.call(<span class="hljs-built_in">window</span>.x, <span class="hljs-number">1</span>);
+</code></pre>
+<p>Objective-C &#x4E2D;&#x4FBF;&#x662F;&#x9019;&#x6A23;&#xFF1A;</p>
+<pre><code class="lang-objc">WebScriptObject *x = [[webView windowScriptObject] valueForKey:<span class="hljs-string">@&quot;x&quot;</span>];
+<span class="hljs-built_in">NSNumber</span> *result = [x callWebScriptMethod:<span class="hljs-string">@&quot;call&quot;</span>
+                      withArguments:[<span class="hljs-built_in">NSArray</span> arrayWithObjects:x,
+                                    [<span class="hljs-built_in">NSNumber</span> numberWithInt:<span class="hljs-number">1</span>], <span class="hljs-literal">nil</span>]];
+</code></pre>
+<p>&#x9019;&#x7A2E;&#x8B93;&#x67D0;&#x500B; <code>WebScriptObject</code> &#x81EA;&#x5DF1;&#x57F7;&#x884C;&#x81EA;&#x5DF1;&#x7684;&#x5BEB;&#x6CD5;&#xFF0C;&#x5176;&#x5BE6;&#x6BD4;&#x8F03;&#x4E0D;&#x6703;&#x7528;&#x65BC;&#x5F9E;
+Objective-C &#x547C;&#x53EB; Javascript &#x9019;&#x4E00;&#x7AEF;&#xFF0C;&#x800C;&#x662F;&#x63A5;&#x4E0B;&#x4F86;&#x6703;&#x63D0;&#x5230;&#x7684;&#xFF0C;&#x7531; Javascript
+&#x547C;&#x53EB; Objective-C&#xFF0C;&#x56E0;&#x70BA;&#x9019;&#x6A23; Javascript &#x5C31;&#x53EF;&#x4EE5;&#x628A;&#x4E00;&#x500B; callback function
+&#x9001;&#x5230; Objective-C&#xFF0C;&#x56E0;&#x70BA;&#x9019;&#x6A23; &#x7A0B;&#x5F0F;&#x88E1;&#x982D;&#x3002;</p>
+<p>&#x5982;&#x679C;&#x6211;&#x5011;&#x5728;&#x505A;&#x7DB2;&#x9801;&#xFF0C;&#x6211;&#x5011;&#x53EA;&#x60F3;&#x8981;&#x66F4;&#x65B0;&#x7DB2;&#x9801;&#x4E2D;&#x7684;&#x4E00;&#x500B;&#x5340;&#x584A;&#xFF0C;&#x5C31;&#x6703;&#x5229;&#x7528; AJAX
+&#x7684;&#x6280;&#x5DE7;&#xFF0C;&#x53EA;&#x5C0D;&#x9019;&#x500B;&#x5340;&#x584A;&#x9700;&#x8981;&#x7684;&#x8CC7;&#x6599;&#xFF0C;&#x5C0D; server &#x767C;&#x51FA; request&#xFF0C;&#x4E26;&#x4E14;&#x5728; request
+&#x5B8C;&#x6210;&#x7684;&#x6642;&#x5019;&#xFF0C;&#x8981;&#x6C42;&#x57F7;&#x884C;&#x4E00;&#x6BB5; callback function&#xFF0C;&#x66F4;&#x65B0;&#x9019;&#x4E00;&#x500B;&#x5340;&#x584A;&#x7684;&#x986F;&#x793A;&#x5167;&#x5BB9;&#x3002;&#x5F9E;
+Javascript &#x547C;&#x53EB; Objective-C &#x4E5F;&#x53EF;&#x4EE5;&#x505A;&#x985E;&#x4F3C;&#x7684;&#x4E8B;&#x60C5;&#xFF0C;&#x5982;&#x679C; Objective-C
+&#x7A0B;&#x5F0F;&#x88E1;&#x982D;&#x9700;&#x8981;&#x4E00;&#x5B9A;&#x6642;&#x9593;&#x7684;&#x904B;&#x7B97;&#xFF0C;&#x6216;&#x662F;&#x6211;&#x5011;&#x53EF;&#x80FD;&#x662F;&#x5728; Obj C
+&#x88E1;&#x982D;&#x6293;&#x53D6;&#x7DB2;&#x8DEF;&#x8CC7;&#x6599;&#xFF0C;&#x6211;&#x5011;&#x4FBF;&#x53EF;&#x4EE5;&#x628A;&#x4E00;&#x500B; callback function &#x9001;&#x5230; Objective-C
+&#x7A0B;&#x5F0F;&#x88E1;&#xFF0C;&#x8981;&#x6C42; Objective-C &#x7A0B;&#x5F0F;&#x5728;&#x505A;&#x5B8C;&#x5DE5;&#x4F5C;&#x5F8C;&#xFF0C;&#x57F7;&#x884C;&#x9019;&#x6BB5; callback function&#x3002;</p>
+<h3 id="dom">DOM</h3>
+<p>WebKit &#x88E1;&#x982D;&#xFF0C;&#x6240;&#x6709;&#x7684; DOM &#x7269;&#x4EF6;&#x90FD;&#x7E7C;&#x627F;&#x81EA; <code>DOMObject</code>&#xFF0C;<code>DOMObject</code> &#x53C8;&#x7E7C;&#x627F;&#x81EA;
+<code>WebScriptObject</code>&#xFF0C;&#x6240;&#x4EE5;&#x6211;&#x5011;&#x5728;&#x53D6;&#x5F97;&#x4E86;&#x67D0;&#x500B; DOM &#x7269;&#x4EF6;&#x4E4B;&#x5F8C;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x5F9E;
+Objective-C &#x7A0B;&#x5F0F;&#x4E2D;&#xFF0C;&#x8981;&#x6C42;&#x9019;&#x500B; DOM &#x7269;&#x4EF6;&#x57F7;&#x884C; Javascript &#x7A0B;&#x5F0F;&#x3002;</p>
+<p>&#x5047;&#x5982;&#x6211;&#x5011;&#x7684;&#x7DB2;&#x9801;&#x4E2D;&#xFF0C;&#x6709;&#x4E00;&#x500B; id &#x53EB;&#x505A; &#x201C;#s&#x201D; &#x7684;&#x6587;&#x5B57;&#x8F38;&#x5165;&#x6846;&#xFF08;text
+input&#xFF09;&#xFF0C;&#x800C;&#x6211;&#x5011;&#x5E0C;&#x671B;&#x73FE;&#x5728;&#x9375;&#x76E4;&#x8F38;&#x5165;&#x7684;&#x7126;&#x9EDE;&#x653E;&#x5728;&#x9019;&#x500B;&#x8F38;&#x5165;&#x6846;&#x4E0A;&#xFF0C;&#x5728; JS
+&#x88E1;&#x982D;&#x6703;&#x9019;&#x6A23;&#x5BEB;&#xFF1A;</p>
+<pre><code class="lang-js"><span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&apos;#s&apos;</span>).focus();
+</code></pre>
+<pre><code class="lang-objc">DOMDocument *document = [[webView mainFrame] DOMDocument];
+[[document querySelector:@&quot;#s&quot;] callWebScriptMethod:@&quot;focus
+                                withArguments:nil];
+</code></pre>
+<h3 id="&#x7528;-javascript-&#x5B58;&#x53D6;-objective-c-&#x7684;-value">&#x7528; JavaScript &#x5B58;&#x53D6; Objective-C &#x7684; Value</h3>
+<p>&#x8981;&#x8B93;&#x7DB2;&#x9801;&#x4E2D;&#x7684; JavaScript &#x7A0B;&#x5F0F;&#x53EF;&#x4EE5;&#x547C;&#x53EB; Objective-C &#x7269;&#x4EF6;&#xFF0C;&#x65B9;&#x6CD5;&#x662F;&#x628A;&#x67D0;&#x500B;
+Objective-C &#x7269;&#x4EF6;&#x8A3B;&#x518A;&#x6210; JavaScript &#x4E2D; window &#x7269;&#x4EF6;&#x7684;&#x5C6C;&#x6027;&#x3002;&#x4E4B;&#x5F8C;&#xFF0C;
+JavaScript&#x4FBF;&#x4E5F;&#x53EF;&#x4EE5;&#x547C;&#x53EB;&#x9019;&#x500B;&#x7269;&#x4EF6;&#x7684; method&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x53D6;&#x5F97;&#x9019;&#x500B;&#x7269;&#x4EF6;&#x7684;&#x5404;&#x7A2E;
+Value&#xFF0C;&#x53EA;&#x8981;&#x662F;KVC &#x53EF;&#x4EE5;&#x53D6;&#x5F97;&#x7684; Value&#xFF0C;&#x50CF;&#x662F;<code>NSString</code>&#x3001;<code>NSNumber</code>&#x3001;
+<code>NSDate</code>&#x3001;<code>NSArray</code>&#x3001;<code>NSDictionary</code>&#x3001;<code>NSValue</code>&#x2026;&#x7B49;&#x3002;<code>JavaScript</code>&#x50B3;
+Array &#x5230; Objective-C &#x6642;&#xFF0C;&#x9084;&#x9700;&#x8981;&#x7279;&#x5225;&#x505A;&#x4E9B;&#x8655;&#x7406;&#x624D;&#x80FD;&#x8B8A;&#x6210; <code>NSArray</code>&#xFF0C;&#x5F9E;
+Objective-C &#x50B3;&#x4E00;&#x500B; <code>NSArray</code> &#x5230; JavaScript &#x6642;&#xFF0C;&#x6703;&#x81EA;&#x52D5;&#x8B8A;&#x6210; JavaScript
+Array&#x3002;</p>
+<p>&#x9996;&#x5148;&#x6211;&#x5011;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x662F;&#x5C07; Objective-C &#x7269;&#x4EF6;&#x8A3B;&#x518A;&#x7D66; window&#x7269;&#x4EF6;&#x7684;&#x6642;&#x6A5F;&#xFF0C;&#x7531;&#x65BC;&#x6BCF;&#x6B21;&#x91CD;&#x65B0;&#x8F09;&#x5165;&#x7DB2;&#x9801;&#xFF0C;window&#x7269;&#x4EF6;&#x7684;&#x5167;&#x5BB9;&#x90FD;&#x6703;&#x6709;&#x6240;&#x8B8A;&#x52D5;&#xFF0D;&#x7562;&#x7ADF;&#x6BCF;&#x500B;&#x7DB2;&#x9801;&#x90FD;&#x6703;&#x6709;&#x4E0D;&#x540C;&#x7684;
+JavaScript&#x7A0B;&#x5F0F;&#xFF0C;&#x6240;&#x4EE5;&#xFF0C;&#x6211;&#x5011;&#x9700;&#x8981;&#x5728;&#x9069;&#x7576;&#x7684;&#x6642;&#x6A5F;&#x505A;&#x9019;&#x4EF6;&#x4E8B;&#x60C5;&#x3002;&#x6211;&#x5011;&#x9996;&#x5148;&#x8981;&#x6307;&#x5B9A;
+WebView &#x7684;frame loading delegate&#xFF08;&#x7528; setFrameLoadDelegate:&#xFF09;&#xFF0C;&#x4E26;&#x4E14;&#x5BE6;&#x4F5C;
+<code>webView:didClearWindowObject:forFrame:</code>&#xFF0C;<code>WebView</code> &#x53EA;&#x8981;&#x66F4;&#x65B0;&#x4E86;
+<code>windowScriptObject</code>&#xFF0C;&#x5C31;&#x6703;&#x547C;&#x53EB;&#x9019;&#x4E00;&#x6BB5;&#x7A0B;&#x5F0F;&#x3002;&#x5047;&#x5982;&#x6211;&#x5011;&#x73FE;&#x5728;&#x8981;&#x8B93;&#x7DB2;&#x9801;&#x4E2D;&#x7684;
+<code>JavaScript</code> &#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x76EE;&#x524D;&#x7684; controller &#x7269;&#x4EF6;&#xFF0C;&#x6703;&#x9019;&#x6A23;&#x5BEB;&#xFF1A;</p>
+<pre><code class="lang-objc">- (<span class="hljs-keyword">void</span>)webView:(WebView *)sender
+       didClearWindowObject:(WebScriptObject *)windowObject
+       forFrame:(WebFrame *)frame
+{
+    [windowObject setValue:<span class="hljs-keyword">self</span> forKey:<span class="hljs-string">@&quot;controller&quot;</span>];
+}
+</code></pre>
+<p>&#x5982;&#x6B64;&#x4E00;&#x4F86;&#xFF0C;&#x53EA;&#x8981;&#x547C;&#x53EB; <code>window.controller</code>&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x547C;&#x53EB;&#x6211;&#x5011;&#x7684; Objective-C &#x7269;&#x4EF6;&#x3002;&#x5047;&#x5982;&#x6211;&#x5011;&#x7684; Objective-C Class &#x88E1;&#x982D;&#x6709;&#x9019;&#x4E9B;&#x6210;&#x54E1;&#x8B8A;&#x6578;&#xFF1A;</p>
+<pre><code class="lang-objc"><span class="hljs-class"><span class="hljs-keyword">@interface</span> <span class="hljs-title">MyController</span> : <span class="hljs-title">NSObject</span></span>
+{
+    <span class="hljs-keyword">IBOutlet</span> WebView *webView;
+    IBOUtlet  <span class="hljs-built_in">NSWindow</span> *window;
+
+    <span class="hljs-built_in">NSString</span> *stringValue;
+    <span class="hljs-built_in">NSInteger</span> numberValue;
+    <span class="hljs-built_in">NSArray</span> *arrayValue;
+    <span class="hljs-built_in">NSDate</span> *dateValue;
+    <span class="hljs-built_in">NSDictionary</span> *dictValue;
+    <span class="hljs-built_in">NSRect</span> frameValue;
+}
+<span class="hljs-keyword">@end</span>
+</code></pre>
+<p>&#x6307;&#x5B9A;&#x4E00;&#x4E0B; Value&#xFF1A;</p>
+<pre><code class="lang-objc">stringValue = <span class="hljs-string">@&quot;string&quot;</span>;
+numberValue = <span class="hljs-number">24</span>;
+arrayValue = [<span class="hljs-built_in">NSArray</span> arrayWithObjects:<span class="hljs-string">@&quot;text&quot;</span>, [<span class="hljs-built_in">NSNumber</span> numberWithInt:<span class="hljs-number">30</span>], <span class="hljs-literal">nil</span>];
+dateValue = [<span class="hljs-built_in">NSDate</span> date];
+dictValue = [<span class="hljs-built_in">NSDictionary</span> dictionaryWithObjectsAndKeys:<span class="hljs-string">@&quot;value1&quot;</span>, <span class="hljs-string">@&quot;key1&quot;</span>,
+              <span class="hljs-string">@&quot;value2&quot;</span>, <span class="hljs-string">@&quot;key2&quot;</span>,
+              <span class="hljs-string">@&quot;value3&quot;</span>, <span class="hljs-string">@&quot;key3&quot;</span>, <span class="hljs-literal">nil</span>];
+frameValue = [window frame];
+</code></pre>
+<p>&#x7528; JavaScript &#x8B80;&#x8B80;&#x770B;&#xFF1A;</p>
+<pre><code class="lang-js"><span class="hljs-keyword">var</span> c = <span class="hljs-built_in">window</span>.controller;
+<span class="hljs-keyword">var</span> main = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&apos;main&apos;</span>);
+<span class="hljs-keyword">var</span> HTML = <span class="hljs-string">&apos;&apos;</span>;
+<span class="hljs-keyword">if</span> (c) {
+    HTML += <span class="hljs-string">&apos;&lt;p&gt;&apos;</span> + c.stringValue + <span class="hljs-string">&apos;&lt;p&gt;&apos;</span>;
+    HTML += <span class="hljs-string">&apos;&lt;p&gt;&apos;</span> + c.numberValue + <span class="hljs-string">&apos;&lt;p&gt;&apos;</span>;
+    HTML += <span class="hljs-string">&apos;&lt;p&gt;&apos;</span> + c.arrayValue + <span class="hljs-string">&apos;&lt;p&gt;&apos;</span>;
+    HTML += <span class="hljs-string">&apos;&lt;p&gt;&apos;</span> + c.dateValue + <span class="hljs-string">&apos;&lt;p&gt;&apos;</span>;
+    HTML += <span class="hljs-string">&apos;&lt;p&gt;&apos;</span> + c.dictValue + <span class="hljs-string">&apos;&lt;p&gt;&apos;</span>;
+    HTML += <span class="hljs-string">&apos;&lt;p&gt;&apos;</span> + c.frameValue + <span class="hljs-string">&apos;&lt;p&gt;&apos;</span>;
+    main.innerHTML = HTML;
+}
+</code></pre>
+<p>&#x7D50;&#x679C;&#x5982;&#x4E0B;&#xFF1A;</p>
+<blockquote>
+<p>string 24 text,30 2010-09-09 00:01:04 +0800 { key1 = value1; key2 =
+value2; key3 = value3; } NSRect: {{275, 72}, {570, 657}}</p>
+</blockquote>
+<p>&#x4E0D;&#x904E;&#xFF0C;&#x5982;&#x679C;&#x4F60;&#x770B;&#x5B8C;&#x4E0A;&#x9762;&#x7684;&#x7BC4;&#x4F8B;&#xFF0C;&#x5C31;&#x76F4;&#x63A5;&#x7167;&#x505A;&#xFF0C;&#x61C9;&#x8A72;&#x4E0D;&#x6703;&#x76F4;&#x63A5;&#x6210;&#x529F;&#x51FA;&#x73FE;&#x6B63;&#x78BA;&#x7684;&#x7D50;&#x679C;&#xFF0C;&#x800C;&#x662F;&#x6703;&#x62FF;&#x5230;&#x4E00;&#x5806;<code>undefined</code>&#xFF0C;&#x539F;&#x56E0;&#x662F;&#xFF0C;Objective-C &#x7269;&#x4EF6;&#x7684; Value &#x9810;&#x8A2D;&#x88AB;&#x4FDD;&#x8B77;&#x8D77;&#x4F86;&#xFF0C;&#x4E0D;&#x6703;&#x8B93;Javascript &#x76F4;&#x63A5;&#x5B58;&#x53D6;&#x3002;&#x8981;&#x8B93; Javascript &#x53EF;&#x4EE5;&#x5B58;&#x53D6; Objective-C
+&#x7269;&#x4EF6;&#x7684;Value&#xFF0C;&#x9700;&#x8981;&#x5BE6;&#x4F5C; <code>+isKeyExcludedFromWebScript:</code> &#x91DD;&#x5C0D;&#x50B3;&#x5165;&#x7684; Key&#x4E00;&#x4E00;&#x8655;&#x7406;&#xFF0C;&#x5982;&#x679C;&#x6211;&#x5011;&#x5E0C;&#x671B; Javascript &#x53EF;&#x4EE5;&#x5B58;&#x53D6;&#x9019;&#x500B; key&#xFF0C;&#x5C31;&#x56DE;&#x50B3; <code>NO</code>&#xFF1A;</p>
+<pre><code class="lang-objc">+ (<span class="hljs-built_in">BOOL</span>)isKeyExcludedFromWebScript:(<span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *)name
+{
+    <span class="hljs-keyword">if</span> (!strcmp(name, <span class="hljs-string">&quot;stringValue&quot;</span>)) {
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">NO</span>;
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">YES</span>;
+}
+</code></pre>
+<p>&#x9664;&#x4E86;&#x53EF;&#x4EE5;&#x8B80;&#x53D6; Objective-C &#x7269;&#x4EF6;&#x7684; Value &#x5916;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x8A2D;&#x5B9A; Value&#xFF0C;&#x76F8;&#x7576;&#x65BC;&#x5728;
+Objective-C &#x4E2D;&#x4F7F;&#x7528; <code>setValue:forKey:</code>&#xFF0C;&#x5982;&#x679C;&#x5728;&#x4E0A;&#x9762;&#x7684; Javascript&#x7A0B;&#x5F0F;&#x4E2D;&#xFF0C;&#x6211;&#x5011;&#x60F3;&#x8981;&#x4FEE;&#x6539; <code>stringValue</code>&#xFF0C;&#x76F4;&#x63A5;&#x547C;&#x53EB;<code>c.stringValue = &apos;new value&apos;</code> &#x5373;&#x53EF;&#x3002;&#x50CF;&#x524D;&#x9762;&#x63D0;&#x5230;&#xFF0C;&#x5728;&#x9019;&#x88E1;&#x50B3;&#x7D66; Objective-C&#x7684; Javascript &#x7269;&#x4EF6;&#xFF0C;&#x9664;&#x4E86;&#x5B57;&#x4E32;&#x8207;&#x6578;&#x5B57;&#x5916;&#xFF0C;
+class &#x90FD;&#x662F;<code>WebScriptObject</code>&#xFF0C;&#x7A7A;&#x7269;&#x4EF6;&#x662F; <code>WebUndefined</code>&#x3002;</p>
+<h3 id="&#x7528;-javascript-&#x547C;&#x53EB;-objective-c-method">&#x7528; JavaScript &#x547C;&#x53EB; Objective-C method</h3>
+<p>Objective-C &#x7684;&#x8A9E;&#x6CD5;&#x6CBF;&#x8972;&#x81EA; Small Talk&#xFF0C;Objective-C &#x7684; selector&#xFF0C;&#x8207;
+JavaScript &#x7684; function &#x8A9E;&#x6CD5;&#x6709;&#x76F8;&#x7576;&#x7684;&#x5DEE;&#x7570;&#x3002;WebKit
+&#x9810;&#x8A2D;&#x7684;&#x5BE6;&#x4F5C;&#x662F;&#xFF0C;&#x5982;&#x679C;&#x6211;&#x5011;&#x8981;&#x5728; JavaScript &#x547C;&#x53EB; Objective-C
+selector&#xFF0C;&#x5C31;&#x662F;&#x628A;&#x6240;&#x6709;&#x7684;&#x53C3;&#x6578;&#x5F80;&#x5F8C;&#x9762;&#x64FA;&#xFF0C;&#x4E26;&#x4E14;&#x628A;&#x6240;&#x6709;&#x7684;&#x5192;&#x865F;&#x6539;&#x6210;&#x5E95;&#x7DDA;&#xFF0C;&#x800C;&#x539F;&#x4F86;
+selector &#x5982;&#x679C;&#x6709;&#x5E95;&#x7DDA;&#x7684;&#x8A71;&#xFF0C;&#x53C8;&#x8981;&#x53E6;&#x5916;&#x8655;&#x7406;&#x3002;&#x5047;&#x4F7F;&#x6211;&#x5011;&#x7684; controller &#x7269;&#x4EF6;&#x6709;&#x500B;
+method&#xFF0C;&#x5728; Objective-C &#x4E2D;&#x5BEB;&#x6210;&#x9019;&#x6A23;&#xFF1A;</p>
+<pre><code class="lang-objc">- (<span class="hljs-keyword">void</span>)setA:(<span class="hljs-keyword">id</span>)a b:(<span class="hljs-keyword">id</span>)b c:(<span class="hljs-keyword">id</span>)c;
+</code></pre>
+<p>&#x5728; JS &#x4E2D;&#x5C31;&#x9019;&#x9EBC;&#x547C;&#x53EB;&#xFF1A;</p>
+<pre><code class="lang-js">controller.setA_b_c_(<span class="hljs-string">&apos;a&apos;</span>, <span class="hljs-string">&apos;b&apos;</span>, <span class="hljs-string">&apos;c&apos;</span>);
+</code></pre>
+<p>&#x5BE6;&#x5728;&#x6709;&#x9EDE;&#x919C;&#x3002;&#x6240;&#x4EE5; WebKit &#x63D0;&#x4F9B;&#x4E00;&#x500B;&#x65B9;&#x6CD5;&#xFF0C;&#x53EF;&#x4EE5;&#x8B93;&#x6211;&#x5011;&#x628A;&#x67D0;&#x500B; Objective-C
+selector &#x8B8A;&#x6210;&#x597D;&#x770B;&#x4E00;&#x9EDE;&#x7684; Javascript function&#x3002;&#x6211;&#x5011;&#x8981;&#x5BE6;&#x4F5C;
+<code>webScriptNameForSelector</code>:</p>
+<pre><code class="lang-objc">+ (<span class="hljs-built_in">NSString</span> *)webScriptNameForSelector:(SEL)selector
+{
+    <span class="hljs-keyword">if</span> (selector == <span class="hljs-keyword">@selector</span>(setA:b:c:)) {
+        <span class="hljs-keyword">return</span> <span class="hljs-string">@&quot;setABC&quot;</span>;
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>;
+}
+</code></pre>
+<p>&#x4EE5;&#x5F8C;&#x5C31;&#x53EF;&#x4EE5;&#x9019;&#x9EBC;&#x547C;&#x53EB;&#xFF1A;</p>
+<pre><code class="lang-js">controller.setABC(<span class="hljs-string">&apos;a&apos;</span>, <span class="hljs-string">&apos;b&apos;</span>, <span class="hljs-string">&apos;c&apos;</span>);
+</code></pre>
+<p>&#x6211;&#x5011;&#x540C;&#x6A23;&#x53EF;&#x4EE5;&#x6C7A;&#x5B9A;&#x54EA;&#x4E9B; selector &#x53EF;&#x4EE5;&#x7D66; Javascript
+&#x4F7F;&#x7528;&#xFF0C;&#x54EA;&#x4E9B;&#x8981;&#x4FDD;&#x8B77;&#x8D77;&#x4F86;&#xFF0C;&#x65B9;&#x6CD5;&#x662F;&#x5BE6;&#x4F5C;
+<code>isSelectorExcludedFromWebScript:</code>&#x3002;&#x800C;&#x6211;&#x5011;&#x53EF;&#x4EE5;&#x6539;&#x8B8A;&#x67D0;&#x500B; Objective-C
+selector &#x5728; Javascript &#x4E2D;&#x7684;&#x540D;&#x7A31;&#xFF0C;&#x6211;&#x5011;&#x4E5F;&#x53EF;&#x4EE5;&#x6539;&#x8B8A;&#x67D0;&#x500B; value &#x7684;
+key&#xFF0C;&#x65B9;&#x6CD5;&#x662F;&#x5BE6;&#x4F5C; <code>webScriptNameForKey:</code>&#x3002;</p>
+<p>&#x6709;&#x5E7E;&#x4EF6;&#x4E8B;&#x60C5;&#x9700;&#x8981;&#x6CE8;&#x610F;&#x4E00;&#x4E0B;&#xFF1A;</p>
+<h4 id="&#x7528;-javascript-&#x547C;&#x53EB;-objective-c-&#x7684;-property">&#x7528; JavaScript &#x547C;&#x53EB; Objective-C &#x7684; property</h4>
+<p>&#x5728;&#x4E0A;&#x9762;&#xFF0C;&#x6211;&#x5011;&#x7528; JavaScript &#x547C;&#x53EB;<code>window.controller.stringValue</code>&#xFF0C;&#x8207;&#x8A2D;&#x5B9A;&#x88E1;&#x982D;&#x7684; value &#x6642;&#xFF0C;&#x9019;&#x908A;&#x5F88;&#x50CF;&#x6211;&#x5011;&#x4F7F;&#x7528;Objective-C 2.0 &#x7684;&#x8A9E;&#x6CD5;&#xFF0C;&#x4F46;&#x5176;&#x5BE6;&#x505A;&#x7684;&#x662F;&#x4E0D;&#x4E00;&#x6A23;&#x7684;&#x4E8B;&#x60C5;&#x3002;&#x7528; JavaScript &#x547C;&#x53EB;<code>controller.stringValue</code>&#xFF0C;&#x5C0D;&#x61C9;&#x5230;&#x7684;
+Objective &#x8A9E;&#x6CD5;&#x662F;<code>[controller valueForKey:@&quot;stringValue&quot;]</code>&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x547C;&#x53EB;
+Objective-C &#x7269;&#x4EF6;&#x7684;property&#x3002;</p>
+<p>&#x5982;&#x679C;&#x6211;&#x5011;&#x7684; Objective-C &#x7269;&#x4EF6;&#x6709;&#x500B; property &#x53EB;&#x505A;<code>stringValue</code>&#xFF0C;&#x6211;&#x5011;&#x77E5;&#x9053;&#xFF0C;
+Objective-C property &#x5176;&#x5BE6;&#x6703;&#x5728;&#x7DE8;&#x8B6F;&#x6642;&#xFF0C;&#x8B8A;&#x6210;getter/setter method&#xFF0C;&#x5728;
+JavaScript &#x88E1;&#x982D;&#xFF0C;&#x6211;&#x5011;&#x4FBF;&#x61C9;&#x8A72;&#x8981;&#x547C;&#x53EB;<code>controller.stringValue()</code> &#x8207;
+<code>controller.setStringValue_()</code>&#x3002;</p>
+<h4 id="javascript-&#x4E2D;&#xFF0C;function-&#x5373;&#x7269;&#x4EF6;&#x7684;&#x7279;&#x6027;">Javascript &#x4E2D;&#xFF0C;Function &#x5373;&#x7269;&#x4EF6;&#x7684;&#x7279;&#x6027;</h4>
+<p>Javascript &#x7684; function &#x662F;&#x7269;&#x4EF6;&#xFF0C;&#x7576;&#x4E00;&#x500B; Objective-C &#x7269;&#x4EF6;&#x7684; method &#x51FA;&#x73FE;&#x5728;
+Javascript &#x4E2D;&#x6642;&#xFF0C;&#x9019;&#x500B; method &#x5728; Javascript &#x4E2D;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x6216;&#x591A;&#x6216;&#x5C11;&#x7576;&#x505A;&#x7269;&#x4EF6;&#x8655;&#x7406;&#x3002;&#x6211;&#x5011;&#x5728;&#x4E0A;&#x9762;&#x7522;&#x751F;&#x4E86;setABC&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x8A66;&#x8A66;&#x770B;&#x628A;&#x5B83;&#x5012;&#x51FA;&#x4F86;&#x77A7;&#x77A7;&#xFF1A;</p>
+<pre><code class="lang-js"><span class="hljs-built_in">console</span>.log(controller.setABC);
+</code></pre>
+<p>&#x6211;&#x5011;&#x53EF;&#x4EE5;&#x5F9E;&#x7D50;&#x679C;&#x770B;&#x5230;&#xFF1A;</p>
+<pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setABC</span>(<span class="hljs-params"></span>) </span>{ [native code] }
+</code></pre>
+<p>&#x9019;&#x500B; function &#x662F; native code&#x3002;&#x56E0;&#x70BA;&#x662F; native code&#xFF0C;&#x6240;&#x4EE5;&#x6211;&#x5011;&#x7121;&#x6CD5;&#x5C0D;&#x9019;&#x500B;
+function &#x547C;&#x53EB; call &#x6216;&#x662F; apply&#x3002;</p>
+<p>&#x53E6;&#x5916;&#xFF0C;&#x5728;&#x628A;&#x6211;&#x5011;&#x7684; Objective-C &#x7269;&#x4EF6;&#x8A3B;&#x518A;&#x6210; <code>window.controller</code>&#x5F8C;&#xFF0C;&#x6211;&#x5011;&#x6703;&#x8A31;&#x4E5F;&#x6703;&#x60F3;&#x8981;&#x8B93; controller &#x8B8A;&#x6210;&#x4E00;&#x500B; function &#x4F86;&#x57F7;&#x884C;&#xFF0C;&#x50CF;&#x662F;&#x547C;&#x53EB;
+<code>window.controller()</code>&#xFF1B;&#x6216;&#x662F;&#xFF0C;&#x6211;&#x5011;&#x5C31;&#x53EA;&#x60F3;&#x8981;&#x7522;&#x751F;&#x4E00;&#x500B;&#x53EF;&#x4EE5;&#x8B93; JS &#x547C;&#x53EB;&#x7684;
+function&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x6574;&#x500B;&#x7269;&#x4EF6;&#x90FD;&#x653E;&#x9032; Javascript &#x88E1;&#x982D;&#x3002;&#x6211;&#x5011;&#x53EA;&#x8981;&#x5728; Objective-C
+&#x7269;&#x4EF6;&#x4E2D;&#xFF0C;&#x5BE6;&#x4F5C; <code>invokeDefaultMethodWithArguments:</code>&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x56DE;&#x50B3;&#x5728;&#x547C;&#x53EB;
+<code>window.controller()</code> &#x6642;&#x60F3;&#x8981;&#x7684;&#x7D50;&#x679C;&#x3002;</p>
+<p>&#x73FE;&#x5728;&#x6211;&#x5011;&#x53EF;&#x4EE5;&#x7D9C;&#x5408;&#x7DF4;&#x7FD2;&#x4E00;&#x4E0B;&#x3002;&#x524D;&#x9762;&#x63D0;&#x5230;&#xFF0C;&#x7531;&#x65BC;&#x6211;&#x5011;&#x53EF;&#x4EE5;&#x628A; Javascript &#x7269;&#x4EF6;&#x4EE5;
+<code>WebScriptObject</code> &#x9019;&#x500B; class &#x50B3;&#x5165; Objective-C &#x7A0B;&#x5F0F;&#xFF0C;Objective-C&#x7A0B;&#x5F0F;&#x4E2D;&#x4E5F;&#x53EF;&#x4EE5;&#x8981;&#x6C42;&#x57F7;&#x884C; <code>WebScriptObject</code> &#x7684;&#x5404;&#x9805; function&#x3002;&#x6211;&#x5011;&#x5047;&#x5982;&#x60F3;&#x628A; A&#x8207; B
+&#x5169;&#x500B;&#x6578;&#x5B57;&#x4E1F;&#x9032; Objective-C&#x7A0B;&#x5F0F;&#x88E1;&#x982D;&#x505A;&#x500B;&#x52A0;&#x6CD5;&#xFF0C;&#x52A0;&#x5B8C;&#x4E4B;&#x5F8C;&#x51FA;&#x73FE;&#x5728;&#x7DB2;&#x9801;&#x4E0A;&#xFF0C;&#x65BC;&#x662F;&#x6211;&#x5011;&#x5BEB;&#x4E86;&#x4E00;&#x500B; Objective-C method&#xFF1A;</p>
+<pre><code class="lang-objc">- (<span class="hljs-keyword">void</span>)numberWithA:(<span class="hljs-keyword">id</span>)a plusB:(<span class="hljs-keyword">id</span>)b callback:(<span class="hljs-keyword">id</span>)callback
+{
+    <span class="hljs-built_in">NSInteger</span> result = [a integerValue] + [b integerValue];
+
+    [callback callWebScriptMethod:<span class="hljs-string">@&quot;call&quot;</span> withArguments:
+        [<span class="hljs-built_in">NSArray</span> arrayWithObjects:callback, [<span class="hljs-built_in">NSNumber</span>
+            numberWithInteger:result], <span class="hljs-literal">nil</span>]];
+ }
+</code></pre>
+<p>Javascript &#x88E1;&#x982D;&#x5C31;&#x53EF;&#x4EE5;&#x9019;&#x6A23;&#x547C;&#x53EB;&#xFF1A;</p>
+<pre><code class="lang-js"><span class="hljs-built_in">window</span>.controller.numberWithA_plusB_callback_(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">result</span>) </span>{
+    <span class="hljs-keyword">var</span> main = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&apos;main&apos;</span>);
+    main.innerText = result;
+});
+</code></pre>
+<h3 id="&#x5176;&#x4ED6;&#x5E73;&#x53F0;&#x4E0A;-webkit-&#x7684;&#x5BE6;&#x4F5C;">&#x5176;&#x4ED6;&#x5E73;&#x53F0;&#x4E0A; WebKit &#x7684;&#x5BE6;&#x4F5C;</h3>
+<p>&#x9664;&#x4E86; Mac OS X&#xFF0C;WebKit &#x9019;&#x5E7E;&#x5E74;&#x4E5F;&#x6162;&#x6162;&#x79FB;&#x690D;&#x5230;&#x5176;&#x4ED6;&#x7684;&#x4F5C;&#x696D;&#x7CFB;&#x7D71;&#x8207; framework&#x4E2D;&#xFF0C;&#x4E5F;&#x6216;&#x591A;&#x6216;&#x5C11;&#x90FD;&#x6709; Native API &#x8981;&#x6C42; WebView &#x57F7;&#x884C; Js&#xFF0C;&#x4EE5;&#x53CA;&#x5F9E; JS &#x547C;&#x53EB;Native
+API &#x7684;&#x6A5F;&#x5236;&#x3002;</p>
+<p>&#x8DDF; Mac OS X &#x6BD4;&#x8F03;&#x8D77;&#x4F86;&#xFF0C;iOS &#x4E0A; <code>UIWebView</code> &#x7684;&#x516C;&#x958B; API &#x5BE6;&#x5728;&#x5C11;&#x4E0A;&#x8A31;&#x591A;&#x3002;&#x60F3;&#x8981;&#x8B93;<code>UIWebView</code> &#x57F7;&#x884C;&#x4E00;&#x6BB5; JavaScript &#xFF0C;&#x53EF;&#x4EE5;&#x900F;&#x904E;&#x547C;&#x53EB;
+<code>stringByEvaluatingJavaScriptFromString:</code>&#xFF0C;&#x53EA;&#x6703;&#x56DE;&#x50B3;&#x5B57;&#x4E32;&#x7D50;&#x679C;&#xFF0C;&#x6240;&#x4EE5;&#x80FD;&#x5920;&#x505A;&#x5230;&#x7684;&#x4E8B;&#x60C5;&#x4E5F;&#x5C31;&#x8B8A;&#x5F97;&#x6709;&#x9650;&#xFF0C;&#x901A;&#x5E38;&#x5927;&#x6982;&#x5C31;&#x62FF;&#x4F86;&#x53D6;&#x5F97;&#x50CF;window.title &#x9019;&#x4E9B;&#x8CC7;&#x8A0A;&#x3002;&#x5728;
+iOS &#x4E0A;&#x6211;&#x5011;&#x6C92;&#x8FA6;&#x6CD5;&#x5C07;&#x67D0;&#x500B; Objective-C &#x7269;&#x4EF6;&#x8B8A;&#x6210; JS&#x7269;&#x4EF6;&#xFF0C;&#x6240;&#x4EE5;&#xFF0C;&#x5728;&#x7DB2;&#x9801;&#x4E2D;&#x89F8;&#x767C;&#x4E86;&#x67D0;&#x4E9B;&#x4E8B;&#x4EF6;&#xFF0C;&#x60F3;&#x8981;&#x901A;&#x77E5; Objective-C&#x9019;&#x4E00;&#x7AEF;&#xFF0C;&#x5F80;&#x5F80;&#x6703;&#x9078;&#x64C7;&#x4F7F;&#x7528;&#x50CF;&#x300C;zonble://&#x300D;&#x9019;&#x985E; Customized URL scheme&#x3002;</p>
+<p>Android &#x7684; <code>WebView</code> &#x7269;&#x4EF6;&#x63D0;&#x4F9B;&#x4E00;&#x500B;&#x53EB;&#x505A; <code>addJavascriptInterface()</code> &#x7684;
+method&#xFF0C;&#x53EF;&#x4EE5;&#x5C07;&#x67D0;&#x500B; Java &#x7269;&#x4EF6;&#x8A3B;&#x518A;&#x6210; JavaScript &#x7684; <code>window</code>&#x7269;&#x4EF6;&#x7684;&#x67D0;&#x500B;&#x5C6C;&#x6027;&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x8B93; JavaScript &#x547C;&#x53EB; Java &#x7269;&#x4EF6;&#x3002;&#x4E0D;&#x904E;&#xFF0C;&#x5728;&#x547C;&#x53EB; Java&#x7269;&#x4EF6;&#x6642;&#xFF0C;&#x53EA;&#x80FD;&#x5920;&#x50B3;&#x905E;&#x7C21;&#x55AE;&#x7684;&#x6587;&#x5B57;&#x3001;&#x6578;&#x5B57;&#xFF0C;&#x8907;&#x96DC;&#x7684; JavaScript&#x7269;&#x4EF6;&#x5C31;&#x6C92;&#x8FA6;&#x6CD5;&#x4E86;&#x3002;&#x800C;&#x5728; Android
+&#x4E0A;&#x60F3;&#x8981; <code>WebView</code> &#x57F7;&#x884C;&#x4E00;&#x6BB5;JavaScript&#xFF0C;&#x5728;&#x6587;&#x4EF6;&#x4E2D;&#x6C92;&#x770B;&#x5230;&#x76F8;&#x95DC;&#x8CC7;&#x6599;&#xFF0C;&#x7DB2;&#x8DEF;&#x4E0A;&#x9762;&#x627E;&#x5230;&#x7684;&#x8AAA;&#x6CD5;&#x662F;&#xFF0C;&#x53EF;&#x4EE5;&#x900F;&#x904E;<code>loadUrl()</code>&#xFF0C;&#x628A;&#x67D0;&#x6BB5; JavaScript&#xFF0C; &#x7528; bookmarklet
+&#x7684;&#x5F62;&#x5F0F;&#x50B3;&#x9032;&#x53BB;&#x3002;</p>
+<p>&#x5728; <code>QtWebKit</code> &#x88E1;&#x982D;&#xFF0C;&#x53EF;&#x4EE5;&#x5C0D; <code>QWebFrame</code> &#x547C;&#x53EB;
+<code>addToJavaScriptWindowObject</code>&#xFF0C;&#x628A;&#x67D0;&#x500B; <code>QObject</code> &#x66B4;&#x9732;&#x5728; JavaScript&#x74B0;&#x5883;&#x4E2D;&#xFF0C;&#x6211;&#x4E0D;&#x6E05;&#x695A; JavaScript &#x53EF;&#x4EE5;&#x50B3;&#x905E;&#x54EA;&#x4E9B;&#x6771;&#x897F;&#x5230; <code>QObject</code> &#x88E1;&#x982D;&#x5C31;&#x662F;&#x4E86;&#x3002;&#x5728;
+<code>QtWebKit</code> &#x4E2D;&#x4E5F;&#x53EF;&#x4EE5;&#x53D6;&#x5F97;&#x7DB2;&#x9801;&#x88E1;&#x982D;&#x7684; DOM&#x7269;&#x4EF6;&#xFF08;<code>QWebElement</code>&#x3001;
+<code>QWebElementCollection</code>&#xFF09;&#xFF0C;&#x6211;&#x5011;&#x53EF;&#x4EE5;&#x5C0D; <code>QWebFrame</code>&#x9084;&#x6709;&#x9019;&#x4E9B; DOM &#x7269;&#x4EF6;&#x547C;&#x53EB;
+<code>evaluateJavaScript</code>&#xFF0C;&#x57F7;&#x884C; Javascript&#x3002;</p>
+<p>GTK &#x65B9;&#x9762;&#xFF0C;&#x56E0;&#x70BA;&#x662F; C API&#xFF0C;&#x6240;&#x4EE5;&#x5728;&#x61C9;&#x7528;&#x7A0B;&#x5F0F;&#x8207; Javascript&#x3002;&#x4E4B;&#x9593;&#xFF0C;&#x5C31;&#x4E0D;&#x662F;&#x900F;&#x904E;&#x64CD;&#x4F5C;&#x5305;&#x88DD;&#x597D;&#x7684;&#x7269;&#x4EF6;&#xFF0C;&#x800C;&#x662F;&#x547C;&#x53EB; WebKit &#x88E1;&#x982D; JavaScript Engine&#x7684; C API&#x3002;</p>
+<script type="text/javascript">var targetUl = document.getElementsByClassName('page-inner')[0].getElementsByTagName('ul')[0];if(targetUl.getElementsByTagName('a').length>0){targetUl.className='toc';}</script>
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="objc_dom.html" class="navigation navigation-prev " aria-label="Previous page: 用 Objective-C 操作 DOM">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="javascript_core.html" class="navigation navigation-next " aria-label="Next page: JavaScriptCore">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"JavaScript 與 Objective-C 的溝通","level":"1.21.2","depth":2,"next":{"title":"JavaScriptCore","level":"1.21.3","depth":2,"path":"mac_webkit/javascript_core.md","ref":"mac_webkit/javascript_core.md","articles":[]},"previous":{"title":"用 Objective-C 操作 DOM","level":"1.21.1","depth":2,"path":"mac_webkit/objc_dom.md","ref":"mac_webkit/objc_dom.md","articles":[]},"dir":"ltr"},"config":{"plugins":["japanese-support","toc","tree"],"styles":{"website":"styles/website.css","ebook":"styles/ebook.css","pdf":"styles/pdf.css","mobi":"styles/mobi.css","epub":"styles/epub.css"},"pluginsConfig":{"toc":{"addClass":true,"className":"toc"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"japanese-support":{},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"tree":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"version":"2.4.0","title":"KKBOX iOS/Mac OS X 基礎開發教材","language":"zh-TW","gitbook":"*"},"file":{"path":"mac_webkit/js_objc_bridge.md","mtime":"2020-03-17T04:52:15.803Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-03-17T04:53:02.596Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-tree/jquery.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-tree/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
